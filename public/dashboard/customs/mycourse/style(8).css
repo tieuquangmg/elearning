@@ -1,0 +1,540 @@
+.block_vinh_danh_sinh_vien{
+  
+  background: #F2F2F2;
+ 
+  display:block;
+
+}
+.block_vinh_danh_sinh_vien_header{
+  border-radius:4px 4px 0px 0px;
+
+}
+
+
+
+.block_vinh_danh_sinh_vien_content_header i{
+  margin-right: 5px;
+}
+.block_vinh_danh_sinh_vien_content_header{
+  width: 100%;
+  border-top: 2px solid #017e3e;
+
+}
+.vinh_danh_sinh_vien_modallop{
+  font-weight: bold;
+}
+.block_vinh_danh_sinh_vien_content_header p{
+  padding-bottom: 5px;
+  padding-top: 5px;
+  font-weight: bold;
+    color: black;
+    font-size: 13px;
+    text-transform: uppercase;
+    padding-left: 5px;
+}
+.block_vinh_danh_sinh_vien_header p
+{
+  color: #811519;
+  text-align:left;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 12px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom:2px solid #811519;
+}
+
+
+
+.block_vinh_danh_sinh_vien_tabs {
+  width: 100%;
+  /*display: inline-block;*/
+  font-size: 12px;
+}
+
+.block_vinh_danh_sinh_vien_tab-links {
+ 
+width: 100%;
+  float: left;
+
+list-style: none;
+}
+
+.block_vinh_danh_sinh_vien_tab-links li {
+  width:50%;
+  float: left;
+  list-style: none;
+  height: 20px;
+  padding: 5px;
+}
+
+.block_vinh_danh_sinh_vien_tab_school{
+ 
+  padding: 5px;
+}
+/*.block_vinh_danh_sinh_vien_tab-links li.active a{
+  background: transparent !important;
+  color:transparent !important;
+}*/
+.list_student{
+  margin-top: 10px;
+  list-style: none;
+  padding-left: 20px !important;
+
+}
+.list_student li{
+  margin-top: 20px;
+}
+.student{
+  width: 100%;
+  height: 50px;
+}
+.avatar{
+  width: 40%;
+  height: 100%;
+  float: left;
+  
+
+}
+.avatar img {
+  width: 50px;
+  height: 50px;
+}
+#thumbnail {
+  display: block;
+  width: 50px;
+  height: 50px;
+  z-index: 9;
+  position: relative;
+
+}
+
+#thumbnail:hover > #tittle {
+  display: block;
+  z-index: 10;
+  opacity: 1;
+   width: 50px;
+  height: 50px;
+}
+
+#thumbnail:hover > img {
+  opacity: 0;
+}
+
+#tittle {
+  position: absolute;
+  top: 0px;
+  display: none;
+  color: #ffffff;
+  background-color: #017e3e;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+}
+a {
+text-decoration: none;
+}
+.name_student{
+  width: 60%;
+ float: left;
+}
+.name_student p{
+  margin-top: 0px !important;
+}
+.glyphicon-star
+{
+ color: #811519; 
+}
+.see_more{
+  text-align: center;
+}
+.see_more a{
+  color:#811519;
+  font-weight: 600;
+}
+  /*block_vinh_danh */
+
+
+
+
+
+  /*----- Tabs -----*/
+
+.tabs {
+  width: 100%;
+  display: inline-block;
+  font-size: 12px;
+
+  
+}
+
+.tabs ul {
+    height:20px;
+    /*padding-left: 10px !important;*/
+    /*padding-right: 10px !important;*/
+}
+/*----- Tab Links -----*/
+
+/* Clearfix */
+.tab-links {
+  width: 100%;
+  
+  display: inline-block;
+  
+
+}
+
+.tab-links:after {
+  display: block;
+  clear: both;
+  content: '';
+}
+.tab-links li {
+  
+  height:35px;
+  width:50%;
+  float: left;
+  list-style: none;
+ 
+ /* border-bottom: 1px solid #555555;*/
+  
+}
+
+.tab-links a {
+  width: 98%;
+  height:30px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+ text-align: center;
+    padding-top: 8px;
+  display: block;
+ color:#555555 !important;
+  font-size: 12px;
+  font-weight: bold;
+ 
+  transition: all linear 0.15s;
+ 
+}
+.tab-links-first-a {
+  padding-right: 2px;
+   border-right: 1px solid #555555;
+
+}
+.tab-links-second-a{
+  padding-left: 2px;
+}
+.tab-links a:hover {
+ 
+  text-decoration: none;
+}
+.tab-links li:first-child{
+ 
+}
+
+
+/*----- Content of Tabs -----*/
+
+.tab-content {
+  border-radius: 3px;
+  
+  background: #fff;
+}
+.tab {
+  display: none;
+  background: #fff;
+  
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 3px 3px 0 0;
+  -khtml-border-radius: 3px 3px 0 0;
+  border-radius: 3px 3px 0 0;
+}
+.tab.active {
+  display: block;
+}
+
+/* Custom CSS */
+
+.dsm-avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 5px !important;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+#inst33 table td {
+  padding: 4px 2px 0px 2px;
+  line-height: 15px;
+  vertical-align: middle;
+}
+
+#inst33 table td img{
+  margin-bottom: 2px;
+  margin-top: -2px;
+  border-radius: 10px;
+}
+
+#inst33 table thead th {
+  padding: 2px;
+}
+
+#inst33 table {
+  margin-bottom: 0px;
+}
+
+#inst33 {
+  width: 210px;
+}
+
+.tsb-like .fa, .tsb-thank .fa {
+  color: #4a4a4a ;
+  margin-top: 8px;
+}
+
+#toaster .alert {
+  padding: 5px;
+}
+
+#toaster .alert button.close {
+  right: 0px
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  border: 1px solid #fff !important;
+  background: none !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  border: 1px solid #fff !important;
+  background: none !important;
+}
+
+.div-float{
+  float: left;
+}
+
+/* CSS DATATABLE JS */
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after {
+  top: 2px;
+  right: 2px;
+}
+
+div.dataTables_paginate ul.pagination li.paginate_button {
+  padding: 0px !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+  color: #fff !important;
+}
+
+/* TOAST CSS CUSTOM */
+.toast-title, .toast-message {
+  font-size: 12px;
+}
+
+.tsb-like{
+  cursor: pointer;
+
+}
+
+.tsb-thank{
+  cursor: pointer;
+}
+
+/* Setting bảng vinh danh CSS */
+#tab-header {
+  display: block;
+  
+}
+
+#tab-header:after {
+  display: block;
+  clear: both;
+  content: '';
+}
+
+#tsb-setting-dropdown {
+  display: inline-block;
+  float: right;
+}
+
+#tsb-setting-dropdown .btn {
+  padding: 0 2px;
+  line-height: 17px;
+}
+
+#tsb-setting-item {
+  min-width: 20px !important;
+  padding: 0px;
+}
+
+#tsb-setting-item > li > a {
+  padding: 3px 5px;
+  cursor: pointer;
+}
+
+/* ThangDM Thêm CSS 01/07/2015 */
+#modal-title-avatar {
+  margin-top: -22px;
+  margin-bottom: -5px;
+}
+
+.img-lydothuong-popover {
+  width: 245px;
+  height: 140px;
+}
+
+.tsb-popover{
+  display: block;
+  cursor: pointer;
+}
+
+.img-lydothuong-preview {
+  height: 40px;
+  width: 40px;
+  border-radius: 5px !important;
+  margin-right: 5px;
+  float: left;
+}
+
+.lydothuong-short {
+
+}
+
+#tab-truong table td, #tab-lop table td, #tab-toi table td, #tab-lopmon table td, #tab-mon table td {
+  padding: 2px;
+  
+}
+
+#tab-truong table, #tab-lop table, #tab-toi table, #tab-lopmon table, #tab-mon table {
+  margin-bottom: 0px !important;
+}
+
+
+
+.tab-links li.active a,.tab-links li.active a:hover {
+ background-color: rgba(174, 0, 6, 0.16);
+  color: #017e3e !important;
+}
+.sm-avatar {
+  height: 40px;
+  width: 40px;
+  display: block;
+margin-top: 3px;
+
+}
+.tsb-top-truong-table-body td a
+{
+  
+  color: black!important;
+}
+/*.sideblock a 
+{
+  color: black!important;
+  */
+}
+.sosao
+{
+  color: #017e3e!important;
+}
+
+.tsb-top-truong-table-body tr
+{
+ 
+}
+.namevdsv
+{
+  margin: 6px 0px!important;
+  border-right: 1px solid #cdcdcd; 
+}
+.namevdsv a{
+  font-weight: bold;
+  color:#333 !important;
+  margin-left: 10px;
+    line-height: 15px;
+    font-size: 12px !important;
+}
+.namevdsv .sosao{
+  color:#017e3e !important;
+  font-size: 12px;
+}
+.count-like a
+{
+  font-weight: bold;
+  color: #4A4A4A !important;
+}
+#thumbnail11 {
+  
+  z-index: 9;
+}
+
+#thumbnail11:hover > #tittle11 {
+  display: block;
+  z-index: 10;
+  opacity: 0.8;
+  width: 40px;
+  height: 40px;
+}
+
+#thumbnail11:hover {
+  opacity: 1;
+
+}
+
+#tittle11 {
+  display: none;
+  color: #ffffff;
+  background-color: #801618;
+
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  margin-top: -40px;
+  line-height: 45px;
+  
+}
+#tsb-top-truong-table-body tr
+{
+  height: 50px;
+}
+.tr-last
+{
+  height: 10px!important;
+  background-color: #f1f1f1 !important;
+}
+
+
+
+.vinh_danh_sinh_vien_td_image{
+  width: 40px !important;
+}
+.vinh_danh_sinh_vien_td_name{
+  width: 80px !important;
+}
+.vinh_danh_sinh_vien_td_like{
+ text-align: center;
+}
+
+.tr-last a{
+  font-weight: bold;
+
+}
+.icon_liked{
+  color: #0171DA !important;
+}
+/*
+huyth*/
+.namevdsv .glyphicon-star {
+  margin-left: 10px;
+  font-size: 12px;
+}
+
+/*kienpnt - sửa class modal-dialog lệch xuống dưới sơ với hea*/
+
+.modal-dialog{ 
+    margin-top: 130px !important;
+}
+/*end kienpnt*/

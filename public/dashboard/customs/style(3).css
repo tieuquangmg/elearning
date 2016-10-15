@@ -1,0 +1,79 @@
+.block_star_bank_content{
+  width: 175px;
+}
+.block_star_bank{
+  width:100%;
+  background: #EDEAE4;
+  height: auto;
+
+ 
+}
+
+.block_star_bank_header{
+  border-top:2px solid #017e3e;
+  height: 40px;
+}
+.block_star_bank_header p
+{
+  color: black; 
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding-left:10px;
+}
+.block_star_bank_info{
+  margin-top: 0px;
+  list-style: none;
+  padding-left: 0px !important;
+  border-bottom: 1px solid #cdcdcd;
+}
+.block_star_bank_info li{
+  padding-bottom: 0px;
+}
+.block_star_bank_account{
+  color: #353535;
+  font-size: 14px !important;
+  margin-left: 15px;
+}
+.block_star_bank_number_account{
+  color: #017e3e; 
+  font-size: 14px;
+
+}
+
+.block_star_bank_star b{
+  color:  #353535;
+  font-size: 14.52px;
+  text-align:left;/* Approximation due to font substitution */
+  margin-left: 20px;
+}
+.block_star_bank_number_star{
+  color:  #017e3e;
+  font-size: 14px;/* Approximation due to font substitution */
+  text-align: justify;
+  font-weight: 800;
+
+}
+.block_star_bank_come_to_nhs{
+  color: black !important;
+  font-size: 14px;
+  list-style: none;
+  margin-left: 5px;
+}
+.block_star_bank_come_to_nhs:hover{
+  color: #017e3e !important;
+  font-weight: bold;
+}
+.glyphicon-star {  
+    margin-right: 1px !important;
+    color: black;
+}
+#thuong-sao-btn{
+  padding: 6px 15px;
+    background: #017e3e;
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+}

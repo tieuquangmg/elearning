@@ -1,0 +1,122 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+a:link, a:visited {
+    text-decoration: none;
+}
+a:link, a:visited {
+    color: #017e3e;
+}
+body {
+    background: #F5F5F5;
+    border-color: #007237;
+    margin-left: auto;
+    margin-top: 0;
+    margin-right: auto;
+    margin-bottom: 0;
+    font-size: 14px !important;
+    min-height: 100% !important;
+    position: relative;
+    /*padding-bottom: 150px !important;*/
+}
+
+.sideblock {
+    border-color: #007237;
+    width: 175px;
+}
+
+.sideblock .content {
+    color: #555555;
+    border-color: #ffffff;
+    background-color: #F1F1F1;
+}
+
+.sideblock .content {
+    line-height: 1.2em;
+}
+
+.sideblock .content {
+    padding-top: 0 !important;
+    border-width: 0;
+    border-style: solid;
+}
+.block_my_profile_left-sidebar1 {
+    width: 100%;
+}
+.block_my_profile_anhdaidien {
+    position: relative;
+}
+.block_my_profile_edit {
+    float: right;
+    margin-top: 8px;
+    margin-right: -6px;
+    z-index: 9999999;
+}
+.sideblock a {
+    line-height: 1.2em;
+}
+.block_my_profile_anhdaidien img {
+    width: 100%;
+    height: 175px;
+}
+.block_my_profile_bginfo2 {
+    display: block;
+    overflow: hidden;
+    background: #923337;
+    width: 100%;
+    height: 175px;
+    font-size: 12px;
+    color: #fff;
+    line-height: 190px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
+    -ms-opacity: 0;
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    pointer-events: none;
+}
+.block_my_profile_textvl2 {
+    line-height: 215px;
+    text-align: center;
+}
+.block_my_profile_text2 {
+    color: black !important;
+    font-size: 18px;
+    text-align: justify;
+    font-weight: bold;
+    margin-top: 11px;
+}
+.skip-block-to, #maincontent {
+    display: block;
+    height: 1px;
+}
+.block_toi_can_lam {
+    color: inherit !important;
+}
+.hr-top-tcl-dmh {
+    border: 1px solid #017e3e;
+}
+.block_toi_can_lam_diem {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    border-top: 1px solid #cdcdcd;
+}
+.block_my_profile_text p{
+    color: black;
+    margin-top: 5px;
+}
+.block_my_profile_text {
+    margin-top: 5px;
+    padding-bottom: 5px;
+    min-height: 50px;
+    padding-left: 5px;
+}

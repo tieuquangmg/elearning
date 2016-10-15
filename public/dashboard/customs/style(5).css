@@ -1,0 +1,25 @@
+.header_dggv
+{
+	 background: #fff;
+    border-top: 2px solid #017e3e;
+    height: 36px;
+    color:black;
+    font-weight: bold;
+    padding-left: 5px !important;
+    border-bottom: 1px solid #cdcdcd;
+}
+.header_text{
+	padding-top: 5px;
+	font-weight: bold;
+	color:black !important;
+}
+.content_dggv{
+	padding: 10px 0px 10px 10px;
+}
+.content_dggv a{
+	color: black;
+  
+    display: block;
+    line-height: 2.0;
+
+}

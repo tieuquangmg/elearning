@@ -1,0 +1,114 @@
+.h1,.h2,.h3,.h4,.h5,.h6{margin:inherit}a{cursor:pointer}
+table.classes_table input{
+    width: 100% !important;
+}
+*{
+    font-size: 12px;
+}
+.loading_student{
+    display: block;
+    height: 100px;
+    z-index: 999999;
+    background: url(../../../images/loading.gif) no-repeat center center;
+}
+.colum-control {
+display: inline-flex;
+
+}
+.colum-control a {
+    margin: 0 3px;
+}
+.navbar-custom {
+    background-color:#2E9AFE;
+    color:#ffffff;
+    border-radius:0;
+}
+
+.navbar-custom .navbar-nav > li > a {
+    color:#fff;
+}
+.navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+    color: #ffffff;
+    background-color:transparent;
+}
+
+.navbar-custom .navbar-nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+    background-color: #246fb9;
+}
+
+.navbar-custom .navbar-brand {
+    color:#eeeeee;
+}
+.navbar-custom .navbar-toggle {
+    background-color:#eeeeee;
+}
+.navbar-custom .icon-bar {
+    background-color: #195182;
+}
+
+.widget_top, widget_table{
+    margin: 50px auto;
+}
+.widget.lightblue-1 {
+    background-color: #abb7b7;
+    color: #fff;
+}
+.widget.lightblue-2 {
+    background-color: #b79f33;
+    color: #fff;
+}
+.widget.lightblue-3 {
+    background-color: #009eb7;
+    color: #fff;
+}
+.widget.lightblue-4 {
+    background-color: #004786;
+    color: #fff;
+}
+.widget-content.padding {
+    padding: 15px;
+}
+.widget-content {
+    -webkit-border-radius: 0 0 2px 2px;
+    border-radius: 0 0 2px 2px;
+}
+.widget .text-box .maindata {
+    font-size: 11px;
+    color: #fff;
+    font-family: "Open Sans";
+}
+.widget .text-box .maindata b {
+    font-size: 12px;
+}
+.widget .text-box h2 {
+    padding: 0;
+    margin: 0px 0;
+    font-weight: 300;
+    font-size: 32px;
+    display: block;
+    color: #fff;
+}
+.widget .widget-footer {
+    background: rgba(0,0,0,0.1);
+    padding: 4px 15px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.9);
+}
+.widget-footer {
+    -webkit-border-radius: 0 0 2px 2px;
+    border-radius: 0 0 2px 2px;
+    overflow: hidden;
+}
+.top-summary .widget .widget-footer .rel-change {
+    font-size: 14px;
+    color: #fff;
+    margin-right: 7px;
+}
+.widget .widget-icon {
+    font-size: 50px;
+    position: absolute;
+    right: 4%;
+    top: 10px;
+    color: #ffffff;
+}

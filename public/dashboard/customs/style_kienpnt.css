@@ -1,0 +1,770 @@
+/*CSS KienPNT*/
+    /*CSS section trong course*/
+    .content .label{
+        white-space:normal;
+        color: black;
+    }
+
+    fieldset.hidden{
+        display:inherit !important;
+        /*display:block !important;*/
+    }
+
+    .topica-text-week-in-course{
+      font-size: 19px;
+    color: black!important;
+    font-weight: 500;
+    width: 100%;
+    text-align: left;
+    text-transform: uppercase;
+    padding: 5px;
+    background: #f1f1f1;
+    }
+
+    .topica-text-week-in-course:after{
+        content: "\e080";
+        position: relative;
+        top: 1px;
+        font-family: 'Glyphicons Halflings';
+        display: inline-block;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        float:right;
+        text-transform: uppercase;
+    }
+
+    .topica-text-week-in-course.collapsed:after
+    {
+        content: "\e114";
+        position: relative;
+        top: 1px;
+
+        display: inline-block;
+        font-style: normal;
+        font-weight: 500;
+        font-family: 'Glyphicons Halflings';
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        float:right;
+    }
+
+.topica-text-week-in-course.collapsed {
+    
+    background: #ffffff;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+    .time-content-tuan
+    {
+        color: #939393;
+        font-size: 13px;
+    }
+    .bg-ss-week-1{
+        background-color: #fff;
+    }
+
+    /*.topica-middle-content-course*/
+    /*{*/
+        /*width:100%;*/
+        /*padding: 20px;*/
+        /*display: inline-block;*/
+        /*background: #ededed;*/
+    /*}*/
+
+    /*.topica-anh-gtrinh*/
+    /*{*/
+        /*float: left;*/
+        /*width: 20%;*/
+    /*}*/
+
+    /*.topica-anh-gtrinh  img*/
+    /*{*/
+        /*height: 243px;*/
+        /*width: 100%;*/
+
+    /*}*/
+
+    /*.topica-middle-main-content*/
+    /*{*/
+        /*width: 75%;*/
+        /*float: left;*/
+        /*margin-left: 15px;*/
+        /*font-size: 15px;*/
+        /*line-height: 2.5;*/
+    /*}*/
+
+    /*.topica-course-gt*/
+    /*{*/
+        /*border-bottom: 2px solid #017e3e;*/
+        /*padding-bottom: 10px;*/
+    /*}*/
+
+    /*.topica-title-main-course a*/
+    /*{*/
+        /*color: #017e3e;*/
+        /*font-weight: 700;;*/
+    /*}*/
+
+    /*.topica-title-main-course a:hover*/
+    /*{*/
+        /*color:#017e3e!important;*/
+    /*}*/
+    /*.topica-namecourse*/
+    /*{*/
+        /*float:right;*/
+        /*color:#525252;*/
+    /*}*/
+    /*.topica-text-main-content*/
+    /*{*/
+        /*margin-top: 10px;*/
+    /*}*/
+
+
+    /*.calendar_active {*/
+        /*background: #017e3e;*/
+        /*color: #fff !important;*/
+    /*}*/
+    /*.topica-ngaythi*/
+    /*{*/
+        /*color: #017e3e;*/
+    /*}*/
+    /*.main-content-lythuyet*/
+    /*{*/
+        /*width: 237px;*/
+        /*float: left;*/
+        /*padding: 30px;*/
+        /*border-right: 2px solid #7a7a7a;*/
+        /*margin-top: 20px;*/
+        /*margin-bottom: 10px;*/
+
+    /*}*/
+    /*.lecture-left*/
+    /*{*/
+        /*float: left;*/
+        /*display: block;*/
+        /*width: 40px;*/
+        /*height: 40px;*/
+        /*border-radius: 50%;*/
+        /*border: 2px solid #017e3e;*/
+        /*color: #017e3e;*/
+        /*font-weight: bold;*/
+        /*text-align: center;*/
+        /*line-height: 35px;*/
+        /*font-size: 16px;*/
+        /*margin-left: 6px;*/
+    /*}*/
+
+    /*.lecture-right*/
+    /*{*/
+        /*float: left;*/
+        /*margin-left: 17px;*/
+    /*}*/
+    /*.lect*/
+    /*{*/
+        /*margin-top: 8px;*/
+        /*color: #017e3e;*/
+        /*font-weight: bold;*/
+        /*font-size: 16px;*/
+    /*}*/
+    /*.lt*/
+    /*{*/
+        /*color: #939393;*/
+        /*font-size: 12px;*/
+        /*text-align: left;*/
+    /*}*/
+
+    /*.content-hoidap-noidung*/
+    /*{*/
+        /*float: left;*/
+        /*padding: 20px;*/
+        /*border-left: 2px solid #7a7a7a;*/
+        /*margin-top: 10px;*/
+        /*margin-bottom: 10px;*/
+    /*}*/
+    /*.content-hoidap-noidung ul*/
+    /*{*/
+
+    /*}*/
+    /*.content-hoidap-noidung ul li*/
+    /*{*/
+        /*padding-left: 60px;*/
+        /*padding-bottom: 7px;*/
+
+    /*}*/
+    /*.content-hoidap-noidung ul li a*/
+    /*{*/
+        /*font-weight: 600;*/
+        /*font-size:14px;*/
+    /*}*/
+    /*.content-hoidap-noidung img*/
+    /*{*/
+        /*padding-right: 10px;*/
+        /*filter: grayscale(100%);*/
+        /*-webkit-filter: grayscale(100%); -moz-filter: grayscale(100%);*/
+        /*-ms-filter: grayscale(100%); -o-filter: grayscale(100%);*/
+        /*filter: gray;*/
+        /*-webkit-filter: grayscale(1);*/
+    /*}*/
+    /*.content-hoidap-noidung p*/
+    /*{*/
+        /*font-size: 15px;*/
+        /*font-weight: 500;*/
+        /*color: black;*/
+    /*}*/
+    /*.content-lythuyet-title{*/
+        /*float: left;*/
+    /*}*/
+    /*.lable-left-incourse{*/
+        /*width: 235px;*/
+        /*height: 50px;*/
+    /*}*/
+    /*.lecture-incourse-left{*/
+        /*padding-top: 50px;*/
+        /*margin-bottom: -40px;*/
+        /*margin-left: 33px;*/
+    /*}*/
+
+
+    /*.lecture-incourse-left {*/
+        /*padding-top: 40px;*/
+        /*margin-bottom: -120px;*/
+        /*margin-left: 35px;*/
+        /*width: 204px;*/
+
+        /*height: 118px;*/
+    /*}*/
+
+    /*.lecture-left1{*/
+        /*display: block;*/
+        /*width: 40px;*/
+        /*height: 40px;*/
+        /*border-radius: 50%;*/
+        /*border: 2px solid #017e3e;*/
+        /*color: #017e3e;*/
+        /*font-weight: bold;*/
+        /*text-align: center;*/
+        /*line-height: 35px;*/
+        /*font-size: 16px;*/
+    /*}*/
+
+    /*.lect1*/
+    /*{*/
+        /*margin-top: -30px;*/
+        /*color: #017e3e;*/
+        /*font-weight: bold;*/
+        /*font-size: 16px;*/
+        /*margin-left: -10px;*/
+    /*}*/
+    /*.lt1{*/
+        /*font-size: 12px;*/
+        /*margin-left: -30px;*/
+    /*}*/
+
+    /*.content-kinhte-noidung ul li*/
+    /*{*/
+        /*padding-left: 40px;*/
+
+    /*}*/
+    /*.content-kinhte-noidung*/
+    /*{*/
+        /*float: left;*/
+        /*padding: 15px;*/
+        /*width: 585px;*/
+        /*border-left: 2px solid #7a7a7a;*/
+        /*margin-top: 5px;*/
+    /*}*/
+
+    /*.content-lythuyet-noidung ul li a img , .border-content-kinhte img*/
+    /*{*/
+        /*padding-right: 10px;*/
+        /*filter: grayscale(100%);*/
+        /*-webkit-filter: grayscale(100%); -moz-filter: grayscale(100%);*/
+        /*-ms-filter: grayscale(100%); -o-filter: grayscale(100%);*/
+        /*filter: gray;*/
+        /*-webkit-filter: grayscale(1);*/
+    /*}*/
+    /*.border-content-kinhte>p>a*/
+    /*{*/
+        /*color: #017e3e;*/
+        /*font-size: 14px;*/
+
+    /*}*/
+    /*.border-content-kinhte>p*/
+    /*{*/
+        /*font-weight: 600;*/
+        /*text-align: left;*/
+    /*}*/
+    /*.border-content-kinhte*/
+    /*{*/
+
+        /*padding-left: 20px*/
+    /*}*/
+    /*.border-content-kinhte p a:hover*/
+    /*{*/
+        /*color:#0669b2;*/
+    /*}*/
+    /*.giaotrinh img*/
+    /*{*/
+        /*padding-left: 10px;*/
+        /*padding-bottom: 15px;*/
+    /*}*/
+    /*.giaotrinh2 img*/
+    /*{*/
+        /*padding-left: 20px;*/
+        /*padding-bottom: 10px;*/
+    /*}*/
+
+    /*.giaotrinh3 img*/
+    /*{*/
+        /*padding-bottom: 10px;*/
+    /*}*/
+    /*.text-tuan2*/
+    /*{*/
+        /*font-size: 13px;*/
+        /*font-weight: 500;*/
+        /*color: black;*/
+    /*}*/
+    /*END CSS section trong course*/
+
+    /*CSS section cách tính điểm */
+    /*==============================================================================================*/
+    .ctd-main-content-diem
+    {
+        font-weight: 500;
+        font-size: 14px;
+
+    }
+    .ctd-t-main-content-diem>h3
+    {
+        font-weight: 600;
+    }
+    .ctd-main-content-lythuyet , .ctd-main-content-diemcc
+    {
+        width: 25%;
+        float: left;
+        padding: 30px;
+    }
+    .ctd-diemcuat
+    {
+        font-size: 14px;
+    }
+    .ctd-diemcuat a
+    {
+        color: #017e3e;
+    }
+    .ctd-main-content-tuan-middle, .ctd-main-content-tuan-bottom
+    {
+        clear: both;
+    }
+    .ctd-main-content-tuan-bottom
+    {
+        width: 100%;
+        padding: 15px;
+        display: inline-block;
+        background: #fff;
+    }
+    .ctd-content-hoidap-noidung
+    {
+        float: left;
+        text-align: left;
+        line-height: 2em;
+        padding-top: 20px;
+        width: 75%;
+    }
+    .ctd-content-hoidap-noidung ul
+    {
+        border-left: 2px solid #7a7a7a;
+    }
+    .ctd-content-hoidap-noidung ul li
+    {
+        padding-left: 46px;
+        padding-bottom: 7px;
+
+    }
+    .ctd-content-hoidap-noidung ul li a
+    {
+        font-weight: 600;
+        font-size:14px;
+    }
+    .ctd-content-lythuyet-noidung ul li a img , .ctd-content-hoidap-noidung img , .ctd-border-content-kinhte img
+    {
+        padding-right: 10px;
+        filter: grayscale(100%);
+        -webkit-filter: grayscale(100%); -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%); -o-filter: grayscale(100%);
+        filter: gray;
+        -webkit-filter: grayscale(1);
+    }
+    .ctd-content-hoidap-noidung p
+    {
+        font-size: 15px;
+    }
+    .ctd-main-content-diemgiuaky , .ctd-main-content-diemcuoiky
+    {
+        font-weight: 500;
+       
+        font-size: 14px;
+    }
+    .lable-diem-chuyen-can{
+        color: #811719;
+        font-weight: bold;
+    }
+    .lable-diem-giua-ky{
+        color: #811719;
+        font-weight: bold;
+    }
+    .lable-diem-cuoi-ky{
+        color: #811719;
+        font-weight: bold;
+    }
+    .ctd-content-body-right{
+        border-left: 2px solid darkgray;
+    }
+    .ctd-content-body-right p{
+        padding-left: 10px;
+    }
+    /*==============================================================================================*/
+    /*END CSS section cách tính điểm */
+    /*CSS section thông tin lớp học */
+    /*==============================================================================================*/
+    .ul-cachtinhdiem
+    {
+        padding-left: 0px!important;
+        text-align: left;
+    }
+    .content-toihocduocgi , .content-mongombn
+    {
+        background: #EDEDED;
+    }
+    .title-toihocdcgi
+    {
+        padding: 15px 0px 5px 25px;
+        color: #811719;
+        font-weight: 600;
+    }
+
+    .title-toihocdcgi p{
+        border-bottom: 1px solid black;
+        padding-bottom: 10px;
+    }
+
+    .title-toihocdcgi i
+    {
+        color: #811719;
+        padding-right: 10px;
+    }
+    .body-toihocdcgi
+    {
+        padding: 5px 0px 10px 25px;
+    }
+    .content-mongombn
+    {
+        margin-top: 15px;
+    }
+    .ul-cachtinhdiem li{
+        list-style: none;
+    }
+    .body-toihocdcgi p{
+        line-height: 2em;
+    }
+    /*==============================================================================================*/
+    /*END CSS section thông tin lớp học */
+    /*CSS trang điểm của sinh viên trong khóa học */
+    /*==============================================================================================*/
+    .score-title-diemmonhoc
+    {
+        float: left;
+        width: 50%;
+    }
+    .score-title-diemmonhoc h1
+    {
+        font-size: 24px;
+        font-weight: 600;
+    }
+    .score-ctdiem a
+    {
+        color: #811518;
+        font-weight: 600;
+    }
+    .score-ctdiem a:hover
+    {
+        color: #1093e6;
+    }
+    .score-titlediem
+    {
+       
+        margin-top: 23px;
+        float: left;
+        width: 50%;
+    }
+    .score-titlediem  p
+    {
+        font-weight: 600;
+        font-size: 15px;
+        padding-left: 27px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+    }
+    .score-titlediem .d
+    {
+        color: #811518;
+        font-size: 15px;
+    }
+    .score-hang1-diem
+    {
+        background: #767171!important;
+        color: white;
+        font-size: 15px;
+    }
+    /*==============================================================================================*/
+    /*END CSS trang điểm của sinh viên trong khóa học */
+    /*CSS calendar */
+    /*==============================================================================================*/
+    .topica-main-content-course-tuan
+    {
+        width: 100%;
+        background: #fff;
+        display: inline-block;
+    }
+    .topica-main-content-course-tuan
+    {
+        margin-top: 10px;
+    }
+    .text-tuan
+    {
+        width: 80px;
+        height: 70px;
+        border: 2px solid #989898;
+        border-radius: 5px;
+        margin-right: 2px;
+    }
+    .text-tuan a
+    {
+        color:#353535;
+    }
+    .tuan
+    {
+        text-align: center;
+        border-bottom: 2px solid #9e9e9e;
+        color: black;
+        margin-top: 10px;
+    }
+    .calendar_active {
+        background: #017e3e;
+        color: #fff !important;
+    }
+    .calendar_active .tuan
+    {
+        border-bottom: 2px solid white;
+
+    }
+    .calendar_active p{
+        color: #fff;
+    }
+    .content-date-tuan
+    {
+        font-size: 10px;
+        text-align: center;
+        font-weight: bold;
+        color: black;
+    }
+
+
+    /*==============================================================================================*/
+    /*END CSS calendar */
+
+    /*CSS toi can lam */
+    /*==============================================================================================*/
+    .quest-body-section-lecture, .quest-body-section-practice, .quest-body-section-exam{
+        width: 100%;
+    }
+    .background-unfinished{
+        background-color: #fff;
+    }
+    .background-finished{
+            background-color: #fff;
+    }
+    .quest-body-section-week{
+        width: 100%;
+        height: 100%;
+        margin-bottom: 10px;
+    }
+    .quest-body-section-week-lecture{
+        width: 100%;
+        height: 80px;
+
+    }
+    .quest-body-section-week-practice{
+        width: 100%;
+        height: 80px;
+
+    }
+    .quest-body-section-week-exam{
+        width: 100%;
+        height: 60px;
+
+    }
+        .quest-left{
+            float: left;
+            width: 20%;
+            height: 60px;
+            margin-left: 10px;
+        }
+            .quest-left-lecture-1, .quest-left-practice-1, .quest-left-exam-1{
+                border: 2px solid #017e3e;
+                border-radius: 100%;
+                text-align: center;
+                width: 30px;
+                font-size: 17px;
+                height: 30px;
+                color: #017e3e;
+                float: left;
+                padding: 2px 6px 9px 8px !important;
+                font-size: 17px !important;
+                font-weight: bold;
+                margin: 10px 0px 0px 10px !important;
+            }
+            .quest-left-lecture-2, .quest-left-practice-2, .quest-left-exam-2{
+                width: 70px;
+                float: left;
+                padding: 10px 0px 0px 10px;
+                font-weight: bold;
+                color: #017e3e;
+            }
+                .quest-left-lecture-span{
+                    color: grey;
+                    font-size: 12px;
+                }
+        .quest-right{
+            float: left;
+            width: 78%;
+            height: 60px;
+        }
+            .quest-right-status{
+                text-align: right;
+                height: 20px;
+                    width: 30%;
+                float: right;
+                margin-top: 10px; 
+            }
+            .quest-right-name{
+                margin-top: 10px;
+                 width: 70%;
+                border-left: 1px solid gray;
+                font-size: 14px;
+                padding: 0px 0px 0px 10px;
+   
+            }
+            .quest-right-name a{
+                color: black !important;
+            }
+            .tcl_cht{
+                position: relative;
+                top: 1px;
+                clear: both;
+                display: inline-block;
+                width: 13px;
+                height: 13px;
+                background: #017e3e;
+                border-radius: 50%;
+            }
+            .cht_text{
+                color:#017e3e;
+            }
+            .ht_text{
+                 color:#7B7878;
+            }
+            .tcl_ht{
+                 position: relative;
+                top: 2px;
+                clear: both;
+                display: inline-block;
+                width: 13px;
+                height: 13px;
+                border:3px solid #7B7878;;
+                border-radius: 50%;
+            }
+    /*==============================================================================================*/
+    /*END CSS toi can lam*/
+
+/*END CSS KienPNT*/.quest-right-name
+.score-title-diemmonhoc p{   
+    margin-top: -20px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+
+}
+.lable-diem-chuyen-can .fa-trophy{
+position: relative;
+    top: 5px;
+left: -3px;    
+}
+.lable-diem-giua-ky .fa-trophy{
+position: relative;
+    top: 5px;
+left: -3px;    
+}
+.lable-diem-cuoi-ky .fa-trophy{
+position: relative;
+    top: 5px;
+left: -3px;    
+}
+.topica-main-content-course-tuan .list-inline li{
+    margin-left: 3px;
+    margin-top: 3px;
+}
+
+/*END huyth sua*/
+
+
+/*hungtt2 css view_vmh*/
+.topica_vmh{
+    background-color: #fff;
+    margin-top: 10px;  
+}
+.topica_vmh .fa-trophy{
+    color:#017e3e;
+    margin-right: 10px;
+    font-size: 20px;
+}
+.topica_vmh .fa-list-alt{
+    color:#017e3e;
+    margin-right: 10px;
+    font-size: 20px;
+}
+.topica_vmh_header{
+    color: #017e3e;
+    font-weight: bold;
+
+}
+
+.vmh_teacher{
+    margin-top: 10px;
+    padding-left: 5px;
+}
+
+.vmh_title{
+    color:#017e3e;
+    font-weight: bold;
+    text-transform: uppercase;
+ 
+}
+.vmh_title .fa-user{
+    font-size: 20px;
+}
+.vmh_ttgv{
+    width: 50%;
+    float:left;
+}
+table.tlht_content a {
+    color: black;
+    font-size: 16px;
+    
+}
+.
+/*end hungtt2 css view_vmh*/

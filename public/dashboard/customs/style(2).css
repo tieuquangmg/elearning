@@ -1,0 +1,27 @@
+.header_tim{
+	border-top: 2px solid #017e3e;
+	height:36px;
+	/*border-bottom: 1px solid #cdcdcd !important;*/
+	background: #fff;
+	color: black;
+}
+.text2{
+	font-size: 11px;
+	text-align: center;
+	padding-bottom: 5px;
+}
+.text1{
+	font-size: 14px;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+.content_tim{
+	padding-left: 5px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+.thea_tim:hover{
+	color: #017e3e !important;
+	font-size: 20px;
+}

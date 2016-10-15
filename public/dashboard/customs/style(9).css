@@ -1,0 +1,114 @@
+
+.block_my_courses_courseview_content_header{
+  
+  border-top: 2px solid #017e3e;
+  
+   color: black;
+padding-top: 10px;
+background-color: #fff;
+padding-left: 5px;
+  
+}
+.block_my_courses_courseview_content_header p {
+  font-weight: bold;
+  font-size: 13px !important;
+}
+
+.block_my_courses_courseview_text-topica
+{
+  font-size: 13px;
+    color: #017e3e;
+    font-weight: bold;
+
+    border-radius: 0px;
+    width: 100%;
+    
+   
+    margin-top:-2px;
+    font-weight: 800;
+    text-align: left;
+   
+}
+.block_my_courses_courseview_content{
+  padding-bottom: 20px;
+  padding-top: 20px;
+  background-color: #F2F2F2;
+
+}
+.block_my_courses_courseview_content_admin{
+  
+  padding-top: 20px;
+  background-color: #F2F2F2;
+
+}
+
+#block_my_courses_courseview_content{
+   max-height: 150px;
+  overflow: hidden;
+  background-color: #F2F2F2;
+
+}
+.block_my_courses_courseview_list-unstyled{
+
+    margin-bottom: 0px !important;
+}
+.block_my_courses_courseview_list-unstyled li:first-child{
+  padding-top: 0px !important;
+}
+.block_my_courses_courseview_list-unstyled li
+{
+   word-wrap: break-word;
+   padding-top: 5px;
+   padding-bottom: 5px;
+  list-style: none;
+  
+}
+.block_my_courses_courseview_admin li {
+  list-style: none;
+   word-wrap: break-word;
+   padding-bottom: 5px;
+}
+.block_my_courses_courseview_admin li a{
+  color:black !important;
+  font-size: 12px !important;
+}
+.block_my_courses_courseview_admin li:first-child{
+  padding-top: 5px;
+}
+.block_my_courses_courseview_list-unstyled li:first-child{
+  padding-top: 5px;
+}
+.glyphicon-bookmark{
+  margin-right: 3px;
+  color:#017e3e !important;
+}
+.block_my_courses_courseview_list-unstyled li a{
+  color:black !important;
+  font-size: 12px !important;
+}
+
+.block_my_courses_courseview_icon{
+  width: 12px;
+  height:12px;
+  float:left;
+  margin-left: 9px;
+}
+.block_my_courses_courseview_text{
+  float:left;
+  width: 140px;
+  height: 100%;
+  margin-left: 5px;
+}
+.block_my_courses_courseview_fulllist{
+
+    width: 175px !important;
+    display: block;
+    margin: 0px auto;
+
+    padding-left: 28px;
+padding-top: 10px;
+background: rgb(242, 242, 242) none repeat scroll 0% 0%;
+padding-bottom: 10px;
+color: black !important;
+border-bottom: 2px solid #D8D1D1;
+}

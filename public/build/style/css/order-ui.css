@@ -1,0 +1,26 @@
+.sortable{
+    list-style-type: none;
+    padding-left: 0;
+}
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{
+    background: none !important;
+}
+.sortable li {
+    border:none;
+}
+
+.loading{
+    width: 150px;
+    height: 150px;
+    z-index: 9999999999;
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top:0;
+    bottom:0;
+    margin: auto;
+    background: url("../../../images/loading.gif") no-repeat center center;
+    filter: alpha(opacity=75);
+    opacity: .75;
+}

@@ -1,0 +1,461 @@
+.star-badge {
+	background-color: red;
+	border: 1px solid white;
+	border-radius: 12px;
+	box-shadow: 1px 1px 1px black;
+	color: white;
+	font: 10px/12px Helvetica, Verdana, Tahoma;
+	height: 11px;
+	text-align: center;
+	width: 14px;
+	position: absolute;
+	top: 0;
+	left: 40px;
+}
+
+.star-earning {
+	height: 64px;
+	margin-top: -50px;
+	margin-left: -70px;
+}
+
+.star-hide {
+	display: none;
+}
+
+.star-num {
+	margin-top: 23px;
+	margin-left: -43px;
+	position: absolute;
+	font: 14px/16px Helvetica, Verdana, Tahoma;
+	background-color: red;
+	color: white;
+	/* border: 1px solid white; */
+	border-radius: 12px;
+	box-shadow: 1px 1px 1px black;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	line-height: 1.5;
+}
+
+#modal-tsb-giaodich {
+	
+}
+
+/* TSB-Modal-Transfer-CSS */
+#tsb-modal {
+	width:500px;
+	height:189px;
+	padding:8px;
+
+	background:rgba(0,0,0,.3);
+
+	-webkit-border-radius:8px;
+	-moz-border-radius:8px;
+	border-radius:8px;
+
+	position:absolute !important;
+	top:50% !important;
+	left:50% !important;
+	margin-top:-94px !important;
+	margin-left:-250px !important;
+	z-index:101;
+}
+
+
+#heading {
+	width:500px;
+	height:44px;
+
+	background-image: -webkit-linear-gradient(top, rgb(249, 249, 249), rgb(233, 233, 233));
+	background-image: -moz-linear-gradient(top, rgb(249, 249, 249), rgb(233, 233, 233));
+	background-image: -o-linear-gradient(top, rgb(249, 249, 249), rgb(233, 233, 233));
+	background-image: -ms-linear-gradient(top, rgb(249, 249, 249), rgb(233, 233, 233));
+	background-image: linear-gradient(top, rgb(249, 249, 249), rgb(233, 233, 233));
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f9f9f9', EndColorStr='#e9e9e9');
+
+	border-bottom:1px solid #bababa;
+
+	-webkit-box-shadow:
+	inset 0px -1px 0px #fff,
+	0px 1px 3px rgba(0,0,0,.08);
+	-moz-box-shadow:
+	inset 0px -1px 0px #fff,
+	0px 1px 3px rgba(0,0,0,.08);
+	box-shadow:
+	inset 0px -1px 0px #fff,
+	0px 1px 3px rgba(0,0,0,.08);
+
+	-webkit-border-radius:4px 4px 0px 0px;
+	-moz-border-radius:4px 4px 0px 0px;
+	border-radius:4px 4px 0px 0px;
+
+	font-size:14px;
+	font-weight:bold;
+	text-align:center;
+	line-height:44px;
+
+	color:#444444;
+	text-shadow:0px 1px 0px #fff;
+}
+
+#content {
+	/*width:500px;
+	height:144px;
+
+	background:#fcfcfc;
+
+	-webkit-box-shadow:0px 1px 3px rgba(0,0,0,.25);
+	-moz-box-shadow:0px 1px 3px rgba(0,0,0,.25);
+	box-shadow:0px 1px 3px rgba(0,0,0,.25);
+
+	-webkit-border-radius:0px 0px 4px 4px;
+	-moz-border-radius:0px 0px 4px 4px;
+	border-radius:0px 0px 4px 4px;*/
+}
+
+/* #content p {
+	font-size:13px;
+	font-weight:normal;
+	text-align:center;
+	line-height:22px;
+	color:#555555;
+
+	width:100%;
+	float: left;
+
+	margin:19px 0;
+} */
+
+.blink {
+	-webkit-animation-name: blinker;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+
+	-moz-animation-name: blinker;
+	-moz-animation-duration: 1s;
+	-moz-animation-timing-function: linear;
+	-moz-animation-iteration-count: infinite;
+
+	animation-name: blinker;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+
+@-moz-keyframes blinker {  
+	0% { opacity: 1.0; }
+	50% { opacity: 0.0; }
+	100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes blinker {  
+	0% { opacity: 1.0; }
+	50% { opacity: 0.0; }
+	100% { opacity: 1.0; }
+}
+
+@keyframes blinker {  
+	0% { opacity: 1.0; }
+	50% { opacity: 0.0; }
+	100% { opacity: 1.0; }
+}
+
+.img-center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+/* TSB-Modal-Transfer-CSS */
+.modal-header {
+	background-color: #eee;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+}
+
+.label-normal {
+	font-weight: normal;
+}
+
+.tsb-info-tk {
+	padding-left: 5px;
+}
+
+.tsb-strong {
+	font-weight: bold;
+}
+
+.navbar {
+	position: relative;
+	min-height: 50px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+}
+
+@media (min-width: 768px) {
+	.navbar {
+		border-radius: 0px;
+	}
+}
+
+.navbar:before,
+.navbar:after {
+	content: none;
+	display: inherit;
+}
+
+#tsbModal * {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+#tsbModal *:before, #tsbModal *:after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+#tsbModal .modal-header {
+	background-color: #017e3e;
+	color: #fff;
+}
+
+#tsbModal .modal-header button.close{
+	color: #fff;
+	opacity: 0.7;
+}
+
+#mesage_gv, #message_sv {
+	text-align: justify;
+	margin-bottom: 15px;
+	border: 1px solid #DDD;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+img.img_gray {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+/*progressbar*/
+#progressbar {
+	margin-bottom: 15px;
+	overflow: hidden;
+	/*CSS counters to number the steps*/
+	counter-reset: step;
+	padding-left: 0px;
+}
+#progressbar li {
+	list-style-type: none;
+	color: #000;
+	text-transform: uppercase;
+	font-size: 12px;
+	width: 33.33%;
+	float: left;
+	position: relative;
+	text-align: center;
+}
+#progressbar li:before {
+	content: counter(step);
+	counter-increment: step;
+	width: 20px;
+	line-height: 20px;
+	display: block;
+	font-size: 12px;
+	color: #fff;
+	background: #017e3e;
+	border-radius: 3px;
+	margin: 0 auto 5px auto;
+	z-index: 2;
+}
+/*progressbar connectors*/
+#progressbar li:after {
+	content: '';
+	width: 89%;
+	height: 2px;
+	background: #017e3e;
+	position: absolute;
+	left: -50%;
+	top: 9px;
+	margin-left: 9px;
+	z-index: 1; /*put it behind the numbers*/
+}
+#progressbar li:first-child:after {
+	/*connector not needed before the first step*/
+	content: none; 
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before,  #progressbar li.active:after{
+	background: #27AE60;
+	color: white;
+}
+
+.has-error {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+
+.tsb-jumbotron {
+	padding: 10px;
+  color: inherit;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.no-padding-left {
+	padding-left: 0px;
+}
+
+.no-padding-right {
+	padding-right: 0px;
+}
+
+#so_sao_da_thuong {
+	font-weight: bold;
+}
+
+/* TSB MODAL GENERAL CSS */
+#tsbModal-general .modal-header {
+  background-color: #017e3e;
+  color: #fff;
+}
+
+#tsbModal-general .modal-header button.close {
+  color: #fff;
+  opacity: 0.7;
+}
+
+#tsb-btn-search {
+	cursor: pointer;
+}
+
+#tsb-step-bar-general > #progressbar li {
+	width: 25%;
+}
+
+.table tr.row_selected td {
+  background-color: #ffffcc !important;
+}
+
+table.dataTable thead > tr > th {
+  padding-right: 5px !important;
+  font-size: 12px;
+}
+
+#tsb-tbl-list-sv > tbody > tr > td {
+  font-size: 12px;
+}
+
+/* #tsb-tbl-list-sv td {
+	border: 1px solid #ddd;
+} */
+
+table.dataTable thead th, table.dataTable thead td {
+	padding-left: 10px !important;
+  border-bottom: 1px solid #ddd !important;
+}
+
+table.dataTable.no-footer {
+  border-bottom: 1px solid #ddd !important;
+}
+
+.dataTables_scrollHead table {
+	margin-bottom: 0px;
+}
+
+.dataTables_scrollBody {
+	border-bottom: 1px solid #ddd;
+}
+
+.dataTables_scrollBody table {
+	margin-bottom: 0px;
+}
+
+/* #tsb-search-sv, #tsb-info-sv {
+	margin-bottom: 15px;
+} */
+
+div.dataTables_info {
+	padding-top: 0px !important;
+}
+
+.dataTables_wrapper {
+	padding-bottom: 15px;
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom: 1px solid #ddd !important;
+}
+
+.sorting_disabled
+{
+background-image:none !important;
+}
+
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after {
+	display: none;
+}
+
+#so_sao_da_thuong_general {
+	font-weight: bold;
+}
+
+
+
+/* CUSTOM CSS DROPZONE JS */
+.dropzone .dz-message {
+	margin: 7px 5px !important;
+}
+
+.dropzone {
+  min-height: 66px !important;
+  border: 1px solid #cccccc !important;
+  border-radius: 3px;
+  background: white;
+  padding: 0px !important;
+}
+
+#img_vinhdanh {
+	padding: 0px;
+  margin-left: 10px;
+}
+
+#dropzone .dz-preview .dz-image {
+  border-radius: 10px;
+  overflow: hidden;
+  width: 88px;
+  height: 53px;
+  position: relative;
+  display: block;
+  z-index: 10;
+}
+
+#dropzone .dz-preview .dz-image img {
+  width: 88px;
+  height: 53px;
+}
+
+#dropzone .dz-preview .dz-progress {
+  height: 6px;
+}
+
+#dropzone .dz-preview {
+  margin: 5px;
+  min-height: 54px;
+}
+
+#dropzone .dz-preview .dz-details {
+  font-size: 12px;
+  padding: 0;
+}
