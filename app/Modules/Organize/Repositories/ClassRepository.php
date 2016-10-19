@@ -10,4 +10,5 @@ interface ClassRepository
    public function delete($input);
    public function detail($id);
    public function filter($input,$class_id);
+   public function attendance($id);
 }

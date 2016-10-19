@@ -7,7 +7,7 @@
             <ol class="breadcrumb">
                 <li><a href="{{route('class.data')}}"><span class=" glyphicon glyphicon-home"></span> Lớp học</a></li>
                 <li><a href="{{route('admin')}}">Chi tiết</a></li>
-                <li><a >kết quả kiểm tra</a></li>
+                <li><a >Hoàn thành bài giảng</a></li>
             </ol>
             <div class="panel panel-info">
                 <div class="panel-heading">
@@ -22,65 +22,61 @@
                 </div>
                 <div class="panel-body">
                     @if($data->isEmpty())
-                        <div class="alert alert-info">Không có bài kiểm tra nào</div>
+                        <div class="alert alert-info">abc</div>
                     @else
                         <table class="table-responsive table table-bordered">
-                            <thead>
                             <tr>
                                 <th>
                                     <input type="checkbox" id="check_all">
                                 </th>
                                 <th class="column-title">Tên sinh viên</th>
-                                @foreach($all_test as $value)
+                                @foreach($unit as $value)
                                     <th class="column-title">{{$value->name}}</th>
                                 @endforeach
-                                <td>Điểm trên lớp</td>
+                                <td>Điểm chuyên cần</td>
                             </tr>
-                            </thead>
-                                <tbody>
-                                @foreach($data as $row)
-                                    <tr class="even pointer check">
-                                        <td class="a-center">
-                                            <input type="checkbox" class="check" value="{{$row[0]->id}}">
-                                        </td>
-                                        <td id="">{{$row[0]->full_name}}</td>
-                                        <?php $chuyencan = 0;
+                            @foreach($data as $row)
+                                <tr class="even pointer check">
+                                    <td class="a-center">
+                                        <input type="checkbox" class="check" value="{{$row[0]->id}}">
+                                    </td>
+                                    <td id="">{{$row[0]->full_name}}</td>
+                                    <?php
+                                        $watched = 0;
+                                        $all_theories = 0;
+                                        $chuyencan = 0;
                                         $j = 0;
+                                    ?>
+                                    @foreach($row[1] as $value)
+                                        <?php
+                                        $all_theories ++;
                                         ?>
-                                        @foreach($row[1] as $value)
-                                            @if(!$value->user_test->isEmpty())
-                                                <td style="vertical-align: middle;">
-                                                    <?php
-                                                    $tong = 0;
-                                                    $i = 0;
-                                                    ?>
-
-                                                    @foreach($value->user_test as $value1)
+                                        @if(!$value->theory->isEmpty())
+                                            <td style="vertical-align: middle;">
+                                                <?php
+                                                $tong = 0;
+                                                $i = 0;
+                                                ?>
+                                                @foreach($value->theory as $value1)
+                                                    @if($value1->user_theory->first()['watch_time'] === 0)
                                                         <?php
-                                                        $tong += $value1->score;
-                                                        $i ++;
-                                                        ?>
-                                                        {{$value1->score}},
-                                                    @endforeach
-                                                    - <p style="color:red; display: inline">@if($i != 0)({{$tong/$i}})@else 0 @endif</p>
-                                                    <?php $chuyencan += $tong/$i?>
-                                                </td>
-                                            @else
-                                                <td>_</td>
-                                            @endif
-                                            <?php $j ++; ?>
-                                        @endforeach
-                                        <td>@if($j != 0){{$chuyencan/$j}}@else 0 @endif</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            <tfoot>
-                            <div class="clearfix">
-                                <div class="pull-right">
-                                    <a href="" class="btn btn-success btn-sm">Lưu kết quả</a>
-                                </div>
-                            </div>
-                            </tfoot>
+                                                            $tong += 1;
+                                                            ?>
+                                                    @endif
+                                                 @endforeach
+                                                <p style="color: red;display: inline">{{$tong}}</p> /
+                                                    {{count($value->theory)}}
+                                                <?php $watched += $tong  ?>
+                                            </td>
+                                        @else
+                                            <td>_</td>
+                                        @endif
+                                        <?php $j ++; ?>
+                                    @endforeach
+                                    {{--<td>{{$chuyencan/$j}}</td>--}}
+                                    <td>{{$all_theories}} @if($watched != 0){{round($watched/$all_theories*10,2)}}@else 0 @endif</td>
+                                </tr>
+                            @endforeach
                         </table>
 
                         {{--<table class="table-responsive table table-bordered">--}}

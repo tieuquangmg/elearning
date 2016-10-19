@@ -3,15 +3,17 @@
 @endsection
 @section('head')
     <meta charset="utf-8" content="text/html">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/css/test/test.css')}}">
+
 @endsection
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 @include('_basic.includes.alert.index')
-                <div class="panel panel-success" style="width: 500px; margin: 30px auto">
-                    <div class="panel-heading">
-                        <h4>Kết quả kiểm tra: {{$user_test->name}}</h4>
+                <div class="panel" style="width: 500px; margin: 30px auto">
+                    <div class="panel-heading panel-green">
+                        <h4 style="color: white">Kết quả kiểm tra:{{$user_test->name}}</h4>
                     </div>
                     <div class="panel-body">
                         {{--@if(session()->get('success'))--}}

@@ -66,6 +66,16 @@ return [
             'engine' => null,
         ],
 
+        'qlsv' => [
+            'driver' => 'sqlsrv',
+            'host' => '118.70.217.142',
+            'database' => 'DHTD',
+            'username' => 'essadmin',
+            'password' => 'ess10102012',
+            'prefix' => '',
+            'post' =>'1433'
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', 'localhost'),

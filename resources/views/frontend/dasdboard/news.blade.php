@@ -1,26 +1,10 @@
 @extends('frontend.dasdboard._layout.layout')
 
-{{--@section('page-header')--}}
-    {{--<div class="parallax overflow-hidden page-section bg-cyan-300">--}}
-        {{--<div class="container parallax-layer" data-opacity="true" style="transform: translate3d(0px, 0px, 0px); opacity: 1;">--}}
-            {{--<div class="media media-grid v-middle">--}}
-                {{--<div class="media-left">--}}
-                    {{--<span class="icon-block half bg-cyan-500 text-white"><i class="fa fa-file-text-o"></i></span>--}}
-                {{--</div>--}}
-                {{--<div class="media-body">--}}
-                    {{--<h5 class="text-display-2 text-white margin-none">Thông tin đáng chú ý</h5>--}}
-                    {{--<p class="text-white text-subhead">Tin tức mới nhất</p>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-    {{--@endsection--}}
-
 @section('content')
     <div class="container">
         <div class="page-section">
             <div class="row">
-                <div  class="col-md-8 col-lg-9">
+                <div class="col-md-8 col-lg-9">
                             <ol class="breadcrumb">
                                 <li><a href="#">Trang chủ</a></li>
                                 <li><a href="#">Tin tức</a></li>

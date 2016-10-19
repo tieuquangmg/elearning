@@ -74,4 +74,12 @@ class ClassesController extends OrganizeController
     public function getUnEnroll(){
         return $this->repository->unenroll($this->input);
     }
+    public function getAttendance($id){
+        $data = $this->repository->attendance($id);
+        return view($this->prefix.'class.attendance',$data);
+    }
+    public function getScore($id){
+        $data = $this->repository->score($id);
+        return view('organize.class.final_score',$data);
+    }
 }

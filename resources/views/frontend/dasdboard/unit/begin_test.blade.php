@@ -392,51 +392,43 @@
                                 <a href="#"><i class="glyphicon glyphicon-backward"></i> Trở lại</a>
                             </div>
                         </div>
-                        @foreach($tests as $row)
                             <div class="panel">
                                 <div class="panel-body">
                                     <table border="0" width="70%" align="center">
                                         <tbody>
                                         <tr>
                                             <td colspan="2">
-                                                <h2 style="text-transform: uppercase;font-weight: bold;margin-top: -5px;">{{$row->name}}</h2>
-                                                @if($row->scoring == 1)
+                                                <h2 style="text-transform: uppercase;font-weight: bold;margin-top: -5px;">{{$test->name}}</h2>
+                                                @if($test->scoring == 1)
                                                     <h2>(Tính điểm chuyên cần)</h2>
                                                 @endif
                                                 <hr style="border: 1px solid gainsboro">
-                                                <h3 style="text-transform: uppercase;">Chúc anh/chị hoàn thành bài luyện tập với số điểm tuyệt
-                                                    đối</h3>
+                                                <h3 style="text-transform: uppercase;">Chúc anh/chị hoàn thành bài luyện tập với số điểm tuyệt đối</h3>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td width="50%">
                                                 <p align="left" style="margin-left: 165px;">-Số lần được phép làm bài</p>
-
                                                 <p align="left" style="margin-left: 165px;">-Cách tính điểm</p>
-
                                                 <p align="left" style="margin-left: 165px;">-Thời gian làm bài</p>
-
                                                 <p align="left" style="margin-left: 165px;">-Đã làm</p>
                                             </td>
                                             <td width="50%">
                                                 <p align="left" style="text-transform: uppercase;font-weight: 600">
                                                     : Không giới hạn</p>
-
                                                 <p align="left" style="text-transform: uppercase;font-weight: 600">
                                                     : Lần cao nhất</p>
-
                                                 <p align="left" style="text-transform: uppercase;font-weight: 600">
-                                                    : {{$row->time/60}} Phút</p>
-
+                                                    : {{$test->time/60}} Phút</p>
                                                 <p align="left" style="text-transform: uppercase;font-weight: 600">
                                                     : 0 lần</p>
                                             </td>
                                         </tr>
-                                        @if($row->user_test->isEmpty())
+                                        @if($test->user_test->isEmpty())
                                             <tr>
                                                 <td colspan="2" style="text-align:center;">
                                                     <div>
-                                                        <a href="{{route('study.unit.test',$row->id)}}"
+                                                        <a href="{{route('study.unit.test',$test->id)}}"
                                                            class="btn"
                                                            style="font-weight:600;width: 40%;background-color: #017e3e;color: white;margin-top: 10px"
                                                            onclick="return confirm('Bạn có muốn tiếp tục?');" >Bắt đầu làm bài</a>
@@ -506,7 +498,7 @@
                                         <tr>
                                             <td colspan="2" style="text-align:center;">
                                                 <div>
-                                                    <a href="{{route('study.unit.test',$row->id)}}"
+                                                    <a href="{{route('study.unit.test',$test->id)}}"
                                                        class="btn"
                                                        style="font-weight:600;width: 40%;background-color: #017e3e;color: white;margin-top: 10px"
                                                        onclick="return confirm('Bạn có muốn tiếp tục?');" >Làm thêm lần nữa</a>
@@ -523,14 +515,12 @@
                                     </table>
                                 </div>
                             </div>
-                            @endforeach
                     </div>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-    1
 @endsection
 @section('bot')
 @endsection

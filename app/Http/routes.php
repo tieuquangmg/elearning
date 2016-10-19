@@ -1,17 +1,11 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|'middleware' => ['role:admin']
-*/
 Route::get('test',function (){
-    return getenv('DB_HOST');
+    //dump(DB::connection('qlsv')->table('SYS_NguoiDung')->get());
+//    config(['database.default' => 'qlsv']);
+    dump(\App\NguoiDung::all()->take(10));
+    dump(\App\Modules\Subject\Models\Subject::all());
+    return phpinfo();
 });
 Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware' => 'auth'], function(){
@@ -87,7 +81,6 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::auth();
-
     /**
      * ----------------------------------------------------------------------------------Change Language
      */

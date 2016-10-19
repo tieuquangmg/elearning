@@ -1,5 +1,6 @@
 <?php 
 namespace App\Modules\Organize\Repositories;
+use App\Modules\Organize\Models\Score;
 use App\Modules\Organize\Models\User_test;
 use App\Modules\Subject\Models\Subject;
 use App\Modules\Organize\Models\Classes;
@@ -7,6 +8,7 @@ use App\Modules\Security\Models\RoleUser;
 use App\Modules\Auth\Models\User;
 use App\Modules\Security\Models\Role;
 use App\Modules\Subject\Models\Test;
+use App\Modules\Subject\Models\Theory;
 use App\Modules\Subject\Models\Unit;
 use Illuminate\Support\Facades\DB;
 
@@ -66,7 +68,7 @@ class ClassRepositoryEloquent implements ClassRepository
 
             }
         })
-            ->orderBy('id', 'desc')->paginate($prepage);
+            ->orderBy('id', 'ASC')->paginate($prepage);
         $data->setPath($url.'?name='.$name.'&f_select_number='.$prepage.'&code='.$code.'&teacher='.$teacher.'&subject='.$subject.'&year='.$year.'&semester='.$semester.'&active='.$active);
         $this->data['classes'] = $data;
         $this->data['subjects'] = Subject::lists('name', 'id');
@@ -142,15 +144,16 @@ class ClassRepositoryEloquent implements ClassRepository
 //        $data['data'] = collect($aaa);
 //        return $data;
 //    }
+
     public function test($id){
         $unit_id = $this->model->find($id)->Subject->unit->lists('id')->toArray();
         $user_id = Classes::find($id)->student;
         $aaa = [];
         foreach ($user_id as $key=>$value ){
-            $id = $value->id;
+            $id1 = $value->id;
             $aaa[$key][0] = $value;
-            $aaa[$key][1] = Test::whereIn('unit_id',$unit_id)->with(['user_test'=>function($ff)use ($id){
-                $ff->where('user_id',$id);
+            $aaa[$key][1] = Test::whereIn('unit_id',$unit_id)->with(['user_test'=>function($ff)use ($id1){
+                $ff->where('user_id',$id1);
             }])->get();
         }
         $data['all_test'] = Test::whereIn('unit_id',$unit_id)->get();
@@ -158,6 +161,32 @@ class ClassRepositoryEloquent implements ClassRepository
         $data['data'] = collect($aaa);
         return $data;
     }
+
+    public function attendance($id){
+        $unit_id = $this->model->find($id)->Subject->unit()->orderBy('position')->lists('id')->toArray();
+        $user_id = Classes::find($id)->student;
+        $aaa = [];
+        foreach ($user_id as $key=>$value ){
+            $id1 = $value->id;
+            $aaa[$key][0] = $value;
+            $aaa[$key][1] = Unit::whereIn('id',$unit_id)->orderBy('position')
+                ->with(['theory'=>function($ff)use ($id1){
+                $ff->with(['user_theory'=> function($cc)use($id1){
+                    $cc->where('watch_time',0)
+                        ->where('user_id',$id1);
+                }]);
+            }])->get();
+        }
+        $data['unit'] = $this->model->find($id)->subject->unit()->orderBy('position')->get();
+        $data['unit_id'] = $unit_id;
+        $data['data'] = collect($aaa);
+        return $data;
+    }
+    public function score($id){
+        $data['score'] = Score::where('class_id',$id)->get();
+        return $data;
+    }
+
     public function filter($input,$class_id){
         $user_ids = Classes::find($class_id)->student->lists('id')->toArray();
         $data = User::FilterRole('student')->whereNotIn('users.id',$user_ids)

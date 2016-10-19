@@ -1,0 +1,23 @@
+.name_sv {
+    text-transform: uppercase;
+}
+
+.panel-green {
+    background: #016733;
+    color: white;
+    font-weight: bold;
+}
+.question_waper{
+    background: #ffffff;
+    padding: 10px 40px;
+}
+.number_question{
+    margin-left: 40px;
+}
+.question_name{
+    color: #017e3e;
+}
+.question_answer  input[type=radio] {
+        height: 20px;
+        width: 20px;
+}

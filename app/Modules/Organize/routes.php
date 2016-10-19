@@ -12,6 +12,8 @@ Route::group(['middleware'=>['web', 'auth']], function() {
            'getEnroll' =>'class.enroll',
            'getTest' => 'class.test',
            'getFilter' =>'class.filter',
-           'getUnEnroll' =>'class.unenroll'
+           'getUnEnroll' =>'class.unenroll',
+           'getAttendance' => 'class.attendance',
+           'getScore' => 'class.score',
        ]);
    });

@@ -57,7 +57,7 @@
 
 <script type="text/javascript">
     editor_config.selector = ".mceEditor";
-    editor_config.path_absolute = "{{asset('')}}";
+    editor_config.path_absolute = "{{asset('/')}}";
     editor_config.language = "{{ Session::get('locale') }}";
     editor_config.forced_root_block = 'div';
     editor_config.relative_urls = false;

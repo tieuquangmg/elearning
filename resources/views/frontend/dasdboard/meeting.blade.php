@@ -1,29 +1,70 @@
 @extends('frontend._layout.outline')
+@section('head')
+    <link type="text/css" rel="stylesheet" href="{{asset('')}}build/style/css/meeting.css">
+
+    @endsection
 @section('container')
     {{ csrf_field() }}
-    <div class="container">
-        <div class="jumbotron" style="text-align: center;margin-top: 10%;">
-            <h4>Tên lớp: {{$meeting->name}}</h4>
-            @if(Auth::user()->id == $class->user_id)
-                @if($running)
-                    <p>Trạng thái: <span class="span" id="meeting_status">Đang học</span></p>
-                    <a class="btn btn-danger btn-large" href="javascript:void(0)" id="end_meeting">Kết thúc</a>
-                    <a class="btn btn-success btn-large" href="javascript:void(0)" id="action_meeting"
-                       style="display: none;">vào lớp</a>
-                    {{--<a class="btn btn-success btn-large" href="{{$getJoinMeetingURL}}" id="join_class" target="_blank">Vào lớp</a>--}}
-                @else
-                    <p>Trạng thái: <span class="span" id="meeting_status">Chưa mở</span></p>
-                    <a class="btn btn-danger btn-large" href="javascript:void(0)" id="end_meeting"
-                       style="display: none">Kết thúc</a>
-                    <a class="btn btn-success btn-large" href="javascript:void(0)" id="action_meeting">Bắt đầu học</a>
-                    {{--<a style="display: none" class="btn btn-success btn-large" href="{{$getJoinMeetingURL}}" id="join_class" target="_blank">Vào lớp</a>--}}
-                @endif
-            @else
-                <span style="color: red">Vui lòng đợi giáo viên vào lớp</span>
-                <div class="wait_meeting"><img
-                            src="http://4.bp.blogspot.com/-lfvYU-6wo5A/TlvoOnipJhI/AAAAAAAAAWs/UoDXyBl6Z20/s1600/10.gif">
+    <div class="container ">
+        <div class="panel" style="margin-top: 50px">
+            <div class="panel-heading" style="padding: 5px 7px; background: #017e3e">
+                <div class="clearfix">
+                    <div class="pull-right">
+                        <a href="{{}}"><i class="glyphicon glyphicon-backward"></i> Trở lại</a>
+                    </div>
                 </div>
-            @endif
+            </div>
+            <div class="panel-body">
+                <div class="jumbotron meeting_waper" style="text-align: center;">
+
+                    <h4>Tên lớp: {{$meeting->name}}</h4>
+                    <div class=meeting_se>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Thời gian</th>
+                                <th>Thời gian học</th>
+                                <th>tình trạng</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>9h - thứ 2 - ngày 20-10-2016</td>
+                                <td>45 phút</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>8h - thứ 6 - ngày 24-10-2016</td>
+                                <td>45 phút</td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    @if(Auth::user()->id == $class->user_id)
+                        @if($running)
+                            <p>Trạng thái: <span class="span" id="meeting_status">Đang học</span></p>
+                            <a class="btn btn-danger btn-large" href="javascript:void(0)" id="end_meeting">Kết thúc</a>
+                            <a class="btn btn-success btn-large" href="javascript:void(0)" id="action_meeting"
+                               style="display: none;">vào lớp</a>
+                            {{--<a class="btn btn-success btn-large" href="{{$getJoinMeetingURL}}" id="join_class" target="_blank">Vào lớp</a>--}}
+                        @else
+                            <p>Trạng thái: <span class="span" id="meeting_status">Chưa mở</span></p>
+                            <a class="btn btn-danger btn-large" href="javascript:void(0)" id="end_meeting"
+                               style="display: none">Kết thúc</a>
+                            <a class="btn btn-success btn-large" href="javascript:void(0)" id="action_meeting">Bắt đầu học</a>
+                            {{--<a style="display: none" class="btn btn-success btn-large" href="{{$getJoinMeetingURL}}" id="join_class" target="_blank">Vào lớp</a>--}}
+                        @endif
+                    @else
+                        <span style="color: red">Vui lòng đợi giáo viên vào lớp</span>
+                        <div class="wait_meeting"><img
+                                    src="http://4.bp.blogspot.com/-lfvYU-6wo5A/TlvoOnipJhI/AAAAAAAAAWs/UoDXyBl6Z20/s1600/10.gif">
+                        </div>
+                    @endif
+                </div>
+
+            </div>
         </div>
     </div>
 @endsection

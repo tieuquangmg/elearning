@@ -23,7 +23,6 @@
                                 <a class="btn btn-primary" data-toggle="modal" data-target="#add_class"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="top" title="Thêm"></span> {{trans('button.add')}}</a>
                             </div>
                         </div>
-
                     </div>
                     <div class="panel-body">
                         <div class="pull-left form-group">
@@ -36,9 +35,7 @@
                                 <th>
                                     <input type="checkbox" id="check_all">
                                 </th>
-                                <th class="column-title">
-                                    Tên lớp
-                                </th>
+                                <th class="column-title">Tên lớp </th>
                                 <th class="column-title">Mã lớp</th>
                                 <th class="column-title">Giáo viên </th>
                                 <th class="column-title">Môn học </th>
@@ -103,7 +100,15 @@
                                                     <span class=" glyphicon glyphicon-edit"></span>
                                                 </a>
                                                 <a href="{{route('class.detail', $row->id)}}" class="btn btn-primary btn-xs"><i class="fa fa-list"></i></a>
-                                                <a href="{{route('class.test', $row->id)}}" class="btn btn-primary btn-xs">Điểm</a>
+                                                {{--<a href="{{route('class.test', $row->id)}}" class="btn btn-primary btn-xs">Điểm</a>--}}
+                                                {{--<a class="btn btn-primary btn-xs" href="{{route('class.attendance',$row->id)}}">chuyên cần</a>--}}
+                                                {{--<a class="btn btn-primary btn-xs" href="{{route('class.score',$row->id)}}">Tổng kết</a>--}}
+                                                <select name="forma" onchange="location = this.value;">
+                                                    <option value="">Điểm</option>
+                                                    <option value="{{route('class.test', $row->id)}}">Điểm Thi</option>
+                                                    <option value="{{route('class.test', $row->id)}}">Chuyên cần</option>
+                                                    <option value="{{route('class.score',$row->id)}}">Tổng kết</option>
+                                                </select>
                                             </div>
                                         </td>
                                     </tr>

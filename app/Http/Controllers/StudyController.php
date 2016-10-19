@@ -49,7 +49,6 @@ class StudyController extends Controller
     {
         $data['classes'] = User::find(Auth::user()->id)->classes;
         $data['news'] = News::take(10)->get();
-
 //        $bbb = new BigBlueButton();
 
 //        $createMeetingParams = new CreateMeetingParameters('mathn01','Toán cao cấp n01');
@@ -153,7 +152,9 @@ class StudyController extends Controller
         $data['unit'] = Unit::find($unit_id);
         $data['test'] = Test::with(['user_test' => function ($q) {
             $q->where('user_id', Auth::user()->id);
-        }])->find($id)->get();
+        }])
+            ->where('unit_id',$unit_id)
+            ->find($id)->first();
         return view('frontend.dasdboard.unit.begin_test', $data);
     }
     public function getUnitTest($id)
@@ -164,7 +165,6 @@ class StudyController extends Controller
                     ->with('user');
             }])->find($id);
             if (count($data['user_test']->user_test) == 1) {
-
                 $data['unit_test'] = $data['user_test']->user_test->first();
                 $data['unit_test_detail'] = $data['unit_test']->user_test_detail;
                 $data['length'] = count($data['unit_test_detail']);
@@ -216,7 +216,6 @@ class StudyController extends Controller
 // xử lý
     public function postUnitTested()
     {
-        dump($this->input);
         $unit_test_id = User_test::find($this->input['unit_test_id']);
         $data['user_test'] = Test::with(['user_test' => function ($q) {
             $q->where('user_id', Auth::user()->id);
@@ -273,6 +272,7 @@ class StudyController extends Controller
         $data['unit_test_detail'] = $data['unit_test']->user_test_detail;
         $data['length'] = count($data['unit_test_detail']);
         $data['unit'] = Unit::find($data['user_test']->unit_id);
+        dump($data);
         return view('frontend.dasdboard.unit.result_test_detail', $data);
     }
 //    public function getUnitTested($id){
@@ -535,6 +535,6 @@ class StudyController extends Controller
         return view('frontend.dasdboard.answers.add_answer',$data);
     }
     public function postAddQuestion(){
-        dd(1);
+
     }
 }

@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    @yield('title')
-
+    <title>@yield('title')</title>
     <link href="{{asset('')}}dashboard/css/vendor/bootstrap.css" rel="stylesheet">
     <link href="{{asset('')}}dashboard/css/vendor/font-awesome.css" rel="stylesheet">
     <link href="{{asset('')}}dashboard/customs/style.css" rel="stylesheet" />
@@ -16,7 +15,7 @@
 
     <link href="{{asset('')}}dashboard/customs/style_kienpnt.css" rel="stylesheet" />
     <link href="{{asset('')}}dashboard/customs/quang.css" rel="stylesheet" />
-@yield('head')
+        @yield('head')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
   WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!-- If you don't need support for Internet Explorer <= 8 you can safely remove these -->
