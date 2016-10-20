@@ -103,10 +103,10 @@
                                                 {{--<a href="{{route('class.test', $row->id)}}" class="btn btn-primary btn-xs">Điểm</a>--}}
                                                 {{--<a class="btn btn-primary btn-xs" href="{{route('class.attendance',$row->id)}}">chuyên cần</a>--}}
                                                 {{--<a class="btn btn-primary btn-xs" href="{{route('class.score',$row->id)}}">Tổng kết</a>--}}
-                                                <select name="forma" onchange="location = this.value;">
+                                                <select class=" form-group-sm" name="forma" onchange="location = this.value;">
                                                     <option value="">Điểm</option>
                                                     <option value="{{route('class.test', $row->id)}}">Điểm Thi</option>
-                                                    <option value="{{route('class.test', $row->id)}}">Chuyên cần</option>
+                                                    <option value="{{route('class.attendance', $row->id)}}">Chuyên cần</option>
                                                     <option value="{{route('class.score',$row->id)}}">Tổng kết</option>
                                                 </select>
                                             </div>

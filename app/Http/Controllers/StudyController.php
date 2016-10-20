@@ -35,6 +35,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
+use Session;
 
 class StudyController extends Controller
 {
@@ -148,6 +149,7 @@ class StudyController extends Controller
     // kiểm tra
     public function getBeginTest($id, $unit_id, $class_id)
     {
+        Session::put('url_back','study/begin_test'.'/'.$id.'/'.$unit_id.'/'.$class_id);
         $data['class'] = Classes::find($class_id);
         $data['unit'] = Unit::find($unit_id);
         $data['test'] = Test::with(['user_test' => function ($q) {
@@ -272,7 +274,6 @@ class StudyController extends Controller
         $data['unit_test_detail'] = $data['unit_test']->user_test_detail;
         $data['length'] = count($data['unit_test_detail']);
         $data['unit'] = Unit::find($data['user_test']->unit_id);
-        dump($data);
         return view('frontend.dasdboard.unit.result_test_detail', $data);
     }
 //    public function getUnitTested($id){
@@ -507,7 +508,6 @@ class StudyController extends Controller
             $bbb = new BigBlueButton();
             $endparams = new EndMeetingParameters($class_meeting->id, $class_meeting->moderator_pw);
             $res = $bbb->endMeeting($endparams);
-            dump($res->getMessage());
         }
     }
     public function getIsMeetingRunning()

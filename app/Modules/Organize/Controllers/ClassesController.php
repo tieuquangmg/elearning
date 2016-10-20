@@ -35,7 +35,6 @@ class ClassesController extends OrganizeController
         //dd($this->input);
         try{
             $this->repository->create($this->input);
-            dump($this->input);
             Class_meeting::create(['class_id']);
             return redirect()->back()->withSuccess('Tạo lớp học thành công');
         }catch (\Exception $e){
@@ -66,6 +65,11 @@ class ClassesController extends OrganizeController
         $data = $this->repository->test($id);
         return view($this->prefix.'class.test',$data);
     }
+    public function getUpdateTest(){
+        $this->input = array_except($this->input,['_token']);
+        $this->repository->updatetest($this->input);
+        return response()->json(['success'=>true,'message'=>'cập nhật điểm kiểm tra thành công']);
+    }
     public function getFilter($class_id){
         $data['students'] = $this->repository->filter($this->input,$class_id);
         $data['filter'] = $this->input;
@@ -76,10 +80,21 @@ class ClassesController extends OrganizeController
     }
     public function getAttendance($id){
         $data = $this->repository->attendance($id);
+        $data['class_id'] = $id;
         return view($this->prefix.'class.attendance',$data);
+    }
+    public function postUpdateAttendance(){
+        $this->input = array_except($this->input,['_token']);
+        $this->repository->updateattendance($this->input);
+        return response()->json(['success'=>true,'message'=>'cập nhật điểm chuyên cần thành công']);
     }
     public function getScore($id){
         $data = $this->repository->score($id);
         return view('organize.class.final_score',$data);
+    }
+    public function getUpdateScore(){
+        $this->input = array_except($this->input, ['_token']);
+        $this->repository->updatescore($this->input);
+        return response()->json(['success' => true, 'message' => 'Cập nhật điểm thành công']);
     }
 }

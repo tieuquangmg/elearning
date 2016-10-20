@@ -61,7 +61,7 @@
                         </div>
                     @endforeach
                     <div class="text-center">
-                        <a href="{{url('study/begin_test'.'/'.$unit->id.'/1')}}" class="btn btn-success"><i class=" glyphicon glyphicon-backward"></i> Quay lại</a>
+                        <a href="{{url(Session::get('url_back'))}}" class="btn btn-success"><i class=" glyphicon glyphicon-backward"></i> Quay lại</a>
                     </div>
                 </form>
             </div>

@@ -11,4 +11,6 @@ interface ClassRepository
    public function detail($id);
    public function filter($input,$class_id);
    public function attendance($id);
+   public function updatetest($input);
+   public function updatescore($input);
 }

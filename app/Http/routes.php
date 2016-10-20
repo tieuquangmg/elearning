@@ -5,6 +5,7 @@ Route::get('test',function (){
 //    config(['database.default' => 'qlsv']);
     dump(\App\NguoiDung::all()->take(10));
     dump(\App\Modules\Subject\Models\Subject::all());
+    dump(Auth::user());
     return phpinfo();
 });
 Route::group(['middleware' => ['web']], function () {

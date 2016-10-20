@@ -14,6 +14,8 @@
     <link href="{{asset('build/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('build/bootstrap-social/css/bootstrap-social.css')}}" rel="stylesheet">
     <link href="{{asset('build/bootstrap-select/css/bootstrap-select.css')}}" rel="stylesheet">
+    <link href="{{asset('dashboard/css/bootstrap-msg.min.css')}}" rel="stylesheet">
+
     {{--Componets--}}
     {{--<link rel="stylesheet" href="{{asset('_vendor/components/breadcrumbs/breadcrumbs.css')}}">--}}
     {{--Style--}}
@@ -54,6 +56,7 @@
 <script type="text/javascript" src="{{ asset('build/bootstrap-validator/js/validator.min.js') }}"></script>/
 <script type="text/javascript" src="{{ asset('tinymce/tinymce.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('tinymce/tinymce_editor.js') }}"></script>
+<script type="text/javascript" src="{{ asset('dashboard/js/bootstrap-msg.min.js') }}"></script>
 
 <script type="text/javascript">
     editor_config.selector = ".mceEditor";

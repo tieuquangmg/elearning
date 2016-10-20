@@ -10,7 +10,7 @@
             <div class="panel-heading" style="padding: 5px 7px; background: #017e3e">
                 <div class="clearfix">
                     <div class="pull-right">
-                        <a href="{{}}"><i class="glyphicon glyphicon-backward"></i> Trở lại</a>
+                        <a href=""><i class="glyphicon glyphicon-backward"></i> Trở lại</a>
                     </div>
                 </div>
             </div>

@@ -24,12 +24,15 @@
                     @if($data->isEmpty())
                         <div class="alert alert-info">Không có bài kiểm tra nào</div>
                     @else
+                        <form id="update_test" method="post" action="">
+                            {!! csrf_field() !!}
+                            <input type="hidden" name="class_id" value="{{$class_id}}">
                         <table class="table-responsive table table-bordered">
                             <thead>
                             <tr>
-                                <th>
-                                    <input type="checkbox" id="check_all">
-                                </th>
+                                {{--<th>--}}
+                                    {{--<input type="checkbox" id="check_all">--}}
+                                {{--</th>--}}
                                 <th class="column-title">Tên sinh viên</th>
                                 @foreach($all_test as $value)
                                     <th class="column-title">{{$value->name}}</th>
@@ -40,9 +43,9 @@
                                 <tbody>
                                 @foreach($data as $row)
                                     <tr class="even pointer check">
-                                        <td class="a-center">
-                                            <input type="checkbox" class="check" value="{{$row[0]->id}}">
-                                        </td>
+                                        {{--<td class="a-center">--}}
+                                            {{--<input type="checkbox" class="check" value="{{$row[0]->id}}">--}}
+                                        {{--</td>--}}
                                         <td id="">{{$row[0]->full_name}}</td>
                                         <?php $chuyencan = 0;
                                         $j = 0;
@@ -70,41 +73,22 @@
                                             @endif
                                             <?php $j ++; ?>
                                         @endforeach
-                                        <td>@if($j != 0){{$chuyencan/$j}}@else 0 @endif</td>
+                                        <td>
+                                            {{--@if($j != 0){{$chuyencan/$j}}@else 0 @endif--}}
+                                        <input style="width: 40px" type="text" name="user[{{$row[0]->id}}]" value="@if($j != 0){{$chuyencan/$j}}@else 0 @endif">
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             <tfoot>
                             <div class="clearfix">
                                 <div class="pull-right">
-                                    <a href="" class="btn btn-success btn-sm">Lưu kết quả</a>
+                                    <input type="submit" class="btn btn-success btn-sm" value="Lưu kết quả">
                                 </div>
                             </div>
                             </tfoot>
                         </table>
-
-                        {{--<table class="table-responsive table table-bordered">--}}
-                        {{--<tr>--}}
-                        {{--<th>--}}
-                        {{--<input type="checkbox" id="check_all">--}}
-                        {{--</th>--}}
-                        {{--<th class="column-title">Tên sinh viên</th>--}}
-                        {{--@foreach($all_test as $value)--}}
-                        {{--<th class="column-title">{{$value->name}}</th>--}}
-                        {{--@endforeach--}}
-                        {{--</tr>--}}
-                        {{--@foreach($data as $row)--}}
-                        {{--<tr class="even pointer check" >--}}
-                        {{--<td class="a-center">--}}
-                        {{--<input type="checkbox" class="check" value="{{$row[0]->id}}">--}}
-                        {{--</td>--}}
-                        {{--<td id="">{{$row[0]->first_name.' '.$row[0]->last_name}}</td>--}}
-                        {{--@foreach($row[1] as $value)--}}
-                        {{--<td>{{$value->unit_test->first()['score']}}</td>--}}
-                        {{--@endforeach--}}
-                        {{--</tr>--}}
-                        {{--@endforeach--}}
-                        {{--</table>--}}
+                        </form>
                     @endif
                 </div>
             </div>
@@ -114,6 +98,29 @@
 
 @section('bot')
     <script>
+                $('#update_test').on('submit',function(e){
+                    $.ajaxSetup({
+                        header:$('meta[name="_token"]').attr('content')
+                    })
+                    e.preventDefault(e);
+//                    console.log($(this).serializeArray());
+                    $.ajax({
+                        type:"GET",
+                        url:'{{route('class.updatetest')}}',
+                        data:$(this).serialize(),
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $('.loading').show();
+                        },
+                        success: function(data){
+                            $('.loading').hide();
+                            Msg.show('Thành công', 'success', 3000);
+                        },
+                        error: function(data){
+                            Msg.show('Thất bại', 'danger', 3000);
+                        }
+                    })
+                });
         function find(id){
             $('#update_class').attr('action', '{{route('class.update')}}/'+id);
             $.ajax({

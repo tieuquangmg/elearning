@@ -159,7 +159,18 @@ class ClassRepositoryEloquent implements ClassRepository
         $data['all_test'] = Test::whereIn('unit_id',$unit_id)->get();
         $data['unit_id'] = $unit_id;
         $data['data'] = collect($aaa);
+        $data['class_id'] = $id;
         return $data;
+    }
+    public function updatetest($input){
+        foreach ($input['user'] as $key=>$value){
+            $exists = Score::where('user_id',$key)->where('class_id',$input['class_id'])->first();
+            if($exists == null){
+                Score::create(['user_id'=>$key,'class_id'=>$input['class_id'],'kiemtra'=>$value]);
+            }else{
+                Score::find($exists->id)->update(['user_id'=>$key,'class_id'=>$input['class_id'],'kiemtra'=>$value]);
+            }
+        }
     }
 
     public function attendance($id){
@@ -182,11 +193,26 @@ class ClassRepositoryEloquent implements ClassRepository
         $data['data'] = collect($aaa);
         return $data;
     }
+
+    public function updateattendance($input){
+        foreach ($input['user'] as $key=>$value){
+            $exists = Score::where('user_id',$key)->where('class_id',$input['class_id'])->first();
+            if($exists == null){
+                Score::create(['user_id'=>$key,'class_id'=>$input['class_id'],'chuyencan'=>$value]);
+            }else{
+                Score::find($exists->id)->update(['user_id'=>$key,'class_id'=>$input['class_id'],'chuyencan'=>$value]);
+            }
+        }
+    }
     public function score($id){
         $data['score'] = Score::where('class_id',$id)->get();
         return $data;
     }
-
+    public function updatescore($input){
+        foreach ($input['user'] as $key=>$value){
+                Score::find($key)->update($value);
+        }
+    }
     public function filter($input,$class_id){
         $user_ids = Classes::find($class_id)->student->lists('id')->toArray();
         $data = User::FilterRole('student')->whereNotIn('users.id',$user_ids)

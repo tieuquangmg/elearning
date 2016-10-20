@@ -45,7 +45,7 @@
                         </table>
                     </div>
                     <div class="panel-footer">
-                        <a href="{{url('study/begin_test'.'/'.$unit->id.'/1')}}" class="btn btn-success">Trở lại</a>
+                        <a href="{{url(Session::get('url_back'))}}" class="btn btn-success">Trở lại</a>
                         <a style="float: right;" href="{{route('study.unit.tested.detail',$user_test->id)}}"
                            class="btn btn-danger">Xem chi tiết bài kiểm tra</a>
                     </div>

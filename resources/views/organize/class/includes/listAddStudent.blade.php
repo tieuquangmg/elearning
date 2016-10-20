@@ -37,7 +37,6 @@
         </tr>
     @endif
 </table>
-{{dump($students)}}
 <div class="text-center">
     {!! $students->links() !!}
 </div>
