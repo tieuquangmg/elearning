@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\EncryptCookies;
+use App\models\STU_DanhSachLopTinChi;
 use App\Modules\Media\Models\News_category;
 use App\Modules\Organize\Models\User_test;
 use App\Modules\Subject\Models\Class_meeting;
@@ -36,6 +37,8 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Session;
+use DB;
+use Config;
 
 class StudyController extends Controller
 {
@@ -357,15 +360,29 @@ class StudyController extends Controller
         }
         return view('frontend.dasdboard.transcript')->with('data', $data);
     }
-    public function getMycourse()
-    {
-        if (Auth::user()->hasRole(['student'])) {
-            $data['classes'] = User::find(Auth::user()->id)->classes;
-        }
-        if (Auth::user()->hasRole(['teacher'])) {
-            $data['classes'] = Classes::where('user_id', Auth::user()->id)->get();
-        }
-        $data['feature'] = Classes::all()->random(7);
+
+    public function getMycourse(){
+//        if (Auth::user()->hasRole(['student'])) {
+        $id_sinh_vien = Session::get('users')['id'];
+        $data['classes'] = DB::connection('qlsv')->table('STU_DanhSachLopTinChi')
+            ->join('STU_HoSoSinhVien', 'STU_HoSoSinhVien.ID_sv', '=', 'STU_DanhSachLopTinChi.ID_sv')
+            ->join('PLAN_LopTinChi_TC', 'STU_DanhSachLopTinChi.ID_lop_tc', '=', 'PLAN_LopTinChi_TC.ID_lop_tc')
+            ->join('PLAN_MonTinChi_TC', 'PLAN_MonTinChi_TC.ID_mon_tc', '=', 'PLAN_LopTinChi_TC.ID_mon_tc')
+            ->join('MARK_MonHoc', 'MARK_MonHoc.ID_mon', '=', 'PLAN_MonTinChi_TC.ID_mon')
+            ->join('PLAN_HocKyDangKy_TC', 'PLAN_HocKyDangKy_TC.Ky_dang_ky', '=', 'PLAN_MonTinChi_TC.Ky_dang_ky')
+            ->join('NVE_MonHoc','NVE_MonHoc.ID_mon','=','MARK_MonHoc.ID_mon')
+            ->where('STU_HoSoSinhVien.ID_sv', '=', $id_sinh_vien)
+            ->select('STU_HoSoSinhVien.Ho_ten')
+            ->get();
+        $data['user'] = DB::connection('qlsv')->table('STU_HoSoSinhVien')
+            ->join('NVE_SinhVien', 'NVE_SinhVien.ID_sv', '=', 'STU_HoSoSinhVien.ID_sv')
+            ->where('STU_HoSoSinhVien.ID_sv','=',$id_sinh_vien)
+            ->first();
+        dump($data);
+//        }
+//        if (Auth::user()->hasRole(['teacher'])) {
+//            $data['classes'] = Classes::where('user_id', Auth::user()->id)->get();
+//        }
         return view('frontend.dasdboard.course.list', $data);
     }
     public function getNews($id)

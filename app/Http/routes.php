@@ -1,11 +1,7 @@
 <?php
 
 Route::get('test',function (){
-    //dump(DB::connection('qlsv')->table('SYS_NguoiDung')->get());
-//    config(['database.default' => 'qlsv']);
-    dump(\App\NguoiDung::all()->take(10));
-    dump(\App\Modules\Subject\Models\Subject::all());
-    dump(Auth::user());
+      dump(\App\Models\STU_DanhSach::all());
     return phpinfo();
 });
 Route::group(['middleware' => ['web']], function () {
@@ -82,6 +78,9 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::auth();
+
+    Route::get('sinhvien/login','Nguoidung\AuthController@getLogin');
+    Route::post('sinhvien/login','Nguoidung\AuthController@postLogin');
     /**
      * ----------------------------------------------------------------------------------Change Language
      */

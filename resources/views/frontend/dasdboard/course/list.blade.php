@@ -32,7 +32,7 @@
                                 <div class="block_my_profile_left-sidebar1">
                                     <div class="block_my_profile_anhdaidien">
                                         <a href="#">
-                                            <img src="{{asset(Auth::user()->image)}}" width="100"
+                                            <img src="{{asset($user->Anh)}}" width="100"
                                                     height="100" alt="Imagen">
                                             <figure class="block_my_profile_bginfo2">
                                                 <div class="block_my_profile_textvl2">
@@ -50,8 +50,8 @@
                      </span>
                                     <div class="block_my_profile_text">
                                         <a href="#"
-                                           class="block_my_profile_text2" style="font-size: 16px;">{{Auth::user()->full_name}}</a>
-                                        <p stye="font-size:12px !important;">{{Auth::user()->roles->first()->display_name}}</p>
+                                           class="block_my_profile_text2" style="font-size: 16px;">{{$user->Ho_ten}}</a>
+                                        <p stye="font-size:12px !important;">quyen231234</p>
                                     </div>
 
                                 </div><!--end left-side_bar-1-->

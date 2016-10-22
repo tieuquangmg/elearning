@@ -1,12 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use App\Http\Middleware\Authenticate;
 use Illuminate\Database\Eloquent\Model;
 
-class NguoiDung extends Model
+class SYS_NguoiDung extends Model
 {
     protected $connection = 'qlsv';
-
+    public $timestamps = false;
     protected $table = 'SYS_NguoiDung';
 }

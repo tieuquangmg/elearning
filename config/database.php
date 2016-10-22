@@ -66,14 +66,22 @@ return [
         ],
         'qlsv' => [
             'driver' => 'sqlsrv',
-            'host' => '113.160.244.236',
-            'database' => 'Test_TKB',
-            'username' => 'essadmin',
-            'password' => 'ess10102012',
+            'host' => 'SIEUMAYTINH\SQLEXPRESS',
+            'database' => 'CDSP_0310',
+            'username' => 'sa',
+            'password' => '123456',
             'prefix' => '',
             'post' =>'1433'
         ],
-
+//        'qlsv' => [
+//            'driver' => 'sqlsrv',
+//            'host' => '113.160.244.236',
+//            'database' => 'Test_TKB',
+//            'username' => 'essadmin',
+//            'password' => 'ess10102012',
+//            'prefix' => '',
+//            'post' =>'1433'
+//        ],
 //        'qlsv' => [
 //            'driver' => 'sqlsrv',
 //            'host' => '118.70.217.142',
@@ -83,7 +91,6 @@ return [
 //            'prefix' => '',
 //            'post' =>'1433'
 //        ],
-
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', 'localhost'),

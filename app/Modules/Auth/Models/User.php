@@ -13,8 +13,8 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 class User extends Authenticatable
 {
     use EntrustUserTrait;
+//    protected $connection = 'qlsv';
     public $table = 'users';
-    protected $dates = ['birthday'];
     public function team(){
         return $this->hasMany(Team::class, 'team_details');
     }
@@ -91,7 +91,6 @@ class User extends Authenticatable
     }
     public function classes(){
        return $this->belongsToMany(Classes::class,'class_detail','user_id','class_id');
-
     }
     public function user_test(){
         return $this->hasMany(User_test::class,'user_id');

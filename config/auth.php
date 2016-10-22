@@ -45,6 +45,11 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+
+        'nguoidung' => [
+            'driver' => 'session',
+            'provider' => 'nguoidung',
+        ],
     ],
 
     /*
@@ -68,6 +73,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Modules\Auth\Models\User::class,
+        ],
+
+        'nguoidung' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\SYS_NguoiDung::class,
         ],
 
         // 'users' => [
@@ -98,6 +108,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'email' => 'auth.emails.password',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'nguoidung' => [
+            'provider' => 'nguoidung',
             'email' => 'auth.emails.password',
             'table' => 'password_resets',
             'expire' => 60,
