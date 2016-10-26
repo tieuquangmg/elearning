@@ -3,10 +3,14 @@
 Route::get('test',function (){
     //dump(DB::connection('qlsv')->table('SYS_NguoiDung')->get());
 //    config(['database.default' => 'qlsv']);
-    dump(\App\NguoiDung::all()->take(10));
-    dump(\App\Modules\Subject\Models\Subject::all());
-    dump(Auth::user());
+//    dump(\App\NguoiDung::all()->take(10));
+//    dump(\App\Modules\Subject\Models\Subject::all());
+//    dump(Auth::user());
     return phpinfo();
+});
+Route::get('/pusher', function() {
+    event(new \App\Events\HelloPusherEvent('Phan van quang!'));
+    return "Tin nhan da duoc gui!";
 });
 Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware' => 'auth'], function(){

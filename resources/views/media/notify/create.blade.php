@@ -13,11 +13,17 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Tiêu đề</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control"  name="title" required placeholder="Tên tiêu đề">
+                <input type="text" class="form-control"  name="name" required placeholder="Tên tiêu đề">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">Chi tiết</label>
+            <label class="col-sm-2 control-label">Người nhận</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control"  name="entity_id" required placeholder="mã lớp ...">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Nội dung</label>
             <div class="col-sm-10">
                 <textarea name="content" class="form-control mceEditor" placeholder="Nội dung"></textarea>
             </div>

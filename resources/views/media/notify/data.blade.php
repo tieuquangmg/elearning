@@ -17,6 +17,8 @@
                 <th><input type="checkbox" id="check_all"></th>
                 <th>{{trans('label.title')}}</th>
                 <th class="text-right">{{trans('label.view')}}</th>
+                <th class="text-right">Người nhận</th>
+                <th class="text-right">Người tạo</th>
                 <th class="text-right">{{trans('label.active')}}</th>
                 {{--<th>{{trans('label.addd_at')}}</th>--}}
                 <th></th>

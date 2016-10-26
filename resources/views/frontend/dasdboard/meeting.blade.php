@@ -1,7 +1,6 @@
 @extends('frontend._layout.outline')
 @section('head')
     <link type="text/css" rel="stylesheet" href="{{asset('')}}build/style/css/meeting.css">
-
     @endsection
 @section('container')
     {{ csrf_field() }}
@@ -10,7 +9,7 @@
             <div class="panel-heading" style="padding: 5px 7px; background: #017e3e">
                 <div class="clearfix">
                     <div class="pull-right">
-                        <a href=""><i class="glyphicon glyphicon-backward"></i> Trở lại</a>
+                        <a href="{{asset(Session::get('url_back'))}}"><i class="glyphicon glyphicon-backward"></i> Trở lại</a>
                     </div>
                 </div>
             </div>
@@ -28,16 +27,13 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($meeting->class_meeting_time as $row)
                             <tr>
-                                <td>9h - thứ 2 - ngày 20-10-2016</td>
-                                <td>45 phút</td>
-                                <td></td>
+                                <td>{{$row->time_start->format("H:i")}} - ngày {{$row->time_start->format('d-m/Y')}}</td>
+                                <td>{{$row->duration}} phút</td>
+                                <td>{{$row->status}}</td>
                             </tr>
-                            <tr>
-                                <td>8h - thứ 6 - ngày 24-10-2016</td>
-                                <td>45 phút</td>
-                                <td></td>
-                            </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

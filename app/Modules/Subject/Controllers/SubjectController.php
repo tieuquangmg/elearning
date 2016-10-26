@@ -4,6 +4,8 @@ use App\Http\Controllers\Controller;
 use App\Modules\Subject\Models\Subject;
 use App\Modules\Subject\Repositories\SubjectRepository;
 use App\Services\Upload;
+use Config;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
@@ -59,5 +61,29 @@ class SubjectController extends BaseController
     public function getAddUnit($id){
         $data['subject'] = $this->repository->find($id);
         return view($this->prefix."unit.create", $data);
+    }
+//    public function getSync(){
+//        $host = Config::get('api_sync.host');
+//        $client = new Client(['base_uri' => 'http://192.168.1.106:84']);
+//        $response = $client->request('GET', '/api/apimonhoc/getallmonhoc',[
+//            'query'=>[
+//                'fields'=>'id,name,birthday',
+//                'access_token' => 'EAACEdEose0cBABrLbbjZAasZCTyo4jnkZAxKQGAQZBVIv4KyLq0uL32zyFqAwtFeEi38mu3lYYlV2rmf2N8fPifCSQ8KyyGnUuhwDJg3wiQrExZCflWBF6wc36ZBY1KZConPnTr92UDXTwYIDFOeZC9By4xZBWVGnNqZBG61eqbVSMZCwZDZD'
+//            ]]);
+//        var_dump(collect(json_decode($response->getBody()->getContents(),true)));
+//    }
+    public function getSync(){
+        $host = Config::get('api_sync.host');
+        $client = new Client(['base_uri' => 'http://192.168.1.106:84']);
+        $response = $client->request('GET', '/api/apimonhoc/getallmonhoc',[
+            'query'=>[
+                'fields'=>'id,name,birthday',
+                'access_token' => 'EAACEdEose0cBABrLbbjZAasZCTyo4jnkZAxKQGAQZBVIv4KyLq0uL32zyFqAwtFeEi38mu3lYYlV2rmf2N8fPifCSQ8KyyGnUuhwDJg3wiQrExZCflWBF6wc36ZBY1KZConPnTr92UDXTwYIDFOeZC9By4xZBWVGnNqZBG61eqbVSMZCwZDZD'
+            ]]);
+        dump(collect(json_decode($response->getBody()->getContents(),true)));
+    }
+    public function postSync(){
+        $input = $this->input;
+        dd($input);
     }
 }

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('BROADCAST_DRIVER', 'redis'),
+    'default' => env('BROADCAST_DRIVER', 'pusher'),
 
     /*
     |--------------------------------------------------------------------------
@@ -28,13 +28,23 @@ return [
 
     'connections' => [
 
+//        'pusher' => [
+//            'driver' => 'pusher',
+//            'key' => env('PUSHER_KEY'),
+//            'secret' => env('PUSHER_SECRET'),
+//            'app_id' => env('PUSHER_APP_ID'),
+//            'options' => [
+//                //
+//            ],
+//        ],
         'pusher' => [
             'driver' => 'pusher',
-            'key' => env('PUSHER_KEY'),
-            'secret' => env('PUSHER_SECRET'),
-            'app_id' => env('PUSHER_APP_ID'),
+            'key' => 'c421ca21aa9a393ebfec',
+            'secret' => '673d8e5c78007966500b',
+            'app_id' => '262440',
             'options' => [
-                //
+                'cluster' => 'ap1',
+                'encrypted' => true
             ],
         ],
 

@@ -104,25 +104,7 @@
                                             <p><i class="glyphicon glyphicon-star"></i> Ngân Hàng Sao</p>
                                         </div>
                                         <div class="block_star_bank_content">
-                                            <div id="msg-mat-ket-noi">Bạn
-                                                chưa có
-                                                tài
-                                                khoản
-                                                trên
-                                                ngân
-                                                hàng
-                                                sao.Vui
-                                                lòng
-                                                liên
-                                                hệ
-                                                quản
-                                                lý
-                                                học
-                                                tập
-                                                để
-                                                được
-                                                hỗ
-                                                trợ.</div>
+                                            <div id="msg-mat-ket-noi">Bạn chưa có tài khoản trên ngân hàng sao.Vui lòng liên hệ quản lý học tập để được hỗ trợ.</div>
                                             <ul class="block_star_bank_info">
                                                 <li id="div-tsb-tk" class="tsb-tk" style="display: none;"><span
                                                             class="block_star_bank_account">Số tài khoản: </span><span
@@ -766,7 +748,7 @@
                                                                 <?php $k = 1 ?>
                                                                 @foreach($class->subject->unit->sortBy('position') as $row)
                                                                     <li class="text-tuan @if($k == 4 ) calendar_active @endif">
-                                                                        <a href="#">
+                                                                        <a href="#section-{{$k}}">
                                                                             <p class="tuan">Tuần {{$k}}</p>
                                                                             <p class="content-date-tuan">03/10-09/10</p>
                                                                         </a>

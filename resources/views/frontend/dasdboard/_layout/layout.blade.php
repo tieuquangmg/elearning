@@ -10,11 +10,12 @@
     <link href="{{asset('')}}dashboard/css/vendor/bootstrap.css" rel="stylesheet">
     <link href="{{asset('')}}dashboard/css/vendor/font-awesome.css" rel="stylesheet">
     <link href="{{asset('')}}dashboard/customs/style.css" rel="stylesheet" />
-
     <link href="{{asset('')}}dashboard/customs/style_theme.css" rel="stylesheet" />
-
     <link href="{{asset('')}}dashboard/customs/style_kienpnt.css" rel="stylesheet" />
     <link href="{{asset('')}}dashboard/customs/quang.css" rel="stylesheet" />
+    <link href="{{asset('')}}dashboard/css/nav_bar.css" rel="stylesheet" />
+    <link href="{{asset('')}}dashboard/css/nav_bar.css" rel="stylesheet" />
+    <link href="{{asset('')}}dashboard/css/lobibox.min.css" rel="stylesheet" />
         @yield('head')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
   WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -141,6 +142,78 @@
 <!-- <script src="js/app/main.js"></script> -->
 
 {{--menu top--}}
+<script src="{{asset('dashboard/js/pusher.min.js')}}"></script>
+<script src="{{asset('dashboard/js/notifications.min.js')}}"></script>
+<script>
+    function show_notify(title,msg,img) {
+        Lobibox.notify('info', {
+            title: title,
+            showClass:'zoomIn',
+            hideClass:'zoomOut',
+            pauseDelayOnHover: true,
+            delayIndicator: false,
+            sound: true,
+            soundPath: '{{asset('dashboard/sounds').'/'}}',
+            soundExt: '.ogg',
+            msg:msg,
+            img: img,
+        });
+    }
+    function append_notify(data) {
+        $noti = '<li class="notif ">' +
+            '<a href="#">' +
+            '<div class="imageblock">' +
+            '<img src="http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg" class="notifimage">' +
+            '</div>' +
+            '<div class="messageblock">' +
+            '<div class="message"><strong>'+data.message.name+'</strong>'+data.message.content+
+            '</div>' +
+            '<div class="messageinfo">' +
+            '<i class="icon-comment"></i>'+data.message.created_at +
+            '</div>' +
+            '</div>' +
+            '</a>' +
+            '</li>';
+        $('.notifbox').prepend($noti)
+    }
+</script>
+<script>
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('c421ca21aa9a393ebfec', {
+        cluster: 'ap1',
+        encrypted: true
+    });
+    var channel = pusher.subscribe('classes_1');
+    channel.bind('pusher:subscription_succeeded', function() {
+        console.log('ket noi thanh cong');
+    });
+    channel.bind('App\\Events\\ClassPusherEvent', function(data) {
+        show_notify(data.message.name,data.message.content,'http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg');
+        append_notify(data);
+
+        console.log(data);
+    });
+</script>
+<script>
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('c421ca21aa9a393ebfec', {
+        cluster: 'ap1',
+        encrypted: true
+    });
+    var channel = pusher.subscribe('quang');
+    channel.bind('pusher:subscription_succeeded', function() {
+        console.log('ket noi thanh cong');
+    });
+    channel.bind('App\\Events\\MessagePusherEvent', function(data) {
+        show_notify(data.user.full_name,data.message.content,'http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg');
+//        console.log(data);
+    });
+</script>
+
 <script type="text/javascript">
     $('document').ready(function () {
         var nav = $('#main-menu');

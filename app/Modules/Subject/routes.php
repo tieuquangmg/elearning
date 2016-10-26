@@ -10,7 +10,8 @@
             'getDelete' => 'subject.delete',
             'getFind' => 'subject.find',
             'getUnit' => 'subject.unit',
-            'getAddUnit' => 'subject.unit.add'
+            'getAddUnit' => 'subject.unit.add',
+            'getSync' => 'subject.sync'
         ]);
 
        Route::controller('unit', 'UnitController', [

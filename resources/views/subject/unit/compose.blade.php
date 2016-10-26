@@ -144,18 +144,17 @@
                         <div class="panel-body">
                             <ul class="list-group">
                                 @if($unit->meeting)
-                                    @foreach($unit->meeting as $row)
                                         <li class="list-group-item">
-                                            {{$row->name}}
+                                            {{--{{dd($row)}}--}}
+                                            {{--{{$row->name}}--}}
                                             <span class="pull-right">
-                                    <a href="{{route('meeting.edit', $row->id)}}" data-toggle="tooltip"
+                                    <a href="{{route('meeting.edit', $unit->meeting->id)}}" data-toggle="tooltip"
                                        data-placement="top" title="Cập nhật"><i class="glyphicon glyphicon-edit"></i></a>
-                                    <a href="{{route('meeting.delete').'/'.$row->id}}" data-toggle="tooltip"
-                                       data-placement="top" title="Xóa" class="delete_theory" data="{{$row->id}}"
+                                    <a href="{{route('meeting.delete').'/'.$unit->meeting->id}}" data-toggle="tooltip"
+                                       data-placement="top" title="Xóa" class="delete_theory" data="{{$unit->meeting->id}}"
                                        onclick="confirm('Bạn muốn xóa ?')"><i class="glyphicon glyphicon-trash "></i></a>
                                     </span>
                                         </li>
-                                    @endforeach
                                 @endif
 
                             </ul>

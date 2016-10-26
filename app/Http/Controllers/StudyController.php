@@ -36,6 +36,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Session;
+use Response;
 
 class StudyController extends Controller
 {
@@ -69,7 +70,6 @@ class StudyController extends Controller
 //        $endparams = new EndMeetingParameters('mathn011','j6WvLYDe');
 //        $res = $bbb->endMeeting($endparams);
 //        dump($res);
-
 
         return view('frontend.dasdboard.index', $data);
     }
@@ -287,6 +287,12 @@ class StudyController extends Controller
 //    }
     public function getTheory($id, $class_id)
     {
+//        $data['pdf'] = Response::make(file_get_contents(asset('gallery/document/toan-cao-cap-a1.pdf')), 200, [
+//            'Content-Type' => 'application/pdf',
+//            'Content-Disposition' => 'inline; filename="'.'Toan Cao Cap A1'.'"'
+//        ]);
+//        return view('frontend.dasdboard.theory');
+//        dd(1);
 //        dd($class_id);
         $data['class'] = Classes::Find($class_id);
         //thong tin bai hoc
@@ -415,7 +421,8 @@ class StudyController extends Controller
     }
     public function getMeeting($unit_id, $class_id)
     {
-
+        $subject_id = Classes::find($class_id)->subject->id;
+        Session::put('url_back','study/sub'.'/'.$class_id);
         $class = Classes::find($class_id);
         $meeting  = Meeting::where('unit_id',$unit_id)->first();
         $bbb = new BigBlueButton();
@@ -429,7 +436,8 @@ class StudyController extends Controller
                     $class_meeting = Class_meeting::create(['class_id' => $class_id, 'meeting_id' => $meeting->id]);
                     $GetMeetingInfoParameters = new GetMeetingInfoParameters($class_meeting->id, '');
                     $info = $bbb->getMeetingInfo($GetMeetingInfoParameters);
-                    $data['meeting'] = Meeting::find($meeting->id);
+                    $data['meeting'] = Meeting::with('class_meeting_time')->find($meeting->id);
+
                     if ($info->getMeetingInfo()->getMeetingId() == '') {
                         $data['running']= false;
                     } else {
@@ -458,13 +466,13 @@ class StudyController extends Controller
 //                        $data['class'] = $class;
                        return redirect($url);
                     } else {
-                        $data['meeting'] = Meeting::find($meeting->id);
+                        $data['meeting'] = Meeting::find($meeting->id)->with('class_meeting_time')->get();
                         $data['running'] = false;
                         $data['getJoinMeetingURL'] = '';
                         $data['class'] = $class;
                     }
             } else {
-                    $data['meeting'] = Meeting::find($meeting->id);
+                    $data['meeting'] = Meeting::find($meeting->id)->with('class_meeting_time')->get();
                     $data['running'] = false;
                     $data['getJoinMeetingURL'] = '';
                     $data['class'] = $class;

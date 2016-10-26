@@ -1,5 +1,10 @@
 @extends('frontend.dasdboard._layout.layout')
 @section('content')
+    {{--{{dd($theory)}}--}}
+    {{--{!! $pdf !!}--}}
+    {{--<iframe style="margin:0 auto" src="http://www.onlineicttutor.com/wp-content/uploads/2016/04/pdf-at-iframe.pdf" width="900px" height="2000px">--}}
+    {{--</iframe>--}}
+    {{--{{dd(1)}}--}}
     {{--{{dd($classes_id)}}--}}
     <div class="container">
     <div class="row">
@@ -18,11 +23,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel-body" >
+                <div class="panel-body">
                     @if($permission)
                         {!! $theory->intro !!}
                         <hr>
+                    @if($theory->content_type == 1)
                         {!! $theory->content !!}
+                        @else
+                            <div id="iframe_waper">
+                            <iframe src="{{asset('/gallery/document/'.$theory->content)}}" width="100%" height="100%">
+                            </iframe>
+                        </div>
+                            @endif
                         <div class="col-xs-12 nav navbar-brand theory-control green">
                             <a href="#" class="pull-left"><i class="glyphicon glyphicon-backward"></i> Bài trước</a>
                             <a href="#" class="pull-right"><i class="glyphicon glyphicon-forward"></i> Bài tiếp theo</a>
@@ -30,7 +42,7 @@
                     @else
                         <h4 style="color: palevioletred">Bạn chưa hoàn thành bài trước</h4>
                         <div class="col-xs-12 nav navbar-brand theory-control green">
-                        <a class="pull-left"><i class="glyphicon glyphicon-backward"></i> Bài trước</a>
+                        <a class="pull-left"><i class="glyphicon glyphicon-backward"></i>Bài trước</a>
                         </div>
                     @endif
                 </div>
@@ -352,5 +364,10 @@
             {{--});--}}
         });
     </script>
-
+    <script>
+        $(document).ready(function () {
+            $('#iframe_waper').height($( window ).height()-44);
+            $("html, body").animate({ scrollTop: $('#iframe_waper').offset().top - 100 }, 1000);
+        })
+    </script>
 @endsection

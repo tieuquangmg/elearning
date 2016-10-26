@@ -13,11 +13,17 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Tiêu đề</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" value="{{$data->title}}" name="title" required placeholder="Name ...">
+                <input type="text" class="form-control" value="{{$data->name}}" name="name" required placeholder="Name ...">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">Chi tiết</label>
+            <label class="col-sm-2 control-label">Người nhận</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" value="{{$data->entity_id}}" name="entity_id" required placeholder="Name ...">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Nội dung</label>
             <div class="col-sm-10">
                 <textarea name="content"  class="form-control mceEditor" placeholder="Content ...">{{$data->content}}</textarea>
             </div>
@@ -26,7 +32,7 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="1" name="active" @if($data->active ==1) checked @endif> Hiển thị
+                        <input type="checkbox" value="1" name="active" @if($data->active ==1) checked @endif>Hiển thị
                     </label>
                 </div>
             </div>
