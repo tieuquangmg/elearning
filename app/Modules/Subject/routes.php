@@ -11,7 +11,8 @@
             'getFind' => 'subject.find',
             'getUnit' => 'subject.unit',
             'getAddUnit' => 'subject.unit.add',
-            'getSync' => 'subject.sync'
+            'getSync' => 'subject.sync',
+            'postSync' => 'subject.sync'
         ]);
 
        Route::controller('unit', 'UnitController', [

@@ -7,7 +7,7 @@ class Subject extends Model
 {
     public $table = 'subjects';
 
-    public $fillable = ['name', 'image', 'description', 'active'];
+    public $fillable = ['id','Ky_hieu', 'name', 'image', 'description','attention', 'active'];
 
     public function scopeWhereId($query, $input){
         if(is_array($input)) return $query->whereIn('id', $input);

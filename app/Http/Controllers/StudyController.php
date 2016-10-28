@@ -8,6 +8,7 @@ use App\Modules\Organize\Models\User_test;
 use App\Modules\Subject\Models\Class_meeting;
 use App\Modules\Subject\Models\Comment;
 use App\Modules\Subject\Models\Meeting;
+use App\Modules\Subject\Models\User_unit;
 use Barryvdh\Debugbar\Middleware\Debugbar;
 use BigBlueButton\BigBlueButton;
 
@@ -37,6 +38,7 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Session;
 use Response;
+use DB;
 
 class StudyController extends Controller
 {
@@ -365,13 +367,31 @@ class StudyController extends Controller
     }
     public function getMycourse()
     {
-        if (Auth::user()->hasRole(['student'])) {
+        if (Auth::user()->hasRole(['student'])){
             $data['classes'] = User::find(Auth::user()->id)->classes;
         }
-        if (Auth::user()->hasRole(['teacher'])) {
+        if (Auth::user()->hasRole(['teacher'])){
             $data['classes'] = Classes::where('user_id', Auth::user()->id)->get();
         }
+        $class_ids = $data['classes']->lists('id');
+        foreach ($class_ids as $key=>$value){
+            $quang['dang-nhap'][$key] = Classes::find($value)->subject->unit->lists('id');
+            $dfdf = User_unit::whereIn('unit_id',$quang['dang-nhap'][$key])->where('user_id',Auth::user()->id)->get();
+            dd($dfdf);
+        }
+        dd($quang);
+
+        $test = DB::table('classes')
+            ->join('units','units.subject_id','=','classes.subject_id')
+            ->join('user_unit','user_unit.unit_id','=','units.id')
+            ->join('users','users.id','=','user_unit.user_id')
+            ->join('tests','tests.unit_id','=','units.id')
+            ->where('user_unit.user_id','=',2)
+            ->get();
+        $data['user_unit'] = collect($test);
+        $data['standings'] = User::take(6)->get();
         $data['feature'] = Classes::all()->random(7);
+        dd($data);
         return view('frontend.dasdboard.course.list', $data);
     }
     public function getNews($id)

@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>@yield('title')</title>
-    <link href="{{asset('')}}dashboard/css/vendor/bootstrap.css" rel="stylesheet">
+    <link href="{{asset('')}}build/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{asset('')}}dashboard/css/vendor/font-awesome.css" rel="stylesheet">
     <link href="{{asset('')}}dashboard/customs/style.css" rel="stylesheet" />
     <link href="{{asset('')}}dashboard/customs/style_theme.css" rel="stylesheet" />

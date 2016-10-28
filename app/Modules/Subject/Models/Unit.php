@@ -38,4 +38,7 @@ class Unit extends Model
     public function audio(){
         return $this->hasOne(Audio::class,'unit_id');
     }
+    public function user_unit(){
+        return $this->hasMany(User_unit::class,'unit_id');
+    }
 }

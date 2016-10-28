@@ -70,6 +70,362 @@
                             </div>
                         </div>
                         <span id="sb-3" class="skip-block-to"></span>
+                        <div id="inst82" class="block_tim sideblock">
+                            <div class="content">
+                                <div class="header_tim">
+                                    <p class="text1">TRAO ĐỔI SƯ PHẠM</p>
+                                    <p class="text2"></p>
+
+                                </div>
+                                <div align="left">
+                                    <span class="glyphicon glyphicon-chevron-right" style="margin-left: 10px;"></span>
+                                    <a style="    font-size: 14px;
+							color: black ;
+							padding: 5px !important;
+							display: inline-block;
+							text-align: left;
+							" href="#" target="_blank">Viết bài
+                                        trên TIM+</a></div>
+                            </div>
+                        </div>
+                        <span id="sb-4" class="skip-block-to"></span>
+                        <div id="inst84" class="block_star_bank sideblock">
+                            <div class="content">
+                                <script>var url_tsb = "#";</script>
+                                <!-- TSB API CSS
+                            -->
+
+
+                                <div class="block_star_bank_content">
+                                    <div class="block_ngan_hang_sao">
+                                        <div class="block_star_bank_header" style="background-color:#fff;">
+                                            <p><i class="glyphicon glyphicon-star"></i> Ngân Hàng Sao</p>
+                                        </div>
+                                        <div class="block_star_bank_content">
+                                            <div id="msg-mat-ket-noi">Bạn chưa có tài khoản trên ngân hàng sao.Vui lòng liên hệ quản lý học tập để được hỗ trợ.</div>
+                                            <ul class="block_star_bank_info">
+                                                <li id="div-tsb-tk" class="tsb-tk" style="display: none;"><span
+                                                            class="block_star_bank_account">Số tài khoản: </span><span
+                                                            id="tsb-tk-nhs" class="block_star_bank_number_account ">10033565</span>
+                                                </li>
+                                                <li class="block_star_bank_star tsb-so-du" id="div-tsb-so-du"
+                                                    style="display: none;"><span class="block_star_bank_account">Số sao hiện có: </span><span
+                                                            id="tsb-so-du"
+                                                            class="block_star_bank_number_star">147</span>&nbsp;<span
+                                                            class="glyphicon glyphicon-star"></span></li>
+                                            </ul>
+                                            <div style="padding-bottom: 10px;">
+                                                <span class="glyphicon glyphicon-chevron-right"
+                                                      style="margin-left: 10px;"></span>&nbsp;&nbsp;<a style="margin-left: 5px;
+				font-size: 12px;" target="_blank" class="block_star_bank_come_to_nhs"
+                                                                                                       href="#">Đến
+                                                    ngân hàng sao</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div style="
+		display: block;
+		text-align: center;
+		    height: 25px;
+		">
+
+                                        <a type="button" id="thuong-sao-btn" data-toggle="modal"
+                                           data-target="#tsbModal-general" data-backdrop="static" data-keyboard="false"
+                                           data-gv="vinhpq.gv" data-course-id="4376" data-forum-id="6034"
+                                           onclick="tsb_getData_general(this);">Thưởng Sao</a>
+                                    </div>
+
+
+                                    <script type="text/javascript"
+                                    <script>addEventListener("load", function () {
+                                            try {
+                                                get_tai_khoan_tsb.GetA(url_tsb, function (data) {
+                                                    data = JSON.parse(data);
+                                                    if (data.id && data.so_du) {
+                                                        document.getElementById("tsb-tk-nhs").innerHTML = data.id;
+                                                        document.getElementById("tsb-so-du").innerHTML = data.so_du;
+                                                    }
+                                                    else {
+                                                        document.getElementById("div-tsb-tk").style.display = "none";
+                                                        document.getElementById("div-tsb-so-du").style.display = "none";
+                                                        document.getElementById("msg-mat-ket-noi").style.display = "";
+                                                    }
+                                                }, function () {
+                                                    document.getElementById("div-tsb-tk").style.display = "none";
+                                                    document.getElementById("div-tsb-so-du").style.display = "none";
+                                                    document.getElementById("msg-mat-ket-noi").style.display = "";
+                                                });
+                                            } catch (e) {
+                                                console.log(e);
+                                                document.getElementById("div-tsb-tk").style.display = "none";
+                                                document.getElementById("div-tsb-so-du").style.display = "none";
+                                                document.getElementById("msg-mat-ket-noi").style.display = "";
+                                            }
+                                        }, false);
+
+                                    </script>
+                                </div>
+
+                                <!-- Modal giangdv add 4-5-2015-->
+                                <div class="modal fade" id="tsbModal-general" tabindex="-1" role="dialog"
+                                     aria-labelledby="tsbModalLabel">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                <h4 class="modal-title text-center" id="tsbModalLabel">THƯỞNG SAO THÀNH
+                                                    TÍCH HỌC TẬP</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div id="tsb-step-bar-general" class="hide">
+                                                            <!-- progressbar -->
+                                                            <ul id="progressbar">
+                                                                <li id="tsb-bar-general-step-1" class="active">Tìm kiếm
+                                                                    sinh viên
+                                                                </li>
+                                                                <li id="tsb-bar-general-step-2">Nhập thông tin</li>
+                                                                <li id="tsb-bar-general-step-3">Xác nhận thông tin</li>
+                                                                <li id="tsb-bar-general-step-4">Kết thúc</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div id="tsb-info-general" class="container-fluid hide">
+                                                    <div id="tsb-info-gv-sosaodathuong" class="row">
+                                                        <div id="tsb-info-gv" class="form-group col-xs-7">
+                                                            <strong>Thông tin người chuyển:</strong>
+                                                            <strong style="display:none" id="role">14</strong>
+                                                            <strong style="display:none" id="tsb-fullname">{{Auth::user()->full_name}}</strong>
+                                                            <table>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td class="tsb-info-tk" style="width:200px;">Sinh Viên
+                                                                    </td>
+                                                                    <td id="tsb-usernameGV-general" class="tsb-strong">
+                                                                        ---
+                                                                    </td>
+                                                                </tr>
+                                                                <!--<tr>
+                                                                <td class="tsb-info-tk" style="width:200px;">Tài khoản ngân hàng sao:</td>
+                                                                <td id="tsb-tkGV-general" class="tsb-strong">---</td>
+                                                            </tr>-->
+                                                                <tr>
+                                                                    <td class="tsb-info-tk" style="width:200px;">Số sao
+                                                                        hiện có:
+                                                                    </td>
+                                                                    <td id="tsb-sosaoGV-general" class="tsb-strong">
+                                                                        ---
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div id="tsb-sosaodathuong-general"
+                                                             class="col-xs-5 no-padding-left">
+                                                            <div id="tsb_static_alert_general"
+                                                                 class="alert alert-success text-center" role="alert">
+                                                                <span class="glyphicon glyphicon glyphicon-star"
+                                                                      aria-hidden="true"></span>
+                                                                <span class="sr-only">Số sao:</span>
+                                                                Số sao đã thưởng <br>(trong lớp môn này):
+                                                                <span id="so_sao_da_thuong_general"><img
+                                                                            src="{{asset('dashboard/images')}}/loader_sm.gif"></span>
+                                                                <span id="tsb_inp_forum_id_general" class="hide"></span>
+                                                                <span id="tsb_ma_mon_general" class="hide"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="tsb-search-info-sv" class="row">
+                                                        <div id="tsb-search-sv" class="col-xs-12">
+                                                            <div class="form-group">
+                                                                <label for="tsb_search_username_sv">Nhập tài khoản học
+                                                                    tập của sinh viên (bắt buộc)</label>
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control"
+                                                                           id="tsb_search_username_sv"
+                                                                           placeholder="ví dụ: dungnq17072">
+                                                                    <div id="tsb-btn-search" class="input-group-addon">
+                                                                        <span class="glyphicon glyphicon-search"
+                                                                              aria-hidden="true"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="message_search" class="hide"><img
+                                                                        class="img-center"
+                                                                        src="{{asset('dashboard/images')}}/loader_md.gif">
+                                                            </div>
+                                                            <table id="tsb-tbl-list-sv"
+                                                                   class="table table-striped table-bordered table-hover hide">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th>Họ và tên</th>
+                                                                    <th>Lớp</th>
+                                                                    <th>Tài khoản học tập</th>
+                                                                    <th>Tài khoản sao</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="tsb-tbl-list-sv-tbody">
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div id="tsb-info-sv" class="col-xs-12 hide">
+                                                            <strong>Thông tin người nhận:</strong>
+                                                            <div style="clear:both"></div>
+                                                            <div style="float:left">
+                                                                <table>
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td class="tsb-info-tk" style="width:200px;">Tài
+                                                                            khoản học tập:
+                                                                        </td>
+                                                                        <td id="tsb-usernameSV-general"
+                                                                            class="tsb-strong"><img
+                                                                                    src="{{asset('dashboard/images')}}/loader_sm.gif">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="tsb-info-tk" style="width:190px;">Họ
+                                                                            và tên
+                                                                        </td>
+                                                                        <td id="tsb-hotenSV-general" class="tsb-strong">
+                                                                            <img src="{{asset('dashboard/images')}}/loader_sm.gif">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="tsb-info-tk" style="width:190px;">
+                                                                            Lớp:
+                                                                        </td>
+                                                                        <td id="tsb-lopSV-general" class="tsb-strong">
+                                                                            <img src="{{asset('dashboard/images')}}/loader_sm.gif">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="tsb-info-tk" style="width:190px;">Tài
+                                                                            khoản ngân hàng sao:
+                                                                        </td>
+                                                                        <td id="tsb-tkSV-general" class="tsb-strong">
+                                                                            <img src="{{asset('dashboard/images')}}/loader_sm.gif">
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div id="tsb-avatar" style="float:right">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="tsb_form_transfer" class="row">
+                                                        <form action="#"
+                                                              method="" id="tsb_form_transfer_general_info">
+                                                            <div id="tsb_form_transfer_general"
+                                                                 class="form-horizontal hide">
+                                                                <div class="form-group">
+                                                                    <label for="inputSoSao_general"
+                                                                           class="col-xs-3 control-label">Số sao
+                                                                        thưởng:</label>
+                                                                    <div class="col-xs-9">
+                                                                        <input type="text" class="form-control input-sm"
+                                                                               id="inputSoSao_general"
+                                                                               placeholder="Số sao thưởng">
+                                                                        <span id="inputSoSao-error-general"
+                                                                              class="text-danger hide">Số sao thưởng không được bằng 0.</span>
+                                                                        <label id="tsb-lb-so-sao-general"
+                                                                               class="control-label label-normal hide"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="inputLyDoThuong_general"
+                                                                           class="col-xs-3 control-label">Lý do
+                                                                        thưởng:</label>
+                                                                    <div class="col-xs-6">
+                                                                        <textarea role="button" data-toggle="popover"
+                                                                                  data-content="Ví dụ hay: Anh Châu đã có bài tập A3, PSD102B rất xuất sắc. Chúc anh sử dụng tốt kĩ năng giải quyết vấn đề trong công việc. Chúc mừng anh. Thầy TrungNT"
+                                                                                  class="form-control input-sm"
+                                                                                  id="inputLyDoThuong_general"
+                                                                                  placeholder="Để khích lệ tinh thần học tập của sinh viên, giảng viên cần viết tối thiều 50 kí tự."
+                                                                                  rows="3" data-original-title=""
+                                                                                  title=""></textarea>
+                                                                        <span id="inputLyDoThuong-error-general"
+                                                                              class="text-danger hide">Lý do thưởng không được để trống.</span>
+                                                                        <label id="tsb-lb-ly-do-thuong-general"
+                                                                               class="control-label label-normal hide"></label>
+                                                                    </div>
+                                                                    <div id="img_vinhdanh" class="col-xs-2">
+                                                                        <div class="dropzone" id="dropzone" tmp_name=""
+                                                                             name="" path=""></div>
+                                                                    </div>
+                                                                    <span id="tsb_image_data" class="hide" name=""
+                                                                          path=""></span>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div><!-- END DIV NHAP THONG TIN THUONG -->
+                                                </div>
+                                                <!-- END DIV INFO GENERAL -->
+                                                <div class="row">
+                                                    <div id="tsb-modal-message" class="col-xs-12 hide">
+                                                        <!-- Tin nhắn sau khi thưởng sao sẽ hiển thị tại đây. -->
+                                                        <img class="img-center"
+                                                             src="{{asset('dashboard/images')}}loader_md.gif">
+                                                    </div>
+                                                </div>
+
+                                                <div id="tsb-modal-button" class="row">
+                                                    <div id="tsb-modal-general-step-1" class="form-group hide">
+                                                        <div class="col-xs-offset-5 col-xs-2">
+                                                            <button id="tsb-btn-next-step-2" class="btn btn-danger"
+                                                                    href="#" role="button">Tiếp tục
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div id="tsb-modal-general-step-2" class="form-group hide">
+                                                        <div class="col-xs-offset-4 col-xs-2">
+                                                            <button id="tsb-btn-back-step-1" class="btn btn-danger"
+                                                                    href="#" role="button">Quay lại
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-xs-2">
+                                                            <button id="tsb-btn-next-step-3" class="btn btn-danger"
+                                                                    href="#" role="button">Tiếp tục
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div id="tsb-modal-general-step-3" class="form-group hide">
+                                                        <div class="col-xs-offset-4 col-xs-2">
+                                                            <button id="tsb-btn-back-step-2" class="btn btn-danger"
+                                                                    href="#" role="button">Quay lại
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-xs-2">
+                                                            <button id="tsb-btn-thuong-sao" class="btn btn-danger"
+                                                                    href="#" role="button">Thưởng sao
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div id="tsb-modal-close" class="form-group">
+                                                        <div class="col-xs-offset-5 col-xs-2">
+                                                            <button id="tsb-btn-modal-close" type="button"
+                                                                    class="btn btn-danger" data-dismiss="modal">Đóng
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END Modal body -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span id="sb-5" class="skip-block-to"></span>
                         <div id="inst21" class="block_dggv sideblock">
                             <div class="content">
 
@@ -264,6 +620,36 @@
                             </div>
                         </div>
                         <span id="sb-9" class="skip-block-to"></span>
+                        <div id="inst5498" class="block_admin sideblock">
+                            <div class="content">
+                                <div class="block_admin_content_header">
+                                    <a class="block_admin_text-topica" role="button" data-toggle="collapse"
+                                       href="#"
+                                       aria-expanded="false" aria-controls="collapseExample" style="color:black;">
+                                        ĐIỀU HÀNH
+                                    </a>
+                                </div>
+                                <div class="collapse in" id="admin_collapse">
+                                    <ul class="list_admin">
+                                        <li class="r0">
+                                            <div class="icon column c0"><img
+                                                        src="{{asset('dashboard/images')}}/user.gif"
+                                                        alt=""></div>
+                                            <div class="column c1"><a target="_blank"
+                                                                      href="">LMS720
+                                                    - Báo cáo SV chưa login</a></div>
+                                        </li>
+                                        <li class="r1">
+                                            <div class="icon column c0"></div>
+                                            <div class="column c1"><a
+                                                        href="#">Profile</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <span id="sb-2" class="skip-block-to"></span></td>
                     <td id="middle-column">
                         <div>
                             <span id="maincontent"></span>
