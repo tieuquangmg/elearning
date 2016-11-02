@@ -18,7 +18,7 @@
                 <li><a href="{{route('study.news')}}">Tin Tức</a></li>
                 <li><a href="{{route('study.mycourse')}}">Các lớp đang học</a></li>
                 <li class="dropdown">
-                    <a href="{{asset('study/transcript/'.Auth::user()->id)}}" class="dropdown-toggle" >Kết quả học tập<span class="caret"></span></a>
+                    <a href="{{asset('study/transcript/'.Auth::user()->id)}}" class="dropdown-toggle">Kết quả học tập<span class="caret"></span></a>
                     {{--<ul class="dropdown-menu" role="menu">--}}
                         {{--<li><a href="#">Action</a></li>--}}
                     {{--</ul>--}}

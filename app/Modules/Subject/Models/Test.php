@@ -11,10 +11,10 @@ class Test extends Model
     public $fillable = ['unit_id', 'name', 'active', 'time', 'number_question'];
     
     public function user_test(){
-        return $this->hasMany(User_test::class);
+        return $this->hasMany(User_test::class,'test_id');
     }
     public function user(){
-        return $this->belongsTo(User_test::class);
+        return $this->belongsTo(User_test::class,'user_id');
     }
     public function unit(){
         return $this->belongsTo(Unit::class, 'unit_id');

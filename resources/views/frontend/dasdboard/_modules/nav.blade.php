@@ -31,11 +31,11 @@
                         <li><a href="{{route('study.mycourse')}}">Lớp học đã đăng ký</a></li>
                     </ul>
                 </li>
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kết quả học tập<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{asset('study/transcript/'.Auth::user()->id)}}">Bảng điểm</a></li>
-                        <li><a href="#">Bảng điểm tổng hợp</a></li>
+                        <li><a href="{{route('study.synthetic.transcripts',Auth::user()->id)}}">Bảng điểm tổng hợp</a></li>
                     </ul>
                 </li>
             </ul>

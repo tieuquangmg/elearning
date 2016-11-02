@@ -10,7 +10,7 @@
                 </div>
                 <div class="media-body">
                     <h1 class="text-white text-display-1 margin-v-0">{{$profile->first_name.' '.$profile->last_name}}</h1>
-                    <p class="text-subhead"><a class="link-white text-underline" href="#">xe thông tin cá nhân</a></p>
+                    {{--<p class="text-subhead"><a class="link-white text-underline" href="#">xem thông tin cá nhân</a></p>--}}
                 </div>
                 <div class="media-right">
                     <span class="label bg-blue-500">Học sinh</span>
@@ -30,16 +30,15 @@
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#"><i class="fa fa-fw fa-lock"></i> <span
                                             class="hidden-sm hidden-xs">Quản lý tài khoản</span></a></li>
-                            <li><a href="#"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Thông tin thanh toán</span></a>
-                            </li>
+                            {{--<li><a href="#"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs"></span></a>--}}
+                            {{--</li>--}}
                         </ul>
                         <!-- // END Tabs -->
                         <!-- Panes -->
                         <div class="tab-content">
                             <div id="account" class="tab-pane active">
-                                <form method="post" action="{{route('study.profile')}}" enctype="multipart/form-data"
-                                      class="form-horizontal">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <form method="post" action="{{route('study.profile')}}" enctype="multipart/form-data" class="form-horizontal">
+                                    <input type="hidden" name="_token" value="{{ csrf_token()}}">
                                     <div class="form-group">
                                         <label for="inputEmail3" class="col-sm-2 control-label">Ảnh cá nhân</label>
                                         <div class="col-md-6">
@@ -120,13 +119,20 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-md-2 control-label">Thay đổi mật
-                                            khẩu</label>
+                                        <label for="inputPassword3" class="col-md-2 control-label">Mật khẩu</label>
                                         <div class="col-md-6">
                                             <div class="form-control-material">
                                                 <input name="password" type="password" class="form-control"
                                                        id="inputPassword3" placeholder="Password">
-                                                <label for="inputPassword3">mật khẩu</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-md-2 control-label">Nhập lại mật khẩu</label>
+                                        <div class="col-md-6">
+                                            <div class="form-control-material">
+                                                <input type="repassword" class="form-control"
+                                                       id="inputPassword3" placeholder="Password">
                                             </div>
                                         </div>
                                     </div>

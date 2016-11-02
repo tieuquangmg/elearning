@@ -45,15 +45,6 @@
                 <input type="checkbox" name="allow_start_top_recording"  placeholder="v">
             </div>
         </div>
-        {{--<div class="form-group">--}}
-            {{--<div class="col-sm-offset-2 col-sm-10">--}}
-                {{--<div class="checkbox">--}}
-                    {{--<label>--}}
-                        {{--<input name="active" value="1" type="checkbox" checked> Kích hoạt--}}
-                    {{--</label>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary"><i class="fa fa-plus-square-o"></i> Thực hiện</button>

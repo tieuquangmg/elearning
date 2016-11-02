@@ -65,7 +65,7 @@
                                                         ?>
                                                         {{$value1->score}},
                                                     @endforeach
-                                                    - <p style="color:red; display: inline">@if($i != 0)({{$tong/$i}})@else 0 @endif</p>
+                                                    TB <p style="font-weight:bold; color:green; display: inline">@if($i != 0)({{$tong/$i}})@else 0 @endif</p>
                                                     <?php $chuyencan += $tong/$i?>
                                                 </td>
                                             @else

@@ -89,8 +89,8 @@
                                 </div>
                                 <div class="collapse in" id="collapseExample1">
                                     <ul class="block_support_learning_list-unstyled">
-                                        <li class="block_support_learning_litext-tpc"><a target="_blank" href="#">Diễn đàn</a></li>
-                                        <li class="block_support_learning_litext-tpc"><a href="#">Hỏi đáp</a></li>
+                                        <li class="block_support_learning_litext-tpc"><a target="_blank" href="http://namvietjsc.tk/forum.php">Diễn đàn</a></li>
+                                        <li class="block_support_learning_litext-tpc"><a href="{{url('/study/unit/add_question/6/1')}}">Hỏi đáp</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -99,7 +99,6 @@
                         <div id="inst20" class="block_personal_profile sideblock">
                             <div class="content">
                                 <div class="block_personal_profile_content_header" style="background-color: #fff;">
-
                                     <a class="block_personal_profile_text-topica" role="button" data-toggle="collapse"
                                        href="#" aria-expanded="false"
                                        aria-controls="collapseExample" style="color:black;font-size:14px;">
@@ -627,24 +626,25 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">×</span></button>
-                        <h2 class="modal-title text-center">NHẮC VIỆC SINH VIÊN <strong>{{Auth::user()->full_name}}</strong>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                        <h2 class="modal-title text-center">NHẮC VIỆC SINH VIÊN<strong>{{Auth::user()->full_name}}</strong>
                         </h2>
-                        <p class="modal-tilte text-center">Tuần từ ngày 03/10/2016 đến 09/10/2016</p>
+                        <p class="modal-tilte text-center">Tuần từ ngày {{\Carbon\Carbon::now()->startOfWeek()->format('d/m/Y')}} đến {{\Carbon\Carbon::now()->endOfWeek()->format('d/m/Y')}}</p>
                     </div>
                     <div class="modal-body">
                         <table class="table table-striped table-bordered">
                             <thead class="text-danger">
                             <tr>
-                                <th class="text-center vcenter"><span class="help" data-toggle="tooltip"
+                                <th class="text-center vcenter">
+                                    <span class="help" data-toggle="tooltip"
                                                                       data-placement="top" title=""
                                                                       data-original-title="Danh sách các course học đang giảng dạy">Lớp môn</span>
                                 </th>
                                 <th class="text-center vcenter"><span class="help" data-toggle="tooltip"
                                                                       data-placement="top" title=""
-                                                                      data-original-title="Số câu H2472 chưa trả lời"><i
-                                                class="fa fa-bell"></i> H2472</span></th>
+                                                                      data-original-title="Số câu hỏi chưa trả lời"><i
+                                                class="fa fa-bell"></i> Hỏi đáp</span></th>
                                 <th class="text-center vcenter"><span class="help" data-toggle="tooltip"
                                                                       data-placement="top" title=""
                                                                       data-original-title="Số bài post đã gửi/Yêu cầu"><i
@@ -660,34 +660,55 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($user_unit as $row)
                             <tr>
-                                @foreach($user_unit as $row)
-                                <td class="text-left"><a href="#">{{$row->first_name.' '.$row->last_name}}</a></td>
+                                <td class="text-left"><a href="#">{{$row['class']->code}}</a></td>
                                 <td class="text-center success"><a href="#" target="_blank">---</a></td>
                                 <td class="text-center warning warning-fix"><a href="#" target="_blank">---</a></td>
-                                <td class="text-center success"><a href="#" target="_blank">{{$row->login_time}}/3</a></td>
-                                <td class="text-center success">---</td>
-                                    @endforeach
+                                <td class="text-center @if($row['user-unit'] != null && $row['user-unit']->login_time >= 3)
+                                        success
+                                        @else
+                                        warning warning-fix
+                                        @endif
+                                        ">
+                                    <a href="#" target="_blank">
+                                        @if($row['user-unit'] != null)
+                                            {{$row['user-unit']->login_time}}/3
+                                        @else 0/3
+                                        @endif
+                                    </a></td>
+                                <td class="text-center
+                                    @if(!$row['test']['tested']->isEmpty() && count($row['test']['tested']) >= $row['test']['total'])
+                                        success
+                                        @else
+                                        warning warning-fix
+                                        @endif
+                                        ">
+                                    @if(!$row['test']['tested']->isEmpty())
+                                        {{count($row['test']['tested'])}}
+                                    @else 0
+                                    @endif
+                                    /{{$row['test']['total']}}</td>
                             </tr>
+                            @endforeach
                             </tbody>
                         </table>
-
                         <!-- Thêm Giải thích chi tiết -->
                         <div class="panel-group" id="accordion">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a style="display: block;" class="accordion-toggle" data-toggle="collapse"
-                                           data-parent="#accordion" href=#>
+                                           data-parent="#accordion" href="#collapseOne" aria-expanded="false">
                                             Chú thích
                                             <span class="pull-right glyphicon glyphicon-minus"></span>
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="collapseOne" class="panel-collapse collapse in">
+                                <div id="collapseOne" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <ul>
-                                            <li><strong>H2472:</strong> Số câu hỏi H2472 hiện có cần trả lời</li>
+                                            <li><strong>Hỏi đáp:</strong> Số câu hỏi Hỏi đáp hiện có cần trả lời</li>
                                             <li><strong>Diễn đàn:</strong> Thống kê số lượng bài post trên diễn đàn thời
                                                 điểm hiện tại của tuần báo cáo (A/B) (A: số bài post trong tuần tính tới
                                                 thời điểm báo cáo. B là định mức số bài post trong tuần báo cáo). Tuần
@@ -698,12 +719,9 @@
                                                 trong tuần. Mục đích đăng nhập: theo dõi tình hình học tập của SV trong
                                                 lớp. Mỗi tuần, các thầy/cô đăng nhập tối thiểu 3 lần.
                                             </li>
-                                            <li><strong>TIM:</strong> Phản hồi về nhận xét, định hướng của GVCM hệ thống
-                                                TIM. Định mức là 1 lần/tuần
-                                            </li>
                                         </ul>
                                         <span class="label label-success">GV đã hoàn thành công việc theo định mức</span><br>
-                                        <span class="label label-warning">GV đang thực hiện một phần công việc. Đối với H2472: câu hỏi chưa quá 72h</span><br>
+                                        <span class="label label-warning">GV đang thực hiện một phần công việc. Đối với Hỏi đáp: câu hỏi chưa quá 72h</span><br>
                                         <span class="label label-danger">GV chưa thực hiện công việc hoặc đã quá hạn thực hiện công việc đó.</span>
                                     </div>
                                 </div>

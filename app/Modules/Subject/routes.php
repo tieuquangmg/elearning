@@ -12,7 +12,9 @@
             'getUnit' => 'subject.unit',
             'getAddUnit' => 'subject.unit.add',
             'getSync' => 'subject.sync',
-            'postSync' => 'subject.sync'
+            'postSync' => 'subject.sync',
+            'postImport' =>'subject.import',
+            'postCheck' => 'subject.check'
         ]);
 
        Route::controller('unit', 'UnitController', [

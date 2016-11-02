@@ -14,6 +14,7 @@ class TheoryRepositoryEloquent implements TheoryRepository
 
    public function data(){}
    public function create($input){
+       $input['time'] = $input['time'] *60000;
       return $this->model->create($input);
    }
    public function update($input){

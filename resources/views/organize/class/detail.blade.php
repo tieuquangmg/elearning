@@ -18,6 +18,7 @@
                             <i class="fa fa-list"></i>Danh sách sinh viên
                         </div>
                         <div class="pull-right">
+                            <a data-toggle="modal" data-target="#importModal"  class="btn btn-success btn-xs "><i class="glyphicon glyphicon-import"></i>Nhập Excel</a>
                             <a data-toggle="modal" data-target="#classModal" id="add_student" class="btn btn-success btn-xs "><i class="glyphicon glyphicon-plus"></i>Thêm</a>
                             <a data-toggle="modal" data-target="" id="" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-export"></i>Xuất excel</a>
                             <a id="unenroll" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-trash"></i>Xóa</a>
@@ -107,6 +108,29 @@
                                 {{--{!! $students->links() !!}--}}
                             {{--</div>--}}
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="importModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="classModalLabel">Thêm sinh viên( Lớp : {{$class->name}} - Sĩ số {{$class->student->count().'/'.$class->limit}})</h4>
+                    </div>
+                    <div class="modal-body"  style="margin: auto 40px">
+                        <form action="" method="post" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    Chọn file Excel
+                                </label>
+                                <input class="form-control" type="file" name="file_excel" placeholder="click chọn file">
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-sm btn-success" value="Đồng ý" onclick="return confirm('bạn muốn nhập sinh viên từ file')">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

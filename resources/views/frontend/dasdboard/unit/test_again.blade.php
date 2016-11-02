@@ -1,5 +1,4 @@
 @extends('frontend.dasdboard._layout.layout2')
-
 @section('title')
     Kiểm tra - {{Auth::user()->full_name}}
 @endsection

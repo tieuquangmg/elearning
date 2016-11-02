@@ -63,6 +63,7 @@
                                     <div class="pull-right">
                                         <input type="submit" class="btn btn-success btn-sm" value="Lưu điểm">
                                         <a class="btn btn-success btn-sm">Xuất file excel</a>
+                                        <a class="btn btn-success btn-sm">Đồng bộ LMS</a>
                                     </div>
                                 </div>
                                 </tfoot>

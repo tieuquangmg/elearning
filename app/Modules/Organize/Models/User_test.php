@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class User_test extends Model
 {
     protected $table = 'user_test';
-    protected $fillable = ['user_id', 'test_id', 'start_time', 'end_time', 'work_time', 'score'];
+    protected $fillable = ['user_id', 'test_id', 'start_time', 'end_time', 'work_time', 'score','status'];
 
     public function user(){
         return $this->belongsTo(User::class);

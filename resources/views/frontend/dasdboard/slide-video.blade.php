@@ -18,7 +18,7 @@
                                     <i class="fa fa-newspaper-o" aria-hidden="true"></i>{{$unit->name}}
                                 </div>
                                 <div class="pull-right green">
-                                    <a href="{{url('study/sub/'.$class->subject->id)}}"><i class="glyphicon glyphicon-backward"></i> Trở lại</a>
+                                    <a href="{{url('study/sub/'.$class->id)}}"><i class="glyphicon glyphicon-backward"></i> Trở lại</a>
                                 </div>
                             </div>
                         </div>

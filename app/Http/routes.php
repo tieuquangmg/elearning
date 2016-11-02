@@ -1,9 +1,9 @@
 <?php
 
 Route::get('test',function (){
-    //dump(DB::connection('qlsv')->table('SYS_NguoiDung')->get());
-//    config(['database.default' => 'qlsv']);
-//    dump(\App\NguoiDung::all()->take(10));
+  dump(DB::connection('qlsv')->table('SYS_NguoiDung')->get());
+    config(['database.default' => 'qlsv']);
+    dump(\App\NguoiDung::all()->take(10));
 //    dump(\App\Modules\Subject\Models\Subject::all());
 //    dump(Auth::user());
     return phpinfo();
@@ -13,6 +13,7 @@ Route::get('/pusher', function() {
     return "Tin nhan da duoc gui!";
 });
 Route::group(['middleware' => ['web']], function () {
+    Route::get('landing', 'StudyController@getLanding')->name('landing');
     Route::group(['middleware' => 'auth'], function(){
         Route::get('/', 'StudyController@getIndex')->name('home');
     });
@@ -36,6 +37,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('tested/{id}', 'StudyController@getUnitTested')->name('study.tested');
 
         Route::get('transcript/{id}', 'StudyController@getTranscript')->name('study.transcript');
+        Route::get('synthetic-transcripts/{id}', 'StudyController@getSyntheticTranscripts')->name('study.synthetic.transcripts');
 
         Route::get('mycourse','StudyController@getMycourse')->name('study.mycourse');
         Route::get('news/{id}','StudyController@getnews')->name('study.news');

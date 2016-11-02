@@ -52,45 +52,45 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="panel panel-warning">
-                        <div class="panel-heading">
-                            <div class="clearfix">
-                                <div class="pull-left h4">
-                                    Tài liệu
-                                </div>
-                                <div class="pull-right">
-                                    <a class="btn btn-success"  data-toggle="modal" data-target="#documentModal" data-placement="top" title="Thêm bài học"><i class="glyphicon glyphicon-plus"
-                                                                                                                                                              data-toggle="tooltip"
-                                                                                                                                                              data-placement="top"
-                                                                                                                                                              title="Thêm tài liệu"></i>Thêm tài liêu</a>
+            {{--<div class="row">--}}
+                {{--<div class="col-xs-12">--}}
+                    {{--<div class="panel panel-warning">--}}
+                        {{--<div class="panel-heading">--}}
+                            {{--<div class="clearfix">--}}
+                                {{--<div class="pull-left h4">--}}
+                                    {{--Tài liệu--}}
+                                {{--</div>--}}
+                                {{--<div class="pull-right">--}}
+                                    {{--<a class="btn btn-success"  data-toggle="modal" data-target="#documentModal" data-placement="top" title="Thêm bài học"><i class="glyphicon glyphicon-plus"--}}
+                                                                                                                                                              {{--data-toggle="tooltip"--}}
+                                                                                                                                                              {{--data-placement="top"--}}
+                                                                                                                                                              {{--title="Thêm tài liệu"></i>Thêm tài liêu</a>--}}
 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <ul class="list-group">
-                                @if($unit->document)
-                                    @foreach($unit->document as $row)
-                                        <li class="list-group-item">
-                                            {{$row->name}}
-                                            <span class="pull-right">
-                                    <a class="edit_document" data="{{$row->id}}" data-placement="top" title="Cập nhật"
-                                       data-toggle="modal" data-target="#documentModal"><i class="glyphicon glyphicon-edit"></i></a>
-                                    <a href="{{route('document.delete', $row->id)}}" data-toggle="tooltip"
-                                       data-placement="top" title="Xóa" class="delete_document" data="{{$row->id}}"
-                                       onclick="confirm('Bạn muốn xóa tài liệu này')"><i class="glyphicon glyphicon-trash "></i></a>
-                                    </span>
-                                        </li>
-                                    @endforeach
-                                @endif
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="panel-body">--}}
+                            {{--<ul class="list-group">--}}
+                                {{--@if($unit->document)--}}
+                                    {{--@foreach($unit->document as $row)--}}
+                                        {{--<li class="list-group-item">--}}
+                                            {{--{{$row->name}}--}}
+                                            {{--<span class="pull-right">--}}
+                                    {{--<a class="edit_document" data="{{$row->id}}" data-placement="top" title="Cập nhật"--}}
+                                       {{--data-toggle="modal" data-target="#documentModal"><i class="glyphicon glyphicon-edit"></i></a>--}}
+                                    {{--<a href="{{route('document.delete', $row->id)}}" data-toggle="tooltip"--}}
+                                       {{--data-placement="top" title="Xóa" class="delete_document" data="{{$row->id}}"--}}
+                                       {{--onclick="confirm('Bạn muốn xóa tài liệu này')"><i class="glyphicon glyphicon-trash "></i></a>--}}
+                                    {{--</span>--}}
+                                        {{--</li>--}}
+                                    {{--@endforeach--}}
+                                {{--@endif--}}
 
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            {{--</ul>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
             <div class="row">
                 <div class="col-xs-12">
                     <div class="panel panel-info">
@@ -137,16 +137,15 @@
                                 <div class="pull-right">
                                     <a class="btn btn-success" href="{{route('meeting.add', $unit->id)}}" data-toggle="tooltip" data-placement="top" title="Thêm Lớp học trực tuyến">
                                         <i class="glyphicon glyphicon-plus"></i>Thêm</a>
-
                                 </div>
                             </div>
                         </div>
                         <div class="panel-body">
                             <ul class="list-group">
-                                @if($unit->meeting)
+                                @if($unit->meeting != null && $unit->meeting != '')
                                         <li class="list-group-item">
                                             {{--{{dd($row)}}--}}
-                                            {{--{{$row->name}}--}}
+                                            {{$row->name}}
                                             <span class="pull-right">
                                     <a href="{{route('meeting.edit', $unit->meeting->id)}}" data-toggle="tooltip"
                                        data-placement="top" title="Cập nhật"><i class="glyphicon glyphicon-edit"></i></a>

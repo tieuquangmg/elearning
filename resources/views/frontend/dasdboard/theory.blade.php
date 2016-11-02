@@ -236,6 +236,7 @@
 //                }
                 });
             }
+            update_time({{$watch_time}});
             var timer = 0;
             var checkTime = setInterval( function() {
                 timer = timer + 60000;
@@ -275,7 +276,6 @@
             {{--return false;--}}
         {{--});--}}
     {{--</script>--}}
-
     <script type="text/javascript">
     </script>
     <script>

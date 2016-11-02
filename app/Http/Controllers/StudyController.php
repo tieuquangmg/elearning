@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Middleware\EncryptCookies;
 use App\Modules\Media\Models\News_category;
+use App\Modules\Organize\Models\Score;
+use App\Modules\Organize\Models\Unit_class;
 use App\Modules\Organize\Models\User_test;
 use App\Modules\Subject\Models\Class_meeting;
 use App\Modules\Subject\Models\Comment;
@@ -39,6 +41,7 @@ use Intervention\Image\Facades\Image;
 use Session;
 use Response;
 use DB;
+use Crypt;
 
 class StudyController extends Controller
 {
@@ -49,31 +52,20 @@ class StudyController extends Controller
         parent::__construct();
         $this->input = Input::all();
     }
+
     public function getIndex()
     {
         $data['classes'] = User::find(Auth::user()->id)->classes;
         $data['news'] = News::take(10)->get();
-//        $bbb = new BigBlueButton();
-
-//        $createMeetingParams = new CreateMeetingParameters('mathn01','Toán cao cấp n01');
-//        dump($bbb->getCreateMeetingUrl($createMeetingParams));
-
-        # bat dau lop hoc
-//        $response  = $bbb->createMeeting($createMeetingParams);
-//        dump($response);
-
-        # lay thong tin lop hoc
-//        $infoparams = new GetMeetingInfoParameters('mathn01','JLJbiDDG');
-//        $info = $bbb->getMeetingInfo($infoparams);
-//        $id = $info->getMeetingInfo();
-//        dump($id->getMeetingId());
-
-        #ket thuc lop hoc
-//        $endparams = new EndMeetingParameters('mathn011','j6WvLYDe');
-//        $res = $bbb->endMeeting($endparams);
-//        dump($res);
-
+//        if (!isset($_COOKIE['firsttime'])) {
+//            setcookie("firsttime", "no");
+//            header('Location:' . route('landing'));
+//            exit();
+//        }
         return view('frontend.dasdboard.index', $data);
+    }
+    public function getLanding(){
+        return view('frontend.dasdboard.landing');
     }
     public function getSubject($id)
     {
@@ -104,11 +96,17 @@ class StudyController extends Controller
 //            ->whereDoesntHave('unit_test',function ($b){
 //                $b->where('user_id',Auth::user()->id);
 //            })
-            ->whereDoesntHave('unit_test', function ($b) {
-                $b->where('user_id', Auth::user()->id);
+//            ->whereDoesntHave('unit_test', function ($b) {
+//                $b->where('user_id', Auth::user()->id);
+//            })
+            ->whereDoesntHave('test', function ($b) {
+                $b->whereHas('user_test', function ($c){
+                    $c->where('user_id',Auth::user()->id);
+                });
             })
             ->get();
-        if ($exists1->isEmpty()) {
+        dd($exists);
+        if ($exists1->isEmpty()){
             $data['permission'] = true;
         } else {
             if ($exists->isEmpty()) {
@@ -128,7 +126,37 @@ class StudyController extends Controller
         $data['class'] = Classes::find($class_id);
         $data['unit'] = Unit::with('theory')
             ->find($id);
-        $data['permission'] = true;
+        $exists1 = Unit::where('position', '<', $data['unit']->position)->get();
+        $exists = Unit::where('position', '<', $data['unit']->position)->where('subject_id', $data['unit']->subject_id)
+//            ->WhereHas('theory',function ($query){
+//                $query->whereHas('user_theory',function($e){
+//                    $e->where('watch_time','<>','0')
+//                    ->where('user_id',Auth::user()->id)
+//                    ;
+//                });
+//            })
+//            ->whereDoesntHave('unit_test',function ($b){
+//                $b->where('user_id',Auth::user()->id);
+//            })
+//            ->whereDoesntHave('unit_test', function ($b) {
+//                $b->where('user_id', Auth::user()->id);
+//            })
+            ->whereHas('test', function ($b) {
+                $b->whereDoesntHave('user_test', function ($c){
+                    $c->where('user_id',Auth::user()->id);
+                });
+            })
+            ->get();
+        if ($exists1->isEmpty()){
+            $data['permission'] = true;
+        } else {
+            if ($exists->isEmpty()){
+                $data['permission'] = true;
+            } else {
+                $data['permission'] = false;
+            }
+        }
+//        $data['permission'] = true;
         return view('frontend.dasdboard.unit_theory', $data);
     }
     public function getSlideVideo($id, $class_id)
@@ -154,11 +182,13 @@ class StudyController extends Controller
         Session::put('url_back','study/begin_test'.'/'.$id.'/'.$unit_id.'/'.$class_id);
         $data['class'] = Classes::find($class_id);
         $data['unit'] = Unit::find($unit_id);
+
         $data['test'] = Test::with(['user_test' => function ($q) {
             $q->where('user_id', Auth::user()->id);
         }])
             ->where('unit_id',$unit_id)
-            ->find($id)->first();
+            ->find($id);
+        $data['user_test'] = User_test::where('test_id',$id)->where('user_id',Auth::user()->id)->get();
         return view('frontend.dasdboard.unit.begin_test', $data);
     }
     public function getUnitTest($id)
@@ -168,7 +198,7 @@ class StudyController extends Controller
                 $q->where('user_id', Auth::user()->id)
                     ->with('user');
             }])->find($id);
-            if (count($data['user_test']->user_test) == 1) {
+            if (count($data['user_test']->user_test) >= 1) {
                 $data['unit_test'] = $data['user_test']->user_test->first();
                 $data['unit_test_detail'] = $data['unit_test']->user_test_detail;
                 $data['length'] = count($data['unit_test_detail']);
@@ -176,8 +206,8 @@ class StudyController extends Controller
                     return view('frontend.dasdboard.unit.test_again', $data);
                 } else {
                     session()->flash('success', 'Bạn làm lại bài này, điểm của bạn là' . $data['user_test']->user_test->first()->score);
-//                return redirect()->route('study.tested',$id);
-                    return view('frontend.dasdboard.unit.result_test', $data);
+                return redirect()->route('study.tested',$id);
+//                    return view('frontend.dasdboard.unit.result_test', $data);
                 }
             } else {
                 $data['test'] = QuestionBank::paginate($data['user_test']->number_question);
@@ -233,23 +263,25 @@ class StudyController extends Controller
                 if ($count == 1) $correct++;
             }
         }
-        if ($unit_test_id->created_at == $unit_test_id->updated_at) {
-            User_test::where('id', $this->input['unit_test_id'])->update(['score' => $correct, 'status' => 1]);
+        if ($unit_test_id->status != 1) {
+            User_test::where('id', $this->input['unit_test_id'])->update(['score' => $correct, 'status' => 1,'end_time'=>Carbon::now()]);
             session()->flash('success', 'Điểm số của bạn là ' . $correct);
         } else {
+            User_test::create(['user_id'=>Auth::user()->id,'test_id'=>$unit_test_id->test_id,'end_time'=>Carbon::now(),'score'=>$correct,'status'=>1]);
             session()->flash('success', 'Bạn làm lại bài này, điểm của bạn là ' . $correct);
         }
         $unit_id = Test::find($unit_test_id->test->id)->unit_id;
         $data['unit'] = Unit::find($unit_id);
+        $data['correct'] = $correct;
         return view('frontend.dasdboard.unit.result_test', $data);
 //        return redirect()->back();
     }
     // làm lại bài kiểm tra
-    public function getUnitTested($id)
+    public function getUnitTested($test_id)
     {
         $data['user_test'] = Test::with(['user_test' => function ($q) {
             $q->where('user_id', Auth::user()->id);
-        }])->find($id);
+        }])->find($test_id);
         $data['unit_test'] = $data['user_test']->user_test->first();
         $data['unit_test_detail'] = $data['unit_test']->user_test_detail;
         $data['length'] = count($data['unit_test_detail']);
@@ -365,6 +397,10 @@ class StudyController extends Controller
         }
         return view('frontend.dasdboard.transcript')->with('data', $data);
     }
+    public function getSyntheticTranscripts(){
+        $data['scrore'] = Score::where('user_id',Auth::user()->id)->get();
+        return view('frontend.dasdboard.diem_tong_hop',$data);
+    }
     public function getMycourse()
     {
         if (Auth::user()->hasRole(['student'])){
@@ -373,25 +409,39 @@ class StudyController extends Controller
         if (Auth::user()->hasRole(['teacher'])){
             $data['classes'] = Classes::where('user_id', Auth::user()->id)->get();
         }
+
         $class_ids = $data['classes']->lists('id');
         foreach ($class_ids as $key=>$value){
-            $quang['dang-nhap'][$key] = Classes::find($value)->subject->unit->lists('id');
-            $dfdf = User_unit::whereIn('unit_id',$quang['dang-nhap'][$key])->where('user_id',Auth::user()->id)->get();
-            dd($dfdf);
+            $fhgjhg[$key]['class'] = Classes::find($value);
+            $unit_id = Unit_class::where('class_id',$value)
+                ->where('start_time','<',Carbon::now())
+            ->where('end_time','>',Carbon::now())
+            ->first()
+            ;
+            if($unit_id != null){ //khi them lop se insert vao bang
+                $unit_id = $unit_id->unit_id;
+            }
+            $fhgjhg[$key]['user-unit'] = User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->first();
+            //lay so lan lam bai kiem tra
+            $fhgjhg[$key]['test']['total'] = count(Test::where('unit_id',$unit_id)->get());
+            $fhgjhg[$key]['test']['tested'] = Test::where('unit_id',$unit_id)->whereHas('user_test',function ($query){
+                $query->where('user_id',Auth::user()->id)
+                        ->where('status',1)
+                ;
+            })
+            ->get()
+            ;
         }
-        dd($quang);
-
-        $test = DB::table('classes')
-            ->join('units','units.subject_id','=','classes.subject_id')
-            ->join('user_unit','user_unit.unit_id','=','units.id')
-            ->join('users','users.id','=','user_unit.user_id')
-            ->join('tests','tests.unit_id','=','units.id')
-            ->where('user_unit.user_id','=',2)
-            ->get();
-        $data['user_unit'] = collect($test);
+//        $test = DB::table('classes')
+//            ->join('units','units.subject_id','=','classes.subject_id')
+//            ->join('user_unit','user_unit.unit_id','=','units.id')
+//            ->join('users','users.id','=','user_unit.user_id')
+//            ->join('tests','tests.unit_id','=','units.id')
+//            ->where('user_unit.user_id','=',2)
+//            ->get();
+        $data['user_unit'] = collect($fhgjhg);
         $data['standings'] = User::take(6)->get();
         $data['feature'] = Classes::all()->random(7);
-        dd($data);
         return view('frontend.dasdboard.course.list', $data);
     }
     public function getNews($id)
@@ -420,11 +470,18 @@ class StudyController extends Controller
     public function postProfile(Request $request)
     {
         $input = $request->all();
-        $avatar = $request->file('image');
-        $name = $avatar->getClientOriginalName();
+        if($request->get('password') == ''){
+            unset($input['password']);
+        }else{
+            $input['password'] =  bcrypt($request->get('password'));
+        }
+        if($request->hasFile('image')){
+            $avatar = $request->file('image');
+            $name = $avatar->getClientOriginalName();
 //        $type = $avatar->getMimeType();
-        Image::make($avatar)->fit(100)->save('images/people/' . $name);
-        $input['image'] = 'images/people/' . $name;
+            Image::make($avatar)->fit(100)->save('images/people/' . $name);
+            $input['image'] = 'images/people/' . $name;
+        }
         User::find(Auth::user()->id)->update($input);
         return redirect()->route('study.profile');
     }
@@ -486,19 +543,20 @@ class StudyController extends Controller
 //                        $data['class'] = $class;
                        return redirect($url);
                     } else {
-                        $data['meeting'] = Meeting::find($meeting->id)->with('class_meeting_time')->get();
+                        $data['meeting'] = Meeting::find($meeting->id)->with('class_meeting_time')->first();
                         $data['running'] = false;
                         $data['getJoinMeetingURL'] = '';
                         $data['class'] = $class;
                     }
             } else {
-                    $data['meeting'] = Meeting::find($meeting->id)->with('class_meeting_time')->get();
+                    $data['meeting'] = Meeting::find($meeting->id)->with('class_meeting_time')->first();
                     $data['running'] = false;
                     $data['getJoinMeetingURL'] = '';
                     $data['class'] = $class;
             }
         }
         $data['unit'] = Unit::find($unit_id);
+//        dd($data);
         return view('frontend.dasdboard.meeting', $data);
     }
     public function postMeeting()

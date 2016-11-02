@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UnitTestDetail extends Model
 {
+    protected $table = 'unit_test_details';
     protected $fillable = ['unit_test_id', 'question_bank_id', 'answer', 'reply'];
     public function unit_test(){
         return $this->belongsTo(UnitTest::class);

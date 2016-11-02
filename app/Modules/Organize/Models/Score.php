@@ -8,4 +8,7 @@ class Score extends Model
     public $fillable = [
         "user_id", "class_id", "chuyencan", "kiemtra", "thi","total"
     ];
+    public function lophoc(){
+        return $this->hasMany(Classes::class,'class_id');
+    }
 }

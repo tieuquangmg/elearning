@@ -341,7 +341,7 @@
                                                                     class="Apple-converted-space"> <b>{{$class->subject->name}}</b></span></span><b
                                                                 style="box-sizing: border-box; font-weight: 700; color: rgb(51, 51, 51); font-family: helvetica,arial,sans-serif; font-size: 15px; font-style: normal; font-variant: normal; letter-spacing: normal; line-height: 37.5px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px;">
                                                             - {{$class->code}}</b><span
-                                                                style="color: rgb(51, 51, 51); font-family: helvetica,arial,sans-serif; font-size: 15px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 37.5px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; display: inline ! important; float: none;">trực tuyến của các lớp<span
+                                                                style="color: rgb(51, 51, 51); font-family: helvetica,arial,sans-serif; font-size: 15px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 37.5px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; display: inline ! important; float: none;"> trực tuyến của các lớp<span
                                                                     class="Apple-converted-space"> </span></span><span
                                                                 style="color: rgb(51, 51, 51); font-family: helvetica,arial,sans-serif; font-size: 15px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 37.5px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; display: inline ! important; float: none;"> ngành<span
                                                                     class="Apple-converted-space"><b>Công nghệ thông tin.</b></span></span><b></b>
@@ -554,7 +554,7 @@
                                                                                                         hspace="0"
                                                                                                         height="60"
                                                                                                         border="0"
-                                                                                                        src="{{asset('dashboard/images')}}/H2472.png"
+                                                                                                        src="{{asset('dashboard/images')}}/H24H.png"
                                                                                                         alt="h2472"
                                                                                                         title="h2472"></a>
                                                                             </td>
@@ -720,14 +720,13 @@
         <div id="stick_right_icon">
             <ul class="tpc-icon">
                 <li class="button-wrap">
-                    <div class="text-bg"><a href="#" target="_blank">H2472</a>
+                    <div class="text-bg"><a href="#" target="_blank">Hỏi đáp</a>
                     </div>
                     <div class="icon-bg btn-success"><i class="fa fa-bell fa-2x"></i>0</div>
                     <div class="clear-both"></div>
                 </li>
                 <li class="button-wrap">
-                    <div class="text-bg"><a href="#" target="_blank">Diễn
-                            đàn</a></div>
+                    <div class="text-bg"><a href="#" target="_blank">Diễn đàn</a></div>
                     <div class="icon-bg btn-warning"><i class="fa fa-comments fa-2x"></i>1/3</div>
                     <div class="clear-both"></div>
                 </li>
@@ -737,13 +736,6 @@
                     <div class="icon-bg btn-success"><i class="fa fa-graduation-cap fa-2x"></i>25/3</div>
                     <div class="clear-both"></div>
                 </li>
-                <li class="button-wrap">
-                    <div class="text-bg"><a href="#"
-                                            target="_blank">TIM</a></div>
-                    <div class="icon-bg btn-success"><i class="fa fa-heart fa-2x"></i>1/1</div>
-                    <div class="clear-both"></div>
-                </li>
-
                 <li class="button-wrap" data-toggle="modal" data-target="#myModal2">
                     <div class="text-bg">Chi tiết</div>
                     <div class="icon-bg-small btn-info"><i class="fa fa-plus fa-2x"></i></div>
@@ -834,9 +826,6 @@
                                             <li><strong>Đăng nhập lớp:</strong> Số lần đăng nhập lớp học/số yêu cầu
                                                 trong tuần. Mục đích đăng nhập: theo dõi tình hình học tập của SV trong
                                                 lớp. Mỗi tuần, các thầy/cô đăng nhập tối thiểu 3 lần.
-                                            </li>
-                                            <li><strong>TIM:</strong> Phản hồi về nhận xét, định hướng của GVCM hệ thống
-                                                TIM. Định mức là 1 lần/tuần
                                             </li>
                                         </ul>
                                         <span class="label label-success">GV đã hoàn thành công việc theo định mức</span><br>

@@ -24,6 +24,7 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+        protected $username = 'code';
     /**
      * Create a new authentication controller instance.
      *
@@ -44,6 +45,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
+            'code' => 'required|max:12|unique:users',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
             'g-recaptcha-response' => 'required|recaptcha',
@@ -59,6 +61,7 @@ class AuthController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'code' => $data['code'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);

@@ -35,7 +35,7 @@
                             </tr>
                             <tr>
                                 <td>Điểm:</td>
-                                <td>{{$user_test->user_test->first()->score}}</td>
+                                <td>{{$correct}}</td>
                             </tr>
                             <tr>
                                 <td>Thời gian làm bài:</td>

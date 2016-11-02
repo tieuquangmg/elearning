@@ -19,8 +19,10 @@
                                 Danh sách lớp
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-danger" id="delete"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Xóa"></span> {{trans('button.delete')}}</a>
-                                <a class="btn btn-primary" data-toggle="modal" data-target="#add_class"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="top" title="Thêm"></span> {{trans('button.add')}}</a>
+                                <a class="btn btn-danger btn-xs" id="delete"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Xóa"></span> {{trans('button.delete')}}</a>
+                                <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add_class"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="top" title="Thêm"></span> {{trans('button.add')}}</a>
+                                <a class="btn btn-success btn-xs"><i class="glyphicon glyphicon-import"></i>Nhập excel</a>
+                                <a class="btn btn-success btn-xs"><i class="glyphicon glyphicon-check"></i>Đồng bộ</a>
                             </div>
                         </div>
                     </div>

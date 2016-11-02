@@ -8,6 +8,8 @@ use Config;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SubjectController extends BaseController
 {
@@ -20,7 +22,6 @@ class SubjectController extends BaseController
         $this->repository = $repository;
         $this->input = Input::all();
     }
-
     public function getData(Request $request)
     {
         $url = $request->url();
@@ -30,8 +31,6 @@ class SubjectController extends BaseController
         $data = $this->repository->data('name', $value, $perpage,$url);
         return view($this->prefix.'data')->with(['subjects'=> $data, 'prefix'=>$this->prefix]);
     }
-
-
     public function getAdd(){
         return view($this->prefix.'create');
     }
@@ -119,5 +118,30 @@ class SubjectController extends BaseController
         session(['success'=>'cập nhật thành công']);
         return redirect()->route('subject.sync');
     }
-
+    public function postImport(){
+        $file = Excel::load($this->input['subject_excel'],function ($reader){
+            foreach ($reader->toArray() as $row) {
+                foreach ($this->input['opt'] as $key=>$value){
+                    $row1[$key] = $row[$value];
+                }
+                Subject::firstOrCreate($row1);
+            }
+        })
+        ->get()
+        ;
+        Session::flash('success', 'Nhập môn học thành công');
+        return redirect()->route('subject.data');
+    }
+    public function postCheck()
+    {
+        $file = Excel::load($this->input['file'], function ($reader) {
+            $reader->each(function ($sheet) {
+                $sheet->each(function ($row) {
+//
+                });
+            });
+        })
+            ->get();
+        return $file->first()->keys();
+    }
 }

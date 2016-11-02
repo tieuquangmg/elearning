@@ -389,7 +389,7 @@
                             </h3>
                             </div>
                             <div class="pull-right">
-                                <a href="#"><i class="glyphicon glyphicon-backward"></i> Trở lại</a>
+                                <a href="{{route('study.subject',$class->id)}}"><i class="glyphicon glyphicon-backward"></i> Trở lại</a>
                             </div>
                         </div>
                             <div class="panel">
@@ -425,6 +425,7 @@
                                             </td>
                                         </tr>
                                         @if($test->user_test->isEmpty())
+
                                             <tr>
                                                 <td colspan="2" style="text-align:center;">
                                                     <div>
@@ -440,7 +441,9 @@
                                                     </h3>
                                                 </td>
                                             </tr>
-                                            @else                                        <tr>
+                                            @else
+
+                                            <tr>
                                             <td colspan="2" style="text-align: center">
                                                 <p align="center" style="text-transform: uppercase;font-weight: 800">
                                                     Thông tin các lần làm trước đây
@@ -454,35 +457,22 @@
                                                     <tr>
                                                         <th>Lần làm bài</th>
                                                         <th>Được hoàn thành</th>
-                                                        <th>Số câu đúng</th>
+                                                        <th>Thời gian làm bài</th>
                                                         <th>Điểm /10</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>2016-09-01 01:34:56</td>
-                                                        <td>15/20</td>
-                                                        <td>7,5/10</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>2016-09-01 01:34:56</td>
-                                                        <td>15/20</td>
-                                                        <td>7,5/10</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>2016-09-01 01:34:56</td>
-                                                        <td>15/20</td>
-                                                        <td>7,5/10</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td>2016-09-01 01:34:56</td>
-                                                        <td>15/20</td>
-                                                        <td>7,5/10</td>
-                                                    </tr>
+                                                    <?php
+                                                    $i = 0 ?>
+                                                    @foreach($user_test as $row)
+                                                        <?php $i++ ?>
+                                                        <tr>
+                                                            <td>{{$i}}</td>
+                                                            <td>{{$row->end_time}}</td>
+                                                            <td>{{round($row->work_time/60)}} phút</td>
+                                                            <td>{{round($row->score,2)}}/10</td>
+                                                        </tr>
+                                                    @endforeach
                                                     </tbody>
                                                 </table>
 
@@ -491,7 +481,7 @@
                                         <tr style="text-align:center">
                                             <td colspan="2">
                                                 <h3>
-                                                    <b> lần cao nhất : 10</b>
+                                                    {{--<b> lần cao nhất : 10</b>--}}
                                                 </h3>
                                             </td>
                                         </tr>

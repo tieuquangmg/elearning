@@ -1,4 +1,8 @@
-
+#main-menu{
+    background: white;
+    width: 100%;
+    max-width: 100%;
+}
 .notificationicon {
     height: 44px;
     position: absolute;
