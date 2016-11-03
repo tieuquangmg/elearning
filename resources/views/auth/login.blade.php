@@ -25,7 +25,7 @@
                         <div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Mã sinh viên</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="code" value="{{ old('code') }}">
+                                <input type="text" class="form-control" name="code" value="{{ old('code')}}" placeholder="hocsinh">
                                 @if ($errors->has('code'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('code') }}</strong>
@@ -38,7 +38,7 @@
                             <label class="col-md-4 control-label">Mật khẩu</label>
 
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="password">
+                                <input value="123456" type="password" class="form-control" name="password" placeholder="123456">
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">

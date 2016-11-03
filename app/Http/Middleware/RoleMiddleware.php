@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class RoleMiddleware
 {
@@ -15,10 +16,10 @@ class RoleMiddleware
      */
     public function handle($request, Closure $next, $role)
     {
-//        if (! $request->user()->hasRole($role)) {
-//            dd($request->user()->hasRole($role));
-//        }
-
-        return $next($request);
+        if (Auth::user()->hasRole($role)){
+            return $next($request);
+        } else {
+            return response()->view('errors.401');
+        }
     }
 }

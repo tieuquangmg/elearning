@@ -206,6 +206,7 @@ class ClassRepositoryEloquent implements ClassRepository
     }
     public function score($id){
         $data['score'] = Score::where('class_id',$id)->get();
+        $data['class_id'] = $id;
         return $data;
     }
     public function updatescore($input){

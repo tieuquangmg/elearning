@@ -9,6 +9,14 @@
                 <li><a href="{{route('admin')}}">Chi tiết</a></li>
                 <li><a >kết quả kiểm tra</a></li>
             </ol>
+            <div class="sort_navy" data-itemhldr="li" data-statectn="paixu" k-name="stat-area">
+                <span>Xem điểm：</span>
+                <ul>
+                    <li><a style="" href="{{route('class.attendance', $class_id)}}" data-order="">Điểm chuyên cần</a></li>
+                    <li><a style="" href="{{route('class.test', $class_id)}}" data-order="">Điểm thi</a></li>
+                    <li><a style="" href="{{route('class.score',$class_id)}}" data-order="">Điểm tổng kết</a></li>
+                </ul>
+            </div>
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="clearfix">
@@ -157,6 +165,15 @@
     </script>
     <script>
         var url_delete = '{{route('class.delete')}}';
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("[href]").each(function() {
+                if (this.href == window.location.href) {
+                    $(this).addClass("active");
+                }
+            });
+        });
     </script>
     <script src="{{asset('')}}build/style/js/check_all.js"></script>
     <script src="{{asset('')}}build/style/js/delete_page.js"></script>

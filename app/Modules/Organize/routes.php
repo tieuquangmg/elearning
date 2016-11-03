@@ -16,6 +16,8 @@ Route::group(['middleware'=>['web', 'auth']], function() {
            'getAttendance' => 'class.attendance',
            'getScore' => 'class.score',
            'getUpdateTest' => 'class.updatetest',
-           'getUpdateScore' => 'class.updateattendance'
+           'getUpdateScore' => 'class.updatescore',
+           'postUpdateAttendance' => 'class.updateattendance'
+
        ]);
    });

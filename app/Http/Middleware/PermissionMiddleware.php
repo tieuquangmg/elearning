@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class PermissionMiddleware
 {
@@ -13,8 +14,12 @@ class PermissionMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next,$permission)
     {
-        return $next($request);
+        if (Auth::user()->can($permission)){
+            return $next($request);
+        } else {
+            return response()->view('errors.401');
+        }
     }
 }

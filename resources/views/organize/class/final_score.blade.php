@@ -9,6 +9,14 @@
                 <li><a href="{{route('admin')}}">Chi tiết</a></li>
                 <li><a>Kết quả học tập</a></li>
             </ol>
+            <div class="sort_navy" data-itemhldr="li" data-statectn="paixu" k-name="stat-area">
+                <span>Xem điểm：</span>
+                <ul>
+                    <li><a style="" href="{{route('class.attendance', $class_id)}}" data-order="">Điểm chuyên cần</a></li>
+                    <li><a style="" href="{{route('class.test', $class_id)}}" data-order="">Điểm thi</a></li>
+                    <li><a style="" href="{{route('class.score',$class_id)}}" data-order="">Điểm tổng kết</a></li>
+                </ul>
+            </div>
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="clearfix">
@@ -101,7 +109,7 @@
             console.log($(this).serializeArray());
             $.ajax({
                 type:"GET",
-                url:'{{route('class.updateattendance')}}',
+                url:'{{route('class.updatescore')}}',
                 data:$(this).serialize(),
                 dataType: 'json',
                 beforeSend: function () {
@@ -109,7 +117,7 @@
                 },
                 success: function(data){
                     $('.loading').hide();
-                    Msg.show(data['message'], 'success', 3000);
+                    Msg.show(data['message'],'success', 3000);
                 },
                 error: function(data){
                     Msg.show('Thất bại', 'danger', 3000);
@@ -153,6 +161,15 @@
     </script>
     <script>
         var url_delete = '{{route('class.delete')}}';
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("[href]").each(function() {
+                if (this.href == window.location.href) {
+                    $(this).addClass("active");
+                }
+            });
+        });
     </script>
     <script src="{{asset('')}}build/style/js/check_all.js"></script>
     <script src="{{asset('')}}build/style/js/delete_page.js"></script>

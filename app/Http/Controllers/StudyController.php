@@ -57,11 +57,6 @@ class StudyController extends Controller
     {
         $data['classes'] = User::find(Auth::user()->id)->classes;
         $data['news'] = News::take(10)->get();
-//        if (!isset($_COOKIE['firsttime'])) {
-//            setcookie("firsttime", "no");
-//            header('Location:' . route('landing'));
-//            exit();
-//        }
         return view('frontend.dasdboard.index', $data);
     }
     public function getLanding(){
@@ -385,6 +380,7 @@ class StudyController extends Controller
 //}
     public function getTranscript($id)
     {
+        dump(Auth::user()->roles);
         $class_id = User::find($id)->classes->lists('id');
         $subject_ids = Classes::whereIn('id', $class_id)->lists('subject_id');
         $subject = Subject::whereIn('id', $subject_ids)->get();

@@ -12,20 +12,20 @@ Route::get('/pusher', function() {
     event(new \App\Events\HelloPusherEvent('Phan van quang!'));
     return "Tin nhan da duoc gui!";
 });
-Route::group(['middleware' => ['web']], function () {
-    Route::get('landing', 'StudyController@getLanding')->name('landing');
-    Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => ['web','landing']], function () {
+    Route::get('gioi-thieu', 'StudyController@getLanding')->name('landing');
+    Route::group(['middleware' =>'auth'], function(){
         Route::get('/', 'StudyController@getIndex')->name('home');
     });
 //    'middleware' => ['role:student|teacher'],
-    Route::group(['prefix'=>'study'], function (){
+    Route::group(['prefix'=>'study', 'middleware' => ['role:student,administrator']], function (){
         Route::get('sub/{id}', 'StudyController@getSubject')->name('study.subject');
         Route::get('unit/theory/{id}/{class_id}', 'StudyController@getUnitTheory')->name('study.unittheory');
         Route::get('unit/slide-video/{id}/{class_id}', 'StudyController@getSlideVideo')->name('study.slidevideo');
         Route::get('unit/audio/{id}/{class_id}', 'StudyController@getAudio')->name('study.audio');
-//Hỏi đáp////////////////////////////////////////
+//Hỏi đáp ////////////////////////////////////////
         Route::get('unit/add_question/{id}/{class_id}', 'StudyController@getAddQuestion')->name('study.addquestion');
-//Kiểm tra///////////////////////////////////////
+//Kiểm tra ///////////////////////////////////////
         Route::get('begin_test/{id}/{unit_id}/{class_id}', 'StudyController@getBeginTest')->name('study.begintest');
         Route::get('unit-test/{id}', 'StudyController@getUnitTest')->name('study.unit.test');
         Route::post('unit-tested', 'StudyController@postUnitTested')->name('study.unit.tested');
