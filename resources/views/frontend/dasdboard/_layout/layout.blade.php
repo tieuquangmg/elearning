@@ -14,9 +14,8 @@
     <link href="{{asset('')}}dashboard/customs/style_kienpnt.css" rel="stylesheet" />
     <link href="{{asset('')}}dashboard/customs/quang.css" rel="stylesheet" />
     <link href="{{asset('')}}dashboard/css/nav_bar.css" rel="stylesheet" />
-    <link href="{{asset('')}}dashboard/css/nav_bar.css" rel="stylesheet" />
     <link href="{{asset('')}}dashboard/css/lobibox.min.css" rel="stylesheet" />
-        @yield('head')
+    @yield('head')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
   WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!-- If you don't need support for Internet Explorer <= 8 you can safely remove these -->
@@ -82,67 +81,13 @@
         }
     };
 </script>
-<!-- Vendor Scripts Bundle
-  Includes all of the 3rd party JavaScript libraries above.
-  The bundle was generated using modern frontend development tools that are provided with the package
-  To learn more about the development process, please refer to the documentation.
-  Do not use it simultaneously with the separate bundles above. -->
-{{--<script src="{{asset('')}}dashboard/js/vendor/all.js"></script>--}}
-
-<!-- Vendor Scripts Standalone Libraries -->
-{{--<script src="{{asset('dashboard/js/vendor/core/all.js')}}"></script>--}}
 <script src="{{asset('dashboard/js/vendor/core/jquery.js')}}"></script>
 <script src="{{asset('dashboard/js/vendor/core/bootstrap.js')}}"></script>
-{{--<script src="{{asset('')}}dashboard/js/vendor/core/breakpoints.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/core/jquery.nicescroll.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/core/isotope.pkgd.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/core/packery-mode.pkgd.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/core/jquery.grid-a-licious.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/core/jquery.cookie.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/core/jquery-ui.custom.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/core/jquery.hotkeys.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/core/handlebars.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/core/jquery.hotkeys.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/core/load_image.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/core/jquery.debouncedresize.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/core/modernizr.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/core/velocity.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/tables/all.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/forms/all.js"></script>--}}
+
 <script src="{{asset('')}}dashboard/js/vendor/media/slick.js"></script>
-{{--<script src="{{asset('')}}dashboard/js/vendor/charts/flot/all.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/nestable/jquery.nestable.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/countdown/all.js"></script>--}}
-{{--<script src="{{asset('')}}dashboard/js/vendor/angular/all.js"></script>--}}
 
-<!-- App Scripts Bundle
-  Includes Custom Application JavaScript used for the current theme/module;
-  Do not use it simultaneously with the standalone modules below. -->
-{{--<script src="{{asset('')}}dashboard/js/app/app.js"></script>--}}
-
-<!-- App Scripts Standalone Modules
-  As a convenience, we provide the entire UI framework broke down in separate modules
-  Some of the standalone modules may have not been used with the current theme/module
-  but ALL the modules are 100% compatible -->
-
-<!-- <script src="js/app/essentials.js"></script> -->
-<!-- <script src="js/app/material.js"></script> -->
-<!-- <script src="js/app/layout.js"></script> -->
-<!-- <script src="js/app/sidebar.js"></script> -->
-<!-- <script src="js/app/media.js"></script> -->
-<!-- <script src="js/app/messages.js"></script> -->
-<!-- <script src="js/app/maps.js"></script> -->
-<!-- <script src="js/app/charts.js"></script> -->
-
-<!-- App Scripts CORE [html]:
-      Includes the custom JavaScript for this theme/module;
-      The file has to be loaded in addition to the UI modules above;
-      app.js already includes main.js so this should be loaded
-      ONLY when using the standalone modules; -->
-<!-- <script src="js/app/main.js"></script> -->
-
-{{--menu top--}}
-<script src="{{asset('dashboard/js/pusher.min.js')}}"></script>
+<script src="{{asset('dashboard/js/socket.io-1.4.5.js')}}"></script>
+{{--<script src="{{asset('dashboard/js/pusher.min.js')}}"></script>--}}
 <script src="{{asset('dashboard/js/notifications.min.js')}}"></script>
 <script>
     function show_notify(title,msg,img) {
@@ -166,10 +111,10 @@
             '<img src="http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg" class="notifimage">' +
             '</div>' +
             '<div class="messageblock">' +
-            '<div class="message"><strong>'+data.message.name+'</strong>'+data.message.content+
+            '<div class="message"><strong>'+data.name+'</strong>'+data.content+
             '</div>' +
             '<div class="messageinfo">' +
-            '<i class="icon-comment"></i>'+data.message.created_at +
+            '<i class="icon-comment"></i>'+data.created_at +
             '</div>' +
             '</div>' +
             '</a>' +
@@ -178,42 +123,58 @@
     }
 </script>
 <script>
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-
-    var pusher = new Pusher('c421ca21aa9a393ebfec', {
-        cluster: 'ap1',
-        encrypted: true
+    var socket = io(':6002'),
+            channel = 'classes_1';
+    socket.on('connect', function () {
+        socket.emit('subscribe', channel);
     });
-    var channel = pusher.subscribe('classes_1');
-    channel.bind('pusher:subscription_succeeded', function() {
-        console.log('ket noi thanh cong');
+    socket.on('error', function (error) {
+        console.warn('Error', error);
     });
-    channel.bind('App\\Events\\ClassPusherEvent', function(data) {
-        show_notify(data.message.name,data.message.content,'http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg');
-        append_notify(data);
-
-        console.log(data);
+    socket.on('message', function (message) {
+        console.info(message);
+    });
+    socket.on('classes_1:message', function (message) {
+        show_notify(message.name, message.content, 'http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg');
+        append_notify(message);
     });
 </script>
-<script>
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+{{--<script>--}}
+    {{--// Enable pusher logging - don't include this in production--}}
+    {{--Pusher.logToConsole = true;--}}
 
-    var pusher = new Pusher('c421ca21aa9a393ebfec', {
-        cluster: 'ap1',
-        encrypted: true
-    });
-    var channel = pusher.subscribe('quang');
-    channel.bind('pusher:subscription_succeeded', function() {
-        console.log('ket noi thanh cong');
-    });
-    channel.bind('App\\Events\\MessagePusherEvent', function(data) {
-        show_notify(data.user.full_name,data.message.content,'http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg');
-//        console.log(data);
-    });
-</script>
+    {{--var pusher = new Pusher('c421ca21aa9a393ebfec', {--}}
+        {{--cluster: 'ap1',--}}
+        {{--encrypted: true--}}
+    {{--});--}}
+    {{--var channel = pusher.subscribe('classes_1');--}}
+    {{--channel.bind('pusher:subscription_succeeded', function() {--}}
+        {{--console.log('ket noi thanh cong');--}}
+    {{--});--}}
+    {{--channel.bind('App\\Events\\ClassPusherEvent', function(data) {--}}
+        {{--show_notify(data.message.name,data.message.content,'http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg');--}}
+        {{--append_notify(data);--}}
 
+        {{--console.log(data);--}}
+    {{--});--}}
+{{--</script>--}}
+{{--<script>--}}
+    {{--// Enable pusher logging - don't include this in production--}}
+    {{--Pusher.logToConsole = true;--}}
+
+    {{--var pusher = new Pusher('c421ca21aa9a393ebfec', {--}}
+        {{--cluster: 'ap1',--}}
+        {{--encrypted: true--}}
+    {{--});--}}
+    {{--var channel = pusher.subscribe('quang');--}}
+    {{--channel.bind('pusher:subscription_succeeded', function() {--}}
+        {{--console.log('ket noi thanh cong');--}}
+    {{--});--}}
+    {{--channel.bind('App\\Events\\MessagePusherEvent', function(data) {--}}
+        {{--show_notify(data.user.full_name,data.message.content,'http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg');--}}
+{{--//        console.log(data);--}}
+    {{--});--}}
+{{--</script>--}}
 <script type="text/javascript">
     $('document').ready(function () {
         var nav = $('#main-menu');

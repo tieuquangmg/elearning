@@ -44,7 +44,21 @@
                 <ul class="nav navbar-nav navbar-nav-bordered navbar-nav-margin-right">
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                            <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+                            <i class="fa fa-envelope fa-fw"></i>
+                            <i class="fa fa-caret-down"></i>
+                            <span class="jewelCount" id="u_0_f" style="
+                                    position: absolute;
+                                    line-height: 1;
+                                    right: 18px;
+                                    color: white;
+                                    top: 7px;
+                                    background-color: #fa3e3e;
+                                    border-radius: 2px;
+                                    padding: 1px 3px;
+                                    font-size: 12px;
+                            ">
+                                <span class="_51lp _3z_5 _5ugh" id="mercurymessagesCountValue">1</span>
+                            </span>
                         </a>
                         <ul class="dropdown-menu dropdown-messages">
                             @foreach($message as $row)
@@ -72,7 +86,21 @@
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                            <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                            <i class="fa fa-bell fa-fw"></i>
+                            <i class="fa fa-caret-down"></i>
+                            <span class="jewelCount" id="u_0_f" style="
+                                    position: absolute;
+                                    line-height: 1;
+                                    right: 18px;
+                                    color: white;
+                                    top: 7px;
+                                    background-color: #fa3e3e;
+                                    border-radius: 2px;
+                                    padding: 1px 3px;
+                                    font-size: 12px;
+                            ">
+                                <span class="_51lp _3z_5 _5ugh" id="">1</span>
+                            </span>
                         </a>
                         <ul class="dropdown-menu dropdown-alerts notifications" id="notificationMenu">
                             <li class="titlebar">
@@ -80,19 +108,20 @@
                                 <span class="settings"><i class="icon-cog"></i></span>
                             </li>
                             <div class="notifbox">
+                                @if($notify != null && $notify != '')
                                 @foreach($notify as $row)
                                     <li class="notif
-                                              @if($row->user_notify->where('user_id',Auth::user()->id)->first() == null)
+                                              @if($row->where('user_id',Auth::user()->id)->first() == null)
                                             unread
                                             @endif
                                             ">
                                         <a href="#">
                                             <div class="imageblock">
-                                                <img src="{{asset($row->sender->image)}}" class="notifimage">
+                                                <img src="{{asset(($row->notify->sender != null)?($row->notify->sender->image):'')}}" class="notifimage">
                                             </div>
                                             <div class="messageblock">
                                                 <div class="message">
-                                                    <strong>{{$row->sender->full_name}}</strong>{!! $row->content !!}
+                                                    <strong>{{($row->notify->sender != null)?($row->notify->sender->ho_ten):''}}</strong>{!! $row->notify->content !!}
                                                 </div>
                                                 <div class="messageinfo">
                                                     <i class="icon-comment"></i>{{$row->created_at}}
@@ -101,17 +130,8 @@
                                         </a>
                                     </li>
                                 @endforeach
+                                    @endif
                             </div>
-                            {{--<div class="">--}}
-                            {{--<li>--}}
-                            {{--<a href="#">--}}
-                            {{--<div>--}}
-                            {{--<i class="fa fa-sticky-note fa-fw"></i>{{$row->name}}--}}
-                            {{--<span class="pull-right text-muted small">4 minutes ago</span>--}}
-                            {{--</div>--}}
-                            {{--</a>--}}
-                            {{--</li>--}}
-                            {{--</div>--}}
                             <li class="seeall">
                                 <a>Xem tất cả</a>
                             </li>
@@ -136,7 +156,7 @@
                     <!-- // END user -->
                 </ul>
                 @else
-                <a href="{{asset('login')}}" class="navbar-btn btn btn-primary">Đăng nhập</a>
+                    <a href="{{asset('login')}}" class="navbar-btn btn btn-primary">Đăng nhập</a>
                 @endif
             </div>
         </div>

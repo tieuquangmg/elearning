@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm-9">
+        <div class="col-sm-12">
             <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
                 <!-- Overlay -->
                 <!-- Indicators -->
@@ -9,7 +9,6 @@
                     <li data-target="#bs-carousel" data-slide-to="1"></li>
                     <li data-target="#bs-carousel" data-slide-to="2"></li>
                 </ol>
-
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item slides active">
@@ -19,7 +18,7 @@
                                 <h1>Lễ trao bằng tốt nghiệp</h1>
                                 <h3>Sinh viên tốt nghiệp khóa 1 năm học 2016</h3>
                             </hgroup>
-                            <a href="{{asset('study/news')}}" class="btn btn-hero btn-lg" role="button">Xem thêm</a>
+                            <a style="background: transparent; color: white" href="{{asset('study/news')}}" class="btn btn-hero" role="button">Xem thêm</a>
                         </div>
                     </div>
                     <div class="item slides">
@@ -29,7 +28,7 @@
                                 <h1>Chương trình văn nghệ</h1>
                                 <h3>Sinh viên E-Learning với tiết mục Văn nghệ đạt Giải Nhất - Hội diễn văn nghệ Sinh viên</h3>
                             </hgroup>
-                            <a href="{{asset('study/news')}}" class="btn btn-hero btn-lg" role="button">Xem thêm</a>
+                            <a style="background: transparent; color: white" href="{{asset('study/news')}}" class="btn btn-hero" role="button">Xem thêm</a>
                         </div>
                     </div>
                     <div class="item slides">
@@ -39,7 +38,7 @@
                                 <h1>Phương pháp học tập elearning</h1>
                                 <h3>Phương pháp học tập elearning</h3>
                             </hgroup>
-                            <a href="{{asset('study/news')}}" class="btn btn-hero btn-lg" role="button">Xem thêm</a>
+                            <a style="background: transparent; color: white" href="{{asset('study/news')}}" class="btn btn-hero" role="button">Xem thêm</a>
                         </div>
                     </div>
                 </div>
@@ -89,24 +88,24 @@
                 {{--</ul>--}}
             {{--</div><!-- End Carousel -->--}}
         </div>
-        <div class="col-sm-3 content-header-news">
-            <div class="panel header-news">
-                <div class="panel-heading top-header-news">
-                    <a>Tin mới nhất</a>
-                </div>
-                <div class="panel-body header-right-content">
-                    <ul>
-                        @foreach($news as $row)
-                        <li>
-                            <a href="{{route('study.news',$row->id)}}">
-                            <i class="icon-list"></i>
-                            <span>{{$row->title}}</span>
-                            </a>
-                        </li>
-                            @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
+        {{--<div class="col-sm-3 content-header-news">--}}
+            {{--<div class="panel header-news">--}}
+                {{--<div class="panel-heading top-header-news">--}}
+                    {{--<a>Tin mới nhất</a>--}}
+                {{--</div>--}}
+                {{--<div class="panel-body header-right-content">--}}
+                    {{--<ul>--}}
+                        {{--@foreach($news as $row)--}}
+                        {{--<li>--}}
+                            {{--<a href="{{route('study.news',$row->id)}}">--}}
+                            {{--<i class="icon-list"></i>--}}
+                            {{--<span>{{$row->title}}</span>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                            {{--@endforeach--}}
+                    {{--</ul>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
 </div>
 </div>

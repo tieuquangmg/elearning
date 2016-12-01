@@ -55,3 +55,9 @@ ul{
     background: #0069ff !important;
     color: white ;
 }
+.pagination{
+    margin: 0px !important;
+}
+.table td,.table th {
+    padding:4px !important;
+}

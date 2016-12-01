@@ -17,6 +17,7 @@ class UserController extends Controller
 
     public function __construct(UserRepository $repository)
     {
+//        $this->middleware(['permission:manager_user']);
         parent::__construct();
         $this->repository = $repository;
         $this->input = Input::all();
@@ -30,7 +31,6 @@ class UserController extends Controller
             Auth::loginUsingId($user->id);
             return response()->json($user);
         } else return response()->json(false);
-
     }
 
     public function getProfile()

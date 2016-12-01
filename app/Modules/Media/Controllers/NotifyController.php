@@ -33,6 +33,7 @@ class NotifyController extends Controller
         $this->repository->update($this->input);
         return redirect()->route('notify.data');
     }
+
     public function postDelete(){
         $this->repository->delete($this->input);
         return 1;

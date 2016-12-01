@@ -48,7 +48,7 @@
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <select id="year" name="year" class="form-control">
                                 @for($i=2016; $i<=2020; $i++)
-                                    <option value="{{$i}}" data-tokens="{{$i}}">{{$i .' - '.($i+1)}}</option>
+                                    <option value="{{$i .'-'.($i+1)}}" data-tokens="{{$i}}">{{$i .'-'.($i+1)}}</option>
                                 @endfor
                             </select>
                         </div>
@@ -68,6 +68,18 @@
                             <input name="limit" type="number" id="limit" class="form-control">
                         </div>
                     </div>
+                    <div class="form-group form-group-sm">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Từ ngày</label>
+                        <div class='col-md-9 col-sm-9 col-xs-12'>
+                            <input id="start_date" name="start_date" type='text' class="form-control input-sm datepicker" />
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">đến ngày</label>
+                        <div class='col-md-9 col-sm-9 col-xs-12'>
+                            <input id="end_date" name="end_date" type='text' class="form-control input-sm datepicker" />
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
@@ -78,7 +90,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>

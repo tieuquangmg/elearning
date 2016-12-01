@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Nam Viet Elearning</title>
     {{-- Layout --}}
     <link href="{{asset('build/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -15,7 +15,7 @@
     <link href="{{asset('build/bootstrap-social/css/bootstrap-social.css')}}" rel="stylesheet">
     <link href="{{asset('build/bootstrap-select/css/bootstrap-select.css')}}" rel="stylesheet">
     <link href="{{asset('dashboard/css/bootstrap-msg.min.css')}}" rel="stylesheet">
-
+    <link href="{{asset('build/eonasdan-bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
     {{--Componets--}}
     {{--<link rel="stylesheet" href="{{asset('_vendor/components/breadcrumbs/breadcrumbs.css')}}">--}}
     {{--Style--}}
@@ -57,6 +57,10 @@
 <script type="text/javascript" src="{{ asset('tinymce/tinymce.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('tinymce/tinymce_editor.js') }}"></script>
 <script type="text/javascript" src="{{ asset('dashboard/js/bootstrap-msg.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('build/moment/js/moment.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('build/moment/js/vi.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('build/eonasdan-bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 
 <script type="text/javascript">
     editor_config.selector = ".mceEditor";

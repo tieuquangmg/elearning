@@ -25,10 +25,9 @@ class SubjectController extends BaseController
     public function getData(Request $request)
     {
         $url = $request->url();
-        $value = $request->s;
         $perpage = $request->f_select_number;
         Input::flash();
-        $data = $this->repository->data('name', $value, $perpage,$url);
+        $data = $this->repository->data($request->all(),$perpage,$url);
         return view($this->prefix.'data')->with(['subjects'=> $data, 'prefix'=>$this->prefix]);
     }
     public function getAdd(){

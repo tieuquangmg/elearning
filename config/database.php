@@ -63,15 +63,25 @@ return [
             'strict' => false,
             'engine' => null,
         ],
+
         'qlsv' => [
             'driver' => 'sqlsrv',
-            'host' => '113.160.244.236',
-            'database' => 'Test_TKB',
-            'username' => 'essadmin',
-            'password' => 'ess10102012',
+            'host' => 'SIEUMAYTINH\SQLEXPRESS',
+            'database' => 'DHTD_HAIVT',
+            'username' => 'sa',
+            'password' => '123456',
             'prefix' => '',
             'post' =>'1433'
         ],
+//        'qlsv' => [
+//            'driver' => 'sqlsrv',
+//            'host' => '113.160.244.236',
+//            'database' => 'Test_TKB',
+//            'username' => 'essadmin',
+//            'password' => 'ess10102012',
+//            'prefix' => '',
+//            'post' =>'1433'
+//        ],
 //        'qlsv' => [
 //            'driver' => 'sqlsrv',
 //            'host' => '118.70.217.142',

@@ -1,16 +1,17 @@
 <?php
 
 Route::get('test',function (){
-  dump(DB::connection('qlsv')->table('SYS_NguoiDung')->get());
-    config(['database.default' => 'qlsv']);
-    dump(\App\NguoiDung::all()->take(10));
-//    dump(\App\Modules\Subject\Models\Subject::all());
-//    dump(Auth::user());
+    event(new  \App\Events\ClassPusherEvent('phan van quang'));
     return phpinfo();
 });
 Route::get('/pusher', function() {
     event(new \App\Events\HelloPusherEvent('Phan van quang!'));
     return "Tin nhan da duoc gui!";
+});
+Route::group(['middleware' => ['web','auth','role:student', 'role:administrator']], function (){
+    Route::get('/aaa',function (){
+        return 'hi';
+    });
 });
 Route::group(['middleware' => ['web','landing']], function () {
     Route::get('gioi-thieu', 'StudyController@getLanding')->name('landing');
@@ -18,13 +19,17 @@ Route::group(['middleware' => ['web','landing']], function () {
         Route::get('/', 'StudyController@getIndex')->name('home');
     });
 //    'middleware' => ['role:student|teacher'],
-    Route::group(['prefix'=>'study', 'middleware' => ['role:student,administrator']], function (){
+    Route::group(['prefix'=>'study'], function (){
         Route::get('sub/{id}', 'StudyController@getSubject')->name('study.subject');
         Route::get('unit/theory/{id}/{class_id}', 'StudyController@getUnitTheory')->name('study.unittheory');
         Route::get('unit/slide-video/{id}/{class_id}', 'StudyController@getSlideVideo')->name('study.slidevideo');
         Route::get('unit/audio/{id}/{class_id}', 'StudyController@getAudio')->name('study.audio');
 //Hỏi đáp ////////////////////////////////////////
         Route::get('unit/add_question/{id}/{class_id}', 'StudyController@getAddQuestion')->name('study.addquestion');
+        Route::post('unit/add_question', 'StudyController@postAddQuestion')->name('study.addquestion');
+        Route::get('all_question', 'StudyController@getQuestion')->name('study.allquestion');
+        Route::get('add_answer/{id}','StudyController@getAddAnswer')->name('study.getaddanswer');
+        Route::post('add_answer','StudyController@postAddAnswer')->name('study.addanswer');
 //Kiểm tra ///////////////////////////////////////
         Route::get('begin_test/{id}/{unit_id}/{class_id}', 'StudyController@getBeginTest')->name('study.begintest');
         Route::get('unit-test/{id}', 'StudyController@getUnitTest')->name('study.unit.test');
@@ -55,6 +60,9 @@ Route::group(['middleware' => ['web','landing']], function () {
         Route::post('end-meeting','StudyController@postEndMeeting')->name('study.endmeeting');
         Route::post('is-meeting-running','StudyController@getIsMeetingRunning')->name('study.ismeetingrunning');
         Route::post('work-time','StudyController@postWorkTime')->name('study.worktime');
+//Giáo viên ///////////////////////////
+        Route::get('danh-sach-sinh-vien-lop/{id}','StudyController@getDanhsach')->name('study.danhsachsinhvienlop');
+
     });
     Route::group(['middleware' => 'auth'], function(){
         Route::get('/admin', function () {

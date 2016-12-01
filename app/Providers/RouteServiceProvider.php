@@ -71,5 +71,9 @@ class RouteServiceProvider extends ServiceProvider
         $router->group(['namespace' => 'App\Modules\Subject\Controllers'], function ($router) {
             require app_path('Modules/Subject/routes.php');
         });
+
+        $router->group(['namespace' => 'App\Modules\Cohot\Controllers'], function ($router) {
+            require app_path('Modules/Cohot/routes.php');
+        });
     }
 }

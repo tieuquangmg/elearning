@@ -9,6 +9,8 @@ use App\Modules\Organize\Models\Unit_class;
 use App\Modules\Organize\Models\User_test;
 use App\Modules\Subject\Models\Class_meeting;
 use App\Modules\Subject\Models\Comment;
+use App\Modules\Subject\Models\Hoi_dap;
+use App\Modules\Subject\Models\Hoi_dap_tra_loi;
 use App\Modules\Subject\Models\Meeting;
 use App\Modules\Subject\Models\User_unit;
 use Barryvdh\Debugbar\Middleware\Debugbar;
@@ -35,8 +37,10 @@ use App\Modules\Subject\Models\Unit;
 use App\Modules\Subject\Models\User_theory;
 use Carbon\Carbon;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Intervention\Image\Facades\Image;
 use Session;
 use Response;
@@ -56,7 +60,10 @@ class StudyController extends Controller
     public function getIndex()
     {
         $data['classes'] = User::find(Auth::user()->id)->classes;
-        $data['news'] = News::take(10)->get();
+        $data['news'] = News::take(7)->get();
+        $data['thongbao'] = News::take(5)->get();
+        $data['sinhvien'] = News::take(5)->get();
+        $data['tuyensinh'] = News::take(5)->get();
         return view('frontend.dasdboard.index', $data);
     }
     public function getLanding(){
@@ -64,6 +71,13 @@ class StudyController extends Controller
     }
     public function getSubject($id)
     {
+        $data['classes'] = User::Where('id', Auth::user()->id)->with(['classes' => function ($query) {
+            $query->where('start_date', '<', Carbon::now());
+            $query->where('end_date', '>', Carbon::now());
+            $query->where('start_date', '<>', null);
+            $query->where('end_date', '<>', null);
+        }]);
+        $data['classes'] = $data['classes']->first()->classes;
         $data['class'] = Classes::with('subject')
             ->with('teacher')
             ->find($id);
@@ -399,14 +413,23 @@ class StudyController extends Controller
     }
     public function getMycourse()
     {
-        if (Auth::user()->hasRole(['student'])){
-            $data['classes'] = User::find(Auth::user()->id)->classes;
-        }
-        if (Auth::user()->hasRole(['teacher'])){
-            $data['classes'] = Classes::where('user_id', Auth::user()->id)->get();
-        }
-
+//        if (Auth::user()->hasRole(['student'])){
+//            $data['classes'] = User::find(Auth::user()->id)->classes;
+//        }else {
+//            if (Auth::user()->hasRole(['teacher'])){
+//                dd(2);
+//                $data['classes'] = Classes::where('user_id', Auth::user()->id)->get();
+//            }
+//        }
+        $data['classes'] = User::Where('id', Auth::user()->id)->with(['classes' => function ($query) {
+            $query->where('start_date', '<', Carbon::now());
+            $query->where('end_date', '>', Carbon::now());
+            $query->where('start_date', '<>', null);
+            $query->where('end_date', '<>', null);
+        }]);
+        $data['classes'] = $data['classes']->first()->classes;
         $class_ids = $data['classes']->lists('id');
+        $fhgjhg = array();
         foreach ($class_ids as $key=>$value){
             $fhgjhg[$key]['class'] = Classes::find($value);
             $unit_id = Unit_class::where('class_id',$value)
@@ -428,6 +451,7 @@ class StudyController extends Controller
             ->get()
             ;
         }
+//        dd($fhgjhg);
 //        $test = DB::table('classes')
 //            ->join('units','units.subject_id','=','classes.subject_id')
 //            ->join('user_unit','user_unit.unit_id','=','units.id')
@@ -438,6 +462,7 @@ class StudyController extends Controller
         $data['user_unit'] = collect($fhgjhg);
         $data['standings'] = User::take(6)->get();
         $data['feature'] = Classes::all()->random(7);
+//        dd($data);
         return view('frontend.dasdboard.course.list', $data);
     }
     public function getNews($id)
@@ -466,6 +491,7 @@ class StudyController extends Controller
     public function postProfile(Request $request)
     {
         $input = $request->all();
+//        $input['ho_ten'] = $request->get('first_name').' '.$request->get('last_name');
         if($request->get('password') == ''){
             unset($input['password']);
         }else{
@@ -481,6 +507,7 @@ class StudyController extends Controller
         User::find(Auth::user()->id)->update($input);
         return redirect()->route('study.profile');
     }
+
     public function postAddComment(Comment $comment, Request $request)
     {
         if ($request->ajax()) {
@@ -614,9 +641,50 @@ class StudyController extends Controller
     public function getAddQuestion($id,$class_id){
         $data['unit'] = Unit::find($id);
         $data['class'] = Classes::find($class_id);
+        return view('frontend.dasdboard.answers.add_question',$data);
+    }
+    public function postAddQuestion(Request $request){
+        if($request->hasFile('file_dinh_kem')){
+          $image = strtotime(Carbon::now()).'_'.$request->file('file_dinh_kem')->getClientOriginalName();
+        }
+        $request['user_id'] = Auth::user()->id;
+        Hoi_dap::create($request->all());
+        return redirect()->back()->with('success','bạn đã gửi câu hỏi');
+    }
+    public function getQuestion(){
+        $data['data'] = Hoi_dap::orderBy('id','desc')->get();
+        return view('frontend.dasdboard.answers.list',$data);
+    }
+    public function getAddAnswer($id){
+        $data['data'] = Hoi_dap::with('tra_loi')->where('id',$id)->first();
+//        dd($data['data']->tra_loi);
         return view('frontend.dasdboard.answers.add_answer',$data);
     }
-    public function postAddQuestion(){
-
+    public function postAddAnswer(){
+        unset($this->input['_token']);
+        $hoi_dap = Hoi_dap_tra_loi::create($this->input);
+        return Redirect::route('study.getaddanswer', $hoi_dap->id_hoi_dap)->with('message', 'Bạn đã trả lời câu hỏi');
+    }
+    public function getDanhsach($id)
+    {
+        $data['classes'] = User::where('id', Auth::user()->id)->with(['classes' => function ($query) {
+            $query->where('start_date', '<', Carbon::now());
+            $query->where('end_date', '>', Carbon::now());
+        }])->first()->classes;
+        $data['danh_sach'] = $users = User::whereHas('classes', function ($query) use ($id){
+            $query->where('classes.id', $id);
+        })
+            ->with(['user_login' => function ($query) {
+                $query->orderBy('created_at', 'desc');
+            }])
+            ->get()
+            ->sortByDesc(function ($users) {
+                if (!$users->user_login->isEmpty()) {
+                    return $users->user_login->first()->created_at;
+                }
+                return null;
+            })
+        ;
+        return view('frontend/dasdboard/subject/student', $data);
     }
 }

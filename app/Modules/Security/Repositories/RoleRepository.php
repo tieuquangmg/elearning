@@ -8,7 +8,7 @@ interface RoleRepository
     public function update($input);
     public function find($id);
     public function delete($input);
-    public function role_user();
+    public function role_user($input);
     public function user_assign($input);
     public function permission_role();
     public function role_assign($input);

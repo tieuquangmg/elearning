@@ -165,7 +165,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,      
         App\Providers\ComposerProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-//        Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
         /*
          * Repository
          */
@@ -177,7 +177,8 @@ return [
         \App\Modules\Examination\Providers\ExaminationRepositoryProvider::class,
         \App\Modules\FrontEnd\Providers\FrontEndRepositoryProvider::class,
         \App\Modules\Subject\Providers\SubjectRepositoryProvider::class,
-        \App\Modules\Organize\Providers\OrganizeRepositoryProvider::class
+        \App\Modules\Organize\Providers\OrganizeRepositoryProvider::class,
+        \App\Modules\Cohot\Providers\CohotRepositoryProvider::class,
     ],
 
     /*

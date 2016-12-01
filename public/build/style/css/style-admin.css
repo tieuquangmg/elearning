@@ -1,3 +1,6 @@
+body{
+    background: #e9ebee;
+}
 .h1,.h2,.h3,.h4,.h5,.h6{margin:inherit}a{cursor:pointer}
 table.classes_table input{
     width: 100% !important;

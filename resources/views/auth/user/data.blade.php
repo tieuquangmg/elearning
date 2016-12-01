@@ -19,12 +19,14 @@
                 </div>
                 <div class="panel-body">
                     @include('auth.user._active')
+
                     <table class="table">
                         <tr>
                             <th><input type="checkbox" id="check_all"></th>
-                            <th>{{trans('label.first_name')}}</th>
-                            <th>{{trans('label.last_name')}}</th>
+                            <th>Mã sinh viên</th>
+                            <th>Họ tên</th>
                             <th>{{trans('label.email')}}</th>
+                            <th>Địa chỉ</th>
                             <th>{{trans('label.phone_number')}}</th>
                             <th>{{trans('label.active')}}</th>
                             <th><span class="btn btn-xs btn-primary"><i class="fa fa-filter"></i></span></th>

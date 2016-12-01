@@ -51,8 +51,30 @@ class RoleRepositoryEloquent implements RoleRepository
         $data['roles'] = $this->model->all();
         return $data;
    }
-   public function role_user(){
-      $data['users'] =  User::where('active', 1)->paginate(10);
+   public function role_user($input){
+       if ($input != null){
+           $id_lop = $input['search']['id_lop'];
+           if($input['order'] == null){
+               $order = 'id';
+           }else{
+               $order = $input['order'];
+           }
+           $data['users'] = User::where(function ($query) use($input,$id_lop){
+               $query->where('active', 1);
+               $query->where('ho_ten', 'like', '%' . $input['search']['hoten'] . '%');
+               $query->where('code', 'like','%'.$input['search']['code'].'%');
+               if($id_lop != '' && $id_lop != null){
+                   $query->whereHas('lop', function ($q) use ($id_lop) {
+                       return $q->where('ten_lop', 'like', '%' . $id_lop . '%');
+                   });
+               }
+           })
+             ->orderBy('id','asc')
+             ->paginate($input['number'])
+           ;
+       }else{
+           $data['users'] =  User::where('active', 1)->paginate(10);
+       }
       $data['roles'] = Role::all();
       return $data;
    }
@@ -62,6 +84,7 @@ class RoleRepositoryEloquent implements RoleRepository
            User::find($useId)->roles()->sync($roles);
        }
    }
+
    public function permission_role(){
       $data['roles'] =  $this->model->all();
       $data['permissions'] = Permission::all();

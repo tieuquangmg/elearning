@@ -16,7 +16,7 @@ class NewsController extends Controller
 
     public function getData(){
         $data = $this->repository->data();
-        if(Request::ajax()) {
+        if(Request::ajax()){
             $tem['table'] = view('media.news.table', ['data' => $data])->render();
             $tem['url'] = ''.$data->links();
             return $tem;

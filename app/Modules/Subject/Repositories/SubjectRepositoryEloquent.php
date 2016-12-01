@@ -1,6 +1,7 @@
 <?php 
 namespace App\Modules\Subject\Repositories; 
 
+use App\Modules\Cohot\Models\Plan_Bomon;
 use App\Modules\Subject\Models\Subject;
 use App\Services\Upload;
 
@@ -10,17 +11,39 @@ class SubjectRepositoryEloquent implements SubjectRepository
     public function __construct(Subject $model){
         $this->model = $model;
     }
-    public function data($key,$value = null,$prepage,$url){
+    public function data($request,$prepage,$url){
+        if($request){
+            $mamon = $request['code'];
+            $tenmon = $request['tenmon'];
+            $bomon = $request['bomon'];
+            $trangthai = $request['trangthai'];
+        }else{
+            $mamon = '';
+            $tenmon = '';
+            $bomon = '';
+            $trangthai = '';
+        }
         if($prepage == null){
             $prepage = 10;
         }
-        $data =  $this->model->where(function ($query) use ($value,$key){
-            if($value != null){
-                $query->where($key,'like','%'.$value.'%');
+        $data =  $this->model->where(function ($query) use ($request,$mamon,$tenmon,$bomon,$trangthai){
+            if($request){
+                if($mamon != null){
+                    $query->Where('Ky_hieu','like','%'.$mamon.'%');
+                }
+                if($tenmon != null){
+                    $query->Where('name','like','%'.$tenmon.'%');
+                }
+                if($bomon != null){
+                    $query->whereIn('id_bm',Plan_Bomon::where('name','like','%'.$bomon.'%')->lists('id'));
+                }
+                if($trangthai != null){
+                    $query->Where('active',$trangthai);
+                }
             }
         })
             ->orderBy('id', 'desc')->paginate($prepage);
-        $data->setPath($url.'?s='.$value.'&f_select_number='.$prepage);
+        $data->setPath($url.'?code='.$mamon.'&f_select_number='.$prepage.'&tenmon='.$tenmon.'&bomon='.$bomon.'&trangthai='.$trangthai);
         return $data;
     }
     public function search($name){

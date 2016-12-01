@@ -48,7 +48,7 @@
                         <td>{{$row->email}}</td>
                         <td>{{$row->phone_number}}</td>
                         <td>@if($row->sex == 1)Nam @else Nữ @endif</td>
-                        <td>{{$row->birthday->format('d-m-Y')}}</td>
+                        <td>{{($row->birthday)?($row->birthday->format('d-m-Y')):''}}</td>
                         <td>
                             <a href=""><i class="glyphicon glyphicon-info-sign"></i></a>
                         </td>

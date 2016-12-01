@@ -52,7 +52,7 @@
                             <h2>The best educational software for students</h2>
                             <p>là phương thức học tập có sử dụng kết nối mạng để phục vụ học tập, lấy tài liệu học, trao đổi giao tiếp giữa người học với nhau và với giảng viên.</p>
                             <div class="button" id="download-app1">
-                                <a href="#download" class="btn btn-default btn-lg custom-btn"><i class="fa fa-cloud-download"></i>Demo</a>
+                                <a href="{{asset('/')}}" class="btn btn-default btn-lg custom-btn"><i class="fa fa-cloud-download"></i>Demo</a>
                             </div> <!-- end .button -->
                         </div> <!-- end .content -->
                     </div> <!-- end .top > .container> .row> .col-md-7 -->

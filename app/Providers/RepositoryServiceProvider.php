@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Modules\Cohot\Repositories\LopRepository;
+use App\Modules\Cohot\Repositories\LopRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 

@@ -1,0 +1,78 @@
+.module h3 {
+    background: #3a5795;
+    border: 1px solid;
+    color: #757575;
+    font-size: 100%;
+    margin: 0 0 0 0;
+    overflow: hidden;
+    padding-left: 3px;
+    height: auto;
+}
+.adetail {
+    margin-bottom: 10px;
+    padding: 10px;
+    overflow: hidden;
+    border: 1px solid #3a5795;
+    background: #FFF;
+}
+.detail-left {
+    padding-top: 40px;
+    float: left;
+    width: 25%;
+    overflow: hidden;
+    text-align: center;
+}
+
+.detail-right {
+    float: right;
+    width: 75%;
+    overflow: hidden;
+}
+.avatar {
+    padding: 2px;
+    border: 1px solid #CCC;
+}
+.detail-status {
+    margin: 10px 0;
+    text-align: right;
+}
+.open {
+    color: #000;
+}
+.open, .close {
+    font-size: 9pt;
+    font-weight: bold;
+}
+.detail-status {
+    margin: 10px 0;
+    text-align: right;
+}
+.detail-title {
+    margin: 10px 0;
+    color: #3a5795;
+    font-size: 9pt;
+    font-weight: bold;
+}
+.detail-des {
+    display: block;
+}
+.lreplay {
+    padding: 10px 0;
+    display: block;
+    overflow: hidden;
+    border-bottom: 4px solid #3a5795;
+}
+.repley-left {
+    float: left;
+    width: 25%;
+    overflow: hidden;
+    text-align: center;
+}
+.repley-right {
+    float: right;
+    width: 75%;
+}
+.repley-des {
+     margin-bottom: 10px;
+     color: #000000;
+ }

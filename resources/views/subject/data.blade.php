@@ -26,61 +26,69 @@
                 </div>
             </div>
         </div>
+        <form method="get" action="{{route('subject.data')}}">
         <div class="panel-body">
-            <div class="row">
-                <form method="get" action="{{route('subject.data')}}">
-                    <div class="col-lg-2 form-group">
-                        {!! Form::select('f_select_number', array(10 => '10', 20 => '20', 30 => '30'),old('f_select_number'), array('id' => 'f_select_number','class' => 'form-control','onchange'=>"this.form.submit()")) !!}
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="input-group form-group">
-                            <input value="{{old('s') }}" name="s" type="text" class="form-control" id="search_form" placeholder="Tìm kiếm ... " data-toggle="tooltip" data-placement="top" title="Nhập từ khóa tìm kiếm">
-                            <div class="input-group-btn" id="f_select_search">
-                                <input type="submit" id="search_button" value="Tìm kiếm" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Tìm kiếm !">
-                            </div><!-- /btn-group -->
-                        </div><!-- /input-group -->
-                    </div>
-                </form>
-            </div>
-            @if(isset($subjects) && count($subjects))
                 <table class="table">
+                    <thead>
                     <tr>
                         <th>
                             <input type="checkbox" id="check_all">
                         </th>
-                        <th>Mã lớp</th>
+                        <th>Mã môn</th>
                         <th>Tên</th>
                         <th>Bộ môn</th>
-                        <th>Hệ đào tạo</th>
                         {{--<th>Chi tiết</th>--}}
                         <th>Trạng thái</th>
                         <th></th>
                     </tr>
-                    @foreach($subjects as $row)
-                        <tr>
-                            <td>
-                                <input type="checkbox" value="{{$row->id}}" name="id" class="check">
-                            </td>
-                            <td>{{$row->Ky_hieu}}</td>
-                            <td>{{$row->name}}</td>
-                            <td>Khoa học cơ bản</td>
-                            <td>Đại học</td>
-                            {{--<td>{{$row->description}}</td>--}}
-                            <th>@include('_basic.includes.is.active')</th>
-                            <td class="text-right">
-                                <a class="btn btn-xs btn-primary" href="{{route('subject.edit', $row->id)}}"><i class="fa fa-edit"></i> Cập nhật</a>
-                                <a class="btn btn-xs btn-success" href="{{route('subject.unit', $row->id)}}"><i class="fa fa-book"></i> Bài học</a>
-                            </td>
-                        </tr>
-                    @endforeach
+                    <tr>
+                        <th><a href="{{route('subject.data')}}" class="btn btn-success">đặt lại</a></th>
+                        <th><input class="form-control input-sm" value="{{old('code')}}" type="text" name="code" id="code" placeholder="mã môn"></th>
+                        <th><input class="form-control input-sm" value="{{old('tenmon')}}" type="text" name="tenmon" id="tenmon" placeholder="tên môn"></th>
+                        <th><input class="form-control input-sm" value="{{old('bomon')}}" type="text" name="bomon" id="bomon" placeholder="bộ môn"></th>
+                        <th><input class="form-control input-sm" value="{{old('trangthai')}}" type="text" name="trangthai" id="trangthai" placeholder="trạng thái"></th>
+                        <th><input class="form-control input-sm" type="submit" value="tìm kiếm"></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    @if(isset($subjects) && count($subjects))
+                        @foreach($subjects as $row)
+                            <tr>
+                                <td>
+                                    <input type="checkbox" value="{{$row->id}}" name="id" class="check">
+                                </td>
+                                <td>{{$row->Ky_hieu}}</td>
+                                <td class="text-nowrap">{{$row->name}}</td>
+                                <td>{{($row->plan_bomon != null )?  $row->plan_bomon->name : ''}}</td>
+                                {{--<td>{{$row->description}}</td>--}}
+                                <th>@include('_basic.includes.is.active')</th>
+                                <td class="text-right">
+                                    <a class="btn btn-xs btn-primary" href="{{route('subject.edit', $row->id)}}">
+                                        <i class="fa fa-edit"></i></a>
+                                    <a class="btn btn-xs btn-success" href="{{route('subject.unit', $row->id)}}">
+                                        <i class="fa fa-book"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <div class="alert alert-info">
+                            Danh sách môn học đang trống
+                        </div>
+                    @endif
+                    </tbody>
                 </table>
-                {!! $subjects->links() !!}
-            @else
-                <div class="alert alert-info">
-                    Danh sách môn học đang trống
-                </div>
-            @endif
+
         </div>
+        <div class="panel-footer">
+            <div class="clearfix">
+                <div class="pull-left">{!! $subjects->links() !!}</div>
+                <div class="pull-right">
+                    {!! Form::select('f_select_number', array(10 => '10', 20 => '20', 30 => '30'),old('f_select_number'), array('id' => 'f_select_number','class' => 'form-control input-sm','onchange'=>"this.form.submit()")) !!}
+                </div>
+            </div>
+        </div>
+        </form>
     </div>
     <div class="modal fade" id="importModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-md">

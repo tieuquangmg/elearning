@@ -18,5 +18,8 @@ class News extends Model
         $news ->save();
         return $news;
     }
+    public function category(){
+        return $this->belongsTo(News_category::class,'news_category_id');
+    }
     
 }

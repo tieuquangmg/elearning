@@ -28,6 +28,16 @@
                 <li><a href="{{route('class.data')}}">{{trans('table.class')}}</a></li>
                 <li><a href="{{route('subject.data')}}">{{trans('table.subject')}}</a></li>
                 <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Chương trình<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route('role.data')}}">Hệ</a></li>
+                        <li><a href="{{route('chuyennganh.data')}}">Chuyên ngành</a></li>
+                        <li><a href="{{route('bomon.data')}}">Bộ môn</a></li>
+                        <li><a href="{{route('lop.data')}}">Lớp</a></li>
+                        <li><a href="{{route('auth.user.data')}}"></a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hệ thống <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{route('role.data')}}">{{trans('table.role')}}</a></li>
@@ -54,7 +64,6 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown topbar-profile">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="rounded-image topbar-profile-image"><img src="{{auth()->user()->avatar?auth()->user()->avatar:''}}"></span>{{auth()->user()->first_name.' '.auth()->user()->last_name}}<i class="fa fa-caret-down"></i></a>
-
                     <ul class="dropdown-menu">
                         <li><a href="#">Thông tin cá nhân</a></li>
                         {{--<li><a href="#">Change Password</a></li>--}}
@@ -66,7 +75,6 @@
                     </ul>
                 </li>
             </ul>
-
         </div><!--/.nav-collapse -->
     </div>
 </nav>

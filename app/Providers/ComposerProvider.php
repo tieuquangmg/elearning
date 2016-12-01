@@ -17,7 +17,6 @@ class ComposerProvider extends ServiceProvider
     {
         view()->composer(['edu.test.detail', 'lesson.theory.texts.data', 'exercise._include.exercise'], ExerciseComposer::class);
         view()->composer(['edu.test.detail', 'lesson.theory.texts.data', 'exercise._include.exercise'], ListTestComposer::class);
-
     }
 
     /**

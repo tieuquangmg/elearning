@@ -1,6 +1,5 @@
 @extends('_basic.master')
 @section('content')
-
     <div >
         <ol class="breadcrumb">
             <li><a href="{{route('admin')}}"><span class=" glyphicon glyphicon-home"></span></a></li>
@@ -22,9 +21,7 @@
                             <span class="pull-left">
                                 <input type="checkbox" value="{{$permission->id}}" name="permissions[]" @if($role->hasPermission($permission->name)) checked @endif>
                             </span>
-                            &nbsp;
-                            &nbsp;
-                            {{$permission->display_name}}
+                            <label style="color: black; margin-left:10px;">{{$permission->display_name}}</label>
                         </li>
                     @endforeach
                     <li class="list-group-item"><button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Xác nhận">Xác nhận</button></li>

@@ -10,6 +10,7 @@ use App\Modules\Security\Models\Role;
 use App\Modules\Subject\Models\Test;
 use App\Modules\Subject\Models\Theory;
 use App\Modules\Subject\Models\Unit;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ClassRepositoryEloquent implements ClassRepository
@@ -19,7 +20,6 @@ class ClassRepositoryEloquent implements ClassRepository
       $this->model = $model;
        $this->data['prefix'] = 'organize.';
    }
-
     public function data($request,$prepage,$url){
         if($request){
             $name = $request['name'];
@@ -54,7 +54,7 @@ class ClassRepositoryEloquent implements ClassRepository
                 }
                 if($request['teacher'] != null){
 //                    $srt = "concat(first_name,' ',last_name) like '%m%'";
-                    $query->whereIn('user_id',User::where('last_name','like','%'.$teacher.'%')->lists('id'));
+                    $query->whereIn('user_id',User::where('ho_ten','like','%'.$teacher.'%')->lists('id'));
                 }
                 if($request['year'] != null){
                     $query->where('year','like','%'.$year.'%');
@@ -88,7 +88,9 @@ class ClassRepositoryEloquent implements ClassRepository
        $this->model->create($input);
    }
    public function update($input){
-       
+       $input['start_date'] = Carbon::createFromFormat('d/m/Y',$input['start_date']);
+       $input['end_date'] = Carbon::createFromFormat('d/m/Y',$input['end_date']);
+//       dd($input['start_date']);
        $this->model->where('id', $input['id'])->update($input);
    }
    public function find($id){
@@ -106,6 +108,7 @@ class ClassRepositoryEloquent implements ClassRepository
     }
     public function detail($id){
         $this->data['class'] = $this->model->with('teacher')->with('student')->with('subject')->find($id);
+//        dd($this->data['class']);
         $this->data['students'] = User::filterRole('student')
 //            ->whereHas('classes',function ($query) use ($id) {
 //            $query->where('classes.id','<>',$id);

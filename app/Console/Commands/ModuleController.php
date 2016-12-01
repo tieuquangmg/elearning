@@ -27,7 +27,6 @@ class ModuleController extends Command
     {
         parent::__construct();
     }
-
     /**
      * Execute the console command.
      *

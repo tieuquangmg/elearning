@@ -8,33 +8,32 @@
                 <h4 class="modal-title" id="add_class">Thêm lớp học</h4>
             </div>
             <div class="modal-body">
-                    <div class="form-group">
+                    <div class="form-group form-group-sm">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên lớp</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" required class="form-control" name="name" >
+                            <input type="text" required class="form-control input-sm" name="name" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group form-group-sm">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Mã lớp</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" required class="form-control" name="code" >
+                            <input type="text" required class="form-control input-sm" name="code" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group form-group-sm">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên môn học</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select name="subject_id"class="selectpicker" data-live-search="true">
+                            <select name="subject_id"class="selectpicker " data-live-search="true">
                                 @foreach($subjects as $k => $v)
                                     <option value="{{$k}}" data-tokens="{{$v}}">{{$v}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-
-                    <div class="form-group">
+                    <div class="form-group form-group-sm">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Giáo viên</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select name="user_id" class="selectpicker" data-live-search="true">
+                            <select name="user_id" class="selectpicker " data-live-search="true">
                                 @foreach($teachers as $v)
                                     <option value="{{$v->id}}" data-tokens="{{$v->first_name.' '.$v->last_name}}">{{$v->first_name.' '.$v->last_name}}</option>
                                 @endforeach
@@ -42,7 +41,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group form-group-sm">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Năm học</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <select name="year" class="form-control">
@@ -52,7 +51,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group form-group-sm">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Kỳ học</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                            <div class="radio">
@@ -61,13 +60,25 @@
                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group form-group-sm">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Sĩ số</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                              <input name="limit" type="number" class="form-control">
+                              <input name="limit" type="number" class="form-control input-sm">
                         </div>
                     </div>
-                    <div class="form-group">
+                <div class="form-group form-group-sm">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Từ ngày</label>
+                    <div class='col-md-9 col-sm-9 col-xs-12'>
+                        <input name="start_date" type='text' class="form-control input-sm datepicker" />
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">đến ngày</label>
+                    <div class='col-md-9 col-sm-9 col-xs-12'>
+                        <input name="end_date" type='text' class="form-control input-sm datepicker" />
+                    </div>
+                </div>
+                    <div class="form-group form-group-sm">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <div class="">
@@ -77,7 +88,6 @@
                             </div>
                         </div>
                     </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>

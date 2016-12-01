@@ -61,28 +61,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="inputEmail3" class="col-md-2 control-label">Họ và tên</label>
-                                        <div class="col-md-8">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-control-material">
-                                                        <input name="first_name" type="text" class="form-control"
-                                                               id="exampleInputFirstName" placeholder="Tên của bạn"
-                                                               value="{{$profile->first_name}}">
-                                                        @if(!$profile->first_name)
-                                                            <label for="exampleInputFirstName">Họ, tên đệm</label>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-control-material">
-                                                        <input name="last_name" type="text" class="form-control"
-                                                               id="exampleInputLastName" placeholder="Tên của bạn"
-                                                               value="{{$profile->last_name}}">
-                                                        @if(!$profile->last_name)
-                                                            <label for="exampleInputLastName">Tên</label>
-                                                        @endif
-                                                    </div>
-                                                </div>
+                                        <div class="col-md-6">
+                                            <div class="form-control-material">
+                                                <input name="ho_ten" type="text"
+                                                       class="form-control input-sm"
+                                                       id="exampleInputLastName" placeholder="Tên"
+                                                       value="{{$profile->ho_ten}}">
                                             </div>
                                         </div>
                                     </div>
@@ -90,16 +74,8 @@
                                         <label for="inputEmail3" class="col-md-2 control-label">Địa chỉ Email</label>
                                         <div class="col-md-6">
                                             <div class="form-control-material">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i
-                                                                class="fa fa-envelope"></i></span>
-                                                    <input name="email" type="email" class="form-control"
-                                                           id="inputEmail3" placeholder="Email"
+                                                    <input name="email" type="email" class="form-control" id="inputEmail3" placeholder="Email"
                                                            value="{{$profile->email}}">
-                                                    @if(!$profile->email)
-                                                        <label for="inputEmail3">địa chỉ email</label>
-                                                    @endif
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -107,14 +83,8 @@
                                         <label for="inputEmail3" class="col-md-2 control-label">Địa chỉ</label>
                                         <div class="col-md-6">
                                             <div class="form-control-material">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-link"></i></span>
                                                     <input name="address" type="text" class="form-control used"
                                                            id="website" value="{{$profile->address}}">
-                                                    @if(!$profile->address)
-                                                        <label for="website">Địa chỉ</label>
-                                                    @endif
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

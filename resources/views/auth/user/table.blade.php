@@ -1,9 +1,10 @@
 @foreach($users as $row)
 <tr>
     <td><input type="checkbox" class="check" value="{{$row->id}}"></td>
-    <td>{{$row->first_name}}</td>
-    <td>{{$row->last_name}}</td>
+    <td>{{$row->code}}</td>
+    <td>{{$row->ho_ten}}</td>
     <td>{{$row->email}}</td>
+    <td>{{$row->address}}</td>
     <td>{!! $row->phone_number !!}</td>
     <td class="text-center">@include('_basic.includes.is.active')</td>
     <td>

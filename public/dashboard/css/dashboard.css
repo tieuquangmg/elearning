@@ -1,0 +1,692 @@
+body {
+    padding-top: 60px;
+    background-color: #e9eaed;
+}
+ul li{
+    list-style: none;
+}
+ul{
+    margin: 0;
+    padding: 0;
+}
+a, a:visited {
+    /* The color Facebook uses. */
+    color: #3b5998;
+    font-weight: bold;
+}
+
+.chat-popup {
+    width: 300px;
+    position: fixed;
+    bottom: 0px;
+    right: 20px;
+}
+.logo{
+    background: #3a5795 url("../images/elearning-logo.png");
+
+}
+.fb-search {
+    width: 395px !important;
+}
+
+.fb-trending ul.nav a {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.fb-trending-title {
+    line-height: 24px;
+}
+
+.fb-trending > .row:first-child {
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    /* Padding is the whitespace between the content of fb-trending and its
+       border */
+    padding-top: 5px;
+    padding-bottom: 5px;
+    /* Margin is the whitespace between the border and adjacent elements */
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.fb-trending > .row:first-child li a {
+    /* Tells the element to inherit the color from its parent. Remember that
+       we set 'color' for the entire right sidebar to gray! */
+    color: inherit;
+}
+
+.fb-trending > .row:first-child li.active a {
+    background-color: transparent;
+    /* Same color as the lightning bolt */
+    color: #5990ff;
+}
+
+.fb-trending > .row:nth-child(2) .glyphicon-flash {
+    color: #5990ff;
+}
+
+.fb-trending .media {
+    margin-top: 5px;
+}
+
+.fb-trending {
+    margin-bottom: 5px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.green {
+    color: #3a5795;
+}
+
+.chat-popup {
+    width: 300px;
+    position: fixed;
+    bottom: 0px;
+    right: 20px;
+    /* Applies the given border style to all sides. */
+    border: 1px solid #000;
+    /* Removes the border on the bottom. */
+    border-bottom: none;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.fb-right-sidebar {
+    /* Gray text. This is the same color Facebook uses. */
+    color: #9197a3;
+    border: 1px solid lightgrey;
+    background-color: white;
+    padding-bottom: 10px;
+}
+
+.fb-right-sidebar .glyphicon-gift {
+    color: white;
+    background-color: red;
+    /* Sets padding at 2px on all sides at once */
+    padding: 2px;
+    /* Sets the border radius to 2px for each corner. */
+    border-radius: 2px;
+}
+
+/* Blue background */
+
+
+.nav-top {
+    background-color: #3a5795;
+    min-height: 42px !important;
+}
+
+/* Make house logo white, even if the user hovers over it */
+.navbar .navbar-brand,
+.navbar .navbar-brand:hover {
+    color: white;
+}
+
+/* Remove the background color and border of all navbar buttons. Make their
+   color dark blue, like Facebook. */
+.navbar button {
+    background-color: transparent;
+    border: none;
+    color: #232323;
+}
+
+/* Make buttons slightly darker when the user hovers over it, like Facebook
+  does. */
+.navbar button:hover {
+    background-color: transparent;
+    color: #22345c;
+    border: none;
+}
+
+/* Make the button white if clicked on, and remain white after clicking.
+   Facebook normally opens up a menu when you do this.
+   :active = user is currently interacting with the button.
+   :focus = user is currently interacting or has just interacted with the
+   button.
+   :active:focus = both at the same time
+   We have to override all of these combinations, since Bootstrap has separate
+   rules for them.*/
+.navbar button:active,
+.navbar button:focus,
+.navbar button:active:focus {
+    background-color: transparent;
+    color: white;
+    border: none;
+    /* Removes halo and shadow on button when clicked. */
+    outline: none;
+    box-shadow: none;
+}
+
+/* Search button style -- overrides the above two rules for the search
+   button */
+.navbar form button,
+.navbar form button:hover,
+.navbar form button:focus,
+.navbar form button:active,
+.navbar form button:active:focus {
+    background-color: lightgrey;
+    color: black;
+    /* Make it a bit wider. */
+    width: 50px;
+    /* Make the border's curve more gentle */
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    /* Apply a light-grey border color. You can specify colors as names, rgb
+       triplets, or hex numbers. */
+    border-top: 1px solid rgb(204, 204, 204);
+    border-bottom: 1px solid rgb(204, 204, 204);
+    border-right: 1px solid rgb(204, 204, 204);
+    /* Removes halo and shadow on button when clicked. */
+    outline: none;
+    box-shadow: none;
+}
+
+/* Navbar button style when the button has notifications.
+   Apply same style when the user is hovering the mouse over the button. */
+button.fb-notifications,
+button.fb-notifications:hover {
+    color: white;
+}
+
+/* Make the Bootstrap badges more Facebook-style in the navbar */
+.navbar .badge {
+    font-size: 10px;
+    background-color: #fa3e3e;
+    color: white;
+    border-radius: 2px;
+    padding: 1px 3px;
+    right: 8px;
+    top: -10px;
+    line-height: 13px;
+}
+
+/* Make the "John" and "Home" buttons white. Would probably be cleaner
+   using a CSS class! */
+.navbar .navbar-right > .btn-toolbar > .btn-group:first-child button,
+.navbar .navbar-right > .btn-toolbar > .btn-group:nth-child(2) button {
+    color: white;
+}
+
+/* Make the "John" and "Home" buttons have a dark blue background when
+   hovered over. */
+.navbar .navbar-right > .btn-toolbar > .btn-group:first-child button:hover,
+.navbar .navbar-right > .btn-toolbar > .btn-group:nth-child(2) button:hover {
+    background-color: #486cb8;
+}
+
+/* Remove padding between list elements, align list items all of the way to the
+   left, and make text non-bolded & black. */
+.fb-left-sidebar .nav > li > a {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 0px;
+    color: #333;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 24px;
+}
+
+/* Make list items have a darker gray background when the mouse hovers
+   over them. */
+.fb-left-sidebar .nav > li > a:hover,
+.fb-left-sidebar .nav > li.active > a:hover {
+    /* This is the color Facebook uses */
+    background-color: #dcdee3;
+    color: black;
+}
+
+/* Override Bootstrap's default style, which changes the color/bgcolor of
+   list items when you click on them. */
+.fb-left-sidebar .nav > li > a:active,
+.fb-left-sidebar .nav > li > a:focus,
+.fb-left-sidebar .nav > li > a:active:focus,
+.fb-left-sidebar .nav > li.active > a:active,
+.fb-left-sidebar .nav > li.active > a:focus, .navbar button
+.fb-left-sidebar .nav > li.active > a:active:focus {
+    background-color: transparent;
+    color: black;
+}
+
+/* Make the badges have no background, a dark gray color, and normal font
+   weight (removes bold). */
+.fb-left-sidebar .badge {
+    font-size: 11px;
+    background-color: transparent;
+    /* The same color as Facebook */
+    color: #4e5665;
+    font-weight: normal;
+}
+
+/* Color all text items in the left sidebar this color gray. */
+.fb-left-sidebar {
+    /* I got this color from Facebook */
+    color: #01bb54;
+    padding: 0 !important;
+}
+
+/* The active pill should be bolded w/ no background. */
+.fb-left-sidebar .nav > li.active > a {
+    font-weight: bold;
+    background-color: transparent;
+}
+.content-header {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 16px;
+}
+.class-icon {
+    float: left;
+    margin-right: 10px;
+}
+.class-icon img {
+    width: 20px;
+    height: 20px;
+}
+.linkwrap {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+/*/////////////////////////////////////////////////////////////*/
+.fb-status-update-entry textarea {
+    resize: none;
+    /* Needs to be !important, since Bootstrap sets this elsewhere. */
+    box-shadow: none !important;
+    border: none;
+}
+.fb-status-update-entry .media {
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    /* Adds whitespace between bottom border and buttons */
+    margin-bottom: 10px;
+    /* Adds whitespace between top of media object and top border. */
+    padding-top: 5px;
+}
+.fb-status-update hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-top: 1px solid lightgray;
+}
+.fb-status-update .list-inline {
+    margin-bottom: 0px;
+}
+
+.fb-status-update .panel-body {
+    padding-bottom: 5px;
+}
+.body-giaovien-left{
+    text-transform: uppercase;
+    color: #3a5795;
+    font-weight: bold;
+    float: left;
+    font-size: 14px;
+}
+.body-giaovien-right{
+    word-wrap: break-word;
+    margin-top: 1px;
+    width: 80%;
+    float: right;
+    font-size: 12px;
+}
+.post-content-header h4{
+    text-transform: uppercase;
+    color: #3a5795;
+    font-size: 14px;
+    font-weight: bold;
+}
+.nhiemvu-day span{
+    font-size: 11px;
+    width: 70px;
+    height: 50px;
+    float: left;
+    padding: 4px 0;
+    padding-top: 0px;
+    background: #d7d7d7;
+    text-align: center;
+}
+.nhiemvu-body{
+    margin-top: 10px;
+}
+.nhiemvu-head a{
+}
+.nhiemvu-day .day{
+    background-color: #3a5795;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+.navbar-nav .btn-toolbar .btn-group .navbar-btn{
+    height: 26px;
+}
+/*/////////tin nhan//////////*/
+.__tw {
+    border-radius: 0 0 2px 2px;
+}
+._1y2l {
+    right: -32px;
+}
+.__tw {
+    background: #fff;
+    border: 1px solid rgba(100, 100, 100, .4);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+    color: #1d2129;
+    overflow: visible;
+    position: absolute;
+    top: 38px;
+    width: 430px;
+    z-index: -1;
+}
+.__tw .jewelHeader {
+    padding: 8px 12px 6px;
+}
+.__tw .jewelHeader {
+    background-clip: padding-box;
+    background-color: #fff;
+    border-bottom: solid 1px #dddfe2;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 8px 8px 6px 8px;
+    position: relative;
+    z-index: 100;
+}
+.accessible_elem {
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+.uiHeader h3, .uiHeader h4 {
+    color: #333;
+    font-size: 12px;
+}
+._ohf {
+    float: right;
+}
+.fcg {
+    color: #90949c;
+}
+.fwn {
+    font-weight: normal;;
+}
+.fsm {
+    font-size: 12px;
+}
+.uiHeader .uiHeaderTitle {
+    outline: none;
+}
+._1sdd:hover, ._1sdd {
+    color: #333;
+    font-weight: bold;
+    padding-right: 0;
+}
+.mrm {
+    margin-right: 10px;
+}
+._1sdj {
+    margin-left: 2px;
+}
+._1sdf {
+    display: inline-block;
+}
+._1sdi {
+    color: #aaa;
+    font-weight: normal;
+    padding-right: 2px;
+}
+._2q3u {
+    transition: height 100ms;
+}
+.uiScrollableArea {
+    direction: ltr;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.uiScrollableArea.nofade .uiScrollableAreaWrap, .uiScrollableArea.fade .uiScrollableAreaWrap {
+    margin-right: -30px;
+    padding-right: 30px;
+}
+.uiScrollableArea .uiScrollableAreaWrap {
+    overflow-y: scroll;
+}
+.uiScrollableAreaWrap {
+    height: 100%;
+    outline: none;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+}
+.uiScrollableAreaBody {
+    direction: ltr;
+    position: relative;
+}
+.__tw .uiScrollableAreaContent {
+    padding-bottom: 1px;
+}
+._1y2l ._v8y {
+    padding: 8px;
+    text-align: center;
+}
+.__tw div.hasPYMK, .__tw div.friendConfirmedNotifsUnitAggregated, .__tw .uiScrollableArea li, .__tw .uiScrollableArea li>a {
+    border-color: #dddfe2;
+}
+._1y2l .jewelContent li {
+    border-top: 0;
+}
+._1xfk {
+    margin-bottom: -1px;
+}
+._1y2l a.messagesContent {
+    padding: 7px 30px 6px 12px;
+}
+._1y2l .jewelContent a.messagesContent {
+    border-bottom: 1px solid #e9ebee;
+    border-top: 1px solid #e9ebee;
+    margin-bottom: -1px;
+    padding: 4px 20px 4px 8px;
+    position: relative;
+}
+._1y2l a.messagesContent {
+    color: #1d2129;
+    display: block;
+    padding: 4px 8px;
+    text-decoration: none;
+}
+._1y2l li a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.__tw li>a, .__tw li>.anchorContainer>a {
+    outline: none;
+}
+._ohe {
+    float: left;
+}
+._1y2l ._4qeb {
+    margin-bottom: 1px;
+    margin-left: 1px;
+    margin-right: 13px;
+    overflow: hidden;
+}
+.MercuryThreadImage {
+    width: 50px;
+    height: 50px;
+}
+._8o, ._8o .img {
+    display: block;
+}
+._42ef {
+    overflow: hidden;
+}
+._ohf {
+    float: right;
+}
+._1y2l .content {
+    display: block;
+    width: auto;
+}
+._1y2l .author {
+    padding-top: 7px;
+    white-space: nowrap;
+}
+._1y2l span.presenceIndicator {
+    margin: 0 0 2px 8px;
+    vertical-align: bottom;
+}
+._1y2l .preview, ._1y2l a.messagesContent:hover .preview {
+    color: #7f7f7f;
+    padding-top: 1px;
+}
+._1y2l .preview {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+._1y2l .preview, ._1y2l a.messagesContent:hover .preview {
+    color: #7f7f7f;
+    padding-top: 1px;
+}
+._1y2l .time {
+    color: #999;
+    font-size: 9px;
+}
+._1y2l a.messagesContent .time .timestamp {
+    font-size: 9px;
+    position: absolute;
+    right: 14px;
+    top: 20%;
+}
+.time .timestamp {
+    color: #999;
+    display: block;
+    font-size: 9px;
+    padding-top: 2px;
+}
+._1y2l ._4qeb {
+    margin-bottom: 1px;
+    margin-left: 1px;
+    margin-right: 13px;
+    overflow: hidden;
+}
+.snippet, .preview {
+    font-size: 12px;
+    zoom: 1;
+}
+.__tw .jewelFooter.jewelFooter a {
+    background-color: #fff;
+    border-color: #dddfe2;
+    padding: 8px 12px;
+}
+.__tw .jewelFooter a:hover, .__tw .jewelFooter a:active, .__tw .jewelFooter a:focus {
+    background-color: #f6f7f9;
+    border-top: 1px solid #bec2c9;
+    color: #365899;
+    outline: none;
+    text-decoration: underline;
+}
+.__tw .jewelFooter a {
+    background-color: #f6f7f9;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-top: 1px solid #bec2c9;
+    display: block;
+    font-weight: bold;
+    padding: 8px;
+    position: relative;
+    text-align: center;
+    z-index: 100;
+}
+.time .timestamp{
+    font-size: 9px;
+}
+.toggleTargetClosed {
+    margin-top: 8px;
+}
+.icon-green{
+    color: #01ce5c;
+}
+/*//////comment/////////////////////////////////////////////////////////////////////////////////////////////////*/
+#scorm-comments{
+    background: white;
+}
+ul.qa_comments {
+    border: 0 solid #ccc;
+    margin: 0;
+    padding: 10px 0;
+    width: 100%;
+}
+ul.qa_comments li {
+    list-style: none;
+    font-size: 1em;
+    line-height: 1.4;
+    color: #555;
+    list-style: none;
+    border: 0 solid #ccc;
+}
+ul.qa_comments .comments>li {
+    padding: 0 10px;
+    background: #ececec none repeat scroll 0 0;
+}
+ul.qa_comments .comment {
+    padding-top: 5px;
+}
+ul.qa_comments .comments {
+    padding: 0 0 0 35px;
+}
+ul.qa_comments .meta {
+    margin: 0 0 10px;
+}
+ul.qa_comments .comment .meta span {
+    font-weight: bold;
+}
+ul.qa_comments .comment .meta span.time {
+    color: #888;
+    font-size: 12px;
+    font-weight: normal;
+}
+ul.qa_comments .comment .meta span.view-qa {
+    margin: 0 5px;
+    font-size: 12px;
+}
+ul.qa_comments .comment .content {
+    background-color: transparent !important;
+    font-size: 13px;
+    margin: 10px 0;
+}
+ul.qa_comments .comment .content p {
+    margin: 0 0 10px;
+}
+ul.qa_comments .comment .actions {
+    font-size: 11px;
+    width: 100%;
+    font-family: 'Roboto Condensed',sans-serif;
+    color: #555;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+}
+ul.qa_comments .comment .actions a {
+    display: inline-block;
+    margin-right: 20px;
+    padding-left: 20px;
+    line-height: 23px;
+    height: 20px;
+    color: #009CCE;
+}
+ul.qa_comments .comment .actions a.btnLike {
+    background: url(../images/icon_like.png) no-repeat left 50%;
+    background-size: 16px;
+}
+ul.qa_comments .comment .actions a.btnReply {
+    background: url(../images/icon_reply.png) no-repeat left 5px;
+    background-size: 16px;
+    color: #000;
+}

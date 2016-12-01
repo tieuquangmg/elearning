@@ -20,13 +20,8 @@ class MessagePusherEvent extends Event implements ShouldBroadcast
     {
         $this->message = $message;
         $this->user = $this->message->send_to;
-        dd($this->user );
     }
-    /**
-     * Get the channels the event should be broadcast on.
-     *
-     * @return array
-     */
+
     public function broadcastOn()
     {
         $user_chaner = $this->message->to;

@@ -1,4 +1,4 @@
-@extends('frontend.dasdboard._layout.layout')
+@extends('frontend.dasdboard._layout.layout_db')
 @section('content')
     <div class="container">
         <div class="page-section">
@@ -23,8 +23,6 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <div class="col-xs-2"></div>
-                            <div class="col-xs-8">
                                 @if($permission)
                                     <ul class="timeline">
                                         <li>
@@ -36,26 +34,33 @@
                                                     <ul class="list-group">
                                                         @foreach($unit->theory as $row)
                                                             <li class="list-group-item">
-                                                                <a href="{{url('study/theory/'.$row->id.'/'.$class->id)}}" style="text-decoration: none; color: black">
-                                                                    <i class="fa fa-link"></i>
-                                                                    {{$row->name}}</a>
-                                                                <small class="text-muted pull-right">
-                                                                    @if(Auth::user()->hasRole(['student']))
-                                                                        @if(!$row->user_theory->isEmpty())
-                                                                            @if($row->user_theory->first()->watch_time == 0)
-                                                                                <i class="glyphicon glyphicon-time icon-green"></i>
-                                                                                <i class="glyphicon glyphicon-ok icon-green"></i>
-                                                                            @elseif($row->user_theory->first()->watch_time == $row->time)
-                                                                                <i class="glyphicon glyphicon-time icon-red"></i>
-                                                                                {{--<i class="glyphicon glyphicon-times icon-red"></i>--}}
-                                                                            @else
-                                                                                <i class="glyphicon glyphicon-time icon-yellow"></i>
-                                                                                <span class="icon-yellow"> {{floor($row->user_theory->first()->watch_time/1000) / 60 % 60}}
-                                                                                    phút còn lại</span>
+                                                                <div class="clearfix">
+                                                                    <div class="pull-left">
+                                                                        <h5 class="list-group-item-heading">
+                                                                            <a href="{{url('study/theory/'.$row->id.'/'.$class->id)}}" style="text-decoration: none; color:#0a568c">
+                                                                                <i class="fa fa-link"></i>
+                                                                                {{$row->name}}</a>
+                                                                        </h5>
+                                                                        <p class="list-group-item-text">{{$row->intro}}</p>
+                                                                        </div>
+                                                                    <small class="text-muted pull-right">
+                                                                        @if(Auth::user()->hasRole(['student']))
+                                                                            @if(!$row->user_theory->isEmpty())
+                                                                                @if($row->user_theory->first()->watch_time == 0)
+                                                                                    <i class="glyphicon glyphicon-time icon-green"></i>
+                                                                                    <i class="glyphicon glyphicon-ok icon-green"></i>
+                                                                                @elseif($row->user_theory->first()->watch_time == $row->time)
+                                                                                    <i class="glyphicon glyphicon-time icon-red"></i>
+                                                                                    {{--<i class="glyphicon glyphicon-times icon-red"></i>--}}
+                                                                                @else
+                                                                                    <i class="glyphicon glyphicon-time icon-yellow"></i>
+                                                                                    <span class="icon-yellow"> {{floor($row->user_theory->first()->watch_time/1000) / 60 % 60}}
+                                                                                        phút còn lại</span>
+                                                                                @endif
                                                                             @endif
                                                                         @endif
-                                                                    @endif
-                                                                </small>
+                                                                    </small>
+                                                                </div>
                                                             </li>
                                                         @endforeach
                                                     </ul>
@@ -68,9 +73,6 @@
                                         <strong>Chú ý: </strong>Bạn chưa hoàn thành bài trước
                                     </div>
                                 @endif
-                            </div>
-                            <div class="col-xs-2"></div>
-
                         </div>
                     </div>
 

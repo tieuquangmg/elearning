@@ -1,4 +1,4 @@
-@extends('frontend.dasdboard._layout.layout')
+@extends('frontend.dasdboard._layout.layout_db')
 @section('content')
     {{--{{dd($theory)}}--}}
     {{--{!! $pdf !!}--}}
@@ -83,7 +83,23 @@
                 {{--</div>--}}
             {{--</div>--}}
             <meta name="_token" content="{{ csrf_token() }}"/>
-            <div class="view-scorm-comments comments-loaded" id="scorm-comments" data-toggle="comments" data-action="auto" data-scormid="16684" data-comment-type="scorm" data-comment-paid="0" data-comment-count="">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="clearfix">
+                        <div class="pull-left h4">
+
+                        </div>
+                        <div class="pull-right">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                </div>
+            </div>
+            <div class="view-scorm-comments commen
+            ts-loaded" id="scorm-comments" data-toggle="comments" data-action="auto" data-scormid="16684" data-comment-type="scorm" data-comment-paid="0" data-comment-count="">
                 <div class="comment-box" id="comment-form-wapper">
                     {!! Form::open(array('route'=>'study.addcomment','method'=>'POST','class'=>'add-comment','id'=>'add-comment')) !!}
                     <div class="form-group">
@@ -104,7 +120,7 @@
                     <li id="li-comment-{{$row->id}}">
                         <div class="comment" id="acomment-{{$row->id}}" text_comment="{{$row->comment}}">
                             <p class="meta">
-                                <span class="author">{{$row->user->first_name.' '.$row->user->last_name}}</span>
+                                <span class="author">{{$row->user->ho_ten}}</span>
                                 <span class="time">{{$row->created_at}}</span></p>
                             <div class="content">
                                 <p>{{$row->comment}}</p>
@@ -121,7 +137,7 @@
                             <li>
                                 <div class="comment" id="comment-841407" text_comment="{{$row1->comment}}">
                                     <p class="meta">
-                                        <span class="author">{{$row1->user->first_name.' '.$row1->user->last_name}}</span>
+                                        <span class="author">{{$row1->user->ho_ten}}</span>
                                         <span class="time">{{$row1->created_at}}</span>
                                     </p>
                                     <div class="content">
@@ -367,7 +383,12 @@
     <script>
         $(document).ready(function () {
             $('#iframe_waper').height($( window ).height()-44);
-            $("html, body").animate({ scrollTop: $('#iframe_waper').offset().top - 100 }, 1000);
+            var divPosid = $('#iframe_waper');
+            if (!divPosid.length) {
+                return;
+            }
+            var divPos = divPosid.offset().top;
+            $("html, body").animate({ scrollTop: divPos - 100 }, 1000);
         })
     </script>
 @endsection

@@ -11,7 +11,8 @@ Route::group(['middleware'=>['web', 'auth']], function() {
         'postUserAssign' => 'user.assign',
         'getPermissionRole' => 'role.permission',
         'postRoleAssign' => 'role.assign',
-        'getModalRole' => 'role.modal'
+        'getModalRole' => 'role.modal',
+        'postFilter' => 'role.filter'
     ]);
     Route::controller('permission', 'PermissionController', [
         'getData' => 'permission.data',

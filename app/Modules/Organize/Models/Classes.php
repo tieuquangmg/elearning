@@ -10,8 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 class Classes extends Model 
 {    
     public $table = 'classes';
+    protected $dates = ['start_date','end_date'];
     public $fillable = [
-        "name", "subject_id", "code", "year", "user_id", 'semester', 'active'
+        "id", "subject_id",'stt_lop', "user_id",'create_by','year','limit','start_date','end_date','semester', 'active'
     ];
     public function student(){
         return $this->belongsToMany(User::class,'class_detail','class_id','user_id');

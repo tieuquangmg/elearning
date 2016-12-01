@@ -12,7 +12,7 @@
                 <li><a >Lớp học</a></li>
             </ol>
             <form method="get" action="{{route('class.data')}}" class="form-inline">
-                <div class="panel panel-default">
+                <div class="panel panel-info">
                     <div class="panel-heading">
                         <div class="clearfix">
                             <div class="pull-left h4">
@@ -22,16 +22,13 @@
                                 <a class="btn btn-danger btn-xs" id="delete"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Xóa"></span> {{trans('button.delete')}}</a>
                                 <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add_class"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="top" title="Thêm"></span> {{trans('button.add')}}</a>
                                 <a class="btn btn-success btn-xs"><i class="glyphicon glyphicon-import"></i>Nhập excel</a>
-                                <a class="btn btn-success btn-xs"><i class="glyphicon glyphicon-check"></i>Đồng bộ</a>
+                                <a href="{{route('class.sync.class')}}" class="btn btn-success btn-xs">
+                                    <i class="glyphicon glyphicon-check"></i>Đồng bộ</a>
                             </div>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div class="pull-left form-group">
-                            <label class="">Hiển thị</label>
-                            {!! Form::select('f_select_number', array(10 => '10', 20 => '20', 30 => '30'),old('f_select_number'), array('id' => 'f_select_number','class' => 'form-control input-inline','onchange'=>"this.form.submit()")) !!}
-                        </div>
-                        <table class="classes_table table table-bordered">
+                        <table class="classes_table table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>
@@ -48,31 +45,31 @@
                             </tr>
                             <tr>
                                 <th class="column-title">
-                                    <a class="btn btn-default btn-block" href="{{route('class.data')}}" rel="tooltip" title="" data-original-title="Reset"><i class="fa fa-power-off fa-fw"></i></a>
+                                    <a class="btn btn-default btn-block btn-sm" href="{{route('class.data')}}" rel="tooltip" title="" data-original-title="Reset"><i class="fa fa-power-off fa-fw"></i></a>
                                 </th>
                                 <th class="column-title">
-                                    <input value="{{old('name')}}" name="name" type="text" class="form-control" id="name" placeholder="Tên lớp... " data-toggle="tooltip" data-placement="top" title="Tên lớp">
+                                    <input value="{{old('name')}}" name="name" type="text" class="form-control input-sm" id="name" placeholder="Tên lớp... " data-toggle="tooltip" data-placement="top" title="Tên lớp">
                                 </th>
                                 <th class="column-title">
-                                    <input value="{{old('code')}}" type="text" name="code" class="form-control" placeholder="mã lớp">
+                                    <input value="{{old('code')}}" type="text" name="code" class="form-control input-sm" placeholder="mã lớp">
                                 </th>
                                 <th class="column-title">
-                                    <input value="{{old('teacher')}}" type="text" name="teacher" class="form-control" placeholder="Giáo viên">
+                                    <input value="{{old('teacher')}}" type="text" name="teacher" class="form-control input-sm" placeholder="Giáo viên">
                                 </th>
                                 <th class="column-title">
-                                    <input value="{{old('subject')}}" type="text" name="subject" class="form-control" placeholder="Môn học">
+                                    <input value="{{old('subject')}}" type="text" name="subject" class="form-control input-sm" placeholder="Môn học">
                                 </th>
                                 <th class="column-title">
-                                    <input value="{{old('year')}}" type="text" name="year" class="form-control" placeholder="Năm học">
+                                    <input value="{{old('year')}}" type="text" name="year" class="form-control input-sm" placeholder="Năm học">
                                 </th>
                                 <th class="column-title">
-                                    <input value="{{old('semester')}}" type="text" name="semester" class="form-control" placeholder="Kỳ học">
+                                    <input value="{{old('semester')}}" type="text" name="semester" class="form-control input-sm" placeholder="Kỳ học">
                                 </th>
                                 <th class="column-title">
-                                    {!! Form::select('active', ['1' => 'Đang học', '-1' => 'Hoàn thành'], old('active'), ['placeholder' => 'Trạng thái','class'=>'form-control','onchange'=>'this.form.submit()']) !!}
+                                    {!! Form::select('active', ['1' => 'Đang học', '-1' => 'Hoàn thành'], old('active'), ['placeholder' => 'Trạng thái','class'=>'form-control input-sm','onchange'=>'this.form.submit()']) !!}
                                 </th>
                                 <th class="column-title">
-                                    <input type="submit" id="search_button" value="Tìm kiếm" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tìm kiếm !">
+                                    <input type="submit" id="search_button" value="Tìm kiếm" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Tìm kiếm !">
                                 </th>
                             </tr>
 
@@ -89,7 +86,11 @@
                                         </td>
                                         <td id="">{{$row->name}}</td>
                                         <td>{{$row->code}}</td>
-                                        <td>{{$row->teacher->first_name.' '.$row->teacher->last_name}}</td>
+                                        <td>
+                                            @if($row->teacher != null)
+                                                {{$row->teacher->ho_ten}}
+                                            @endif
+                                        </td>
                                         <td>{{$row->subject->name}}</td>
                                         <td>{{$row->year}}</td>
                                         <td>{{$row->semester}}</td>
@@ -102,17 +103,17 @@
                                                     <span class=" glyphicon glyphicon-edit"></span>
                                                 </a>
                                                 <a href="{{route('class.detail', $row->id)}}" class="btn btn-primary btn-xs"><i class="fa fa-list"></i></a>
-                                                <a href="{{route('class.detail', $row->id)}}" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-cog"></i></a>
+                                                <a href="{{route('class.setting', $row->id)}}" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-cog"></i></a>
                                                 <a href="{{route('class.score',$row->id)}}" class="btn btn-primary btn-xs">Điểm</a>
                                                 {{--<a href="{{route('class.test', $row->id)}}" class="btn btn-primary btn-xs">Điểm</a>--}}
                                                 {{--<a class="btn btn-primary btn-xs" href="{{route('class.attendance',$row->id)}}">chuyên cần</a>--}}
                                                 {{--<a class="btn btn-primary btn-xs" href="{{route('class.score',$row->id)}}">Tổng kết</a>--}}
-                                                <select class=" form-group-sm" name="forma" onchange="location = this.value;">
-                                                    <option value="">Điểm</option>
-                                                    <option value="{{route('class.test', $row->id)}}">Điểm Thi</option>
-                                                    <option value="{{route('class.attendance', $row->id)}}">Chuyên cần</option>
-                                                    <option value="{{route('class.score',$row->id)}}">Tổng kết</option>
-                                                </select>
+                                                {{--<select class=" form-group-sm" name="forma" onchange="location = this.value;">--}}
+                                                    {{--<option value="">Điểm</option>--}}
+                                                    {{--<option value="{{route('class.test', $row->id)}}">Điểm Thi</option>--}}
+                                                    {{--<option value="{{route('class.attendance', $row->id)}}">Chuyên cần</option>--}}
+                                                    {{--<option value="{{route('class.score',$row->id)}}">Tổng kết</option>--}}
+                                                {{--</select>--}}
                                             </div>
                                         </td>
                                     </tr>
@@ -125,10 +126,15 @@
                         </table>
                     </div>
                     <div class="panel-footer">
-                        {!! $classes->links() !!}
+                        <div class="clearfix">
+                            <div class="pull-left">{!! $classes->links() !!}</div>
+                            <div class="pull-right form-group">
+                                <label class="">Hiển thị</label>
+                                {!! Form::select('f_select_number', array(10 => '10', 20 => '20', 30 => '30'),old('f_select_number'), array('id' => 'f_select_number','class' => 'input-sm form-control input-inline','onchange'=>"this.form.submit()")) !!}
+                            </div>
+                        </div>
                     </div>
                 </div>
-
 
             </form>
         </div>
@@ -148,6 +154,8 @@
                     $('#user_id').val(data.user_id).change();
                     $('#year').val(data.year);
                     $('#semester').val(data.semester);
+                    $('#start_date').val(moment(data.start_date).format('D/M/Y'));
+                    $('#end_date').val(moment(data.end_date).format('D/M/Y'));
                     $('#active').val(data.active);
                     $('#limit').val(data.limit);
                 },
@@ -175,6 +183,14 @@
     </script>
     <script>
         var url_delete = '{{route('class.delete')}}';
+    </script>
+    <script>
+        $(function () {
+            $('.datepicker').datetimepicker({
+                format: 'DD/MM/YYYY',
+                locale: 'vi'
+            });
+        });
     </script>
     <script src="{{asset('')}}build/style/js/check_all.js"></script>
     <script src="{{asset('')}}build/style/js/delete_page.js"></script>

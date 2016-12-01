@@ -63,7 +63,7 @@ body {
 
     margin-bottom: 0px;
 
-    font-size: 14px !important;
+    font-size: 12px !important;
     min-height: 100% !important;
     position: relative;
 }
@@ -74,10 +74,6 @@ body {
     margin: 0 auto;
     /* padding-top:80px;*/
 }
-.conten_waper{
-    margin-top: 20px;
-}
-
 #page {
     background-color: #fff;
 
@@ -509,7 +505,7 @@ div.headermenu {
 }
 
 .main-content-body-left_tieubieu img {
-    border: 1px solid #cdcdcd;
+    /*border: 1px solid #cdcdcd;*/
 
 }
 
@@ -2592,13 +2588,10 @@ blockquote:before {
 .navigation div,
 .navigation button,
 .navigation form {
-
     display: inline;
-
 }
-
 .navbar {
-    min-width: 1000px;
+    /*min-width: 1000px;*/
     max-width: 1250px;
     height: auto;
     margin: 0 auto;
@@ -2608,11 +2601,8 @@ blockquote:before {
     border-style: solid;
 
 }
-
 .navbar .langmenu {
-
     text-align: right;
-
 }
 
 table.navbar {
@@ -2688,74 +2678,41 @@ li {
 }
 
 .navigation {
-
     margin-bottom: 4px;
-
 }
-
 .navigation ul {
-
     margin: 0px;
-
     padding: 0px;
-
     list-style-type: none;
-
 }
-
 .navigation ul li form,
 .navigation ul li {
-
     display: inline;
-
     margin: 0px;
-
     padding: 0px;
-
     margin-left: 2px;
-
 }
-
 .navigation ul li form fieldset,
 .navigation ul li form div select {
-
     vertical-align: middle;
-
 }
-
 .navigation optgroup {
-
     text-align: center;
-
     padding-top: 4px;
-
 }
-
 .navigation option {
-
     text-align: left;
-
 }
-
 .navigation optgroup option {
-
     padding: 0px;
-
 }
-
 #navmenupopup option,
 #navmenufooterpopup option {
-
     padding: 2px 0 2px 20px;
-
     background-repeat: no-repeat;
-
     background-position: 1px 2px;
-
     vertical-align: middle;
-
 }
-
 /***
 
  *** Footer
@@ -2773,11 +2730,8 @@ li {
     bottom: 0;
     left: 0;
 }
-
 .homelink {
-
     margin: 1em 0;
-
 }
 
 .homelink a {
@@ -2795,27 +2749,18 @@ li {
 }
 
 .performanceinfo {
-
     margin: 2em;
-
 }
-
 .performanceinfo span {
-
     display: block;
-
 }
-
 #footer .validators {
-
     margin-top: 40px;
 
     padding-top: 5px;
 
     border-top: 1px dotted gray;
-
 }
-
 #footer .validators ul {
 
     margin: 0px;
