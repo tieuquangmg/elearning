@@ -6,7 +6,7 @@
     </ol>
     <div class="row">
         <div class="col-xs-12">
-            <a class="btn btn-sm">Danh sách sinh viên</a>
+            <a class="btn btn-sm">Thời gian học</a>
             <a class="btn btn-sm">Lịch học trực tuyên</a>
             <a class="btn btn-sm">Cài đặt khác</a>
         </div>
@@ -76,7 +76,7 @@
                         '<td><input type="text" name="new'+i+'['+'status'+']"> </td>' +
                         '<td><a class="rem pull-right"><i class="glyphicon glyphicon-remove"></i></a></td>' +
                         '</tr>');
-                $(function () {
+                $(function (){
                     $('.datetimepicker1').datetimepicker();
                 });
             });

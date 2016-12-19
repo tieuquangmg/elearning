@@ -8,9 +8,11 @@
         <div class="row">
             <div class="col-md-12 form-group" style=" padding-bottom: 70px;">
                 <div class="panel">
-                    <div class="panel-heading panel-green">
+                    <div class="panel-heading panel-blue">
                         <div class="clearfix">
-                            <div class="pull-left">Chi tiết bài kiểm tra</div>
+                            <div class="pull-left">
+                                <h4>Chi tiết bài kiểm tra</h4>
+                            </div>
                             <div class="pull-right">
                                 <a href="{{url(Session::get('url_back'))}}" class="btn btn-xs"><i class=" glyphicon glyphicon-backward"></i> Quay lại</a>
                             </div>
@@ -19,12 +21,13 @@
                     <div class="panel-body">
                         <table class="table" style="width: 300px; margin: 0 auto;">
                             <tr>
-                                <td><span >Môn học</span></td>
-                                <td><p class="name_sv" style="text-transform: uppercase"></p></td>
+                                <td><span>Môn học</span></td>
+                                <td><p class="name_sv" style="text-transform: uppercase">{{$unit->subject->name}}</p></td>
                             </tr>
                             <tr>
-                                <td><span >Sinh viên</span></td>
-                                <td><p class="name_sv" style="text-transform: uppercase">{{Auth::user()->full_name}}</p></td>
+                                <td><span>Sinh viên</span></td>
+                                <td><p class="name_sv" style="text-transform: uppercase">{{Auth::user()->ho_ten}}</p>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Thời gian làm bài</td>

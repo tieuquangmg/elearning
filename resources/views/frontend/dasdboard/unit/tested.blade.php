@@ -8,8 +8,8 @@
         <div class="row">
             <div class="col-md-12 form-group" style="background: white; padding-bottom: 70px;">
                 <div class="panel">
-                    <div class="panel-heading panel-green">
-                        Kiểm tra lại
+                    <div class="panel-heading panel-blue">
+                        <h4>Kiểm tra lại</h4>
                     </div>
                     <div class="panel-body">
                         <table class="table" style="width: 300px; margin: 0 auto;">

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>@yield('title')</title>
     <link href="{{asset('')}}build/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{asset('')}}dashboard/css/vendor/font-awesome.css" rel="stylesheet">
@@ -63,6 +64,7 @@
             '</li>';
         $('.notifbox').prepend($noti)
     }
+
 </script>
 <script>
     var socket = io(':6002'),
@@ -82,6 +84,53 @@
         append_notify(data);
         console.log(data);
     });
+</script>
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+<script>
+
+    $(document).ready(function () {
+        $(document).on('click','#read_all_mes',function () {
+            $.ajax({
+               url: '{{route('study.readallmess')}}',
+               method: 'post',
+                success:function (data) {
+                    console.log(data.success);
+                    if(data.success == true){
+                        $('#count_mess').text('');
+                    }else {
+                        alert('lỗi kết nối server !')
+                    }
+
+                },
+                error:function () {
+                  alert('lỗi kết nối server !')
+                }
+            });
+        });
+        $(document).on('click','#read_all_not',function () {
+            $.ajax({
+                url: '{{route('study.readallnoti')}}',
+                method: 'post',
+                success:function (data) {
+                    console.log(data.success);
+                    if(data.success == true){
+                        $('#count_noti').text('');
+                    }else {
+                        alert('lỗi kết nối server !')
+                    }
+                },
+                error:function () {
+                    alert('lỗi kết nối server !')
+                }
+            });
+        })
+    })
 </script>
 {{--<script>--}}
     {{--// Enable pusher logging - don't include this in production--}}

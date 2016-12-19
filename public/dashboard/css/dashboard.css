@@ -1,4 +1,5 @@
 body {
+    font-size: 13px;
     padding-top: 60px;
     background-color: #e9eaed;
 }
@@ -14,13 +15,26 @@ a, a:visited {
     color: #3b5998;
     font-weight: bold;
 }
-
-.chat-popup {
-    width: 300px;
-    position: fixed;
-    bottom: 0px;
-    right: 20px;
+.btn{
+    border-radius: 1px;
 }
+/*custum boostrap*/
+.small-padding {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.no-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
 .logo{
     background: #3a5795 url("../images/elearning-logo.png");
 
@@ -112,8 +126,6 @@ a, a:visited {
 }
 
 /* Blue background */
-
-
 .nav-top {
     background-color: #3a5795;
     min-height: 42px !important;
@@ -198,9 +210,10 @@ button.fb-notifications:hover {
     color: white;
     border-radius: 2px;
     padding: 1px 3px;
-    right: 8px;
-    top: -10px;
+    right: 5px;
+    top: -4px;
     line-height: 13px;
+    position: absolute;
 }
 
 /* Make the "John" and "Home" buttons white. Would probably be cleaner
@@ -626,7 +639,7 @@ ul.qa_comments {
 }
 ul.qa_comments li {
     list-style: none;
-    font-size: 1em;
+    font-size: 14px;
     line-height: 1.4;
     color: #555;
     list-style: none;
@@ -640,7 +653,7 @@ ul.qa_comments .comment {
     padding-top: 5px;
 }
 ul.qa_comments .comments {
-    padding: 0 0 0 35px;
+    padding: 0 0 0 75px;
 }
 ul.qa_comments .meta {
     margin: 0 0 10px;
@@ -689,4 +702,9 @@ ul.qa_comments .comment .actions a.btnReply {
     background: url(../images/icon_reply.png) no-repeat left 5px;
     background-size: 16px;
     color: #000;
+}
+.bottom-right-fixed{
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
 }

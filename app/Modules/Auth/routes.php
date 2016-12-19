@@ -20,6 +20,7 @@ Route::group(['middleware'=>['web', 'auth']], function (){
         'getImport' => 'auth.user.import',
         'postImport' => 'auth.user.import',
         'getExport' => 'auth.user.export',
+        'getSyncForums' => 'auth.user.syncforums',
     ]);
 //    Route::controller('qr_code', 'QrCodeController', [
 //        'getIndex' => 'auth.qr_code.index',

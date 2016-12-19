@@ -24,11 +24,6 @@ class User extends Authenticatable
         return $this->hasMany(Team::class, 'team_details');
     }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     public $fillable = ['id', 'code', 'ho_ten', 'first_name', 'last_name', 'email',
         'birthday', 'phone_number', 'sex', 'address', 'active', 'image', 'password','id_lop'
     ];
@@ -36,6 +31,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function avatar(){
+        if($this->image == null){
+            return 'images/people/no-avatar.jpg';
+        }else{
+            return $this->image;
+        }
+    }
 
     public function roles()
     {
@@ -69,7 +72,6 @@ class User extends Authenticatable
         }
         return $this->roles()->save($role);
     }
-
     //----------------------> lọc user theo vai trò
     public function scopeFilterRole($query, $role)
     {
@@ -128,6 +130,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class, 'to');
     }
+    public function last_mess_from(){
+        return $this->hasOne(Message::class,'form')->latest();
+    }
+    public function mess_from(){
+        return $this->hasMany(Message::class,'form')->orderBy('updated_at','desc');
+    }
 
     public function getFullNameAttribute()
     {
@@ -144,4 +152,5 @@ class User extends Authenticatable
     public function user_login(){
         return $this->hasMany(User_login::class,'user_id');
     }
+
 }

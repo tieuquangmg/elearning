@@ -1,4 +1,4 @@
-@extends('frontend.dasdboard._layout.layout')
+@extends('frontend.dasdboard._layout.layout_db')
 @section('content')
     <div class="container">
         <div class="page-section">
@@ -36,7 +36,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 {{--<div class="col-md-3">--}}
 

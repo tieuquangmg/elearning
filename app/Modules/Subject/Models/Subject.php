@@ -26,6 +26,7 @@ class Subject extends Model
     public function plan_bomon(){
         return $this->belongsTo(Plan_Bomon::class,'id_bm');
     }
+
 //    public static function updateOrCreate(array $attributes, array $values = [])
 //    {
 ////        $instance = $this->firstOrNew($attributes);

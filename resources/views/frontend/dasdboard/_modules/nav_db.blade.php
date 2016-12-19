@@ -39,9 +39,9 @@
                 <!-- Right-aligned items -->
                 <div class="btn-toolbar pull-right" role="toolbar">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default navbar-btn btn-sm">
-                            Trang cá nhân
-                        </button>
+                        <a href="{{route('study.profile')}}"><button type="button" class="btn btn-default navbar-btn btn-sm">
+                                Trang cá nhân
+                            </button></a>
                     </div>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-default navbar-btn btn-sm">
@@ -51,14 +51,20 @@
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-default navbar-btn" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-comment"></span>
-                            <span class="badge">
                                 <?php
-                                $count = $message->filter(function ($value, $key) {
-                                    return $value->status == 0;
-                                });
+                                    $unread = $message->filter(function ($value, $key) {
+                                        return $value->status == 0;
+                                    });
+                                    if(count($unread) != 0){
                                 ?>
-                                {{count($count)}}
-                            </span>
+                                    <span id="count_mess" class="badge">{{count($unread)}}</span>
+                                <?php
+                                    }else{
+                                ?>
+                                    <span id="count_mess" class="badge"></span>
+                                <?php
+                                    }
+                                ?>
                         </button>
                         <div class="dropdown-menu __tw toggleTargetClosed _1y2l uiToggleFlyout" role="dialog"
                              aria-labelledby="fbMercuryJewelHeader">
@@ -66,10 +72,11 @@
                                 <div class="clearfix uiHeaderTop">
                                     <div class="rfloat _ohf"><h3 class="accessible_elem" id="fbMercuryJewelHeader">Tin
                                             nhắn</h3>
-                                        <div class="uiHeaderActions fsm fwn fcg"><a class="_1c1m" href="#" role="button"
-                                                                                    tabindex="0">Đánh dấu tất cả là đã
+                                        <div class="uiHeaderActions fsm fwn fcg">
+                                            <a id="read_all_mes" class="_1c1m" role="button" tabindex="0">Đánh dấu tất cả là đã
                                                 đọc</a><span role="presentation" aria-hidden="true"> · </span>
-                                            <a href="" accesskey="m" rel="dialog" role="button" id="u_0_c">Tin nhắn mới</a>
+                                            <a href="" accesskey="m" rel="dialog" role="button" id="u_0_c">Tin nhắn
+                                                mới</a>
                                         </div>
                                     </div>
                                 </div>
@@ -145,13 +152,20 @@
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-default navbar-btn" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-globe"></span>
-                            <span class="badge">
                                 <?php
-                                $count = $notify->filter(function ($value, $key) {
-                                    return $value->status == 0;
-                                });
+                                    $unread_noti = $notify->filter(function ($value, $key) {
+                                        return $value->status == 0;
+                                    });
+                                    if(count($unread_noti) != 0){
                                 ?>
-                                {{count($count)}}</span>
+                                    <span id="count_noti" class="badge">{{count($unread_noti)}}</span>
+                                <?php
+                                    }else{
+                                ?>
+                                    <span id="count_noti" class="badge"></span>
+                                <?php
+                                    }
+                                ?>
                         </button>
                         <div class="dropdown-menu __tw toggleTargetClosed _1y2l uiToggleFlyout" role="dialog"
                              aria-labelledby="fbMercuryJewelHeader">
@@ -159,7 +173,7 @@
                                 <div class="clearfix uiHeaderTop">
                                     <div class="rfloat _ohf"><h3 class="accessible_elem" id="fbMercuryJewelHeader">Tin
                                             nhắn</h3>
-                                        <div class="uiHeaderActions fsm fwn fcg"><a class="_1c1m" href="#" role="button"
+                                        <div class="uiHeaderActions fsm fwn fcg"><a id="read_all_not" class="_1c1m" href="#" role="button"
                                                                                     tabindex="0">Đánh dấu tất cả là đã
                                                 đọc</a><span role="presentation" aria-hidden="true"> · </span><a
                                                     ajaxify="/ajax/messaging/composer.php" href="/messages/new/"
@@ -244,7 +258,7 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#"><i class="fa fa-bar-chart-o"></i>Trang cá nhân</a></li>
-                            <li><a href="#"><i class="fa fa-mortar-board"></i>Tin nhắn</a></li>
+                            <li><a href="{{route('study.getMessagedb')}}"><i class="fa fa-mortar-board"></i>Tin nhắn</a></li>
                             <li><a href="{{route('study.profile')}}"><i class="fa fa-user"></i>Cập nhật thông tin</a>
                             </li>
                             <li><a href="{{asset('logout')}}"><i class="fa fa-sign-out"></i> Đăng xuất</a></li>
@@ -265,4 +279,5 @@
                 </div>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container -->
+     </div>
 </nav>

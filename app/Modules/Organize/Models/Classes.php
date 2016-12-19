@@ -23,4 +23,7 @@ class Classes extends Model
     public function subject(){
         return $this->belongsTo(Subject::class);
     }
+//    public function scopeUnitNow($query){
+//        return $query->subject->unit->
+//    }
 }

@@ -1,8 +1,6 @@
 <?php
 
 Route::get('test',function (){
-    event(new  \App\Events\ClassPusherEvent('phan van quang'));
-    return phpinfo();
 });
 Route::get('/pusher', function() {
     event(new \App\Events\HelloPusherEvent('Phan van quang!'));
@@ -42,18 +40,20 @@ Route::group(['middleware' => ['web','landing']], function () {
         Route::get('tested/{id}', 'StudyController@getUnitTested')->name('study.tested');
 
         Route::get('transcript/{id}', 'StudyController@getTranscript')->name('study.transcript');
-        Route::get('synthetic-transcripts/{id}', 'StudyController@getSyntheticTranscripts')->name('study.synthetic.transcripts');
+        Route::get('synthetic-transcripts', 'StudyController@getSyntheticTranscripts')->name('study.synthetic.transcripts');
 
         Route::get('mycourse','StudyController@getMycourse')->name('study.mycourse');
         Route::get('news/{id}','StudyController@getnews')->name('study.news');
         Route::get('update-time','StudyController@getUpdateTime')->name('study.updatetime');
 
         Route::get('news-detail/{id}','StudyController@getNewsDetail')->name('study.newsdetail');
-
+//thong tin ca nhan//
         Route::get('profile','StudyController@getProfile')->name('study.profile');
-
         Route::post('profile','StudyController@postProfile')->name('study.profile');
+        Route::get('qua-trinh-hoc-tap','StudyController@getQuaTrinh')->name('study.quatrinh');
+//comment//
         Route::post('add-comment','StudyController@postAddComment')->name('study.addcomment');
+        Route::post('like-comment','StudyController@postLikeComment')->name('study.likecomment');
 
         Route::get('meeting/{unit_id}/{class_id}','StudyController@getMeeting')->name('study.meeting');
         Route::post('meeting','StudyController@postMeeting')->name('study.meeting');
@@ -62,7 +62,11 @@ Route::group(['middleware' => ['web','landing']], function () {
         Route::post('work-time','StudyController@postWorkTime')->name('study.worktime');
 //Giáo viên ///////////////////////////
         Route::get('danh-sach-sinh-vien-lop/{id}','StudyController@getDanhsach')->name('study.danhsachsinhvienlop');
-
+// tin nhan, thong bao
+        Route::post('read-all-mess','StudyController@postReadMess')->name('study.readallmess');
+        Route::post('read-all-noti','StudyController@postReadnoti')->name('study.readallnoti');
+        Route::get('messages-db','StudyController@getMessageDb')->name('study.getMessagedb');
+        Route::get('notify-db','StudyController@getNotifydb')->name('study.getNotifydb');
     });
     Route::group(['middleware' => 'auth'], function(){
         Route::get('/admin', function () {

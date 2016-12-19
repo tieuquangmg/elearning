@@ -3,6 +3,7 @@ namespace App\Modules\Auth\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Auth\Repositories\UserRepository;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use App\Modules\Auth\Models\User;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Excel;
 use Validator;
+use Config;
 
 class UserController extends Controller
 {
@@ -116,5 +118,29 @@ class UserController extends Controller
                 $sheet->fromArray($export);
             });
         })->export('xls');
+    }
+    public function getSyncForums(){
+        $host = Config::get('xenforo.host');
+        $client = new Client(['base_uri' => 'http://localhost/xf/']);
+
+        $user = User::all()->take(100);
+        foreach ($user as $row){
+            $context = stream_context_create(array(
+                'http' => array('ignore_errors' => true),
+            ));
+
+            $result = file_get_contents('http://localhost/xf/api.php?action=register&hash=quangquang&username=1477011&password=123456&email=1477011@edu.vn', false, $context);
+            dd(json_decode($result,true));
+            $response = $client->request('GET', 'api.php',[
+                'query'=>[
+                    'action' => 'register',
+                    'hash' => 'quangquang',
+                    'username'=>$row->code,
+                    'password'=>'123456',
+                    'email'=>$row->code.'@edu.vn'
+                ]]);
+            dump($response);
+//            var_dump(collect(json_decode($response->getBody()->getContents(),true)));
+        }
     }
 }

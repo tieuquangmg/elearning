@@ -1,4 +1,4 @@
-@extends('frontend.dasdboard._layout.layout')
+@extends('frontend.dasdboard._layout.layout_db')
 @section('title')
 @endsection
 @section('head')
@@ -12,8 +12,8 @@
             <div class="col-sm-12">
                 @include('_basic.includes.alert.index')
                 <div class="panel" style="width: 500px; margin: 30px auto">
-                    <div class="panel-heading panel-green">
-                        <h4 style="color: white">Kết quả kiểm tra:{{$user_test->name}}</h4>
+                    <div class="panel-heading panel-blue">
+                        <h5 style="color: white">Kết quả kiểm tra: {{$user_test->name}}</h5>
                     </div>
                     <div class="panel-body">
                         {{--@if(session()->get('success'))--}}
@@ -26,7 +26,7 @@
                             <tr>
                                 <td>Họ và tên:</td>
                                 <td>
-                                    <b>{{$user_test->user_test->first()->user->first_name.' '.$user_test->user_test->first()->user->last_name}}</b>
+                                    <b>{{$user_test->user_test->first()->user->ho_ten}}</b>
                                 </td>
                             </tr>
                             <tr>
@@ -45,8 +45,8 @@
                         </table>
                     </div>
                     <div class="panel-footer">
-                        <a href="{{url(Session::get('url_back'))}}" class="btn btn-success">Trở lại</a>
-                        <a style="float: right;" href="{{route('study.unit.tested.detail',$user_test->id)}}"
+                        <a style="color: white"" href="{{url(Session::get('url_back'))}}" class="btn btn-success">Trở lại</a>
+                        <a style="float: right;color: white" href="{{route('study.unit.tested.detail',$user_test->id)}}"
                            class="btn btn-danger">Xem chi tiết bài kiểm tra</a>
                     </div>
                 </div>

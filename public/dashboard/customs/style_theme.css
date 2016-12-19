@@ -2592,7 +2592,7 @@ blockquote:before {
 }
 .navbar {
     /*min-width: 1000px;*/
-    max-width: 1250px;
+    /*max-width: 1250px;*/
     height: auto;
     margin: 0 auto;
     /*margin-top: 80px !important;*/

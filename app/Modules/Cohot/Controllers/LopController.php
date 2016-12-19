@@ -37,7 +37,8 @@ class LopController extends Controller
                         'id_khoa' => $row->ID_khoa,
                         'id_chuyen_nganh' => $row->ID_chuyen_nganh,
                         'khoa_hoc' => $row->Khoa_hoc,
-                        'nien_khoa' => $row->Nien_khoa
+                        'nien_khoa' => $row->Nien_khoa,
+                        'ID_dt' => $row->ID_dt,
                     );
                     $bomon = Stu_lop::firstOrNew($value);
                     $bomon->save();

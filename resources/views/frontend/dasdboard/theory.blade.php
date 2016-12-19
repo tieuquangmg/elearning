@@ -35,13 +35,13 @@
                             </iframe>
                         </div>
                             @endif
-                        <div class="col-xs-12 nav navbar-brand theory-control green">
+                        <div class="col-xs-12 nav  theory-control green">
                             <a href="#" class="pull-left"><i class="glyphicon glyphicon-backward"></i> Bài trước</a>
                             <a href="#" class="pull-right"><i class="glyphicon glyphicon-forward"></i> Bài tiếp theo</a>
                         </div>
                     @else
                         <h4 style="color: palevioletred">Bạn chưa hoàn thành bài trước</h4>
-                        <div class="col-xs-12 nav navbar-brand theory-control green">
+                        <div class="col-xs-12 nav theory-control green">
                         <a class="pull-left"><i class="glyphicon glyphicon-backward"></i>Bài trước</a>
                         </div>
                     @endif
@@ -83,78 +83,75 @@
                 {{--</div>--}}
             {{--</div>--}}
             <meta name="_token" content="{{ csrf_token() }}"/>
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <div class="clearfix">
-                        <div class="pull-left h4">
-
-                        </div>
-                        <div class="pull-right">
-
-                        </div>
-                    </div>
-                </div>
+            <div class="panel panel-default">
                 <div class="panel-body">
-
-                </div>
-            </div>
-            <div class="view-scorm-comments commen
-            ts-loaded" id="scorm-comments" data-toggle="comments" data-action="auto" data-scormid="16684" data-comment-type="scorm" data-comment-paid="0" data-comment-count="">
-                <div class="comment-box" id="comment-form-wapper">
-                    {!! Form::open(array('route'=>'study.addcomment','method'=>'POST','class'=>'add-comment','id'=>'add-comment')) !!}
-                    <div class="form-group">
-                        {!! Form::label('comment','Thảo luận') !!}
-                        {!! Form::textarea('comment',null,['placeholder'=>'Thêm thảo luận','class' => 'form-control showbutton','id'=>'comment', 'rows'=>'1']) !!}
-                    </div>
-                    {!! Form::hidden('user_id', Auth::user()->id) !!}
-                    {!! Form::hidden('theory_id', $theory->id) !!}
-                    {!! Form::hidden('parent_id',null,['id'=>'parent_id']) !!}
-
-                    <div class="form-group buttoncomment">
-                        {!! Form::submit('Bình luận',['class'=>'send btn','id'=>'addcomment']) !!}
-                    </div>
-                    {!! Form::close() !!}
-                </div>
-                <ul class="qa_comments" id="qa_comments">
-                    @foreach($comment as $row)
-                    <li id="li-comment-{{$row->id}}">
-                        <div class="comment" id="acomment-{{$row->id}}" text_comment="{{$row->comment}}">
-                            <p class="meta">
-                                <span class="author">{{$row->user->ho_ten}}</span>
-                                <span class="time">{{$row->created_at}}</span></p>
-                            <div class="content">
-                                <p>{{$row->comment}}</p>
+                    <div class="view-scorm-comments commen ts-loaded" id="scorm-comments" data-toggle="comments" data-action="auto" data-scormid="16684" data-comment-type="scorm" data-comment-paid="0" data-comment-count="">
+                        <div class="comment-box" id="comment-form-wapper">
+                            {!! Form::open(array('route'=>'study.addcomment','method'=>'POST','class'=>'add-comment','id'=>'add-comment')) !!}
+                            <div class="form-group">
+                                {!! Form::label('comment','TRAO ĐỔI BÀI') !!}
+                                {!! Form::textarea('comment',null,['placeholder'=>'Viết thảo luận...','class' => 'form-control showbutton','id'=>'comment', 'rows'=>'1']) !!}
                             </div>
-                            <div class="actions">
-                                <a class="btnLike disabled" title="Bỏ thích" href="#like" scormid="{{$theory->id}}" qaid="841354"><span style="">1</span>Thích</a>
-                                <!--a class="btnDislike" href="#dislike" scormid="16684" qaid="841354"><span>0</span> Không thích</a-->
-                                <a class="btnReply" href="#reply" scormid="{{$theory->id}}" replyto="{{$row->id}}"><span>{{count($row->reply($row->id)->orderBy('created_at')->get())}}</span> Trả
-                                    lời</a>
+                            {!! Form::hidden('user_id', Auth::user()->id) !!}
+                            {!! Form::hidden('theory_id', $theory->id) !!}
+                            {!! Form::hidden('parent_id',null,['id'=>'parent_id']) !!}
+                            <div class="form-group buttoncomment">
+                                {!! Form::submit('Bình luận',['class'=>'send btn','id'=>'addcomment']) !!}
                             </div>
+                            {!! Form::close() !!}
                         </div>
-                        <ul class="comments" id="comments-{{$row->id}}">
-                            @foreach($row->reply($row->id)->orderBy('created_at')->get() as $row1)
-                            <li>
-                                <div class="comment" id="comment-841407" text_comment="{{$row1->comment}}">
-                                    <p class="meta">
-                                        <span class="author">{{$row1->user->ho_ten}}</span>
-                                        <span class="time">{{$row1->created_at}}</span>
-                                    </p>
-                                    <div class="content">
-                                        <p>{{$row1->comment}}</p>
+                        <ul class="qa_comments" id="qa_comments">
+                            @foreach($comment as $row)
+                                <li id="li-comment-{{$row->id}}">
+                                    <div class="comment" id="acomment-{{$row->id}}" text_comment="{{$row->comment}}">
+                                        <div class="pic" style="height: 60px;padding-right: 10px;
+                                        float: left"><img src="{{asset($row->user->image)}}" height="60px"></div>
+                                        <div style="margin-left: 70px">
+                                            <p class="meta">
+                                                <span class="author">{{$row->user->ho_ten}}</span>
+                                                <span class="time">{{$row->created_at}}</span>
+                                            </p>
+                                            <div class="content">
+                                                <p>{{$row->comment}}</p>
+                                            </div>
+                                            <div class="actions">
+                                                <a class="btnLike disabled" comment="{{$row->id}}" title="Bỏ thích" href="#like" scormid="{{$theory->id}}" qaid="841354"><span style="display: @if($row->like == 0) none @else inline @endif;">{{$row->like}}</span>Thích</a>
+                                                <!--a class="btnDislike" href="#dislike" scormid="16684" qaid="841354"><span>0</span> Không thích</a-->
+                                                <a class="btnReply" href="#reply" scormid="{{$theory->id}}" replyto="{{$row->id}}"><span>{{count($row->reply($row->id)->orderBy('created_at')->get())}}</span> Trả
+                                                    lời</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="actions">
-                                        <a class="btnLike" title="Thích" href="#like" scormid="{{$theory->id}}"
-                                           qaid="841407">
-                                            <span style="display:none;">0</span>Thích</a>
-                                    </div>
-                                </div>
-                            </li>
-                                @endforeach
+                                    <ul class="comments" id="comments-{{$row->id}}">
+                                        @foreach($row->reply($row->id)->orderBy('created_at')->get() as $row1)
+                                            <li>
+                                                <div class="comment" id="comment-841407" text_comment="{{$row1->comment}}">
+                                                    <div class="pic" style="height: 60px;padding-right: 10px;
+                                        float: left"><img src="{{asset($row1->user->image)}}" height="60px"></div>
+                                                    <div style="margin-left: 70px">
+
+                                                    <p class="meta">
+                                                        <span class="author">{{$row1->user->ho_ten}}</span>
+                                                        <span class="time">{{$row1->created_at}}</span>
+                                                    </p>
+                                                    <div class="content">
+                                                        <p>{{$row1->comment}}</p>
+                                                    </div>
+                                                    <div class="actions">
+                                                        <a class="btnLike" comment="{{$row1->id}}" title="Thích" href="#like" scormid="{{$theory->id}}"
+                                                           qaid="841407">
+                                                            <span style="display:@if($row->like == 0) none @else inline @endif;">{{$row1->like}}</span> Thích</a>
+                                                    </div>
+                                                </div>
+                                                    </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endforeach
                         </ul>
-                    </li>
-                    @endforeach
-                </ul>
+                    </div>
+                </div>
             </div>
         </div>
         {{--<div class="col-lg-3">--}}
@@ -202,10 +199,11 @@
     </div>
         </div>
     <div class="bottom-right-fixed">
-        <div class="panel-heading"><i class="fa fa-clock-o"></i>Thời gian tối thiếu học bài</div>
-        <ul class="list-group">
-            <li class="list-group-item"><i class="your-clock"></i></li>
-        </ul>
+        <i class="fa fa-clock-o"></i>Thời gian tối thiếu học bài
+        <div class="timer" data-seconds-left=123456></div>
+        {{--<ul class="list-group">--}}
+            {{--<li class="list-group-item"><i class="your-clock"></i></li>--}}
+        {{--</ul>--}}
     </div>
     {{--<div class="error-notice">--}}
     {{--<div class="oaerror info">--}}
@@ -215,9 +213,17 @@
 @endsection
 @section('head')
     <link rel="stylesheet" href="{{asset('')}}build/flipclock/css/flipclock.css">
+    <link rel="stylesheet" href="{{asset('')}}dashboard/css/timer.css">
 @endsection
 @section('bot')
     <script src="{{asset('')}}build/flipclock/js/flipclock.js"></script>
+    <script src="{{asset('')}}dashboard/js/jquery.simple.timer.js"></script>
+    <script>
+        $(function(){
+            $('.timer').startTimer();
+            console.log(timeLeft);
+        });
+    </script>
     @if($permission)
         <script>
             var watch_time = {{$watch_time/1000}};
@@ -231,8 +237,7 @@
             //        clock.setCountdown(true);
             clock.start(function() {
             });
-
-            function update_time(time) {
+            function update_time(time){
 //            var data = $('#formSetSingleRole').serialize();
                 console.log(time+'');
                 data = {
@@ -295,25 +300,28 @@
     <script type="text/javascript">
     </script>
     <script>
-        $(document).on('click','.btnReply',function () {
-            reply = $(this).attr('replyto');
-            {{--html =  '<div id="reply-box">' +--}}
-                    {{--'<meta name="_token" content="{{ csrf_token() }}"/>'+--}}
-                    {{--'{!! Form::open(array('route'=>'study.addcomment','method'=>'POST','class'=>'reply-comment')) !!}'+--}}
-                    {{--'<div class="form-group">'+--}}
-                    {{--'{!! Form::textarea('comment',null,['placeholder'=>'','class' => 'form-control showbutton','id'=>'comment', 'rows'=>'1']) !!}'+--}}
-                    {{--'</div>'+--}}
-                    {{--'{!! Form::hidden('user_id', Auth::user()->id) !!}'+--}}
-                    {{--'{!! Form::hidden('parent_id') !!}'+--}}
-                    {{--'{!! Form::hidden('theory_id',$theory->id) !!}'+--}}
-                    {{--'<div class="form-group buttoncomment">'+--}}
-                    {{--'{!! Form::submit('Trả lời',['class'=>'send btn','id'=>'addcomment']) !!}'+--}}
-                    {{--'</div>'+--}}
-                    {{--'{!! Form::close() !!}'+--}}
-                    {{--'</div>';--}}
-            $('ul#comments-'+reply).prepend($("#comment-form-wapper"));
-            $('input[name="parent_id"]').val(reply);
-        });
+        $(document).on('ready',function () {
+            $(document).on('click','.btnReply',function () {
+                reply = $(this).attr('replyto');
+                {{--html =  '<div id="reply-box">' +--}}
+                        {{--'<meta name="_token" content="{{ csrf_token() }}"/>'+--}}
+                        {{--'{!! Form::open(array('route'=>'study.addcomment','method'=>'POST','class'=>'reply-comment')) !!}'+--}}
+                        {{--'<div class="form-group">'+--}}
+                        {{--'{!! Form::textarea('comment',null,['placeholder'=>'','class' => 'form-control showbutton','id'=>'comment', 'rows'=>'1']) !!}'+--}}
+                        {{--'</div>'+--}}
+                        {{--'{!! Form::hidden('user_id', Auth::user()->id) !!}'+--}}
+                        {{--'{!! Form::hidden('parent_id') !!}'+--}}
+                        {{--'{!! Form::hidden('theory_id',$theory->id) !!}'+--}}
+                        {{--'<div class="form-group buttoncomment">'+--}}
+                        {{--'{!! Form::submit('Trả lời',['class'=>'send btn','id'=>'addcomment']) !!}'+--}}
+                        {{--'</div>'+--}}
+                        {{--'{!! Form::close() !!}'+--}}
+                        {{--'</div>';--}}
+                $('ul#comments-'+reply).prepend($("#comment-form-wapper"));
+                $('input[name="parent_id"]').val(reply);
+            });
+
+        })
     </script>
     <script>
         $(document).on('ready',function(){
@@ -357,6 +365,27 @@
                         }
                     });
                 });
+
+                $(document).on('click', '.btnLike', function () {
+                    btn = $(this);
+                    var comment_id = $(this).attr('comment');
+                    $.ajax({
+                        url: '{{route('study.likecomment')}}',
+                        type: "POST",
+                        data: {comment_id:comment_id},
+                        success: function(data) {
+                            data = JSON.parse(data);
+                            if(data.success == true){
+                                btn.css("color","#888");
+                                btn.find('span').html(data.like);
+                                btn.find('span').css("display","inline");
+                            }
+                        },
+                        error:function () {
+                            alert('mất kết nối đến máy chủ');
+                        }
+                    });
+                })
             {{--$(document).on('submit','.reply-comment',function (e){--}}
                 {{--e.preventDefault();--}}
                 {{--var formdata = $(this).serialize();--}}
@@ -382,13 +411,13 @@
     </script>
     <script>
         $(document).ready(function () {
-            $('#iframe_waper').height($( window ).height()-44);
+            $('#iframe_waper').height($(window).height() - 44);
             var divPosid = $('#iframe_waper');
             if (!divPosid.length) {
                 return;
             }
             var divPos = divPosid.offset().top;
-            $("html, body").animate({ scrollTop: divPos - 100 }, 1000);
+            $("html, body").animate({scrollTop: divPos - 100}, 1000);
         })
     </script>
 @endsection

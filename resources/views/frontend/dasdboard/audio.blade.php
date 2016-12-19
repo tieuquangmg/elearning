@@ -1,4 +1,4 @@
-@extends('frontend.dasdboard._layout.layout')
+@extends('frontend.dasdboard._layout.layout_db')
 @section('content')
 <div class="container">
     <div class="page-section">

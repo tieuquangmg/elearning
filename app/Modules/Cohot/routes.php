@@ -12,4 +12,7 @@ Route::group(['middleware' => ['web']], function () {
         'getData' => 'bomon.data',
         'getSyncBomon' => 'bomon.sync',
     ]);
+    Route::controller('chuongtrinhdaotao','ChuongTrinhDaoTaoController',[
+        'getSyncChiTiet' => 'chuongtrinhdaotaochitiet.sync'
+    ]);
 });

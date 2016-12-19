@@ -66,7 +66,7 @@ return [
 
         'qlsv' => [
             'driver' => 'sqlsrv',
-            'host' => 'SIEUMAYTINH\SQLEXPRESS',
+            'host' => 'QUANG\SQLEXPRESS',
             'database' => 'DHTD_HAIVT',
             'username' => 'sa',
             'password' => '123456',

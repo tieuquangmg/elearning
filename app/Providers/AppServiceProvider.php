@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Modules\Media\Models\Message;
 use App\Modules\Media\Models\Notify;
 use App\Modules\Media\Models\User_notify;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,8 +23,8 @@ class AppServiceProvider extends ServiceProvider
             $data['message'] = Message::with('send_from')->where('to',Auth::user()->id)->take(10)->get();
             $view->with($data);
         });
+        Carbon::setLocale(config('app.locale'));
     }
-
     public function register(){
 
     }

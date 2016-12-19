@@ -31,7 +31,7 @@
                             <tr>
                                 <td>{{$row->time_start->format("H:i")}} - ngày {{$row->time_start->format('d-m/Y')}}</td>
                                 <td>{{$row->duration}} phút</td>
-                                <td>{{$row->status}}</td>
+                                <td>{{($row->status == 1) ? 'đã mở' : 'chưa mở'}}</td>
                             </tr>
                                 @endforeach
                             </tbody>
@@ -54,8 +54,8 @@
                         @endif
                     @else
                         <span style="color: red">Vui lòng đợi giáo viên vào lớp</span>
-                        <div class="wait_meeting"><img
-                                    src="http://4.bp.blogspot.com/-lfvYU-6wo5A/TlvoOnipJhI/AAAAAAAAAWs/UoDXyBl6Z20/s1600/10.gif">
+                        <div class="wait_meeting">
+                            <img src="{{asset('dashboard/images/10.gif')}}">
                         </div>
                     @endif
                 </div>

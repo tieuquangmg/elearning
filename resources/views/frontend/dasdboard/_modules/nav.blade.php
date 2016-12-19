@@ -133,7 +133,7 @@
                                     @endif
                             </div>
                             <li class="seeall">
-                                <a>Xem tất cả</a>
+                                <a href="">Xem tất cả</a>
                             </li>
                         </ul>
                         <!-- /.dropdown-alerts -->

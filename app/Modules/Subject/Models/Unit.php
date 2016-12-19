@@ -1,6 +1,7 @@
 <?php 
 namespace App\Modules\Subject\Models;
 use App\Modules\Examination\Models\UnitTest;
+use App\Modules\Organize\Models\Unit_class;
 use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model
@@ -22,7 +23,6 @@ class Unit extends Model
     public function question(){
         return $this->hasMany(QuestionBank::class);
     }
-
     public function unit_test(){
         return $this->hasMany(UnitTest::class,'unit_id');
     }
@@ -41,4 +41,7 @@ class Unit extends Model
     public function user_unit(){
         return $this->hasMany(User_unit::class,'unit_id');
     }
+//    public function unit_class(){
+//        return $this->hasMany(Unit_class::class,'class_id');
+//    }
 }

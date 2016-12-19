@@ -6,7 +6,6 @@
 @endsection
 @section('content')
     <link href="{{asset('')}}dashboard/customs/style(10).css" rel="stylesheet" />
-
     <div class="container">
         <div class="row">
             <div class="col-md-2 fb-left-sidebar">
@@ -16,7 +15,7 @@
                             <img src="http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg">
                         </div>
                         <div class="caption">
-                            <a href="#">Phan Văn Quang</a>
+                            <a href="#">{{Auth()->user()->ho_ten}}</a>
                         </div>
                     </li>
                     <li role="presentation">
@@ -94,7 +93,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10" id="course-view">
                 <div>
                     <span id="maincontent"></span>
                     <table class="topics" width="100%" summary="Layout table">
@@ -171,9 +170,9 @@
                                                             class="Apple-converted-space"> <b>{{$class->subject->name}}</b></span></span><b
                                                         style="box-sizing: border-box; font-weight: 700; color: rgb(51, 51, 51); font-family: helvetica,arial,sans-serif; font-size: 15px; font-style: normal; font-variant: normal; letter-spacing: normal; line-height: 37.5px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px;">
                                                     - {{$class->code}}</b><span
-                                                        style="color: rgb(51, 51, 51); font-family: helvetica,arial,sans-serif; font-size: 15px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 37.5px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; display: inline ! important; float: none;"> trực tuyến của các lớp<span
+                                                        style="color: rgb(51, 51, 51); font-family: helvetica,arial,sans-serif; font-size: 15px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 37.5px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; display: inline ! important; float: none;"><span
                                                             class="Apple-converted-space"> </span></span><span
-                                                        style="color: rgb(51, 51, 51); font-family: helvetica,arial,sans-serif; font-size: 15px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 37.5px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; display: inline ! important; float: none;"> ngành<span
+                                                        style="color: rgb(51, 51, 51); font-family: helvetica,arial,sans-serif; font-size: 15px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 37.5px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; display: inline ! important; float: none;"> - ngành <span
                                                             class="Apple-converted-space"><b>Công nghệ thông tin.</b></span></span><b></b>
                                             </td>
                                         </tr>
@@ -184,7 +183,7 @@
                                                         <li class="text-tuan">
                                                             <a href="#">
                                                                 <p class="tuan">Tuần 0</p>
-                                                                <p class="content-date-tuan">03/10-09/10</p>
+                                                                <p class="content-date-tuan">00/00-00/00</p>
                                                             </a>
                                                         </li>
                                                         <?php $k = 1 ?>

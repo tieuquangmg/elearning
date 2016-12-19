@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     public $table = 'comments';
-    public $fillable = ['parent_id','comment','user_id','theory_id'];
+    public $fillable = ['parent_id','comment','user_id','theory_id','like'];
 
     public function scopeReply($query,$id){
         return $query->where('parent_id',$id);

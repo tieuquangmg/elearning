@@ -8,4 +8,5 @@ class User_unit extends Model
 {
     protected $table = 'user_unit';
     protected $fillable = ['user_id','unit_id','login_time'];
+
 }

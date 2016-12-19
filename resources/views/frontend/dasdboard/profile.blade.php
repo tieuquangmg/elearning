@@ -1,4 +1,4 @@
-@extends('frontend.dasdboard._layout.layout')
+@extends('frontend.dasdboard._layout.layout_db')
 @section('page-header')
     <div class="parallax overflow-hidden bg-blue-400 page-section third">
         <div class="container parallax-layer" data-opacity="true">
@@ -19,177 +19,182 @@
         </div>
     </div>
 @endsection
+@section('head')
+    <link type="text/css" rel="stylesheet" href="{{asset('dashboard/css/profile.css')}}">
+    <link type="text/css" rel="stylesheet" href="{{asset('dashboard/css/avatar/croppie.css')}}">
+    @endsection
 @section('content')
     <div class="container">
-        <div class="page-section">
-            <div class="row">
-                <div class="col-md-9">
-                    <!-- Tabbable Widget -->
-                    <div class="tabbable paper-shadow relative" data-z="0.5">
-                        <!-- Tabs -->
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#"><i class="fa fa-fw fa-lock"></i> <span
-                                            class="hidden-sm hidden-xs">Quản lý tài khoản</span></a></li>
-                            {{--<li><a href="#"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs"></span></a>--}}
-                            {{--</li>--}}
-                        </ul>
-                        <!-- // END Tabs -->
-                        <!-- Panes -->
-                        <div class="tab-content">
-                            <div id="account" class="tab-pane active">
-                                <form method="post" action="{{route('study.profile')}}" enctype="multipart/form-data" class="form-horizontal">
-                                    <input type="hidden" name="_token" value="{{ csrf_token()}}">
-                                    <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-2 control-label">Ảnh cá nhân</label>
-                                        <div class="col-md-6">
-                                            <div class="media v-middle">
-                                                <div class="media-left">
-                                                    <div class="icon-block width-100 bg-grey-100">
-                                                        {{--<i class="fa fa-photo text-light"></i>--}}
-                                                        <img style="width: 100%; height: 100%"
-                                                             src="{{asset($profile->image)}}">
-                                                    </div>
-                                                </div>
-                                                <div class="media-body">
-                                                    <input data-z="0.5" data-hover-z="1" data-animated data-animated class="btn btn-white btn-sm paper-shadow relative" type="file" name="image">
-                                                    {{--<a href="#" class="btn btn-white btn-sm paper-shadow relative"--}}
-                                                       {{--data-z="0.5" data-hover-z="1" data-animated>Thêm ảnh<i--}}
-                                                                {{--class="fa fa-upl"></i></a>--}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputEmail3" class="col-md-2 control-label">Họ và tên</label>
-                                        <div class="col-md-6">
-                                            <div class="form-control-material">
-                                                <input name="ho_ten" type="text"
-                                                       class="form-control input-sm"
-                                                       id="exampleInputLastName" placeholder="Tên"
-                                                       value="{{$profile->ho_ten}}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputEmail3" class="col-md-2 control-label">Địa chỉ Email</label>
-                                        <div class="col-md-6">
-                                            <div class="form-control-material">
-                                                    <input name="email" type="email" class="form-control" id="inputEmail3" placeholder="Email"
-                                                           value="{{$profile->email}}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputEmail3" class="col-md-2 control-label">Địa chỉ</label>
-                                        <div class="col-md-6">
-                                            <div class="form-control-material">
-                                                    <input name="address" type="text" class="form-control used"
-                                                           id="website" value="{{$profile->address}}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputPassword3" class="col-md-2 control-label">Mật khẩu</label>
-                                        <div class="col-md-6">
-                                            <div class="form-control-material">
-                                                <input name="password" type="password" class="form-control"
-                                                       id="inputPassword3" placeholder="Password">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputPassword3" class="col-md-2 control-label">Nhập lại mật khẩu</label>
-                                        <div class="col-md-6">
-                                            <div class="form-control-material">
-                                                <input type="repassword" class="form-control"
-                                                       id="inputPassword3" placeholder="Password">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group margin-none">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <button type="submit" class="btn btn-primary paper-shadow relative"
-                                                    data-z="0.5" data-hover-z="1" data-animated>Lưu thông tin
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="glyphicon glyphicon-home"></i></a></li>
+            <li class="active">Trang cá nhân</li>
+        </ol>
+        <div class="row row-eq-height">
+            <div class="col-md-2 small-padding" style="margin-bottom: 20px;background: white;">
+                @include('frontend.dasdboard._modules.left_menu_profile')
+            </div>
+            <div class="col-md-10">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <h4>Thông tin cá nhân</h4>
                             </div>
+                            <div class="pull-right">
 
-                        </div>
-                        <!-- // END Panes -->
-
-                    </div>
-                    <!-- // END Tabbable Widget -->
-
-                    <br/>
-                    <br/>
-
-                </div>
-                <div class="col-md-3">
-
-                    <div class="panel panel-default" data-toggle="panel-collapse" data-open="true">
-                        <div class="panel-heading panel-collapse-trigger">
-                            <h4 class="panel-title">Thông tin cá nhân</h4>
-                        </div>
-                        <div class="panel-body list-group">
-                            <ul class="list-group list-group-menu">
-                                <li class="list-group-item"><a class="link-text-color"
-                                                               href="{{route('study.profile')}}">Tổng quan</a></li>
-                                <li class="list-group-item"><a class="link-text-color"
-                                                               href="{{route('study.mycourse')}}">Lớp của tôi</a></li>
-                                <li class="list-group-item active"><a class="link-text-color"
-                                                                      href="{{route('study.profile')}}">Thông tin cá
-                                        nhân</a></li>
-                                <li class="list-group-item"><a class="link-text-color" href="{{asset('logout')}}">Tin
-                                        nhắn</a></li>
-                                <li class="list-group-item"><a class="link-text-color" href="{{asset('logout')}}"><span>Đăng xuất</span></a>
-                                </li>
-                            </ul>
+                            </div>
                         </div>
                     </div>
-
-                    <h4>Lớp học khác</h4>
-                    <div class="slick-basic slick-slider" data-items="1" data-items-lg="1" data-items-md="1"
-                         data-items-sm="1" data-items-xs="1">
-                        @foreach($feature as $value)
-                            <div class="item">
-                                <div class="panel panel-default paper-shadow" data-z="0.5" data-hover-z="1"
-                                     data-animated>
-                                    <div class="panel-body">
-                                        <div class="media media-clearfix-xs">
+                    <div class="panel-body">
+                        <div id="account" class="tab-pane active">
+                            <form method="post" action="{{route('study.profile')}}" enctype="multipart/form-data"
+                                  class="form-horizontal">
+                                <input type="hidden" name="_token" value="{{ csrf_token()}}">
+                                <input type="hidden" name="avatar" id="avatar64">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">Ảnh đại diện</label>
+                                    <div class="col-md-6">
+                                        <div class="media v-middle">
                                             <div class="media-left">
-                                                <div class="cover width-90 width-100pc-xs overlay cover-image-full hover">
-                                                    <span class="img icon-block s90 bg-default"></span>
-                        <span class="overlay overlay-full padding-none icon-block s90 bg-default">
-<img class="v-center height-100" src="{{asset($value->subject->image)}}">
-                        </span>
-                                                    <a href="{{route('study.subject',$value->id)}}"
-                                                       class="overlay overlay-full overlay-hover overlay-bg-white">
-                          <span class="v-center">
-                            <span class="btn btn-circle btn-white btn-lg"><i class="fa fa-graduation-cap"></i></span>
-                          </span>
-                                                    </a>
+                                                <div class="icon-block width-100 bg-grey-100">
+                                                    {{--<i class="fa fa-photo text-light"></i>--}}
+                                                    <img id="vartarimage" style="height:135px; width: 135px"
+                                                         src="{{asset($profile->image)}}">
                                                 </div>
                                             </div>
                                             <div class="media-body">
-                                                <h4 class="media-heading margin-v-5-3"><a
-                                                            href="{{route('study.subject',$value->id)}}">{{$value->name}}</a>
-                                                </h4>
-                                                <p class="small margin-none">
-                                                    {{$value->code}}
-                                                </p>
+                                                <button type="button" data-toggle="modal" data-target="#myavatar">Đổi
+                                                    avatar
+                                                </button>
+                                            </div>
+                                            <div class="modal fade" id="myavatar" tabindex="-1" role="dialog"
+                                                 aria-labelledby="đổi avatar">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close"><span
+                                                                        aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel">Đổi ảnh đâị
+                                                                diện</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="image-editor">
+                                                                <input type="file" class="cropit-image-input"
+                                                                       value="chọn file ảnh">
+                                                                <div class="cropit-preview"></div>
+                                                                <div class="image-size-label">Thay
+                                                                    đổi
+                                                                    kích
+                                                                    thước
+                                                                    ảnh</div>
+                                                                <input type="range" class="cropit-image-zoom-input">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">Hủy
+                                                            </button>
+                                                            <button type="button" class="btn btn-primary export">Lưu
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-md-2 control-label">Họ và tên</label>
+                                    <div class="col-md-6">
+                                        <div class="form-control-material">
+                                            <input name="ho_ten" type="text"
+                                                   class="form-control input-sm"
+                                                   id="exampleInputLastName" placeholder="Tên"
+                                                   value="{{$profile->ho_ten}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-md-2 control-label">Địa chỉ Email</label>
+                                    <div class="col-md-6">
+                                        <div class="form-control-material">
+                                            <input name="email" type="email" class="form-control" id="inputEmail3"
+                                                   placeholder="Email"
+                                                   value="{{$profile->email}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-md-2 control-label">Địa chỉ</label>
+                                    <div class="col-md-6">
+                                        <div class="form-control-material">
+                                            <input name="address" type="text" class="form-control used"
+                                                   id="website" value="{{$profile->address}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-md-2 control-label">Mật khẩu</label>
+                                    <div class="col-md-6">
+                                        <div class="form-control-material">
+                                            <input name="password" type="password" class="form-control"
+                                                   id="inputPassword3" placeholder="Password">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-md-2 control-label">Nhập lại mật khẩu</label>
+                                    <div class="col-md-6">
+                                        <div class="form-control-material">
+                                            <input type="repassword" class="form-control"
+                                                   id="inputPassword3" placeholder="Password">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group margin-none">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <button type="submit" class="btn btn-primary paper-shadow relative"
+                                                data-z="0.5" data-hover-z="1" data-animated>Lưu thông tin
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
+    <!-- This wraps the whole cropper -->
+
+@endsection
+@section('bot')
+    <script type="text/javascript" src="{{asset('dashboard/js/jquery.cropit.js')}}"></script>
+    <script>
+        $(function() {
+            $('.image-editor').cropit({
+                exportZoom: 1.25,
+                imageBackground: true,
+                imageBackgroundBorderWidth: 20,
+                imageState: {
+                    src: 'http://lorempixel.com/500/400/',
+                },
+            });
+
+            $('.rotate-cw').click(function() {
+                $('.image-editor').cropit('rotateCW');
+            });
+            $('.rotate-ccw').click(function() {
+                $('.image-editor').cropit('rotateCCW');
+            });
+
+            $('.export').click(function() {
+                var imageData = $('.image-editor').cropit('export');
+                $('#vartarimage').attr('src',imageData);
+                $('#avatar64').attr('value',imageData);
+                $('#myavatar').modal('hide');
+            });
+        });
+    </script>
 @endsection
