@@ -18,6 +18,21 @@ a, a:visited {
 .btn{
     border-radius: 1px;
 }
+.loading{
+    width: 150px;
+    height: 150px;
+    z-index: 9999999999;
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top:0;
+    bottom:0;
+    margin: auto;
+    background: url("http://www.vizrt.com/skins/vizrt/bootstrap/gfx/v2/loading.gif") no-repeat center center;
+    filter: alpha(opacity=75);
+    opacity: .75;
+}
 /*custum boostrap*/
 .small-padding {
     padding-left: 5px;
@@ -36,7 +51,7 @@ a, a:visited {
 }
 
 .logo{
-    background: #3a5795 url("../images/elearning-logo.png");
+    background: #953a3a url("../images/elearning-logo.png");
 
 }
 .fb-search {
@@ -127,7 +142,7 @@ a, a:visited {
 
 /* Blue background */
 .nav-top {
-    background-color: #3a5795;
+    background-color: #953a3a;
     min-height: 42px !important;
 }
 

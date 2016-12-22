@@ -115,7 +115,6 @@
                         </table>
                     </li>
                     @endforeach
-
                 </ul>
             </div>
         </div>

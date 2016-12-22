@@ -97,7 +97,7 @@
                                                             <div class="MercuryThreadImage _4qeb img _8o _8s">
                                                                 <div class="_55lt" size="50"
                                                                      style="width: 50px; height: 50px;"><img
-                                                                            src="{{asset($row->send_from->image)}}"
+                                                                            src="{{asset($row->send_from->avatar())}}"
                                                                             width="50" height="50" alt=""
                                                                             class="img"></div>
                                                             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class LandingMiddleware
 {
@@ -15,7 +16,7 @@ class LandingMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!isset($_COOKIE['firsttime'])) {
+        if (!isset($_COOKIE['firsttime']) && !Auth::user()) {
             setcookie("firsttime", "no",time()+3600);
             return redirect()->route('landing');
             exit();

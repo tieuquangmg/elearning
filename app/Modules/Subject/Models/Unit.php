@@ -41,7 +41,18 @@ class Unit extends Model
     public function user_unit(){
         return $this->hasMany(User_unit::class,'unit_id');
     }
-//    public function unit_class(){
-//        return $this->hasMany(Unit_class::class,'class_id');
-//    }
+    public function unit_classes(){
+        return $this->hasMany(Unit_class::class,'unit_id');
+    }
+
+    public function unit_class($class_id)
+    {
+        foreach ($this->unit_classes as $row) {
+            if ($row->class_id == $class_id) {
+                return $row;
+            } else {
+                return null;
+            }
+        }
+    }
 }

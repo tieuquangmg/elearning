@@ -6,18 +6,19 @@ Route::get('/pusher', function() {
     event(new \App\Events\HelloPusherEvent('Phan van quang!'));
     return "Tin nhan da duoc gui!";
 });
-Route::group(['middleware' => ['web','auth','role:student', 'role:administrator']], function (){
+
+Route::group(['middleware' => ['web','auth','role:student']], function (){
     Route::get('/aaa',function (){
         return 'hi';
     });
 });
-Route::group(['middleware' => ['web','landing']], function () {
+
+Route::group(['middleware' => ['web','landing']], function (){
     Route::get('gioi-thieu', 'StudyController@getLanding')->name('landing');
-    Route::group(['middleware' =>'auth'], function(){
+    //trang chu
         Route::get('/', 'StudyController@getIndex')->name('home');
-    });
 //    'middleware' => ['role:student|teacher'],
-    Route::group(['prefix'=>'study'], function (){
+    Route::group(['prefix'=>'study','middleware' =>['auth','role:student']], function (){
         Route::get('sub/{id}', 'StudyController@getSubject')->name('study.subject');
         Route::get('unit/theory/{id}/{class_id}', 'StudyController@getUnitTheory')->name('study.unittheory');
         Route::get('unit/slide-video/{id}/{class_id}', 'StudyController@getSlideVideo')->name('study.slidevideo');
@@ -31,7 +32,7 @@ Route::group(['middleware' => ['web','landing']], function () {
 //Kiểm tra ///////////////////////////////////////
         Route::get('begin_test/{id}/{unit_id}/{class_id}', 'StudyController@getBeginTest')->name('study.begintest');
         Route::get('unit-test/{id}', 'StudyController@getUnitTest')->name('study.unit.test');
-        Route::post('unit-tested', 'StudyController@postUnitTested')->name('study.unit.tested');
+        Route::post('unit-tested','StudyController@postUnitTested')->name('study.unit.tested');
         Route::get('unit-result-test/{id}', 'StudyController@getResultTest')->name('study.result.test');
         Route::get('unit-tested-detail/{id}', 'StudyController@getResultTestDetail')->name('study.unit.tested.detail');
         Route::get('theory/{id}/{class_id}', 'StudyController@getTheory')->name('study.theory');
@@ -60,15 +61,20 @@ Route::group(['middleware' => ['web','landing']], function () {
         Route::post('end-meeting','StudyController@postEndMeeting')->name('study.endmeeting');
         Route::post('is-meeting-running','StudyController@getIsMeetingRunning')->name('study.ismeetingrunning');
         Route::post('work-time','StudyController@postWorkTime')->name('study.worktime');
-//Giáo viên ///////////////////////////
-        Route::get('danh-sach-sinh-vien-lop/{id}','StudyController@getDanhsach')->name('study.danhsachsinhvienlop');
 // tin nhan, thong bao
         Route::post('read-all-mess','StudyController@postReadMess')->name('study.readallmess');
         Route::post('read-all-noti','StudyController@postReadnoti')->name('study.readallnoti');
         Route::get('messages-db','StudyController@getMessageDb')->name('study.getMessagedb');
         Route::get('notify-db','StudyController@getNotifydb')->name('study.getNotifydb');
+
+        Route::get('send-message','StudyController@getSendMessage')->name('study.getsendmessage');
+        Route::post('send-message','StudyController@postSendMessage')->name('study.postsendmessage');
     });
-    Route::group(['middleware' => 'auth'], function(){
+    Route::group(['prefix'=>'study','middleware' =>['auth','role:teacher']], function () {
+        //Giáo viên ///////////////////////////
+        Route::get('danh-sach-sinh-vien-lop/{id}','StudyController@getDanhsach')->name('study.danhsachsinhvienlop');
+    });
+        Route::group(['middleware' => 'auth'], function(){
         Route::get('/admin', function () {
             $time = Carbon\Carbon::now('Asia/Ho_Chi_Minh');
             $time->addSeconds(15);

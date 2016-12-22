@@ -26,4 +26,3 @@
     <!-- Portfolio Modals -->
     @include('frontend._modal.portfolio')
 @endsection
-

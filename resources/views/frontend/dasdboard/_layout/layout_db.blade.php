@@ -22,6 +22,7 @@
     <![endif]-->
 </head>
 <body>
+<div class="loading"></div>
 @include('frontend.dasdboard._modules.nav_db')
 
 @yield('content')

@@ -3,10 +3,17 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Auth;
 
 class PermissionMiddleware
 {
+    protected $auth;
+
+    public function __construct(Guard $auth)
+    {
+        $this->auth = $auth;
+    }
     /**
      * Handle an incoming request.
      *
@@ -14,12 +21,12 @@ class PermissionMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next,$permission)
+    public function handle($request, Closure $next,$permissions)
     {
-        if (Auth::user()->can($permission)){
-            return $next($request);
-        } else {
+        if ($this->auth->guest() || !$request->user()->can(explode('|', $permissions))){
             return response()->view('errors.401');
+        } else {
+            return $next($request);
         }
     }
 }

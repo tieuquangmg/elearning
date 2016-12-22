@@ -12,7 +12,7 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation">
                         <div class="thumbnail">
-                            <img src="http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg">
+                            <img src="{{asset(Auth()->user()->avatar())}}">
                         </div>
                         <div class="caption">
                             <a href="#">{{Auth()->user()->ho_ten}}</a>
@@ -27,8 +27,8 @@
                     <!-- List items that are just text are not indented, and look like the
                          Facebook section labels. -->
                     <li role="presentation" class="content-header">Nội dung môn học</li>
-                    @foreach($class->subject->unit->sortBy('position') as $row)
-                        <?php $k = 1 ?>
+                    <?php $k = 1 ?>
+                @foreach($class->subject->unit->sortBy('position') as $row)
                         <li role="presentation" class="content_body">
                             <a href="#">
                                 <span class="glyphicon glyphicon-plus class-icon" style="line-height: 20px"></span>
@@ -47,7 +47,7 @@
                                     <span class="badge">1/7</span>
                                 </div>
                                 <span class="class-icon">
-                                    <img src="http://5.s110.appstore.zdn.vn/game-1/139/hangrong-110-1.jpg">
+                                    <img src="{{asset($row->subject->anhbia())}}">
                                 </span>
                                 <div class="linkwrap">
                                     <span>{{$row->subject->name.'-'.$row->stt_lop}}</span>
@@ -188,10 +188,10 @@
                                                         </li>
                                                         <?php $k = 1 ?>
                                                         @foreach($class->subject->unit->sortBy('position') as $row)
-                                                            <li class="text-tuan @if($k == 4 ) calendar_active @endif">
+                                                            <li class="text-tuan @if($row->unit_class($class->id) != null && $row->unit_class($class->id)->start_time <= \Carbon\Carbon::now() && \Carbon\Carbon::now() <= $row->unit_class($class->id)->end_time ) calendar_active @endif">
                                                                 <a href="#section-{{$k}}">
                                                                     <p class="tuan">Tuần {{$k}}</p>
-                                                                    <p class="content-date-tuan">03/10-09/10</p>
+                                                                    <p class="content-date-tuan">{{($row->unit_class($class->id) != null)? ($row->unit_class($class->id)->start_time->format('d/m').' - '.$row->unit_class($class->id)->end_time->format('d/m')): '00/00 - 00/00'}}</p>
                                                                 </a>
                                                             </li>
                                                             <?php $k++ ?>
@@ -537,25 +537,26 @@
             </div>
         </div>
     </div>
+
     <div id="content">
-        <link rel="stylesheet" href="{{asset('dashboard/images')}}/font-awesome.min(1).css">
+        {{--<link rel="stylesheet" href="{{asset('dashboard/images')}}/font-awesome.min(1).css">--}}
         <div id="stick_right_icon">
             <ul class="tpc-icon">
                 <li class="button-wrap">
                     <div class="text-bg"><a href="#" target="_blank">Hỏi đáp</a>
                     </div>
-                    <div class="icon-bg btn-success"><i class="fa fa-bell fa-2x"></i>0</div>
+                    <div class="icon-bg btn-success"><i class="fa fa-bell fa-2x"></i>{{$thong_bao['hoi_dap']}}</div>
                     <div class="clear-both"></div>
                 </li>
                 <li class="button-wrap">
                     <div class="text-bg"><a href="#" target="_blank">Diễn đàn</a></div>
-                    <div class="icon-bg btn-warning"><i class="fa fa-comments fa-2x"></i>1/3</div>
+                    <div class="icon-bg btn-warning"><i class="fa fa-comments fa-2x"></i>{{$thong_bao['dien_dan']}}/3</div>
                     <div class="clear-both"></div>
                 </li>
                 <li class="button-wrap">
                     <div class="text-bg"><a href="#"
                                             target="_blank">Đăng nhập lớp</a></div>
-                    <div class="icon-bg btn-success"><i class="fa fa-graduation-cap fa-2x"></i>25/3</div>
+                    <div class="icon-bg btn-success"><i class="fa fa-graduation-cap fa-2x"></i>{{$thong_bao['dang_nhap']}}/3</div>
                     <div class="clear-both"></div>
                 </li>
                 <li class="button-wrap" data-toggle="modal" data-target="#myModal2">
@@ -565,6 +566,7 @@
                 </li>
             </ul>
         </div>
+
         <div class="modal fade" id="myModal_dggv_in_course" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
              aria-hidden="true" style="z-index: 9999; margin-top: 100px; display: none;">
             <div class="modal-dialog modal-lg" style="    z-index: 100000;">

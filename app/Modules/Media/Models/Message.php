@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     public $table='messages';
-    public $fillable = ['from', 'to', 'content','status'];
+    public $fillable = ['form','to','content','status'];
 
     public function send_from(){
         return $this->belongsTo(User::class,'form');

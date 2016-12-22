@@ -27,6 +27,14 @@ class Subject extends Model
         return $this->belongsTo(Plan_Bomon::class,'id_bm');
     }
 
+    public function anhbia(){
+        if($this->image == null){
+        return asset('dashboard/images/bia-sach.jpg');
+        }else{
+            return $this->image;
+        }
+    }
+
 //    public static function updateOrCreate(array $attributes, array $values = [])
 //    {
 ////        $instance = $this->firstOrNew($attributes);

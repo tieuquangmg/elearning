@@ -260,20 +260,55 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-8">
-                                SUGGESTED PAGES
+                                Thành viên online
                             </div>
                             <div class="col-md-4">
-                                <a href="#" class="pull-right">See All</a>
+                                <a href="#" class="pull-right">Xem tất cả</a>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-12">
-                                <img src="http://umass-cs-326.github.io/img/falafel.jpg" width="100%" />
-                                <br><a href="#">Pita Pocket's</a>
-                                <br> Mediterranean Restaurant · 301 likes
-                                <br><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span> Like Page</button>
+                                @foreach($thanh_vien as $row)
+                                    <div class="media">
+                                        <div class="media-heading" style="float: left; margin-right: 10px">
+                                            <img width="25px" height="25px" src="{{asset($row->avatar())}}">
+                                        </div>
+                                        <div class="media-body" style="padding-top: 3px">
+                                            <span id="name_user">{{$row->ho_ten}}</span>
+                                            <div class="pull-right">
+                                                    <i style="color:#ff9f00 ;cursor: pointer"
+                                                       data-id = "{{$row->id}}"
+                                                       data-name = '{{$row->ho_ten}}'
+                                                       data-toggle="modal" data-target="#modal_mess"
+                                                       class="send-message glyphicon glyphicon-envelope"
+                                                       title="gửi tin nhắn"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{--<button type="button" class="btn btn-default">--}}
+                                        {{--<span class="glyphicon glyphicon-thumbs-up"></span>Tin nhắn--}}
+                                    {{--</button>--}}
+                                @endforeach
+                            </div>
+                            <div class="col-md-12" style="padding-top: 20px">
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-sm" placeholder="Tên sinh v...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-secondary btn-sm" type="button">Tìm</button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
+                        {{--<div class="row">--}}
+                            {{--<div class="col-md-12">--}}
+                                {{--<img src="http://umass-cs-326.github.io/img/falafel.jpg" width="100%" />--}}
+                                {{--<br><a href="#">Pita Pocket's</a>--}}
+                                {{--<br> Mediterranean Restaurant · 301 likes--}}
+                                {{--<br><button type="button" class="btn btn-default">--}}
+                                    {{--<span class="glyphicon glyphicon-thumbs-up"></span>Like Page</button>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
                 </div>
             </div>
@@ -416,7 +451,7 @@
                                             ">
                                         <a href="#" target="_blank">
                                             @if($row['user-unit'] != null)
-                                                {{$row['user-unit']->login_time}}/3
+                                                {{$row['dang-nhap']['total']->login_time}}/3
                                             @else 0/3
                                             @endif
                                         </a>
@@ -476,9 +511,78 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    <div id="modal_mess" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Gửi tin nhắn</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="form-send-mess">
+                        <input type="hidden" value="" name="user_id" id="form-user_id">
+                        <div class="form-group">
+                            <label>Nội dung tin nhắn cho <strong id="user_name_re" style="text-transform: uppercase;color:#3a5795"></strong></label>
+                            <textarea class="form-control" name="content_mess" id="content_mess" title="nội dung tin nhắn"
+                                      style="height: 120px"></textarea>
+                        </div>
+                        <div class="form-group">
+                            {!! Recaptcha::render()!!}
+                        </div>
+                        <div class="form-group">
+                            <input id="btn-send-mess" class="btn btn-success" value="Gửi">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Hủy bỏ</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('bot')
     <script src="{{asset('dashboard/js/script.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            var htmm = $('#modal_mess').html();
+            console.log(htmm);
+        $(document).on('click', '.send-message', function (btn) {
+            var id = $(this).attr('data-id');
+            var name = $(this).attr('data-name');
+            $('#form-user_id').val(id);
+            $('#user_name_re').html(name);
+        });
+        $(document).on('click', '#btn-send-mess', function (btn) {
+            var data = $('#form-send-mess').serialize();
+            $.ajax({
+                url: '{{route('study.postsendmessage')}}',
+                data: data,
+                method: 'post',
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+                success: function (data) {
+                    console.log(data.success);
+                    if (data.success == 'true') {
+                        $('#modal_mess').modal('toggle');
+                    } else {
+                        alert('loi');
+                    }
+                    $('#modal_mess').html(htmm);
+                    $('.loading').hide();
+                },
+                error: function (error) {
+                    alert('không thể kết nối đến server !')
+                    $('.loading').hide();
+                    $('#modal_mess').html(htmm);
+
+                }
+            })
+        })
+        });
+    </script>
 @endsection
 @section('footer')
 
