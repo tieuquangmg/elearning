@@ -1,87 +1,88 @@
 @extends('_basic.master')
 @section('content')
-    <div class="loading">
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <ol class="breadcrumb">
-                <li><a href="{{route('class.data')}}"><span class=" glyphicon glyphicon-home"></span> Lớp học</a></li>
-                <li><a href="{{route('admin')}}">Chi tiết</a></li>
-                <li><a>Kết quả học tập</a></li>
-            </ol>
-            <div class="sort_navy" data-itemhldr="li" data-statectn="paixu" k-name="stat-area">
-                <span>Xem điểm：</span>
-                <ul>
-                    <li><a style="" href="{{route('class.attendance', $class_id)}}" data-order="">Điểm chuyên cần</a></li>
-                    <li><a style="" href="{{route('class.test', $class_id)}}" data-order="">Điểm thi</a></li>
-                    <li><a style="" href="{{route('class.score',$class_id)}}" data-order="">Điểm tổng kết</a></li>
-                </ul>
-            </div>
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <div class="clearfix">
-                        <div class="pull-left h4"> Bảng điểm
-                        </div>
-                        <div class="pull-right">
-                            <a href="{{route('class.data')}}"><i class="glyphicon glyphicon-backward"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    @if($score->isEmpty())
-                        <div class="alert alert-info">Chưa có kết quả học tập</div>
-                    @else
-                        <form id="update_score" method="post" action="">
-                            {!! csrf_field() !!}
-                            <table class="table-responsive table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <input type="checkbox" id="check_all">
-                                    </th>
-                                    <th class="column-title">Tên sinh viên</th>
-                                    <th class="column-title">Điểm chuyên cần</th>
-                                    <th class="column-title">Điểm kiểm tra</th>
-                                    <th class="column-title">Điểm thi</th>
-                                    <th class="column-title">Điểm tổng kết</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($score as $row)
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox">
-                                            {{--<input type="hidden" name="user[{{$row->id}}][id]" value="{{$row->id}}">--}}
-                                        </td>
-                                        <td>@if($row->user_id != null){{\App\Modules\Auth\Models\User::find($row->user_id)->full_name}}@endif</td>
-                                        <td>{{$row->chuyencan}}</td>
-                                        <td>{{$row->kiemtra}}</td>
-                                        <td><input id="input_thi_{{$row->id}}" class="input_thi" data_id="{{$row->id}}" name="user[{{$row->id}}][thi]" type="text" style="width: 40px" value="{{$row->thi}}"></td>
-                                        <td>
-                                            <label id="label_total_id_{{$row->id}}">{{$row->total}}</label>
-                                            <input id="input_total_id_{{$row->id}}" name="user[{{$row->id}}][total]"
-                                                   type="hidden" style="width: 40px"
-                                                   value="{{$row->total}}">
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                                <tfoot>
-                                <div class="clearfix">
-                                    <div class="pull-right">
-                                        <input type="submit" class="btn btn-success btn-sm" value="Lưu điểm">
-                                        <a class="btn btn-success btn-sm">Xuất file excel</a>
-                                        <a class="btn btn-success btn-sm">Đồng bộ LMS</a>
-                                    </div>
-                                </div>
-                                </tfoot>
-                            </table>
-                        </form>
-                    @endif
-                </div>
+    <form id="update_score" method="post" action="">
+        {!! csrf_field() !!}
+    <div id="page-heading">
+        <ol class="breadcrumb">
+            <li><a href="{{route('class.data')}}"><span class=" glyphicon glyphicon-home"></span> Lớp học</a></li>
+            <li><a href="{{route('admin')}}">Chi tiết</a></li>
+            <li><a>Kết quả học tập</a></li>
+        </ol>
+        <h1>Bảng điểm</h1>
+        <div class="options">
+            <div class="btn-toolbar">
+                <a href="{{route('class.data')}}"><i class="glyphicon glyphicon-backward"></i></a>
+                <input type="submit" class="btn btn-success btn-sm" value="Lưu điểm">
+                <a class="btn btn-success btn-sm">Xuất file excel</a>
+                <a class="btn btn-success btn-sm">Đồng bộ LMS</a>
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="sort_navy" data-itemhldr="li" data-statectn="paixu" k-name="stat-area">
+                    <span>Xem điểm：</span>
+                    <ul>
+                        <li><a style="" href="{{route('class.attendance', $class_id)}}" data-order="">Điểm chuyên cần</a></li>
+                        <li><a style="" href="{{route('class.test', $class_id)}}" data-order="">Điểm thi</a></li>
+                        <li><a style="" href="{{route('class.score',$class_id)}}" data-order="">Điểm tổng kết</a></li>
+                    </ul>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="clearfix">
+                            <h4>Bảng điểm</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        @if($score->isEmpty())
+                            <div class="alert alert-info">Chưa có kết quả học tập</div>
+                        @else
+                                <table class="table-responsive table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox" id="check_all">
+                                        </th>
+                                        <th class="column-title">Tên sinh viên</th>
+                                        <th class="column-title">Điểm chuyên cần</th>
+                                        <th class="column-title">Điểm kiểm tra</th>
+                                        <th class="column-title">Điểm thi</th>
+                                        <th class="column-title">Điểm tổng kết</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($score as $row)
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox">
+                                                <input type="hidden" name="user[{{$row->id}}][id]" value="{{$row->id}}">
+                                            </td>
+                                            <td>@if($row->user_id != null){{\App\Modules\Auth\Models\User::find($row->user_id)->ho_ten}}@endif</td>
+                                            <td>{{$row->chuyencan}}</td>
+                                            <td>{{$row->kiemtra}}</td>
+                                            <td><input id="input_thi_{{$row->id}}" class="input_thi" data_id="{{$row->id}}"
+                                                       name="user[{{$row->id}}][thi]" type="text" style="width: 40px"
+                                                       value="{{$row->thi}}"></td>
+                                            <td>
+                                                <label id="label_total_id_{{$row->id}}">{{$row->total}}</label>
+                                                <input id="input_total_id_{{$row->id}}" name="user[{{$row->id}}][total]"
+                                                       type="hidden" style="width: 40px"
+                                                       value="{{$row->total}}">
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- container -->
+    </form>
 @endsection
 
 @section('bot')
@@ -91,7 +92,7 @@
                 var id = $(this).attr('data_id');
                 $(this).css('color','red');
                 calculator(id);
-            })
+            });
             function calculator(id) {
                 var thi = $('#input_thi_'+id).val();
                 var chuyencan = {{$row->chuyencan}};
@@ -100,11 +101,11 @@
                 $('#input_total_id_'+id).val(total).css('color','red');
                 $('#label_total_id_'+id).css('color','red').text(total);
             }
-        })
+        });
         $('#update_score').on('submit',function(e){
             $.ajaxSetup({
                 header:$('meta[name="_token"]').attr('content')
-            })
+            });
             e.preventDefault(e);
             console.log($(this).serializeArray());
             $.ajax({

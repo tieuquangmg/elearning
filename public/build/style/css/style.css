@@ -4,7 +4,7 @@ ul{
 }
 .sort_navy {
     height: 31px;
-    border-bottom: 2px solid #00a1ca;
+    border-bottom: 2px solid #b9b9b9;
     margin-left: 20px;
     webkit-box-sizing: content-box;
     box-sizing: content-box;
@@ -19,7 +19,7 @@ ul{
     height: 31px;
     line-height: 31px;
     padding: 0 25px 0 10px;
-    color: #0088ca;
+    color: #3f333e;
 }
 .sort_navy ul {
     float: left;
@@ -48,11 +48,11 @@ ul{
     text-decoration: none;
 }
 .sort_navy ul li a:active a{
-    background: #0069ff;
+    background: #6a6a6a;
     color: white;
 }
-.active{
-    background: #0069ff !important;
+.sort_navy .active{
+    background: #6a6a6a !important;
     color: white ;
 }
 .pagination{

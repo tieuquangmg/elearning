@@ -1,31 +1,39 @@
 @extends('_basic.master')
 @section('content')
-    <div class="loading">
+    @include('organize.class.create')
+    @include('organize.class.update')
+    <div id="page-heading">
+        <ol class="breadcrumb">
+            <li><a href="{{route('admin')}}"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li><a href="{{route('admin')}}">Dashboard</a></li>
+            <li><a class="active">Lớp học</a></li>
+        </ol>
+        <h1>Danh sách lớp</h1>
+        <div class="options">
+            <div class="btn-toolbar">
+                {{--<div class="btn-group hidden-xs">--}}
+                    {{--<a href='#' class="btn btn-default dropdown-toggle" data-toggle='dropdown'><i class="fa fa-cloud-download"></i><span class="hidden-sm"> Export as  </span><span class="caret"></span></a>--}}
+                    {{--<ul class="dropdown-menu">--}}
+                        {{--<li><a href="#">Text File (*.txt)</a></li>--}}
+                        {{--<li><a href="#">Excel File (*.xlsx)</a></li>--}}
+                        {{--<li><a href="#">PDF File (*.pdf)</a></li>--}}
+                    {{--</ul>--}}
+                {{--</div>--}}
+                <a class="btn btn-danger btn-xs" id="delete"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Xóa"></span> {{trans('button.delete')}}</a>
+                <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add_class"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="top" title="Thêm"></span> {{trans('button.add')}}</a>
+                <a class="btn btn-success btn-xs"><i class="glyphicon glyphicon-import"></i>Nhập excel</a>
+                <a href="{{route('class.sync.class')}}" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-check"></i>Đồng bộ</a>
+            </div>
+        </div>
     </div>
-    <div class="row">
-        @include('organize.class.create')
-        @include('organize.class.update')
-        {{--@include($prefix.'class.update')--}}
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <ol class="breadcrumb">
-                <li><a href="{{route('admin')}}"><span class=" glyphicon glyphicon-home"></span></a></li>
-                <li><a >Lớp học</a></li>
-            </ol>
-            <form method="get" action="{{route('class.data')}}" class="form-inline">
-                <div class="panel panel-info">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form method="get" action="{{route('class.data')}}" class="form-inline">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <div class="clearfix">
-                            <div class="pull-left h4">
-                                Danh sách lớp
-                            </div>
-                            <div class="pull-right">
-                                <a class="btn btn-danger btn-xs" id="delete"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Xóa"></span> {{trans('button.delete')}}</a>
-                                <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add_class"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="top" title="Thêm"></span> {{trans('button.add')}}</a>
-                                <a class="btn btn-success btn-xs"><i class="glyphicon glyphicon-import"></i>Nhập excel</a>
-                                <a href="{{route('class.sync.class')}}" class="btn btn-success btn-xs">
-                                    <i class="glyphicon glyphicon-check"></i>Đồng bộ</a>
-                            </div>
-                        </div>
+                        <h4>Danh sách lớp</h4>
                     </div>
                     <div class="panel-body">
                         <table class="classes_table table table-bordered table-striped">
@@ -72,7 +80,6 @@
                                     <input type="submit" id="search_button" value="Tìm kiếm" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Tìm kiếm !">
                                 </th>
                             </tr>
-
                             </thead>
                             <tbody>
                             @if($classes->isEmpty())
@@ -109,10 +116,10 @@
                                                 {{--<a class="btn btn-primary btn-xs" href="{{route('class.attendance',$row->id)}}">chuyên cần</a>--}}
                                                 {{--<a class="btn btn-primary btn-xs" href="{{route('class.score',$row->id)}}">Tổng kết</a>--}}
                                                 {{--<select class=" form-group-sm" name="forma" onchange="location = this.value;">--}}
-                                                    {{--<option value="">Điểm</option>--}}
-                                                    {{--<option value="{{route('class.test', $row->id)}}">Điểm Thi</option>--}}
-                                                    {{--<option value="{{route('class.attendance', $row->id)}}">Chuyên cần</option>--}}
-                                                    {{--<option value="{{route('class.score',$row->id)}}">Tổng kết</option>--}}
+                                                {{--<option value="">Điểm</option>--}}
+                                                {{--<option value="{{route('class.test', $row->id)}}">Điểm Thi</option>--}}
+                                                {{--<option value="{{route('class.attendance', $row->id)}}">Chuyên cần</option>--}}
+                                                {{--<option value="{{route('class.score',$row->id)}}">Tổng kết</option>--}}
                                                 {{--</select>--}}
                                             </div>
                                         </td>
@@ -135,10 +142,11 @@
                         </div>
                     </div>
                 </div>
+                </form>
 
-            </form>
+            </div>
         </div>
-    </div>
+    </div> <!-- container -->
 @endsection
 @section('bot')
     <script>

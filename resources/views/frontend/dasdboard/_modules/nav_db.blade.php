@@ -39,6 +39,14 @@
                 <!-- Right-aligned items -->
                 <div class="btn-toolbar pull-right" role="toolbar">
                     <div class="btn-group" role="group">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="line-height:46px; color: white !important;
+                           text-decoration:none; background-color: #953a3a">
+                            <img src="{{asset('').Auth::user()->image}}" alt=""
+                                 class="img-circle" height="30px"/>
+                            <span>{{Auth::user()->ho_ten}}</span>
+                        </a>
+                    </div>
+                    <div class="btn-group" role="group">
                         <a href="{{route('study.profile')}}"><button type="button" class="btn btn-default navbar-btn btn-sm">
                                 Trang cá nhân
                             </button></a>
@@ -250,10 +258,7 @@
                     </div>
                     <div class="btn-group" role="group">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="line-height:46px; color: white !important;
-                           text-decoration:none; background-color: #3a5795">
-                            <img src="{{asset('').Auth::user()->image}}" alt=""
-                                 class="img-circle" height="30px"/>
-                            <span style="margin-left: 10px">{{Auth::user()->ho_ten}}</span>
+                           text-decoration:none">
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">

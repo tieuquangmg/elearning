@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Security\Requests\RoleRequest;
 use Illuminate\Support\Facades\Input;
 use App\Modules\Security\Repositories\RoleRepository;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
@@ -51,6 +51,7 @@ class RoleController extends Controller
         $this->repository->update($this->input);
         return redirect()->route('role.data')->with('Cập nhật thành công');
     }
+
     public function getDelete()
     {
         return $this->repository->delete($this->input);
@@ -59,7 +60,7 @@ class RoleController extends Controller
     public function getRoleUser()
     {
         $data = $this->repository->role_user($this->input);
-        if (Request::ajax()){
+        if (Request::ajax()) {
             $data = $this->repository->role_user($this->input);
             $tem['table'] = view('security._includes.role_user_table', $data)->render();
             $tem['url'] = '' . $data['users']->links();
@@ -90,7 +91,9 @@ class RoleController extends Controller
         $data = $this->repository->user_role($this->input);
         return view('security._includes.listRole', $data)->render();
     }
-    public function postFilter(){
+
+    public function postFilter()
+    {
 
     }
 }

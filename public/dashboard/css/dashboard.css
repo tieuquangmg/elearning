@@ -234,7 +234,8 @@ button.fb-notifications:hover {
 /* Make the "John" and "Home" buttons white. Would probably be cleaner
    using a CSS class! */
 .navbar .navbar-right > .btn-toolbar > .btn-group:first-child button,
-.navbar .navbar-right > .btn-toolbar > .btn-group:nth-child(2) button {
+.navbar .navbar-right > .btn-toolbar > .btn-group:nth-child(2) button,
+.navbar .navbar-right > .btn-toolbar > .btn-group:nth-child(3) button {
     color: white;
 }
 

@@ -1,96 +1,97 @@
 @extends('_basic.master')
 @section('content')
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <ol class="breadcrumb">
-                <li><a href="{{route('admin')}}"><span class=" glyphicon glyphicon-home"></span></a></li>
-                <li><a href="{{route('class.data')}}">Danh sách lớp học</a></li>
-                <li><a >{{$class->name}}</a></li>
-                <li><a >Danh sách sinh viên</a></li>
-            </ol>
-        </div>
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <!-- primary panel contents -->
-                <div class="panel-heading">
-                    <div class="clearfix">
-                        <div class="pull-left h4">
-                            <i class="fa fa-list"></i>Danh sách sinh viên
-                        </div>
-                        <div class="pull-right">
-                            <a data-toggle="modal" data-target="#importModal"  class="btn btn-success btn-xs "><i class="glyphicon glyphicon-import"></i>Nhập Excel</a>
-                            <a data-toggle="modal" data-target="#classModal" id="add_student" class="btn btn-success btn-xs "><i class="glyphicon glyphicon-plus"></i>Thêm</a>
-                            <a data-toggle="modal" data-target="" id="" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-export"></i>Xuất excel</a>
-                            <a id="unenroll" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-trash"></i>Xóa</a>
-                        </div>
-                    </div>
-                </div>
-                <table class="table">
-                    <tr>
-                        <th><input type="checkbox" id="check_all_unenroll"></th>
-                        <th>Họ</th>
-                        <th>Tên</th>
-                        <th>Mã SV</th>
-                        <th>Email</th>
-                        <th>SĐT</th>
-                        <th>Giới tính</th>
-                        <th>Ngày sinh</th>
-                        <th>
-                            <i class="fa fa-wrench"></i>
-                        </th>
-                    </tr>
-                    @foreach($class->student as $row)
-                    <tr>
-                        <td><input type="checkbox" class="unenroll" value="{{$row->id}}"></td>
-                        <td>{{$row->first_name}}</td>
-                        <td>{{$row->last_name}}</td>
-                        <td>{{$row->code}}</td>
-                        <td>{{$row->email}}</td>
-                        <td>{{$row->phone_number}}</td>
-                        <td>@if($row->sex == 1)Nam @else Nữ @endif</td>
-                        <td>{{($row->birthday)?($row->birthday->format('d-m-Y')):''}}</td>
-                        <td>
-                            <a href=""><i class="glyphicon glyphicon-info-sign"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </table>
+
+    <div id="page-heading">
+        <ol class="breadcrumb">
+            <li><a href="{{route('admin')}}"><span class=" glyphicon glyphicon-home"></span></a></li>
+            <li><a href="{{route('class.data')}}">Danh sách lớp học</a></li>
+            <li><a >{{$class->name}}</a></li>
+            <li><a >Danh sách sinh viên</a></li>
+        </ol>
+        <h1>Danh sách sinh viên</h1>
+        <div class="options">
+            <div class="btn-toolbar">
+                <a data-toggle="modal" data-target="#importModal"  class="btn btn-success btn-xs "><i class="glyphicon glyphicon-import"></i>Nhập Excel</a>
+                <a data-toggle="modal" data-target="#classModal" id="add_student" class="btn btn-success btn-xs "><i class="glyphicon glyphicon-plus"></i>Thêm</a>
+                <a data-toggle="modal" data-target="" id="" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-export"></i>Xuất excel</a>
+                <a id="unenroll" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-trash"></i>Xóa</a>
             </div>
         </div>
-        <div class="modal fade" id="classModal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="classModalLabel">Thêm sinh viên( Lớp : {{$class->name}} - Sĩ số {{$class->student->count().'/'.$class->limit}})</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group text-right">
-                            <a id="enroll" class="btn btn-primary"><i class="fa fa-check-circle"></i> Thêm sinh viên</a>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <!-- primary panel contents -->
+                    <div class="panel-heading"><h4>Danh sách sinh viên</h4></div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" id="check_all_unenroll"></th>
+                            <th>Họ</th>
+                            <th>Tên</th>
+                            <th>Mã SV</th>
+                            <th>Email</th>
+                            <th>SĐT</th>
+                            <th>Giới tính</th>
+                            <th>Ngày sinh</th>
+                            <th>
+                                <i class="fa fa-wrench"></i>
+                            </th>
+                        </tr>
+                        </thead>
+                        @foreach($class->student as $row)
+                            <tr>
+                                <td><input type="checkbox" class="unenroll" value="{{$row->id}}"></td>
+                                <td>{{$row->first_name}}</td>
+                                <td>{{$row->last_name}}</td>
+                                <td>{{$row->code}}</td>
+                                <td>{{$row->email}}</td>
+                                <td>{{$row->phone_number}}</td>
+                                <td>@if($row->sex == 1)Nam @else Nữ @endif</td>
+                                <td>{{($row->birthday)?($row->birthday->format('d-m-Y')):''}}</td>
+                                <td>
+                                    <a href=""><i class="glyphicon glyphicon-info-sign"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
+            </div>
+            <div class="modal fade" id="classModal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="classModalLabel">Thêm sinh viên( Lớp : {{$class->name}} - Sĩ số {{$class->student->count().'/'.$class->limit}})</h4>
                         </div>
+                        <div class="modal-body">
+                            <div class="form-group text-right">
+                                <a id="enroll" class="btn btn-primary"><i class="fa fa-check-circle"></i> Thêm sinh viên</a>
+                            </div>
 
-                        <div id="data_sutdent">
-                            <div  class="loading_student"></div>
-                            {{--<table class="table">--}}
+                            <div id="data_sutdent">
+                                <div  class="loading_student"></div>
+                                {{--<table class="table">--}}
                                 {{--<tr>--}}
-                                    {{--<th><input type="checkbox" id="check_all"></th>--}}
-                                    {{--<th>Họ</th>--}}
-                                    {{--<th>Tên</th>--}}
-                                    {{--<th>Mã SV</th>--}}
-                                    {{--<th>Email</th>--}}
-                                    {{--<th>SĐT</th>--}}
-                                    {{--<th>--}}
-                                        {{--<a class="btn btn-primary btn-xs"><i class="fa fa-filter"></i></a>--}}
-                                    {{--</th>--}}
+                                {{--<th><input type="checkbox" id="check_all"></th>--}}
+                                {{--<th>Họ</th>--}}
+                                {{--<th>Tên</th>--}}
+                                {{--<th>Mã SV</th>--}}
+                                {{--<th>Email</th>--}}
+                                {{--<th>SĐT</th>--}}
+                                {{--<th>--}}
+                                {{--<a class="btn btn-primary btn-xs"><i class="fa fa-filter"></i></a>--}}
+                                {{--</th>--}}
                                 {{--</tr>--}}
                                 {{--<tr>--}}
-                                    {{--<th></th>--}}
-                                    {{--<th><input type="text" class="form-control input-sm " id="f_first_name" name="last_name" ></th>--}}
-                                    {{--<th><input type="text" class="form-control input-sm " id="f_last_name" name="name"></th>--}}
-                                    {{--<th><input type="text" class="form-control input-sm " id="f_code" name="masv"></th>--}}
-                                    {{--<th><input type="text" class="form-control input-sm " id="f_email" name="email"></th>--}}
-                                    {{--<th><input type="text" class="form-control input-sm " id="f_phone_number" name="sdt"></th>--}}
-                                    {{--<th><span class="btn btn-success btn-sm" id="filter"><i class="fa fa-refresh"></i></span></th>--}}
+                                {{--<th></th>--}}
+                                {{--<th><input type="text" class="form-control input-sm " id="f_first_name" name="last_name" ></th>--}}
+                                {{--<th><input type="text" class="form-control input-sm " id="f_last_name" name="name"></th>--}}
+                                {{--<th><input type="text" class="form-control input-sm " id="f_code" name="masv"></th>--}}
+                                {{--<th><input type="text" class="form-control input-sm " id="f_email" name="email"></th>--}}
+                                {{--<th><input type="text" class="form-control input-sm " id="f_phone_number" name="sdt"></th>--}}
+                                {{--<th><span class="btn btn-success btn-sm" id="filter"><i class="fa fa-refresh"></i></span></th>--}}
                                 {{--</tr>--}}
                                 {{--@foreach($students as $row)--}}
                                 {{--<tr>--}}
@@ -103,39 +104,40 @@
                                 {{--<td><a class="btn btn-primary btn-xs"><i class="fa fa-check"></i></a></td>--}}
                                 {{--</tr>--}}
                                 {{--@endforeach--}}
-                            {{--</table>--}}
-                            {{--<div class="text-center">--}}
+                                {{--</table>--}}
+                                {{--<div class="text-center">--}}
                                 {{--{!! $students->links() !!}--}}
-                            {{--</div>--}}
+                                {{--</div>--}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="importModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="classModalLabel">Thêm sinh viên( Lớp : {{$class->name}} - Sĩ số {{$class->student->count().'/'.$class->limit}})</h4>
+                        </div>
+                        <div class="modal-body"  style="margin: auto 40px">
+                            <form action="" method="post" class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Chọn file Excel
+                                    </label>
+                                    <input class="form-control" type="file" name="file_excel" placeholder="click chọn file">
+                                </div>
+                                <div class="form-group">
+                                    <input class="btn btn-sm btn-success" value="Đồng ý" onclick="return confirm('bạn muốn nhập sinh viên từ file')">
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="importModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-md">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="classModalLabel">Thêm sinh viên( Lớp : {{$class->name}} - Sĩ số {{$class->student->count().'/'.$class->limit}})</h4>
-                    </div>
-                    <div class="modal-body"  style="margin: auto 40px">
-                        <form action="" method="post" class="form-horizontal">
-                            <div class="form-group">
-                                <label class="form-label">
-                                    Chọn file Excel
-                                </label>
-                                <input class="form-control" type="file" name="file_excel" placeholder="click chọn file">
-                            </div>
-                            <div class="form-group">
-                                <input class="btn btn-sm btn-success" value="Đồng ý" onclick="return confirm('bạn muốn nhập sinh viên từ file')">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </div> <!-- container -->
 @endsection
 
 @section('bot')

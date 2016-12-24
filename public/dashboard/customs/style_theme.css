@@ -1951,9 +1951,9 @@ div.phpinfo .center th {
     margin-right: -30px; /*huyth*/
 }
 
-.fa-envelope, .glyphicon-comment, .glyphicon-bell, .fa-graduation-cap {
+.fa-envelope, .glyphicon-comment, .glyphicon-bell, .fa-graduation-cap, .glyphicon-globe {
     color: black;
-    font-size: 15px !important;
+    font-size: 17px !important;
 }
 
 .nav {
@@ -2166,7 +2166,8 @@ div.phpinfo .center th {
 }
 
 .img-circle {
-    border-radius: 50%;
+    border-radius: 20%;
+    border: 2px solid white;
 }
 
 .img-rank-3 {

@@ -588,6 +588,7 @@ class StudyController extends Controller
     public function postProfile(Request $request)
     {
         $input = $request->all();
+        dd($input);
         $user = User::find(Auth::user()->id);
         if ($request->get('password') == '') {
             unset($input['password']);

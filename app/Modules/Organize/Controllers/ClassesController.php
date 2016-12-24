@@ -124,6 +124,7 @@ class ClassesController extends OrganizeController
     public function getScore($id)
     {
         $data = $this->repository->score($id);
+//        dd($data);
         return view('organize.class.final_score', $data);
     }
 
