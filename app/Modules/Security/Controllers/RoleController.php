@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Security\Requests\RoleRequest;
 use Illuminate\Support\Facades\Input;
 use App\Modules\Security\Repositories\RoleRepository;
-use Illuminate\Http\Request;
+use Request;
 
 class RoleController extends Controller
 {
