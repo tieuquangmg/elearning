@@ -26,7 +26,6 @@
             </div>
         </div>
         <div class="panel-body">
-
             @foreach($meeting_time as $row)
                 <h4>{{$row->name}}</h4>
                 <table class="table table-bordered">

@@ -33,7 +33,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><p class="navbar-text">Liên hệ<i class="fa fa-envelope"></i></p></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>{{Auth::user()->first_name.' '.Auth::user()->last_name}}</b> <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>{{Auth::user()->ho_ten}}</b> <span class="caret"></span></a>
                     <ul id="login-dp" class="dropdown-menu">
                         {{--<li>--}}
                             {{--<div class="row">--}}

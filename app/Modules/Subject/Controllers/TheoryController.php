@@ -3,6 +3,7 @@ namespace App\Modules\Subject\Controllers;
 use App\Modules\Subject\Models\Unit;
 use App\Modules\Subject\Repositories\TheoryRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 
@@ -38,6 +39,7 @@ class TheoryController extends BaseController
         }else{
             $input['content'] = $this->input['content_html'];
         }
+        $input['create_by'] = Auth::guard('nguoidung')->user()->id;
         $this->repository->create($input);
         return redirect()->route('unit.compose', $this->input['unit_id'])->withSuccess('Thêm nội dung thành công');
     }

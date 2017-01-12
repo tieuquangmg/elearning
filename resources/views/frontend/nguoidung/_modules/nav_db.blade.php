@@ -41,9 +41,9 @@
                     <div class="btn-group" role="group">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="line-height:46px; color: white !important;
                            text-decoration:none; background-color: #953a3a">
-                            <img src="{{asset('').Auth::user()->image}}" alt=""
+                            <img src="{{asset('').Auth::guard('nguoidung')->user()->image}}" alt=""
                                  class="img-circle" height="30px"/>
-                            <span>{{Auth::user()->ho_ten}}</span>
+                            <span>{{Auth::guard('nguoidung')->user()->ho_ten}}</span>
                         </a>
                     </div>
                     <div class="btn-group" role="group">
@@ -108,7 +108,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         <div class="">
                                                             <div class="_42ef clearfix" direction="right">
                                                                 <div class="_ohf rfloat">
@@ -134,7 +133,7 @@
                                                                             </span>
                                                                         </div>
                                                                         <div class="snippet preview">
-                                                                            <span class="_3jy5"></span><span><span>{{$row->content}}</span></span>
+                                                                            <span class="_3jy5"></span><span><span>{!! $row->content !!}</span></span>
                                                                         </div>
                                                                         <div class="time">
                                                                             <abbr class="timestamp">{{$row->created_at->diffForHumans()}}</abbr>
@@ -157,6 +156,7 @@
                         </div>
                     </div>
                     <div class="btn-group" role="group">
+
                         <button type="button" class="btn btn-default navbar-btn" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-globe"></span>
                                 <?php
@@ -266,8 +266,8 @@
                             <li><a href="{{asset('logout')}}"><i class="fa fa-sign-out"></i> Đăng xuất</a></li>
                         </ul>
                         {{--<button type="button" class="btn btn-default navbar-btn">--}}
-                        {{--<img src="{{asset('').Auth::user()->image}}" alt=""--}}
-                        {{--class="img-circle" height="30px" />{{Auth::user()->ho_ten}}--}}
+                        {{--<img src="{{asset('').Auth::guard('nguoidung')->user()->image}}" alt=""--}}
+                        {{--class="img-circle" height="30px" />{{Auth::guard('nguoidung')->user()->ho_ten}}--}}
                         {{--</button>--}}
                         {{--<div class="btn-group" role="group">--}}
                         {{--<button type="button" class="btn btn-default dropdown-toggle navbar-btn" data-toggle="dropdown">--}}

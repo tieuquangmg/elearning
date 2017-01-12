@@ -47,7 +47,7 @@
                                                         <div class="detail-left">
                                                             <p></p>
                                                             <p>
-                                                                <img src="{{asset($data->user->image)}}"
+                                                                <img src="{{asset($data->user->avatar())}}"
                                                                      width="100" height="100" alt="" class="avatar">
                                                             </p>
                                                             <a href="hien thi thon tin nguoi dsug nay"
@@ -87,19 +87,19 @@
                                                         </div>
                                                     </div>
                                                     <div id="listreply">
+                                                        {{--{{dd($data->tra_loi)}}--}}
                                                         @foreach($data->tra_loi as $row1)
                                                             <div class="lreplay"
                                                                  style="border:solid 1px #3a5795; position: relative">
                                                                 <div class="repley-left">
-                                                                    <p><img src="{{asset($row1->user->image)}}"
+                                                                    <p><img src="{{asset($row1->user->avatar())}}"
                                                                             width="100" height="100" alt=""
                                                                             class="avatar"></p>
-                                                                    <a href=""
-                                                                       target="_blank"><strong>{{$row1->user->code}}</strong></a>
+                                                                    <a href="" target="_blank"><strong>{{$row1->user->code}}</strong></a>
                                                                     <br>
                                                                     <strong>{{$row1->user->ho_ten}}</strong>
                                                                     <br>
-                                                                    {{$row1->user->roles()->first()->display_name}}
+                                                                    Sinh viên
                                                                 </div>
                                                                 <div class="repley-right">
                                                                     <div class="repley-des">

@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class User_theory extends Model
 {
     public $table = "user_theory";
-    public $fillable = ['user_id', 'theory_id', 'watch_time'];
+    public $fillable = ['user_id', 'theory_id', 'start_time', 'watch_time'];
 
     public function user(){
         return $this->belongsTo(User::class);

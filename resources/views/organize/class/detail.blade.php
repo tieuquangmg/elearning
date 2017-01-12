@@ -28,8 +28,8 @@
                         <thead>
                         <tr>
                             <th><input type="checkbox" id="check_all_unenroll"></th>
-                            <th>Họ</th>
-                            <th>Tên</th>
+                            <th>Họ Tên</th>
+                            <th>Lớp</th>
                             <th>Mã SV</th>
                             <th>Email</th>
                             <th>SĐT</th>
@@ -43,8 +43,8 @@
                         @foreach($class->student as $row)
                             <tr>
                                 <td><input type="checkbox" class="unenroll" value="{{$row->id}}"></td>
-                                <td>{{$row->first_name}}</td>
-                                <td>{{$row->last_name}}</td>
+                                <td>{{$row->ho_ten}}</td>
+                                <td>{{$row->lop->Ten_lop}}</td>
                                 <td>{{$row->code}}</td>
                                 <td>{{$row->email}}</td>
                                 <td>{{$row->phone_number}}</td>
@@ -180,10 +180,11 @@
                             arrayId.push(id);
                         }
                     });
+                    console.log(arrayId);
                     if(arrayId.length){
                         var del = confirm('Thêm sinh viên đã chọn vào lớp!');
                         if(del){
-                            console.log(arrayId);
+//                            console.log(arrayId);
                             support_enroll(arrayId);
                         }
                     } else alert('Bạn phải check vào sinh viên cần thêm');
@@ -235,7 +236,7 @@
                         }
                     },
                     error: function(err){
-                        alertError(err)
+                        alertError(err);
                         alert('đã xảy ra lỗi')
                     }
                 });
@@ -276,10 +277,10 @@
             getDatas(1);
         });
         $(document).ready(function() {
-            $(document).on('click', '#add_student', function () {
+            $(document).on('click', '#add_student', function (){
                 getDatas(1);
             });
-            $(document).on('click', '.pagination a', function (e) {
+            $(document).on('click', '.pagination a', function (e){
                 getDatas($(this).attr('href').split('page=')[1]);
                 e.preventDefault();
             });

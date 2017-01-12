@@ -1,5 +1,5 @@
 <?php
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['web','nguoidung']], function () {
     Route::controller('lop', 'LopController', [
         'getData' => 'lop.data',
         'getSyncLop' => 'lop.sync',
@@ -11,6 +11,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::controller('bomon','BoMonController', [
         'getData' => 'bomon.data',
         'getSyncBomon' => 'bomon.sync',
+        'getSyncForum' =>'bomon.syncforum'
     ]);
     Route::controller('chuongtrinhdaotao','ChuongTrinhDaoTaoController',[
         'getSyncChiTiet' => 'chuongtrinhdaotaochitiet.sync'

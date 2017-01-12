@@ -36,7 +36,7 @@ class ImageRepositoryEloquent implements  ImageRepository
             'file_size' => $file->getClientSize(),
             'file_mime' => $file->getClientMimeType(),
             'file_path' => 'gallery/images/'.$filename,
-            'created_by' => Auth::user()->id
+            'created_by' => Auth::guard('nguoidung')->user()->id
         ]);
         return $image;
     }

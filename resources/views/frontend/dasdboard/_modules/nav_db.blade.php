@@ -97,19 +97,18 @@
                                         <li>
                                             <div class="_1xfk"></div>
                                         </li>
-                                        @foreach($message as $row)
+                                    @foreach($message as $row)
                                             <li class="jewelItemNew">
                                                 <a class="messagesContent" role="button" href="">
                                                     <div spacing="medium" direction="left" class="clearfix">
                                                         <div class="_ohe lfloat">
                                                             <div class="MercuryThreadImage _4qeb img _8o _8s">
-                                                                <div class="_55lt" size="50"
-                                                                     style="width: 50px; height: 50px;"><img
-                                                                            src="{{asset($row->send_from->avatar())}}"
-                                                                            width="50" height="50" alt=""
-                                                                            class="img"></div>
+                                                                <div class="_55lt" size="50" style="width: 50px; height: 50px;">
+                                                                    <img src="{{asset($row->send_from->avatar())}}" width="50" height="50" alt="" class="img">
+                                                                </div>
                                                             </div>
                                                         </div>
+
                                                         <div class="">
                                                             <div class="_42ef clearfix" direction="right">
                                                                 <div class="_ohf rfloat">
@@ -181,11 +180,10 @@
                                 <div class="clearfix uiHeaderTop">
                                     <div class="rfloat _ohf"><h3 class="accessible_elem" id="fbMercuryJewelHeader">Tin
                                             nhắn</h3>
-                                        <div class="uiHeaderActions fsm fwn fcg"><a id="read_all_not" class="_1c1m" href="#" role="button"
-                                                                                    tabindex="0">Đánh dấu tất cả là đã
-                                                đọc</a><span role="presentation" aria-hidden="true"> · </span><a
-                                                    ajaxify="/ajax/messaging/composer.php" href="/messages/new/"
-                                                    accesskey="m" rel="dialog" role="button" id="u_0_c">Tin nhắn mới</a>
+                                        <div class="uiHeaderActions fsm fwn fcg">
+                                            <a id="read_all_not" class="_1c1m" href="#" role="button" tabindex="0">Đánh dấu tất cả là đã đọc</a>
+                                            <span role="presentation" aria-hidden="true"> · </span>
+                                            <a  href="" accesskey="m" rel="dialog" role="button" id="u_0_c">Tin nhắn mới</a>
                                         </div>
                                     </div>
                                 </div>
@@ -205,8 +203,8 @@
                                                         <div class="_ohe lfloat">
                                                             <div class="MercuryThreadImage _4qeb img _8o _8s">
                                                                 <div class="_55lt" size="50"
-                                                                     style="width: 50px; height: 50px;"><img
-                                                                            src="{{asset(($row->notify->sender != null)?($row->notify->sender->image):'')}}"
+                                                                     style="width: 50px; height: 50px;">
+                                                                    <img src="{{asset(($row->notify->sender != null)?($row->notify->sender->avatar()):'images/no-avatar.jpg')}}"
                                                                             width="50" height="50" alt=""
                                                                             class="img"></div>
                                                             </div>
@@ -236,8 +234,7 @@
                                                                         <div class="snippet preview"><span
                                                                                     class="_3jy5"></span><span><span>{!! $row->notify->content !!}</span></span>
                                                                         </div>
-                                                                        <div class="time"><abbr
-                                                                                    class="timestamp">{{$row->created_at}}</abbr>
+                                                                        <div class="time"><abbr class="timestamp">{{$row->created_at}}</abbr>
                                                                         </div>
                                                                     </div>
                                                                 </div>

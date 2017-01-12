@@ -18,7 +18,6 @@ class TestController extends BaseController
         return view($this->prefix.'unit.test.create',['id'=>$id]);
     }
     public function postCreate(){
-
         $unit_id = $this->repository->create($this->input);
        return redirect()->route('unit.compose', $unit_id->unit_id)->withSuccess('Thêm câu hỏi thành công');
     }

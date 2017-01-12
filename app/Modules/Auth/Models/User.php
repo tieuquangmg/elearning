@@ -24,7 +24,7 @@ class User extends Authenticatable
         return $this->hasMany(Team::class, 'team_details');
     }
 
-    public $fillable = ['id', 'code', 'ho_ten', 'first_name', 'last_name', 'email',
+    public $fillable = ['id_sync', 'code', 'ho_ten', 'first_name', 'last_name', 'email',
         'birthday', 'phone_number', 'sex', 'address', 'active', 'image', 'password','id_lop'
     ];
 
@@ -56,11 +56,6 @@ class User extends Authenticatable
             return false;
         }
         return !!$role->intersect($this->roles)->count();
-    }
-
-    public function has_role($role)
-    {
-
     }
 
     public function assign($role)
@@ -130,9 +125,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class, 'to');
     }
+
     public function last_mess_from(){
         return $this->hasOne(Message::class,'form')->latest();
     }
+
     public function mess_from(){
         return $this->hasMany(Message::class,'form')->orderBy('updated_at','desc');
     }
@@ -145,10 +142,12 @@ class User extends Authenticatable
     public function lop(){
         return $this->belongsTo(Stu_lop::class,'id_lop');
     }
+
     public function isOnline()
     {
         return Cache::has('online-'.$this->id);
     }
+
     public function user_login(){
         return $this->hasMany(User_login::class,'user_id');
     }

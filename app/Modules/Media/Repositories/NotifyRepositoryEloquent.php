@@ -15,7 +15,7 @@ class NotifyRepositoryEloquent implements NotifyRepository
         return $this->model->paginate(20);
     }
     public function create($input){
-        $input['create_by'] = Auth::user()->id;
+        $input['create_by'] = Auth::guard('nguoidung')->user()->id;
         return $this->model->create($input);
     }
     public function update($input){

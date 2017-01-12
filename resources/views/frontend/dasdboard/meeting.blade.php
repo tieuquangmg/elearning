@@ -37,8 +37,7 @@
                             </tbody>
                         </table>
                     </div>
-
-                    @if(Auth::user()->id == $class->user_id)
+                    @if(Auth::guard('nguoidung')->user() != null && Auth::guard('nguoidung')->user()->id == $class->user_id)
                         @if($running)
                             <p>Trạng thái: <span class="span" id="meeting_status">Đang học</span></p>
                             <a class="btn btn-danger btn-large" href="javascript:void(0)" id="end_meeting">Kết thúc</a>
@@ -73,7 +72,7 @@
                             'X-CSRF-Token': $('input[name="_token"]').val()
                         }
                     });
-            @if(Auth::user()->id == $class->user_id)
+            @if(Auth::guard('nguoidung')->user() != null && Auth::guard('nguoidung')->user()->id == $class->user_id)
                 $('#action_meeting').on('click', function () {
                     var a = $(this);
                     var id = '{{$meeting->id}}';
@@ -118,7 +117,7 @@
                             $('#end_meeting').hide();
                             $('#meeting_status').text('Chưa mở');
                         },
-                        error: function (i) {
+                        error: function (i){
                             alert(i);
                         }
                     })

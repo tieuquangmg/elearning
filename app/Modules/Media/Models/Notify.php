@@ -7,6 +7,7 @@ class Notify extends Model
 {
     public $table='notifies';
     public $fillable = ['name', 'content','entity_id','create_by'];
+    protected $dateFormat = 'Y-m-d H:i:s';
 
     public function scopeIsDelete($query, $input){
         if(is_array($input)) return $query->whereIn('id', $input)->delete();

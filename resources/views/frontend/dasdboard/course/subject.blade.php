@@ -368,7 +368,7 @@
                                                                 <tbody>
                                                                 <tr>
                                                                     <td width="33%" valign="top" align="center">
-                                                                        <a target="_blank" href="http://namvietjsc.tk/forum.php">
+                                                                        <a data-target="_blank" href="{{route('study.forumlogin',$class->id)}}">
                                                                             <img vspace="0" hspace="0"
                                                                                  border="0"
                                                                                  src="{{asset('dashboard/images')}}/forum.png"
@@ -537,7 +537,6 @@
             </div>
         </div>
     </div>
-
     <div id="content">
         {{--<link rel="stylesheet" href="{{asset('dashboard/images')}}/font-awesome.min(1).css">--}}
         <div id="stick_right_icon">
@@ -664,6 +663,15 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        <div class="modal" id="forum_login" role="dialog">
+            <div class="modal-sm">
+                <div class="modal-content">
+                    <form action="" method="post">
+                        <input type="password" name="password">
+                    </form>
+                </div>
+            </div>
+        </div>
         <!-- Load javascript -->
     </div>
 @endsection

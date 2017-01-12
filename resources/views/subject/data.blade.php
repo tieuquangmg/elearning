@@ -36,6 +36,7 @@
                             <th>
                                 <input type="checkbox" id="check_all">
                             </th>
+                            <th>ID</th>
                             <th>Mã môn</th>
                             <th>Tên</th>
                             <th>Bộ môn</th>
@@ -45,6 +46,7 @@
                         </tr>
                         <tr>
                             <th><a href="{{route('subject.data')}}" class="btn btn-success">đặt lại</a></th>
+                            <th></th>
                             <th><input class="form-control input-sm" value="{{old('code')}}" type="text" name="code" id="code" placeholder="mã môn"></th>
                             <th><input class="form-control input-sm" value="{{old('tenmon')}}" type="text" name="tenmon" id="tenmon" placeholder="tên môn"></th>
                             <th><input class="form-control input-sm" value="{{old('bomon')}}" type="text" name="bomon" id="bomon" placeholder="bộ môn"></th>
@@ -60,9 +62,10 @@
                                     <td>
                                         <input type="checkbox" value="{{$row->id}}" name="id" class="check">
                                     </td>
-                                    <td>{{$row->Ky_hieu}}</td>
+                                    <td>{{$row->id}}</td>
+                                    <td>{{$row->code}}</td>
                                     <td class="text-nowrap">{{$row->name}}</td>
-                                    <td>{{($row->plan_bomon != null )?  $row->plan_bomon->name : ''}}</td>
+                                    <td>{{($row->plan_bomon != null )?  $row->plan_bomon->Bo_mon : ''}}</td>
                                     {{--<td>{{$row->description}}</td>--}}
                                     <th>@include('_basic.includes.is.active')</th>
                                     <td class="text-right">

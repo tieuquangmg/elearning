@@ -1,5 +1,5 @@
 <?php
-Route::group(['middleware'=>['web', 'auth']], function() {
+Route::group(['middleware'=>['web', 'nguoidung']], function() {
     Route::controller('gallery', 'GalleryController', [
         'getList' => 'post.gallery.list',
         'postCreate' => 'post.gallery.create',

@@ -1,8 +1,8 @@
 <table class="table">
     <tr>
         <th><input type="checkbox" id="check_all"></th>
-        <th>Họ</th>
-        <th>Tên</th>
+        <th>Họ Tên</th>
+        <th>Lớp</th>
         <th>Mã SV</th>
         <th>Email</th>
         <th>SĐT</th>
@@ -22,9 +22,9 @@
     @if($students != null)
     @foreach($students as $row)
         <tr>
-            <td><input type="checkbox" class="check" value="{{$row->user_id}}"></td>
-            <td>{{$row->first_name}}</td>
-            <td>{{$row->last_name}}</td>
+            <td><input type="checkbox" class="check" value="{{$row->id}}"></td>
+            <td>{{$row->ho_ten}}</td>
+            <td>{{$row->id_lop}}</td>
             <td>{{$row->code}}</td>
             <td>{{$row->email}}</td>
             <td>{{$row->phone_number}}</td>

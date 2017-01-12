@@ -73,9 +73,9 @@
                                                            onclick="return confirm('Bạn có muốn tiếp tục?');" >Bắt đầu làm bài</a>
                                                     </div>
                                                     <hr style="border: 1px solid gainsboro">
-                                                    <h3>Hệ thống làm bài hỗ trợ tốt nhất trên trình duyệt Firefox. Anh chị có thể tải về và cài đặt
-                                                        <a style="font-weight: bold;" href="http://www.mozilla.org/en-US/firefox/fx/" target="_blank">tại
-                                                            đây</a>.
+                                                    <h3>
+                                                        Hệ thống làm bài hỗ trợ tốt nhất trên trình duyệt Firefox. Anh chị có thể tải về và cài đặt
+                                                        <a style="font-weight: bold;" href="http://www.mozilla.org/en-US/firefox/fx/" target="_blank">tại đây</a>.
                                                     </h3>
                                                 </td>
                                             </tr>

@@ -29,7 +29,7 @@ class SubjectRepositoryEloquent implements SubjectRepository
         $data =  $this->model->where(function ($query) use ($request,$mamon,$tenmon,$bomon,$trangthai){
             if($request){
                 if($mamon != null){
-                    $query->Where('Ky_hieu','like','%'.$mamon.'%');
+                    $query->Where('code','like','%'.$mamon.'%');
                 }
                 if($tenmon != null){
                     $query->Where('name','like','%'.$tenmon.'%');
@@ -55,10 +55,13 @@ class SubjectRepositoryEloquent implements SubjectRepository
         return $this->model->create($input);
     }
     public function update($input){
+        $id = $input['id'];
+        unset($input['id']);
         $i = new Upload();
         if(isset( $input['image'])) $input['image'] = $i->image($input['image'], 'image/subject', 268, 150);
-        return $this->model->where('id', $input['id'])->update($input);
+        return $this->model->where('id',$id)->update($input);
     }
+
     public function find($id){
         return $this->model->find($id);
     }

@@ -24,13 +24,13 @@
             <tbody id="table">
             @foreach($data as $row)
                 <tr>
-                    <td><input type="checkbox" class="check" value="{{$row->id}}"></td>
-                    <td>{{$row->ma_chuyen_nganh}}</td>
-                    <td>{{$row->chuyen_nganh}}</td>
-                    <td>{{$row->id_nganh}}</td>
+                    <td><input type="checkbox" class="check" value="{{$row->Ma_chuyen_nganh}}"></td>
+                    <td>{{$row->Ma_chuyen_nganh}}</td>
+                    <td>{{$row->Chuyen_nganh}}</td>
+                    <td>{{$row->ID_nganh}}</td>
                     {{--<td class="text-right">@include('_basic.includes.is.active')</td>--}}
                     {{--<td>{{$row->created_at}}</td>--}}
-                    <td class="text-right"><a class="btn btn-sm btn-default" href="{{route('news.update', $row->id)}}"><span class="glyphicon glyphicon-edit"> </span>Sửa</a></td>
+                    <td class="text-right"><a class="btn btn-sm btn-default" href="{{route('news.update', $row->ID_chuyen_nganh)}}"><span class="glyphicon glyphicon-edit"> </span>Sửa</a></td>
                 </tr>
             @endforeach
             </tbody>

@@ -1,5 +1,5 @@
 <?php
-Route::group(['middleware' => ['web', 'auth']], function () {
+Route::group(['middleware' => ['web', 'nguoidung']], function () {
     Route::controller('class', 'ClassesController', [
         'getData' => 'class.data',
         'getAdd' => 'class.add',
@@ -21,12 +21,14 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         'getSyncSubject' => 'class.sync',
         'postSyncProcess' => 'class.process',
         'getSyncSinhvien' => 'class.syncsinhvien',
+        'getSyncNguoidung' => 'class.syncnguoidung',
 
         'getSyncClass' => 'class.sync.class',
         'postSyncClass' => 'class.sync.class',
 
         'getSyncClassDetail' => 'class.syncclassdetail',
         'getSetting' => 'class.setting',
-        'postSetting' => 'class.setting'
+        'postSetting' => 'class.setting',
+        'getSyncForum' =>'class.syncforum'
     ]);
 });

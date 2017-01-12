@@ -2,7 +2,6 @@
 
 @section('content')
     <link href="{{asset('dashboard/customs/mycourse/style(12).css')}}" rel="stylesheet">
-
     <div class="container">
         <!-- The row that contains the three main columns of the website. -->
         <div class="row">
@@ -18,7 +17,7 @@
                         </div>
                     </li>
                     <li role="presentation">
-                        <a href="#"><span class="glyphicon glyphicon-pencil"></span>Sinh viên</a>
+                        <a ><span class="glyphicon glyphicon-pencil"></span>Mã sinh viên: <strong>{{Auth::user()->code}}</strong></a>
                     </li>
                     <li role="presentation">
                         <a href="#"><span class="glyphicon glyphicon-list"></span>Danh sách sinh viên lớp</a>
@@ -97,7 +96,7 @@
                                 <div class="col-md-11">
                                     <div class="media">
                                         <div class="media-left media-top">
-                                            <img src="https://litcoachlady.files.wordpress.com/2015/01/poop-happened2-180x225.jpg" width="90" height="112">
+                                            <img src="{{$row->subject->anhbia()}}" width="90" height="112">
                                         </div>
                                         <div class="media-body">
                                             <a href="{{route('study.subject',$row->id)}}">{{$row->subject->name}}</a>
@@ -167,7 +166,7 @@
                                                     <li>
                                                         <a href="{{route('study.begintest',[$row1->id,$row1->unit_id,$row->id])}}">{{$row1->name}}</a>
                                                         <p style="font-size: 11px;color: #6a6a6a">{{$row1->description}}</p>
-                                                        {{--<p href="#">Thời gian: 11-11-2016 -> 11-11-2016</p>--}}
+                                                        <p href="#">Thời gian: 11-11-2016 -> 11-11-2016</p>
                                                     </li>
                                                 @endforeach
                                             </ul>
@@ -414,18 +413,13 @@
                         <thead class="text-danger">
                         <tr>
                             <th class="text-center vcenter">
-                                    <span class="help" data-toggle="tooltip"
-                                          data-placement="top" title=""
-                                          data-original-title="Danh sách các course học đang giảng dạy">Lớp môn</span>
+                                <span class="help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Danh sách các course học đang giảng dạy">Lớp môn</span>
                             </th>
                             <th class="text-center vcenter">
-                                <span class="help" data-toggle="tooltip" data-placement="top" title=""
-                                                                  data-original-title="Số câu hỏi chưa trả lời"><i
-                                            class="fa fa-bell"></i> Hỏi đáp</span></th>
+                                <span class="help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Số câu hỏi chưa trả lời"><i class="fa fa-bell"></i> Hỏi đáp</span>
+                            </th>
                             <th class="text-center vcenter">
-                                <span class="help" data-toggle="tooltip" data-placement="top" title=""
-                                                                  data-original-title="Số bài post đã gửi/Yêu cầu"><i
-                                            class="fa fa-comments"></i> Diễn đàn</span></th>
+                                <span class="help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Số bài post đã gửi/Yêu cầu"><i class="fa fa-comments"></i> Diễn đàn</span></th>
                             <th class="text-center vcenter"><span class="help" data-toggle="tooltip"
                                                                   data-placement="top" title=""
                                                                   data-original-title="Số lần đăng nhập LMS/Yêu cầu"><i

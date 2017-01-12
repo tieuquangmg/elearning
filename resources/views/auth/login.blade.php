@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Đăng nhập</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+                    <form id="form_login" class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
 
                         {{--<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">--}}
@@ -22,10 +22,19 @@
                                 {{--@endif--}}
                             {{--</div>--}}
                         {{--</div>--}}
-                        <div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Mã sinh viên</label>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Người dùng</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="code" value="{{ old('code')}}" placeholder="hocsinh">
+                                <select class="form-control" id="user_login" title="người dùng đăng nhập">
+                                    <option class="form-control" value="sv">Sinh viên</option>
+                                    <option class="form-control" value="gv">Giáo viên</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
+                            <label id="user_name_lable" class="col-md-4 control-label">Mã sinh viên</label>
+                            <div class="col-md-6">
+                                <input id="user_name_input" type="text" class="form-control" name="code" value="{{ old('code')}}" placeholder="hocsinh">
                                 @if ($errors->has('code'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('code') }}</strong>
@@ -92,48 +101,64 @@
 </div>
 @endsection
 @section('bot')
-    <script src="{{asset('')}}qr_code/qcode-decoder.min.js"></script>
-    <script type="text/javascript">
-
-        var video = document.querySelector('video');
-        var reset = document.querySelector('#reset');
-        var stop = document.querySelector('#stop');
-        var qr = new QCodeDecoder();
-
-        reset.onclick = function () {
-            (function () {
-                'use strict';
-                if (!(qr.isCanvasSupported() && qr.hasGetUserMedia())) {
-                    alert('Your browser doesn\'t match the required specs.');
-                    throw new Error('Canvas and getUserMedia are required');
-                }
-                function resultHandler (err, result) {
-                    var i = 0;
-                    if (err)
-                             return console.log(err.message);
-                    if(i++ == 0){
-                        $.ajax({
-                            url: "{{route('auth.user.qr_code')}}",
-                            method: 'POST',
-                            data: {
-                                sdt: result, _token: '{{csrf_token()}}'
-                            },
-                            success: function (data) {
-                                if(data){
-                                    window.location.reload(true);
-                                }
-                                else {
-                                    alert('Mã thẻ không đúng, có thẻ bạn đã nhầm lẫn');
-                                }
-                            }
-                        });
-                    }
-                }
-                qr.decodeFromCamera(video, resultHandler);
-            })();
-        };
-        stop.onclick = function () {
-            qr.stop();
-        };
+    <script>
+        $(document).on('change','#user_login',function () {
+            var select = $('#user_login').val();
+            console.log(select);
+            if( select == 'sv') {
+                $('#user_name_input').attr('name', 'code');
+                $('#user_name_lable').text('Sinh viên');
+                $('#form_login').attr('action','{{ url('/login')}}');
+            }
+            if(select == 'gv'){
+                $('#user_name_input').attr('name','name');
+                $('#user_name_lable').text('Giáo viên');
+                $('#form_login').attr('action','{{ url('/nguoi_dung/login') }}');
+            }
+        });
     </script>
+    {{--<script src="{{asset('')}}qr_code/qcode-decoder.min.js"></script>--}}
+    {{--<script type="text/javascript">--}}
+
+        {{--var video = document.querySelector('video');--}}
+        {{--var reset = document.querySelector('#reset');--}}
+        {{--var stop = document.querySelector('#stop');--}}
+        {{--var qr = new QCodeDecoder();--}}
+
+        {{--reset.onclick = function () {--}}
+            {{--(function () {--}}
+                {{--'use strict';--}}
+                {{--if (!(qr.isCanvasSupported() && qr.hasGetUserMedia())) {--}}
+                    {{--alert('Your browser doesn\'t match the required specs.');--}}
+                    {{--throw new Error('Canvas and getUserMedia are required');--}}
+                {{--}--}}
+                {{--function resultHandler (err, result) {--}}
+                    {{--var i = 0;--}}
+                    {{--if (err)--}}
+                             {{--return console.log(err.message);--}}
+                    {{--if(i++ == 0){--}}
+                        {{--$.ajax({--}}
+                            {{--url: "{{route('auth.user.qr_code')}}",--}}
+                            {{--method: 'POST',--}}
+                            {{--data: {--}}
+                                {{--sdt: result, _token: '{{csrf_token()}}'--}}
+                            {{--},--}}
+                            {{--success: function (data) {--}}
+                                {{--if(data){--}}
+                                    {{--window.location.reload(true);--}}
+                                {{--}--}}
+                                {{--else {--}}
+                                    {{--alert('Mã thẻ không đúng, có thẻ bạn đã nhầm lẫn');--}}
+                                {{--}--}}
+                            {{--}--}}
+                        {{--});--}}
+                    {{--}--}}
+                {{--}--}}
+                {{--qr.decodeFromCamera(video, resultHandler);--}}
+            {{--})();--}}
+        {{--};--}}
+        {{--stop.onclick = function () {--}}
+            {{--qr.stop();--}}
+        {{--};--}}
+    {{--</script>--}}
 @endsection

@@ -1,6 +1,5 @@
 <?php 
-   Route::group(['middleware'=>['web', 'auth'], 'prefix'=>'backend'], function() {
-
+   Route::group(['middleware'=>['web','nguoidung'], 'prefix'=>'backend'], function() {
         Route::controller('subject', 'SubjectController', [
             'getData' => 'subject.data',
             'getAdd' => 'subject.add',
@@ -16,7 +15,6 @@
             'postImport' =>'subject.import',
             'postCheck' => 'subject.check'
         ]);
-
        Route::controller('unit', 'UnitController', [
             'getAdd' => 'unit.add',
             'postCreate' => 'unit.create',

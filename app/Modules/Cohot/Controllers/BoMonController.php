@@ -2,6 +2,7 @@
 
 namespace App\Modules\Cohot\Controllers;
 
+use App\Modules\Cohot\Models\Plan_Bomon;
 use App\Modules\Cohot\Repositories\BoMonRepository;
 use Illuminate\Http\Request;
 
@@ -43,5 +44,37 @@ class BoMonController extends Controller
                     }
                 }
             });
+    }
+
+    public function getSyncForum()
+    {
+        $connect = DB::connection('forum');
+        $data = Plan_Bomon::all();
+        foreach ($data as $row){
+            $exists = empty($connect->table('node')->where('node_name',$row->Ma_bo_mon)->get());
+            if($exists){
+                $connect->table('node')
+                    ->insert([
+//                    'node_id' => '$row->,
+                        'title' => $row->Bo_mon,
+                        'description' => $row->Bo_mon,
+                        'node_name' => $row->Ma_bo_mon,
+                        'node_type_id' => 'Category',
+                        'parent_node_id' => 33,
+                        'display_order' => 1,
+                        'display_in_list' => 1,
+                        'lft' => 3,
+                        'rgt' => 8,
+                        'depth' => 2,
+                        'style_id' => 1,
+                        'effective_style_id' => 1,
+                        'breadcrumb_data' => null,
+                    ]);
+//                $connect->table('xf_permission_combination')->where('user_id',108)->get();
+//                $connect->table('permission_cache_content')->insert([
+//                    'permission_combination_id'=>, 'content_type'=>, 'content_id'=>, 'cache_value'=>
+//                ]);
+            }
+        }
     }
 }

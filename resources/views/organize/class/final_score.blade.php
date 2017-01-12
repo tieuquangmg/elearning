@@ -39,7 +39,7 @@
                         @if($score->isEmpty())
                             <div class="alert alert-info">Chưa có kết quả học tập</div>
                         @else
-                                <table class="table-responsive table table-bordered">
+                                <table class="table table-bordered">
                                     <thead>
                                     <tr>
                                         <th>
@@ -60,8 +60,8 @@
                                                 <input type="hidden" name="user[{{$row->id}}][id]" value="{{$row->id}}">
                                             </td>
                                             <td>@if($row->user_id != null){{\App\Modules\Auth\Models\User::find($row->user_id)->ho_ten}}@endif</td>
-                                            <td>{{$row->chuyencan}}</td>
-                                            <td>{{$row->kiemtra}}</td>
+                                            <td><input id="input_chuyencan_{{$row->id}}" disabled value="{{$row->chuyencan}}" title="Điểm chuyên cần"></td>
+                                            <td><input id="input_kiemtra_{{$row->id}}" disabled value="{{$row->kiemtra}}" title="Điểm kiểm tra"></td>
                                             <td><input id="input_thi_{{$row->id}}" class="input_thi" data_id="{{$row->id}}"
                                                        name="user[{{$row->id}}][thi]" type="text" style="width: 40px"
                                                        value="{{$row->thi}}"></td>
@@ -95,8 +95,11 @@
             });
             function calculator(id) {
                 var thi = $('#input_thi_'+id).val();
-                var chuyencan = {{$row->chuyencan}};
-                var kiemtra = {{$row->kiemtra}};
+                var chuyencan = $('#input_chuyencan_'+id).val();
+                var kiemtra = $('#input_kiemtra_'+id).val();
+                {{--{{dd($row->chuyencan)}}--}}
+                {{--var chuyencan = {{$row->chuyencan}};--}}
+                {{--var kiemtra = {{$row->kiemtra}};--}}
                 var total = (thi*0.3 + kiemtra*0.6 + chuyencan*0.1).toFixed(2);
                 $('#input_total_id_'+id).val(total).css('color','red');
                 $('#label_total_id_'+id).css('color','red').text(total);

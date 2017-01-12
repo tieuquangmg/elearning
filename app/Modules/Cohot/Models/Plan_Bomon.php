@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Plan_Bomon extends Model
 {
-    protected $table = 'plan_bomon';
-    protected $fillable = ['id','ma_bo_mon','name'];
+    protected $table = 'PLAN_BoMon';
+    public $primaryKey = 'ID_bm';
+    protected $fillable = [
+        'Ma_bo_mon'
+        , 'Bo_mon'
+        , 'So_nhom'
+        , 'ID_khoa'
+    ];
 }

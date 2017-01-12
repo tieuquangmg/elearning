@@ -14,8 +14,13 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-//        \Illuminate\Session\Middleware\StartSession::class
+        \App\Http\Middleware\EncryptCookies::class,
+        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        \App\Http\Middleware\VerifyCsrfToken::class,
+        \App\Http\Middleware\LogLastUserActivity::class,
     ];
 
     /**
@@ -25,12 +30,7 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-            \App\Http\Middleware\LogLastUserActivity::class,
+
         ],
         'api' => [
             'throttle:60,1',
@@ -46,14 +46,15 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'nguoidung' => \App\Http\Middleware\NguoidungAuthenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-
         'role' => \App\Http\Middleware\RoleMiddleware::class,
         'permission' => \App\Http\Middleware\PermissionMiddleware::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
-
-        'landing' => \App\Http\Middleware\LandingMiddleware::class
+        'landing' => \App\Http\Middleware\LandingMiddleware::class,
+        'updateforum' => \App\Http\Middleware\UpdateForum::class
     ];
+
 }

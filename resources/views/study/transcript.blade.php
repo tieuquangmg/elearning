@@ -9,7 +9,7 @@
                         </a>
                     </div>
                     <div class="media-body">
-                        <h1 class="text-white text-display-1 margin-v-0">{{Auth::user()->first_name.' '.Auth::user()->last_name}}</h1>
+                        <h1 class="text-white text-display-1 margin-v-0">{{Auth::user()->ho_ten}}</h1>
                         <p class="text-subhead"><a class="link-white text-underline" href="#">thông tin cá nhân</a></p>
                     </div>
                     <div class="media-right">

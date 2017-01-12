@@ -146,7 +146,7 @@
                             @foreach($messages as $value)
                             <tr>
                                 <td>{{$value->id}}</td>
-                                <td>{{$value->send_from->first_name.' '.$value->send_from->last_name}}</td>
+                                <td>{{$value->send_from->ho_ten}}</td>
                                 <td><a href="">{{$value->content}}</a></td>
                                 <td>{{$value->created_at->day.' - '.$value->created_at->month.' - '.$value->created_at->year}}</td>
                             </tr>

@@ -8,7 +8,7 @@ class Subject extends Model
 {
     public $table = 'subjects';
 
-    public $fillable = ['id','Ky_hieu', 'name', 'image', 'description','attention','id_bm','id_he_dt', 'active'];
+    public $fillable = ['id_sync','code', 'name', 'image', 'description','attention','id_bm','id_he_dt', 'active'];
 
     public function scopeWhereId($query, $input){
         if(is_array($input)) return $query->whereIn('id', $input);
@@ -27,11 +27,12 @@ class Subject extends Model
         return $this->belongsTo(Plan_Bomon::class,'id_bm');
     }
 
-    public function anhbia(){
-        if($this->image == null){
-        return asset('dashboard/images/bia-sach.jpg');
-        }else{
-            return $this->image;
+    public function anhbia()
+    {
+        if ($this->image == null) {
+            return asset('dashboard/images/bia-sach.jpg');
+        } else {
+            return asset($this->image);
         }
     }
 

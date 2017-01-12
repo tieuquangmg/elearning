@@ -1,5 +1,4 @@
-@extends('frontend.dasdboard._layout.layout_db')
-
+@extends('frontend.nguoidung._layout.layout_db')
 @section('content')
     <link href="{{asset('dashboard/customs/mycourse/style(12).css')}}" rel="stylesheet">
     <div class="container">
@@ -10,14 +9,14 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation">
                         <div class="thumbnail">
-                            <img src="{{asset(Auth::user()->image)}}" width="185" height="185">
+                            <img src="{{asset(Auth::guard('nguoidung')->user()->avatar())}}" width="185" height="185">
                         </div>
                         <div class="caption">
-                            <a href="#">{{Auth::user()->ho_ten}}</a>
+                            <a style="font-size: 16px; text-transform: uppercase" href="#">{{Auth::guard('nguoidung')->user()->ho_ten}}</a>
                         </div>
                     </li>
                     <li role="presentation">
-                        <a ><span class="glyphicon glyphicon-pencil"></span>Mã sinh viên: <strong>{{Auth::user()->code}}</strong></a>
+                        <a ><span class="glyphicon glyphicon-pencil"></span>Giáo viên: <strong>{{Auth::guard('nguoidung')->user()->code}}</strong></a>
                     </li>
                     <li role="presentation">
                         <a href="#"><span class="glyphicon glyphicon-list"></span>Danh sách sinh viên lớp</a>
@@ -144,37 +143,37 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-footer">
-                            <div class="row">
-                                <div class="col-md-12 nhiemvu-head">
-                                    <a href="#" style="text-transform: uppercase">nhiệm vụ học tập</a>
-                                </div>
-                            </div>
-                            @if($user_unit[$row->id]['test']['unit'] != null)
-                                <ul class="media-list nhiemvu-body">
-                                    <li class="media">
-                                        <div class="media-left media-top nhiemvu-day">
-                                        <span>
-                                            <div class="day">Tuần:{{$user_unit[$row->id]['test']['unit']->unit->name}}</div>
-                                            <div class="year">{{\Carbon\Carbon::now()->startOfWeek()->format('d/m/Y')}}</div>
-                                            <div class="year">{{\Carbon\Carbon::now()->endOfWeek()->format('d/m/Y')}}</div>
-                                        </span>
-                                        </div>
-                                        <div class="media-body">
-                                            <ul style="list-style: none;padding-left: 5px;border-left: 1px #b9b9b9 solid">
-                                                @foreach($user_unit[$row->id]['test']['untestet'] as $row1)
-                                                    <li>
-                                                        <a href="{{route('study.begintest',[$row1->id,$row1->unit_id,$row->id])}}">{{$row1->name}}</a>
-                                                        <p style="font-size: 11px;color: #6a6a6a">{{$row1->description}}</p>
+                        {{--<div class="panel-footer">--}}
+                            {{--<div class="row">--}}
+                                {{--<div class="col-md-12 nhiemvu-head">--}}
+                                    {{--<a href="#" style="text-transform: uppercase">nhiệm vụ học tập</a>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--@if($user_unit[$row->id]['test']['unit'] != null)--}}
+                                {{--<ul class="media-list nhiemvu-body">--}}
+                                    {{--<li class="media">--}}
+                                        {{--<div class="media-left media-top nhiemvu-day">--}}
+                                        {{--<span>--}}
+                                            {{--<div class="day">Tuần:{{$user_unit[$row->id]['test']['unit']->unit->name}}</div>--}}
+                                            {{--<div class="year">{{\Carbon\Carbon::now()->startOfWeek()->format('d/m/Y')}}</div>--}}
+                                            {{--<div class="year">{{\Carbon\Carbon::now()->endOfWeek()->format('d/m/Y')}}</div>--}}
+                                        {{--</span>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="media-body">--}}
+                                            {{--<ul style="list-style: none;padding-left: 5px;border-left: 1px #b9b9b9 solid">--}}
+                                                {{--@foreach($user_unit[$row->id]['test']['untestet'] as $row1)--}}
+                                                    {{--<li>--}}
+                                                        {{--<a href="{{route('study.begintest',[$row1->id,$row1->unit_id,$row->id])}}">{{$row1->name}}</a>--}}
+                                                        {{--<p style="font-size: 11px;color: #6a6a6a">{{$row1->description}}</p>--}}
                                                         {{--<p href="#">Thời gian: 11-11-2016 -> 11-11-2016</p>--}}
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                                @endif
-                        </div>
+                                                    {{--</li>--}}
+                                                {{--@endforeach--}}
+                                            {{--</ul>--}}
+                                        {{--</div>--}}
+                                    {{--</li>--}}
+                                {{--</ul>--}}
+                                {{--@endif--}}
+                        {{--</div>--}}
                     </div>
                 @endforeach
             </div>
@@ -345,7 +344,7 @@
     <div id="stick_right" data-toggle="modal" data-target="#myModal">
         <div class="float-body">
             <div class="float-title">
-                <h3>NHẮC VIỆC SINH VIÊN <strong style="text-transform: uppercase">{{Auth::user()->full_name}}</strong><br></h3>
+                <h3>NHẮC VIỆC SINH VIÊN <strong style="text-transform: uppercase">{{Auth::guard('nguoidung')->user()->ho_ten}}</strong><br></h3>
                 <p>Tuần từ ngày {{ \Carbon\Carbon::now()->startOfWeek()->format('d/m/y') }} đến {{\Carbon\Carbon::now()->endOfWeek()->format('d/m/y')}}</p>
             </div>
             <div class="float-body-main">
@@ -404,7 +403,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h2 class="modal-title text-center">NHẮC VIỆC SINH VIÊN<strong>{{Auth::user()->full_name}}</strong>
+                    <h2 class="modal-title text-center">NHẮC VIỆC GIÁO VIÊN<strong>{{Auth::guard('nguoidung')->user()->ho_ten}}</strong>
                     </h2>
                     <p class="modal-tilte text-center">Tuần từ ngày {{\Carbon\Carbon::now()->startOfWeek()->format('d/m/Y')}} đến {{\Carbon\Carbon::now()->endOfWeek()->format('d/m/Y')}}</p>
                 </div>
@@ -424,10 +423,11 @@
                                                                   data-placement="top" title=""
                                                                   data-original-title="Số lần đăng nhập LMS/Yêu cầu"><i
                                             class="fa fa-graduation-cap"></i> Đăng nhập lớp</span></th>
-                            <th class="text-center vcenter"><span class="help" data-toggle="tooltip"
-                                                                  data-placement="top" title=""
-                                                                  data-original-title="Thời điểm bắt đầu phải chấm bài hoặc Số lượng bài đã chấm/Tổng số bài"><i
-                                            class="fa fa-edit"></i> Làm bài tập</span></th>
+                            {{--<th class="text-center vcenter">--}}
+                                {{--<span class="help" data-toggle="tooltip" data-placement="top" title=""--}}
+                                                                  {{--data-original-title="Thời điểm bắt đầu phải chấm bài hoặc Số lượng bài đã chấm/Tổng số bài"><i--}}
+                                            {{--class="fa fa-edit"></i> Làm bài tập</span>--}}
+                            {{--</th>--}}
                         </tr>
                         </thead>
                         <tbody>
@@ -450,18 +450,18 @@
                                             @endif
                                         </a>
                                     </td>
-                                    <td class="text-center
-                                    @if(!$row['test']['tested']->isEmpty() && count($row['test']['tested']) >= $row['test']['total'])
-                                            success
-                                            @else
-                                            warning warning-fix
-                                            @endif
-                                            ">
-                                        @if(!$row['test']['tested']->isEmpty())
-                                            {{count($row['test']['tested'])}}
-                                        @else 0
-                                        @endif
-                                        /{{$row['test']['total']}}</td>
+                                    {{--<td class="text-center--}}
+                                    {{--@if(!$row['test']['tested']->isEmpty() && count($row['test']['tested']) >= $row['test']['total'])--}}
+                                            {{--success--}}
+                                            {{--@else--}}
+                                            {{--warning warning-fix--}}
+                                            {{--@endif--}}
+                                            {{--">--}}
+                                        {{--@if(!$row['test']['tested']->isEmpty())--}}
+                                            {{--{{count($row['test']['tested'])}}--}}
+                                        {{--@else 0--}}
+                                        {{--@endif--}}
+                                        {{--/{{$row['test']['total']}}</td>--}}
                                 @endif
                             </tr>
                         @endforeach

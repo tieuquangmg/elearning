@@ -1,5 +1,5 @@
 <?php
-Route::group(['middleware'=>['web', 'auth']], function() {
+Route::group(['middleware'=>['web', 'nguoidung']], function() {
     Route::controller('role', 'RoleController', [
         'getData' => 'role.data',
         'getAdd' => 'role.add',

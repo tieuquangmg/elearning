@@ -15,6 +15,7 @@ class ChuyenNganhController extends Controller
 {
     protected $prefix = "cohot";
     protected $repository, $input;
+
     public function __construct(ChuyenNganhRepository $repository)
     {
         parent::__construct();
@@ -22,15 +23,18 @@ class ChuyenNganhController extends Controller
         $this->input = Input::all();
     }
 
-    public function getData(){
+    public function getData()
+    {
         $data['data'] = $this->repository->data($this->input);
-        return view($this->prefix.'.chuyen_nganh.data',$data);
+        return view($this->prefix . '.chuyen_nganh.data', $data);
     }
-    public function getSyncChuyenNganh(){
+
+    public function getSyncChuyenNganh()
+    {
         $data1 = DB::connection('qlsv')
             ->table('STU_ChuyenNganh')
-            ->chunk(100,function ($rows){
-                foreach ($rows as $row){
+            ->chunk(100, function ($rows) {
+                foreach ($rows as $row) {
                     $value = array(
                         'id' => $row->ID_chuyen_nganh,
                         'ma_chuyen_nganh' => $row->Ma_chuyen_nganh,
@@ -39,7 +43,7 @@ class ChuyenNganhController extends Controller
                     );
                     $bomon = Stu_ChuyenNganh::firstOrNew($value);
                     $bomon->save();
-                    if($bomon->wasRecentlyCreated){
+                    if ($bomon->wasRecentlyCreated) {
                         echo 'Created successfully';
                     } else {
                         echo 'Already exist';

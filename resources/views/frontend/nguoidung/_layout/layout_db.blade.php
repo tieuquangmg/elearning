@@ -24,7 +24,7 @@
 <body>
 
 <div class="loading"></div>
-@include('frontend.dasdboard._modules.nav_db')
+@include('frontend.nguoidung._modules.nav_db')
 @yield('content')
 <script src="{{asset('dashboard/js/vendor/core/jquery.js')}}"></script>
 <script src="{{asset('dashboard/js/vendor/core/bootstrap.js')}}"></script>

@@ -31,7 +31,7 @@ class LopController extends Controller
             ->chunk(100,function ($rows){
                 foreach ($rows as $row){
                     $value = array(
-                        'id' => $row->ID_lop,
+                        'id_sync' => $row->ID_lop,
                         'ten_lop' => $row->Ten_lop,
                         'id_he' => $row->ID_he,
                         'id_khoa' => $row->ID_khoa,

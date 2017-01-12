@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'qlsv'),
 
     /*
     |--------------------------------------------------------------------------
@@ -60,6 +60,20 @@ return [
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
+            'strict' => false,
+            'engine' => null,
+        ],
+
+        'forum' =>[
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => 'xf',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => 'xf_',
             'strict' => false,
             'engine' => null,
         ],
@@ -103,7 +117,6 @@ return [
             'prefix' => '',
             'schema' => 'public',
         ],
-        
 
     ],
 
@@ -132,9 +145,7 @@ return [
     */
 
     'redis' => [
-
         'cluster' => false,
-
         'default' => [
             'host' => env('REDIS_HOST', 'localhost'),
             'password' => env('REDIS_PASSWORD', null),

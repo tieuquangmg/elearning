@@ -83,7 +83,7 @@
                             </thead>
                             <tbody>
                             @if($classes->isEmpty())
-                                <tr><td class="text-center" colspan="9" >Không có dữ liệu</td>
+                                <tr><td style="background-color:#b9b9b9" class="text-center" colspan="9" >Không có dữ liệu</td>
                                 </tr>
                             @else
                                 @foreach($classes as $row)
@@ -98,7 +98,9 @@
                                                 {{$row->teacher->ho_ten}}
                                             @endif
                                         </td>
-                                        <td>{{$row->subject->name}}</td>
+                                        <td>
+                                            {{$row->subject->name}}
+                                        </td>
                                         <td>{{$row->year}}</td>
                                         <td>{{$row->semester}}</td>
                                         <td>

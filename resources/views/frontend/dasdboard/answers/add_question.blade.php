@@ -18,7 +18,7 @@
                         <div class="panel-heading">
                             <div class="clearfix">
                                 <div class="pull-left h4" style="text-transform: uppercase">
-                                    <i class="fa fa-question" aria-hidden="true"></i> {{Auth::user()->roles()->first()->display_name.' '.Auth::user()->full_name}}
+                                    <i class="fa fa-question" aria-hidden="true"></i>Sinh viên {{Auth::user()->full_name}}
                                 </div>
                                 <div class="pull-right green">
                                     <a href="{{url('study/sub/'.$class->id)}}"><i class="glyphicon glyphicon-backward"></i> Trở lại</a>

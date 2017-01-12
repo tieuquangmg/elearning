@@ -1,5 +1,5 @@
 <?php
-Route::group(['middleware'=>['web', 'auth']], function() {
+Route::group(['middleware'=>['web', 'nguoidung']], function() {
     Route::controller('vocabulary', 'VocabularyController', [
         'getData' => 'lesson.vocabulary.data',
         'postCreate' => 'lesson.vocabulary.create',

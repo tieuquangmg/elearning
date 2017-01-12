@@ -24,16 +24,16 @@
             <tbody id="table">
             @foreach($data as $row)
                 <tr>
-                    <td><input type="checkbox" class="check" value="{{$row->id}}"></td>
-                    <td>{{$row->ten_lop}}</td>
-                    <td class="text-right">{{$row->id_he}}</td>
-                    <td class="text-right">{{$row->id_khoa}}</td>
-                    <td class="text-right">{{$row->id_chuyen_nganh}}</td>
-                    <td class="text-right">{{$row->khoa_hoc}}</td>
-                    <td class="text-right">{{$row->nien_khoa}}</td>
+                    <td><input type="checkbox" class="check" value="{{$row->ID_lop}}"></td>
+                    <td>{{$row->Ten_lop}}</td>
+                    <td class="text-right">{{$row->ID_he}}</td>
+                    <td class="text-right">{{$row->ID_khoa}}</td>
+                    <td class="text-right">{{$row->ID_chuyen_nganh}}</td>
+                    <td class="text-right">{{$row->Khoa_hoc}}</td>
+                    <td class="text-right">{{$row->Nien_khoa}}</td>
                     {{--<td class="text-right">@include('_basic.includes.is.active')</td>--}}
                     {{--<td>{{$row->created_at}}</td>--}}
-                    <td class="text-right"><a class="btn btn-sm btn-default" href="{{route('news.update', $row->id)}}"><span class="glyphicon glyphicon-edit"> </span>Sửa</a></td>
+                    <td class="text-right"><a class="btn btn-sm btn-default" href="{{route('news.update', $row->ID_lop)}}"><span class="glyphicon glyphicon-edit"> </span>Sửa</a></td>
                 </tr>
             @endforeach
             </tbody>

@@ -29,20 +29,20 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Lưu trữ</label>
             <div class="col-sm-10">
-                <input type="checkbox" name="record" placeholder="Lưu trữ">
+                <input type="checkbox" name="record" placeholder="Lưu trữ" value="1">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Tự động ghi</label>
             <div class="col-sm-10">
-                <input type="checkbox" name="auto_start_recording" placeholder="Tự động ghi">
+                <input type="checkbox" name="auto_start_recording" placeholder="Tự động ghi" value="1">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Cho phép bắt đầu và dừng ghi</label>
             <div class="col-sm-10">
-                <input type="checkbox" name="allow_start_top_recording"  placeholder="v">
+                <input type="checkbox" name="allow_start_top_recording"  placeholder="v" value="1">
             </div>
         </div>
         <div class="form-group">

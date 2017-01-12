@@ -122,25 +122,60 @@ class UserController extends Controller
     public function getSyncForums(){
         $host = Config::get('xenforo.host');
         $client = new Client(['base_uri' => 'http://localhost/xf/']);
-
-        $user = User::all()->take(100);
-        foreach ($user as $row){
-            $context = stream_context_create(array(
-                'http' => array('ignore_errors' => true),
-            ));
-
-            $result = file_get_contents('http://localhost/xf/api.php?action=register&hash=quangquang&username=1477011&password=123456&email=1477011@edu.vn', false, $context);
-            dd(json_decode($result,true));
-            $response = $client->request('GET', 'api.php',[
-                'query'=>[
-                    'action' => 'register',
-                    'hash' => 'quangquang',
-                    'username'=>$row->code,
-                    'password'=>'123456',
-                    'email'=>$row->code.'@edu.vn'
-                ]]);
-            dump($response);
-//            var_dump(collect(json_decode($response->getBody()->getContents(),true)));
-        }
+        $user = User::chunk(2,function ($rows) use ($client){
+            foreach ($rows as $row){
+//            $context = stream_context_create(array(
+//                'http' => array('ignore_errors' => true),
+//            ));
+//            $result = file_get_contents('http://localhost/xf/api.php?action=register&hash=quangquang&username=1477011&password=123456&email=1477011@edu.vn', false, $context);
+//            dd(json_decode($result,true));
+                $exists = $client->request('GET','api.php', [
+                    'query' => [
+                        'action' => 'getUser',
+                        'hash' => 'quangquang',
+                        'value' => $row->code
+                    ],
+                    'exceptions' => false,
+                ]);
+                if(property_exists(json_decode($exists->getBody()->getContents(),false),'error')){
+                    $response = $client->request('GET','api.php',[
+                        'query'=>[
+                            'action' => 'register',
+                            'hash' => 'quangquang',
+                            'username'=>$row->code,
+                            'password'=>'123456',
+                            'email'=>$row->code.'@edu.vn'
+                        ]]);
+                }
+//            dd(json_decode($response->getBody()->getContents(),true));
+            }
+        });
     }
+//    public function getSyncForums(){
+//        $host = Config::get('xenforo.host');
+//        $client = new Client(['base_uri' => 'http://localhost/xf/api/index.php/users/']);
+//
+//        $user = User::all()->take(100);
+//        foreach ($user as $row){
+//            $context = stream_context_create(array(
+//                'http' => array('ignore_errors' => true),
+//            ));
+////            $result = file_get_contents('http://localhost/xf/api/index.php?users', false, $context);
+////            dd(json_decode($result,true));
+//            $response = $client->request('POST','',[
+//                'query'=>[
+////                    'action' => 'register',
+////                    'hash' => 'quangquang',
+//                    'username'=>$row->code,
+//                    'password'=>'123456',
+//                    'user_email'=>$row->code.'@edu.vn',
+//                    'oauth_token'=>'quangquang',
+//                ]
+//            ]
+//            );
+////            dd($response);
+//            dd(json_decode($response->getBody()->getContents(),true));
+//        }
+//    }
+
 }

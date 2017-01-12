@@ -1,5 +1,5 @@
 <?php
-Route::group(['middleware'=>['web', 'auth']], function() {
+Route::group(['middleware'=>['web', 'nguoidung']], function() {
 //    Route::controller('test', 'TestController', [
 //        'postCreate' => 'test.create',
 //        'postUpdate' => 'test.update',

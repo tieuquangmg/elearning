@@ -1,5 +1,6 @@
 <?php 
 namespace App\Modules\Organize\Repositories;
+use App\Modules\Auth\Models\Nguoidung;
 use App\Modules\Organize\Models\Score;
 use App\Modules\Organize\Models\User_test;
 use App\Modules\Subject\Models\Subject;
@@ -65,25 +66,15 @@ class ClassRepositoryEloquent implements ClassRepository
                 if($request['active'] != null){
                     $query->where('active','like','%'.$active.'%');
                 }
-
             }
         })
             ->orderBy('id', 'ASC')->paginate($prepage);
         $data->setPath($url.'?name='.$name.'&f_select_number='.$prepage.'&code='.$code.'&teacher='.$teacher.'&subject='.$subject.'&year='.$year.'&semester='.$semester.'&active='.$active);
         $this->data['classes'] = $data;
         $this->data['subjects'] = Subject::lists('name', 'id');
-        $this->data['teachers'] = User::filterRole('teacher')
-            ->select('users.first_name', 'users.last_name', 'users.id')->get();
+        $this->data['teachers'] = Nguoidung::select('nguoidungs.ho_ten','nguoidungs.id')->get();
         return $this->data;
     }
-
-//   public function data(){
-//       $this->data['classes'] = $this->model->paginate();
-//       $this->data['subjects'] = Subject::lists('name', 'id');
-//       $this->data['teachers'] = User::filterRole('teacher')
-//           ->select('users.first_name', 'users.last_name', 'users.id')->get();
-//       return $this->data;
-//   }
    public function create($input){
        $this->model->create($input);
    }
@@ -91,7 +82,12 @@ class ClassRepositoryEloquent implements ClassRepository
        $input['start_date'] = Carbon::createFromFormat('d/m/Y',$input['start_date']);
        $input['end_date'] = Carbon::createFromFormat('d/m/Y',$input['end_date']);
 //       dd($input['start_date']);
-       $this->model->where('id', $input['id'])->update($input);
+       $id = $input['id'];
+       unset($input['id']);
+//       dd($input);
+//       dd(123);
+       $this->model->where('id',$id)->update($input);
+//       dd(123);
    }
    public function find($id){
        return $this->model->find($id);
@@ -125,11 +121,19 @@ class ClassRepositoryEloquent implements ClassRepository
             ->phoneNumber(trim($input['phone_number']))
             ->paginate(10);
     }
-    public function enroll($input){
-        return $this->model->find($input['class_id'])->student()->attach($input['ids']);
+
+    public function enroll($input)
+    {
+        $ids = array();
+        foreach ($input['ids'] as $value){
+            $ids[$value] = ['status'=>1];
+        }
+        return $this->model->find($input['class_id'])->student()->attach($ids);
     }
-    public function unenroll($input){
-       return $this->model->find($input['class_id'])->student()->detach($input['ids']);
+
+    public function unenroll($input)
+    {
+        return $this->model->find($input['class_id'])->student()->detach($input['ids']);
     }
 //    public function test($id){
 //        $unit_id = $this->model->find($id)->Subject->unit->lists('id')->toArray();
@@ -219,7 +223,8 @@ class ClassRepositoryEloquent implements ClassRepository
     }
     public function filter($input,$class_id){
         $user_ids = Classes::find($class_id)->student->lists('id')->toArray();
-        $data = User::FilterRole('student')->whereNotIn('users.id',$user_ids)
+        $data = User::whereNotIn('users.id',$user_ids)
+//        $data = User::FilterRole('student')->whereNotIn('users.id',$user_ids)
             ->where(function($query) use ($input){
                 foreach($input as $key =>$value){
                     if($value != null && $key != 'page')

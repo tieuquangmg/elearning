@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Theory extends Model
 {
     public $table = 'theories';
-    public $fillable = ['unit_id', 'name', 'intro', 'content', 'notify', 'active','time','content_type'];
+    public $fillable = ['unit_id', 'name', 'intro', 'content', 'create_by', 'notify', 'active','time','content_type'];
     public function unit(){
         return $this->belongsTo(Unit::class);
     }

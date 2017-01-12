@@ -16,11 +16,11 @@ class LandingMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!isset($_COOKIE['firsttime']) && !Auth::user()) {
-            setcookie("firsttime", "no",time()+3600);
-            return redirect()->route('landing');
-            exit();
-        }
+//        if (!isset($_COOKIE['firsttime']) && !Auth::user()) {
+//            setcookie("firsttime", "no",time()+3600);
+//            return redirect()->route('landing');
+//            exit();
+//        }
         return $next($request);
     }
 }

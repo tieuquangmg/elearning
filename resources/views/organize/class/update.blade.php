@@ -1,7 +1,7 @@
 <div class="modal fade" id="update_class" tabindex="-1" role="dialog" aria-labelledby="update_class">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form id="form_update" class="form-horizontal form-label-left" method="post" action="{{route('class.create')}}">
+            <form id="form_update" class="form-horizontal form-label-left" method="post" action="{{route('class.update')}}">
                 {{csrf_field()}}
                 <input id="id" name="id" type="hidden">
                 <div class="modal-header">
@@ -37,7 +37,7 @@
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <select id="user_id" name="user_id" class="selectpicker" data-live-search="true">
                                 @foreach($teachers as $v)
-                                    <option value="{{$v->id}}" data-tokens="{{$v->first_name.' '.$v->last_name}}">{{$v->first_name.' '.$v->last_name}}</option>
+                                    <option value="{{$v->id}}" data-tokens="{{$v->ho_ten}}">{{$v->ho_ten}}</option>
                                 @endforeach
                             </select>
                         </div>

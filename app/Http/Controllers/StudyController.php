@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\EncryptCookies;
+use App\Modules\Auth\Models\Nguoidung;
 use App\Modules\Cohot\Models\plan_chuongtrinhdaotao;
 use App\Modules\Cohot\Models\plan_chuongtrinhdaotaochitiet;
 use App\Modules\Cohot\Models\Stu_lop;
@@ -15,6 +16,7 @@ use App\Modules\Organize\Models\Score;
 use App\Modules\Organize\Models\Unit_class;
 use App\Modules\Organize\Models\User_test;
 use App\Modules\Subject\Models\Class_meeting;
+use App\Modules\Subject\Models\Class_meeting_time;
 use App\Modules\Subject\Models\Comment;
 use App\Modules\Subject\Models\Hoi_dap;
 use App\Modules\Subject\Models\Hoi_dap_tra_loi;
@@ -31,6 +33,7 @@ use BigBlueButton\Parameters\IsMeetingRunningParameters;
 use BigBlueButton\Parameters\JoinMeetingParameters;
 use BigBlueButton\Responses\CreateMeetingResponse;
 use BigBlueButton\Responses\GetMeetingInfoResponse;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Modules\Auth\Models\User;
 use App\Modules\Examination\Models\UnitTest;
@@ -96,9 +99,18 @@ class StudyController extends Controller
             ->where('start_time', '<=', Carbon::now())
             ->where('end_time','>=',Carbon::now())
             ->first()->unit_id;
+//        dd($unit_id);
         $data['thong_bao']['hoi_dap'] = count(Hoi_dap::where('id_unit',$unit_id)->where('user_id',Auth::user()->id)->get());
-        $data['thong_bao']['dien_dan'] = User_forums::where('user_id',Auth::user()->id)->where('unit_id',$unit_id)->first()->number_question;
-        $data['thong_bao']['dang_nhap'] = User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->first()->login_time;
+        if(User_forums::where('user_id',Auth::user()->id)->where('unit_id',$unit_id)->get()->isEmpty()){
+            $data['thong_bao']['dien_dan'] = 0;
+        }else{
+            $data['thong_bao']['dien_dan'] = User_forums::where('user_id',Auth::user()->id)->where('unit_id',$unit_id)->first()->number_question;
+        }
+        if(User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->get()->isEmpty()){
+            $data['thong_bao']['dang_nhap'] = 0;
+        }else{
+            $data['thong_bao']['dang_nhap'] = User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->first()->login_time;
+        }
         return view('frontend.dasdboard.course.subject', $data);
     }
 
@@ -132,7 +144,7 @@ class StudyController extends Controller
                 });
             })
             ->get();
-        dd($exists);
+//        dd($exists);
         if ($exists1->isEmpty()) {
             $data['permission'] = true;
         } else {
@@ -221,10 +233,9 @@ class StudyController extends Controller
         $data['user_test'] = User_test::where('test_id', $id)->where('user_id', Auth::user()->id)->get();
         return view('frontend.dasdboard.unit.begin_test', $data);
     }
-
     public function getUnitTest($id)
     {
-        if (Auth::user()->hasRole(['student'])) {
+        if (true){
             $data['user_test'] = Test::with(['user_test' => function ($q) {
                 $q->where('user_id', Auth::user()->id)
                     ->with('user');
@@ -243,17 +254,20 @@ class StudyController extends Controller
             } else {
                 $data['test'] = QuestionBank::paginate($data['user_test']->number_question);
                 $data['length'] = count($data['test']);
+
                 $data['unit_test'] = User_test::create(['user_id' => auth()->user()->id, 'test_id' => $id, 'start_time' => Carbon::now(), 'work_time' => $data['user_test']->time]);
+
                 foreach ($data['test'] as $row) {
                     UnitTestDetail::create(['unit_test_id' => $data['unit_test']->id, 'question_bank_id' => $row->id, 'answer' => $row->answer]);
                 }
+
                 return view('frontend.dasdboard.unit.test', $data);
             }
         }
-        if (Auth::user()->hasRole(['teacher'])) {
-            $data['test'] = Test::find($id);
-            return view('frontend.dasdboard.unit.result_class_test', $data);
-        }
+//        if (Auth::user()->hasRole(['teacher'])) {
+//            $data['test'] = Test::find($id);
+//            return view('frontend.dasdboard.unit.result_class_test', $data);
+//        }
     }
 //    public function getUnitTest($id){
 //
@@ -371,12 +385,11 @@ class StudyController extends Controller
         $qqq = Theory::where('unit_id', $unit_id)->where('position', '<', $position)->whereHas('user_theory', function ($query) {
             $query->where('watch_time', '<>', 0);
         })->get();
-
-        if (Auth::user()->hasRole(['student'])) {
+        if (!Auth::guard('web')->guest()) {
             // kiem tra sinh vien da lam bai chua
             $exists = User_theory::where('user_id', Auth::user()->id)->where('theory_id', $id)->first();
-            if ($exists == null) {
-                User_theory::create(['user_id' => Auth::user()->id, 'theory_id' => $id]);
+            if ($exists == null){
+                User_theory::create(['user_id' => Auth::user()->id, 'watch_time'=>$data['theory']->time ,'start_time'=>Carbon::now(), 'theory_id' => $id]);
                 // thoi gian con lai
                 $data['watch_time'] = $data['theory']->time;
             } else {
@@ -393,6 +406,7 @@ class StudyController extends Controller
             $data['permission'] = true;
             $data['watch_time'] = 100;
         }
+//        dd($data);
         return view('frontend.dasdboard.theory', $data);
     }
 
@@ -420,7 +434,7 @@ class StudyController extends Controller
 //}
     public function getTranscript($id)
     {
-        dump(Auth::user()->roles);
+//        dump(Auth::user()->roles);
         $class_id = User::find($id)->classes->lists('id');
         $subject_ids = Classes::whereIn('id', $class_id)->lists('subject_id');
         $subject = Subject::whereIn('id', $subject_ids)->get();
@@ -486,56 +500,47 @@ class StudyController extends Controller
 
     public function getMycourse()
     {
-//        if (Auth::user()->hasRole(['student'])){
-//            $data['classes'] = User::find(Auth::user()->id)->classes;
-//        }else {
-//            if (Auth::user()->hasRole(['teacher'])){
-//                dd(2);
-//                $data['classes'] = Classes::where('user_id', Auth::user()->id)->get();
-//            }
+//        $qq = '';
+//        for($i = 7; $i<142 ; $i += 9){
+//
+//            $qq .= random_int($i-2,$i+2).':'.random_int(10,59).', ';
 //        }
-        $data['classes'] = User::Where('id', Auth::user()->id)->with(['classes' => function ($query) {
-            $query->where('start_date', '<', Carbon::now());
-            $query->where('end_date', '>', Carbon::now());
-            $query->where('start_date', '<>', null);
-            $query->where('end_date', '<>', null);
-        }]);
-        $data['classes'] = $data['classes']->first()->classes;
-        $class_ids = $data['classes']->lists('id');
-        $fhgjhg = array();
-        foreach ($class_ids as $key => $value){
-            $fhgjhg[$value]['class'] = Classes::find($value);
-            $unit = Unit_class::where('class_id', $value)
-                ->where('start_time', '<', Carbon::now())
-                ->where('end_time', '>', Carbon::now())
-                ->first();
-            if ($unit != null){ //khi them lop se insert vao bang
-                $unit_id = $unit->unit_id;
-            $fhgjhg[$value]['user-unit'] = User_unit::where('unit_id', $unit_id)->where('user_id', Auth::user()->id)->first();
-            //lay so lan lam bai kiem tra
-            $all_test = Test::where('unit_id', $unit_id)->get();
-            $fhgjhg[$value]['test']['unit'] = $unit;
-            $fhgjhg[$value]['test']['total'] = count($all_test);
-            $tested = Test::where('unit_id', $unit_id)->whereHas('user_test', function ($query) {
-                $query->where('user_id', Auth::user()->id)
-                    ->where('status',1);
-            })
-                ->get();
-            $fhgjhg[$value]['test']['tested'] = $tested ;
-            $tested_ids = $tested->lists('id');
-            $fhgjhg[$value]['test']['untestet'] = Test::where('unit_id', $unit_id)->whereNotIn('id',$tested_ids)->get();
-                //hoi dap
-                $fhgjhg[$value]['hoi_dap']['total'] = count(Hoi_dap::where('id_unit',$unit_id)->where('user_id',Auth::user()->id));
-                $fhgjhg[$value]['forums']['total'] = count(User_forums::user_unit($unit_id));
-                $fhgjhg[$value]['dang-nhap']['total'] = User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->first();
+//        dd($qq);
+        if(Auth::guard('nguoidung')->check()){
+            $data['classes'] = Nguoidung::Where('id', Auth::guard('nguoidung')->user()->id)->with(['classes' => function ($query) {
+                $query->where('start_date', '<', Carbon::now());
+                $query->where('end_date', '>', Carbon::now());
+                $query->where('start_date', '<>', null);
+                $query->where('end_date', '<>', null);
+            }]);
+            $data['classes'] = $data['classes']->first()->classes;
+            $class_ids = $data['classes']->lists('id');
+            $fhgjhg = array();
+            foreach ($class_ids as $key => $value){
+                $fhgjhg[$value]['class'] = Classes::find($value);
+                $unit = Unit_class::where('class_id', $value)
+                    ->where('start_time', '<', Carbon::now())
+                    ->where('end_time', '>', Carbon::now())
+                    ->first();
+                if ($unit != null){ //khi them lop se insert vao bang
+                    $unit_id = $unit->unit_id;
+                    $fhgjhg[$value]['user-unit'] = User_unit::where('unit_id', $unit_id)->where('user_id', Auth::guard('nguoidung')->user()->id)->first();
+                    $fhgjhg[$value]['test']['unit'] = $unit;
+                    //hoi dap
+                    $fhgjhg[$value]['hoi_dap']['total'] = count(Hoi_dap::where('id_unit',$unit_id)->where('user_id',Auth::guard('nguoidung')->user()->id)->get());
+                    $user_forum = User_forums::user_unit($unit_id)->get();
+                    if($user_forum->isEmpty()){
+                        $fhgjhg[$value]['forums']['total'] = 0;
+                    }else{
+                        $fhgjhg[$value]['forums']['total'] = User_forums::user_unit($unit_id)->first()->number_question;
+                    }
+                    $fhgjhg[$value]['dang-nhap']['total'] = User_unit::where('unit_id',$unit_id)->where('user_id',Auth::guard('nguoidung')->user()->id)->first();
 //                dd($fhgjhg[$value]['dang-nhap']['total']);
-            } else{
-                $fhgjhg[$value]['dang-nhap']['total'] = null;
-                $fhgjhg[$value]['test']['unit'] = null;
-                $fhgjhg[$value]['test']['tested'] = null;
-                $fhgjhg[$value]['test']['untestet'] = null;
+                }else{
+                    $fhgjhg[$value]['dang-nhap']['total'] = null;
+                    $fhgjhg[$value]['test']['unit'] = null;
+                }
             }
-        }
 //        dd($fhgjhg);
 //        $test = DB::table('classes')
 //            ->join('units','units.subject_id','=','classes.subject_id')
@@ -544,13 +549,81 @@ class StudyController extends Controller
 //            ->join('tests','tests.unit_id','=','units.id')
 //            ->where('user_unit.user_id','=',2)
 //            ->get();
-        $data['user_unit'] = collect($fhgjhg);
-        $data['standings'] = User::take(6)->get();
-        $data['thanh_vien'] = User::whereHas('roles',function ($q){
-            $q->where('name','student');
-        })->take(20)->get();
+            $data['user_unit'] = collect($fhgjhg);
+            $data['standings'] = User::take(6)->get();
+            $data['thanh_vien'] = User::whereHas('roles',function ($q){
+                $q->where('name','student');
+            })->take(20)->get();
 //        dd($data);
-        return view('frontend.dasdboard.course.list', $data);
+            return view('frontend.nguoidung.course.list', $data);
+        }
+        if(Auth::check()){
+            //        if (Auth::user()->hasRole(['student'])){
+//            $data['classes'] = User::find(Auth::user()->id)->classes;
+//        }else {
+//            if (Auth::user()->hasRole(['teacher'])){
+//                dd(2);
+//                $data['classes'] = Classes::where('user_id', Auth::user()->id)->get();
+//            }
+//        }
+            $data['classes'] = User::Where('id', Auth::user()->id)->with(['classes' => function ($query) {
+                $query->where('start_date', '<', Carbon::now());
+                $query->where('end_date', '>', Carbon::now());
+                $query->where('start_date', '<>', null);
+                $query->where('end_date', '<>', null);
+            }]);
+            $data['classes'] = $data['classes']->first()->classes;
+            $class_ids = $data['classes']->lists('id');
+            $fhgjhg = array();
+            foreach ($class_ids as $key => $value){
+                $fhgjhg[$value]['class'] = Classes::find($value);
+                $unit = Unit_class::where('class_id', $value)
+                    ->where('start_time', '<', Carbon::now())
+                    ->where('end_time', '>', Carbon::now())
+                    ->first();
+                if ($unit != null){ //khi them lop se insert vao bang
+                    $unit_id = $unit->unit_id;
+                    $fhgjhg[$value]['user-unit'] = User_unit::where('unit_id', $unit_id)->where('user_id', Auth::user()->id)->first();
+                    //lay so lan lam bai kiem tra
+                    $all_test = Test::where('unit_id', $unit_id)->get();
+                    $fhgjhg[$value]['test']['unit'] = $unit;
+                    $fhgjhg[$value]['test']['total'] = count($all_test);
+                    $tested = Test::where('unit_id', $unit_id)->whereHas('user_test', function ($query) {
+                        $query->where('user_id', Auth::user()->id)
+                            ->where('status',1);
+                    })
+                        ->get();
+                    $fhgjhg[$value]['test']['tested'] = $tested ;
+                    $tested_ids = $tested->lists('id');
+                    $fhgjhg[$value]['test']['untestet'] = Test::where('unit_id',$unit_id)->whereNotIn('id',$tested_ids)->get();
+                    //hoi dap
+                    $fhgjhg[$value]['hoi_dap']['total'] = count(Hoi_dap::where('id_unit',$unit_id)->where('user_id',Auth::user()->id)->get());
+                    $fhgjhg[$value]['forums']['total'] = User_forums::user_unit($unit_id)->first()->number_question;
+                    $fhgjhg[$value]['dang-nhap']['total'] = User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->first();
+//                dd($fhgjhg[$value]['dang-nhap']['total']);
+                } else{
+                    $fhgjhg[$value]['dang-nhap']['total'] = null;
+                    $fhgjhg[$value]['test']['unit'] = null;
+                    $fhgjhg[$value]['test']['tested'] = null;
+                    $fhgjhg[$value]['test']['untestet'] = null;
+                }
+            }
+//        dd($fhgjhg);
+//        $test = DB::table('classes')
+//            ->join('units','units.subject_id','=','classes.subject_id')
+//            ->join('user_unit','user_unit.unit_id','=','units.id')
+//            ->join('users','users.id','=','user_unit.user_id')
+//            ->join('tests','tests.unit_id','=','units.id')
+//            ->where('user_unit.user_id','=',2)
+//            ->get();
+            $data['user_unit'] = collect($fhgjhg);
+            $data['standings'] = User::take(6)->get();
+            $data['thanh_vien'] = User::whereHas('roles',function ($q){
+                $q->where('name','student');
+            })->take(20)->get();
+//        dd($data);
+            return view('frontend.dasdboard.course.list', $data);
+        }
     }
 
     public function getNews($id)
@@ -588,7 +661,6 @@ class StudyController extends Controller
     public function postProfile(Request $request)
     {
         $input = $request->all();
-        dd($input);
         $user = User::find(Auth::user()->id);
         if ($request->get('password') == '') {
             unset($input['password']);
@@ -638,17 +710,18 @@ class StudyController extends Controller
             ->where('meeting_id', $meeting->id)
             ->first();
         $data = [];
-        if (Auth::user()->id == $class->user_id) {
-            $class_meeting = Class_meeting::create(['class_id' => $class_id, 'meeting_id' => $meeting->id]);
+        if (Auth::guard('nguoidung')->user() != null && Auth::guard('nguoidung')->user()->id == $class->user_id){
+            $class_meeting = Class_meeting::firstOrNew(['class_id' => $class_id, 'meeting_id' => $meeting->id]);
+            $class_meeting->save();
             $GetMeetingInfoParameters = new GetMeetingInfoParameters($class_meeting->id, '');
             $info = $bbb->getMeetingInfo($GetMeetingInfoParameters);
             $data['meeting'] = Meeting::with('class_meeting_time')->find($meeting->id);
 
-            if ($info->getMeetingInfo()->getMeetingId() == '') {
+            if ($info->getMeetingInfo()->getMeetingId() == ''){
                 $data['running'] = false;
             } else {
                 $data['running'] = true;
-                $user_name = Auth::user()->full_name;
+                $user_name = Auth::guard('nguoidung')->user()->ho_ten;
                 $JoinMeetingParameters = new JoinMeetingParameters($class_meeting->id, $user_name, $info->getMeetingInfo()->getModeratorPassword());
                 $JoinMeetingParameters->setRedirect(true);
                 $data['getJoinMeetingURL'] = $bbb->getJoinMeetingURL($JoinMeetingParameters);
@@ -661,7 +734,7 @@ class StudyController extends Controller
                 if ($run->isRunning()) {
                     $GetMeetingInfoParameters = new GetMeetingInfoParameters($class_meeting->id, '');
                     $info = $bbb->getMeetingInfo($GetMeetingInfoParameters);
-                    $user_name = Auth::user()->full_name;
+                    $user_name = Auth::user()->ho_ten;
                     $JoinMeetingParameters = new JoinMeetingParameters($class_meeting->id, $user_name, $info->getMeetingInfo()->getAttendeePassword());
                     $JoinMeetingParameters->setRedirect(true);
                     $url = $bbb->getJoinMeetingURL($JoinMeetingParameters);
@@ -694,22 +767,25 @@ class StudyController extends Controller
         $this->input = Input::all();
         $id = $this->input['id'];
         $class_id = $this->input['class_id'];
+//        $check_lich_hoc = Class_meeting_time::where('class_meeting_id',$id)->get()->isEmpty();
+//        if($check_lich_hoc){
+//            Class_meeting::create()
+//        }
         $class_meeting = Class_meeting::where('class_id', $class_id)->where('meeting_id', $id)->first();
         $class = Classes::find($this->input['class_id']);
         $bbb = new BigBlueButton();
         $createMeetingParams = new CreateMeetingParameters($class_meeting->id, $class->name);
-
-        if ($this->input['user_id'] = Auth::user()->id) {
+        if (Auth::guard('nguoidung')->user() != null){
             $response = $bbb->createMeeting($createMeetingParams);
-            if (Class_meeting::find($class_meeting->id)->get()->isEmpty()) {
+            if (Class_meeting::find($class_meeting->id)->get()->isEmpty()){
             }
             Class_meeting::where('meeting_id', $id)->where('class_id', $class_id)->update(['attendee_pw' => $response->getAttendeePassword(), 'moderator_pw' => $response->getModeratorPassword()]);
-            $user_name = Auth::user()->first_name . ' ' . Auth::user()->last_name;
+            $user_name = Auth::guard('nguoidung')->user()->ho_ten;
             $JoinMeetingParameters = new JoinMeetingParameters($class_meeting->id, $user_name, $response->getModeratorPassword());
             $JoinMeetingParameters->setRedirect(true);
             $getJoinMeetingURL = $bbb->getJoinMeetingURL($JoinMeetingParameters);
             return $getJoinMeetingURL;
-        } else {
+        }else{
 
         }
     }
@@ -721,7 +797,7 @@ class StudyController extends Controller
 
         $class = Classes::find($class_id);
         $class_meeting = Class_meeting::where('class_id', $class_id)->where('meeting_id', $id)->first();
-        if ($class->user_id = Auth::user()->id) {
+        if ($class->user_id = Auth::guard('nguoidung')->user()->id) {
             $bbb = new BigBlueButton();
             $endparams = new EndMeetingParameters($class_meeting->id, $class_meeting->moderator_pw);
             $res = $bbb->endMeeting($endparams);
@@ -806,6 +882,78 @@ class StudyController extends Controller
                 return null;
             });
         return view('frontend/dasdboard/subject/student', $data);
+    }
+    //forums
+    public function getForumLogin($class_id){
+        $data['class'] = Classes::find($class_id);
+    return view('frontend.dasdboard.course.login_forum',$data);
+//        $cookie_file_path = getcwd() . '/cookie.txt';
+////Emulating Chrome Browser:
+//        $agent = "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/A.B (KHTML, like Gecko) Chrome/X.Y.Z.W Safari/A.B.";
+//        /*  Login part of the code -- start */
+////First, get and write session cookie:
+//        $ch = curl_init();
+//        curl_setopt($ch, CURLOPT_URL,'http://localhost/xf/index.php?login/login');
+//        curl_setopt($ch, CURLOPT_USERAGENT, $agent);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+//        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+//        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+//        curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie_file_path);
+//        curl_setopt($ch, CURLOPT_COOKIEJAR,  $cookie_file_path);
+//        $loginpage_html = curl_exec ($ch);
+//        curl_close ($ch);
+////Now, use the session cookie to actually log in:
+//        $POSTFIELDS = "login=1151001&password=123456&cookie_check=1&register=0&remember=1&redirect=http://localhost/xf/index.php";
+//        $ch = curl_init();
+//        curl_setopt($ch, CURLOPT_URL,'http://localhost/xf/index.php?login/login');
+//        curl_setopt($ch, CURLOPT_USERAGENT, $agent);
+//        curl_setopt($ch, CURLOPT_POST, 1);
+//        curl_setopt($ch, CURLOPT_POSTFIELDS,$POSTFIELDS);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//        curl_setopt($ch, CURLOPT_COOKIESESSION, true);
+//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+//        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+//        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+//        curl_setopt($ch, CURLOPT_REFERER, 'http://localhost/xf/index.php?login/login');
+//        curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie_file_path);
+//        curl_setopt($ch, CURLOPT_COOKIEJAR,  $cookie_file_path);
+//
+//        $logon_result = curl_exec ($ch);
+//        curl_close ($ch);
+//
+////        return $logon_result;
+//        dd($logon_result);
+//        $curl = curl_init();
+//        curl_setopt($curl, CURLOPT_URL, 'http://localhost/xf/index.php?login/login');
+//        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+//        curl_setopt($curl, CURLOPT_COOKIE, asset('cookies.txt'));
+//        curl_setopt($curl, CURLOPT_COOKIEFILE, asset('cookies.txt'));
+//        curl_setopt($curl, CURLOPT_COOKIEJAR, asset('cookies.txt'));
+//        curl_setopt($curl, CURLOPT_POST, 1);
+//        curl_setopt($curl, CURLOPT_POSTFIELDS, array('login' => Auth::user()->code , 'password' => '123456', 'cookie_check' => 1, 'redirect' => 'google.com', 'register' => 0, 'remember' => 1));
+//        $output = curl_exec($curl);
+//        $info   = curl_getinfo($curl);
+//        echo "<pre>";
+////        print_r($info);
+//        echo "</pre>";
+//        echo $output;
+//        curl_close($curl);
+//
+//        dd($id);
+//        $client = new Client(['base_uri' => 'http://localhost/xf/index.php?login/login']);
+//        $login = $client->request('POST','',[
+//            'query' =>[
+//                'login' => Auth::user()->code,
+//                'password' => '123456',
+//                'cookie_check' => 1,
+//                'redirect' => 'http://localhost/xf/index.php',
+//                'register' => 0,
+//                'remember' => 1
+//            ],
+//            'exceptions' => true,
+//        ]);
+//        dd($login->getBody()->getContents());
     }
 //tin nhan thong bao
     public function postReadMess(){

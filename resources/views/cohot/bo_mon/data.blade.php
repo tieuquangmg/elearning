@@ -12,24 +12,27 @@
             <a class="btn btn-sm btn-primary" href="{{route('news.create')}}"><span class="glyphicon glyphicon-plus-sign"> </span>Viết bài mới</a>
             <a id="delete" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash"> </span>Xóa bài</a>
         </div>
-        <table class="table">
+        <table class="table" style="text-align: left">
             <tr>
                 <th><input type="checkbox" id="check_all"></th>
-                <th>{{trans('label.title')}}</th>
-                <th class="text-right">{{trans('label.view')}}</th>
-                <th class="text-right">{{trans('label.active')}}</th>
-                {{--<th>{{trans('label.created_at')}}</th>--}}
+                <th class="text-center">Mã bộ môn</th>
+                <th class="text-left">Bộ môn</th>
+                <th class="text-center">Số nhóm</th>
+                <th class="text-center">Khóa</th>
                 <th></th>
+                {{--<th>{{trans('label.created_at')}}</th>--}}
             </tr>
             <tbody id="table">
             @foreach($data as $row)
                 <tr>
-                    <td><input type="checkbox" class="check" value="{{$row->id}}"></td>
-                    <td>{{$row->ma_bo_mon}}</td>
-                    <td>{{$row->name}}</td>
+                    <td><input type="checkbox" class="check" value="{{$row->ID_bm}}"></td>
+                    <td class="text-center">{{$row->Ma_bo_mon}}</td>
+                    <td class="text-left">{{$row->Bo_mon}}</td>
+                    <td class="text-center">{{$row->So_nhom}}1</td>
+                    <td class="text-center">{{$row->ID_khoa}}2</td>
                     {{--<td class="text-right">@include('_basic.includes.is.active')</td>--}}
                     {{--<td>{{$row->created_at}}</td>--}}
-                    <td class="text-right"><a class="btn btn-sm btn-default" href="{{route('news.update', $row->id)}}"><span class="glyphicon glyphicon-edit"> </span>Sửa</a></td>
+                    <td class="text-right"><a class="btn btn-sm btn-default" href="{{route('news.update', $row->ID_bm)}}"><span class="glyphicon glyphicon-edit"> </span>Sửa</a></td>
                 </tr>
             @endforeach
             </tbody>

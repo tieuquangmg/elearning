@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stu_ChuyenNganh extends Model
 {
-    protected $table = 'stu_chuyennganh';
-    protected $fillable = ['id','ma_chuyen_nganh','chuyen_nganh','id_nganh'];
+    protected $table = 'STU_ChuyenNganh';
+    protected $fillable = ['ID_chuyen_nganh','Ma_chuyen_nganh','Chuyen_nganh','ID_nganh','Chuyen_nganh_En','Ky_thuat'];
 }

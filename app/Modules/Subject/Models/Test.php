@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Test extends Model
 {
     public $table = 'tests';
-    public $fillable = ['unit_id', 'name', 'active', 'time', 'number_question'];
+    public $fillable = ['unit_id', 'name', 'active', 'time', 'number_question', 'number_test','scoring','scoring_method_id'];
 
     public function user_test()
     {

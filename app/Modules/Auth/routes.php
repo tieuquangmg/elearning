@@ -6,7 +6,7 @@ Route::group(['middleware'=>['web', 'guest']], function() {
     ]);
 });
 
-Route::group(['middleware'=>['web', 'auth']], function (){
+Route::group(['middleware'=>['web', 'nguoidung']], function (){
     Route::controller('user', 'UserController', [
         'getProfile' => 'auth.user.profile',
         'postQrCode' => 'auth.user.qr_code',
@@ -29,4 +29,10 @@ Route::group(['middleware'=>['web', 'auth']], function (){
 //        'getUser' => 'auth.qr_code.user',
 //        'postAjaxChangeQrCode' => 'auth.qr_code.change'
 //    ]);
+});
+
+Route::group(['middleware'=>['nguoidung', 'auth']], function (){
+    Route::controller('nguoidung', 'NguoidungController', [
+        'getIndex'    => 'nguoidung.index',
+    ]);
 });

@@ -124,13 +124,13 @@
     <ul class="nav navbar-nav pull-right toolbar">
         <li class="dropdown">
             <a href="#" class="dropdown-toggle username" data-toggle="dropdown">
-                <span class="hidden-xs">{{Auth::user()->ho_ten}} <i class="fa fa-caret-down"></i></span>
-                <img src="{{asset(Auth::user()->avatar())}}" alt="nam viet" /></a>
+                <span class="hidden-xs">{{Auth::guard('nguoidung')->user()->ho_ten}} <i class="fa fa-caret-down"></i></span>
+                <img src="{{asset(Auth::guard('nguoidung')->user()->avatar())}}" alt="nam viet" /></a>
             <ul class="dropdown-menu userinfo arrow">
                 <li class="username">
                     <a href="#">
-                        <div class="pull-left"><img src="{{asset(Auth::user()->avatar())}}" alt="Jeff Dangerfield"/></div>
-                        <div class="pull-right"><h5>{{Auth::user()->ho_ten}}!</h5><small>Mã sinh viên: <span>{{Auth::user()->code}}</span></small></div>
+                        <div class="pull-left"><img src="{{asset(Auth::guard('nguoidung')->user()->avatar())}}" alt="Jeff Dangerfield"/></div>
+                        <div class="pull-right"><h5>{{Auth::guard('nguoidung')->user()->ho_ten}}!</h5><small>Tên đăng nhập: <span>{{Auth::guard('nguoidung')->user()->name}}</span></small></div>
                     </a>
                 </li>
                 <li class="userlinks">
