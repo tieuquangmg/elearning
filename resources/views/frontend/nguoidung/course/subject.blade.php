@@ -1,4 +1,4 @@
-@extends('frontend.dasdboard._layout.layout_db')
+@extends('frontend.nguoidung._layout.layout_db')
 @section('head')
     <link href="{{asset('')}}dashboard/customs/material.teal-red.min.css" rel="stylesheet" />
     <link href="{{asset('')}}dashboard/customs/style_theme.css" rel="stylesheet" />
@@ -12,10 +12,10 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation">
                         <div class="thumbnail">
-                            <img src="{{asset(Auth()->user()->avatar())}}">
+                            <img src="{{asset(Auth::guard('nguoidung')->user()->avatar())}}">
                         </div>
                         <div class="caption">
-                            <a href="#">{{Auth()->user()->ho_ten}}</a>
+                            <a href="#">{{Auth::guard('nguoidung')->user()->ho_ten}}</a>
                         </div>
                     </li>
                     <li role="presentation">
@@ -306,16 +306,13 @@
                                                                         @if($row->audio != null)
                                                                             <td  valign="top"
                                                                                  align="center">
-                                                                                <a href="{{url('study/unit/audio/'.$row->id.'/'.$class->id)}}" target="_blank" title="MP3"><font  size="4"><img width="87"
-                                                                                                                                                                                                vspace="0"
-                                                                                                                                                                                                hspace="0"
-                                                                                                                                                                                                height="60"
-                                                                                                                                                                                                border="0"
-                                                                                                                                                                                                src="{{asset('dashboard/images')}}/mp3.png"
-                                                                                                                                                                                                alt="mp3"
-                                                                                                                                                                                                title="mp3"></font></a>
+                                                                                <a href="{{url('study/unit/audio/'.$row->id.'/'.$class->id)}}" target="_blank" title="MP3">
+                                                                                    <font  size="4">
+                                                                                        <img width="87" vspace="0" hspace="0" height="60" border="0" src="{{asset('dashboard/images')}}/mp3.png" alt="mp3" title="mp3">
+                                                                                    </font>
+                                                                                </a>
                                                                             </td>
-                                                                        @endif
+                                                                            @endif
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
@@ -430,8 +427,7 @@
                                                                                    alt="note" title="note"><br>
                                                             </div>
                                                         </td>
-                                                        <td width="3%"
-                                                            style="border-left: 1px solid rgb(122, 122, 122);">
+                                                        <td width="3%" style="border-left: 1px solid rgb(122, 122, 122);">
                                                             <br>
                                                         </td>
                                                         <td valign="top"><br>
@@ -441,26 +437,18 @@
                                                                 <div>
                                                                     <p><font size="2">{{$test->description}}</font></p>
                                                                     <br><font size="2">
-                                                                        <img vspace="0"
-                                                                             hspace="0"
-                                                                             border="0"
-                                                                             src="{{asset('dashboard/images')}}/LTTN.gif"
-                                                                             alt="aa" title="aa">
-                                                                        <a href="{{url('study/begin_test'.'/'.$test->id.'/'.$test->unit_id.'/'.$class->id)}}">{{$test->name}}</a>
+                                                                        <img vspace="0" hspace="0" border="0" src="{{asset('dashboard/images')}}/LTTN.gif" alt="aa" title="aa">
+                                                                        <a href="{{url('study/ket-qua-kiem-tra'.'/'.$class->id.'/'.$test->id)}}">{{$test->name}}</a>
                                                                     </font><br>
                                                                 </div>
                                                             @endforeach
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td valign="top"><br>
-                                                        </td>
-                                                        <td valign="top"><br>
-                                                        </td>
-                                                        <td valign="top"><br>
-                                                        </td>
-                                                        <td valign="top"><br>
-                                                        </td>
+                                                        <td valign="top"><br></td>
+                                                        <td valign="top"><br></td>
+                                                        <td valign="top"><br></td>
+                                                        <td valign="top"><br></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -542,8 +530,7 @@
         <div id="stick_right_icon">
             <ul class="tpc-icon">
                 <li class="button-wrap">
-                    <div class="text-bg"><a href="#" target="_blank">Hỏi đáp</a>
-                    </div>
+                    <div class="text-bg"><a href="#" target="_blank">Hỏi đáp</a></div>
                     <div class="icon-bg btn-success"><i class="fa fa-bell fa-2x"></i>{{$thong_bao['hoi_dap']}}</div>
                     <div class="clear-both"></div>
                 </li>
@@ -553,8 +540,7 @@
                     <div class="clear-both"></div>
                 </li>
                 <li class="button-wrap">
-                    <div class="text-bg"><a href="#"
-                                            target="_blank">Đăng nhập lớp</a></div>
+                    <div class="text-bg"><a href="#" target="_blank">Đăng nhập lớp</a></div>
                     <div class="icon-bg btn-success"><i class="fa fa-graduation-cap fa-2x"></i>{{$thong_bao['dang_nhap']}}/3</div>
                     <div class="clear-both"></div>
                 </li>
@@ -565,7 +551,6 @@
                 </li>
             </ul>
         </div>
-
         <div class="modal fade" id="myModal_dggv_in_course" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
              aria-hidden="true" style="z-index: 9999; margin-top: 100px; display: none;">
             <div class="modal-dialog modal-lg" style="    z-index: 100000;">
@@ -581,26 +566,17 @@
                         <table class="table table-striped table-bordered">
                             <thead class="text-danger">
                             <tr>
-                                <th class="text-center vcenter"><span class="help" data-toggle="tooltip"
-                                                                      data-placement="top" title=""
-                                                                      data-original-title="Danh sách các course học đang giảng dạy">Lớp môn</span>
+                                <th class="text-center vcenter">
+                                    <span class="help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Danh sách các course học đang giảng dạy">Lớp môn</span>
                                 </th>
-                                <th class="text-center vcenter"><span class="help" data-toggle="tooltip"
-                                                                      data-placement="top" title=""
-                                                                      data-original-title="Số câu H2472 chưa trả lời"><i
-                                                class="fa fa-bell"></i> H2472</span></th>
-                                <th class="text-center vcenter"><span class="help" data-toggle="tooltip"
-                                                                      data-placement="top" title=""
-                                                                      data-original-title="Số bài post đã gửi/Yêu cầu"><i
-                                                class="fa fa-comments"></i> Diễn đàn</span></th>
-                                <th class="text-center vcenter"><span class="help" data-toggle="tooltip"
-                                                                      data-placement="top" title=""
-                                                                      data-original-title="Số lần đăng nhập LMS/Yêu cầu"><i
-                                                class="fa fa-graduation-cap"></i> Đăng nhập lớp</span></th>
-                                <th class="text-center vcenter"><span class="help" data-toggle="tooltip"
-                                                                      data-placement="top" title=""
-                                                                      data-original-title="Nhận xét TIM"><i
-                                                class="fa fa-heart"></i> TIM</span></th>
+                                <th class="text-center vcenter">
+                                    <span class="help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Số câu H2472 chưa trả lời"><i class="fa fa-bell"></i> H2472</span></th>
+                                <th class="text-center vcenter">
+                                    <span class="help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Số bài post đã gửi/Yêu cầu"><i class="fa fa-comments"></i> Diễn đàn</span></th>
+                                <th class="text-center vcenter">
+                                    <span class="help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Số lần đăng nhập LMS/Yêu cầu"><i class="fa fa-graduation-cap"></i> Đăng nhập lớp</span></th>
+                                <th class="text-center vcenter">
+                                    <span class="help" data-toggle="tooltip" data-placement="top" title="" data-original-title="Nhận xét TIM"><i class="fa fa-heart"></i> TIM</span></th>
                             </tr>
                             </thead>
                             <tbody>

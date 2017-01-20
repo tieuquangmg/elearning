@@ -33,7 +33,11 @@
 <script src="{{asset('dashboard/js/socket.io-1.4.5.js')}}"></script>
 {{--<script src="{{asset('dashboard/js/pusher.min.js')}}"></script>--}}
 <script src="{{asset('dashboard/js/notifications.min.js')}}"></script>
+<script src="{{asset('dashboard/js/jquery.hc-sticky.min.js')}}"></script>
+{{--<script src="{{asset('dashboard/js/jquery.sticky-sidebar-scroll.min.js')}}"></script>--}}
 <script>
+    var APP_URL = {!! json_encode(url('/')) !!}
+console.log(APP_URL);
     function show_notify(title,msg,img) {
         Lobibox.notify('info', {
             title: title,
@@ -49,41 +53,132 @@
         });
     }
     function append_notify(data){
-        $noti = '<li class="notif ">' +
-            '<a href="#">' +
-            '<div class="imageblock">' +
-            '<img src="http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg" class="notifimage">' +
-            '</div>' +
-            '<div class="messageblock">' +
-            '<div class="message"><strong>'+data.message.name+'</strong>'+data.message.content+
-            '</div>' +
-            '<div class="messageinfo">' +
-            '<i class="icon-comment"></i>'+data.message.created_at +
-            '</div>' +
-            '</div>' +
-            '</a>' +
-            '</li>';
+        if(data.user == null){
+            var avatar = APP_URL+'/images/no-avatar.jpg';
+        }else {
+            var avatar = APP_URL+'/'+data.user.image;
+        }
+        $noti = '<li class="jewelItemNew">'+
+        '<a class="messagesContent" role="button" href="">'+
+                '<div spacing="medium" direction="left" class="clearfix">'+
+                '<div class="_ohe lfloat">'+
+                '<div class="MercuryThreadImage _4qeb img _8o _8s">'+
+                '<div class="_55lt" size="50" style="width: 50px; height: 50px;">'+
+                '<img src="http://localhost/true/public/images/no-avatar.jpg" width="50" height="50" alt="" class="img"></div>'+
+                '</div>'+
+                '</div>'+
+                '<div class="">'+
+                '<div class="_42ef clearfix" direction="right">'+
+                '<div class="_ohf rfloat">'+
+                '<div><span></span>'+
+                '<div class="x_div">'+
+                '<div aria-label="Đánh dấu là đã đọc" class="_5c9q" data-hover="tooltip" data-tooltip-alignh="center" data-tooltip-content="Đánh dấu là đã đọc" role="button" tabindex="0"></div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '<div class="">'+
+                '<div class="content">'+
+                '<div class="author">'+
+                '<strong><span>'+data.message.name+'</span></strong><span class="presenceIndicator"><span class="accessible_elem"></span></span>'+
+                '</div>'+
+                '<div class="snippet preview"><span class="_3jy5"></span><span><span><div>'+data.message.content+'</div></span></span>'+
+        '</div>'+
+        '<div class="time"><abbr class="timestamp">'+data.message.created_at +'</abbr>'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
+        '</a></li>';
+//        $noti = '<li class="notif ">' +
+//            '<a href="#">' +
+//            '<div class="imageblock">' +
+//            '<img src="http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg" class="notifimage">' +
+//            '</div>' +
+//            '<div class="messageblock">' +
+//            '<div class="message"><strong>'+data.name+'</strong>'+data.content+
+//            '</div>' +
+//            '<div class="messageinfo">' +
+//            '<i class="icon-comment"></i>'+data.created_at +
+//            '</div>' +
+//            '</div>' +
+//            '</a>' +
+//            '</li>';
         $('.notifbox').prepend($noti)
     }
-
+    function append_message(data){
+        if(data.user == null){
+            var avatar = APP_URL+'/images/no-avatar.jpg';
+        }else {
+            var avatar = APP_URL+'/'+data.user.image;
+        }
+        $messs = '<li class="jewelItemNew">'+
+        '<a class="messagesContent" role="button" href="">'+
+                '<div spacing="medium" direction="left" class="clearfix">'+
+                '<div class="_ohe lfloat">'+
+                '<div class="MercuryThreadImage _4qeb img _8o _8s">'+
+                '<div class="_55lt" size="50" style="width: 50px; height: 50px;">'+
+                '<img src="'+avatar+'" width="50" height="50" alt="" class="img">'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '<div class="">'+
+                '<div class="_42ef clearfix" direction="right">'+
+                '<div class="_ohf rfloat">'+
+                '<div><span></span>'+
+                '<div class="x_div">'+
+                '<div aria-label="Đánh dấu là đã đọc" class="_5c9q" data-hover="tooltip" data-tooltip-alignh="center" data-tooltip-content="Đánh dấu là đã đọc" role="button" tabindex="0">'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '<div class="">'+
+                '<div class="content">'+
+                '<div class="author"><strong>'+
+                '<span>'+data.user.ho_ten+'</span>'+
+        '</strong>'+
+        '<span class="presenceIndicator">'+
+                '<span class="accessible_elem"></span>'+
+                '</span>'+
+                '</div>'+
+                '<div class="snippet preview">'+
+                '<span class="_3jy5"></span><span><span>'+data.message.content+'</span></span>'+
+                '</div>'+
+                '<div class="time">'+
+                '<abbr class="timestamp">'+data.message.created_at+'</abbr>'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
+        '</a></li>';
+        $('#messbox').prepend($messs)
+    }
 </script>
 <script>
-    var socket = io(':6002'),
-            channel = 'classes_1';
+    var socket = io(':6002'), channel = 'classes_1';
     socket.on('connect', function () {
         socket.emit('subscribe', channel);
+        socket.emit('subscribe', '23760');
     });
     socket.on('error', function (error) {
         console.warn('Error', error);
     });
-    socket.on('message', function (message) {
-        console.info(message);
-    });
+//    socket.on('tinnhan', function (message) {
+//        console.info(message);
+//    });
 
     socket.on('classes_1:message', function (data) {
         show_notify(data.message.name,data.message.content,'http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg');
         append_notify(data);
-        console.log(data);
+    });
+    socket.on('23760:tinnhan', function (data){
+//        console.info(user);
+//        console.log(data);
+        show_notify(data.user.ho_ten, data.message.content,'http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg');
+        append_message(data);
     });
 </script>
 <script type="text/javascript">
@@ -132,6 +227,18 @@
             });
         })
     })
+</script>
+<script>
+    $('#sidebar').hcSticky({
+        top: 50,
+        bottomEnd: 0,
+        wrapperClassName: 'quang99'
+    });
+    $('#rightbar').hcSticky({
+        top: 50,
+        bottomEnd: 0,
+        wrapperClassName: 'quang99'
+    });
 </script>
 {{--<script>--}}
     {{--// Enable pusher logging - don't include this in production--}}

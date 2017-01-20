@@ -1,4 +1,4 @@
-@extends('frontend.dasdboard._layout.layout_db')
+@extends('frontend.nguoidung._layout.layout_db')
 @section('content')
     <div class="container">
         <div class="page-section">
@@ -10,7 +10,7 @@
                 <div class="panel-heading">
                     <div class="clearfix">
                         <div class="pull-left">
-                            <h4>Sinh viên: {{Auth::user()->ho_ten}}</h4>
+                            <h4>Sinh viên: {{Auth::guard('nguoidung')->user()->ho_ten}}</h4>
                         </div>
                         <div class="pull-right">
                             <ul class="nav navbar-nav">

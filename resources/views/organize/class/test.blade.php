@@ -1,5 +1,6 @@
 @extends('_basic.master')
 @section('content')
+    <form id="update_test" method="post" action="">
     <div id="page-heading">
         <ol class="breadcrumb">
             <li><a href="{{route('class.data')}}"><span class=" glyphicon glyphicon-home"></span> Lớp học</a></li>
@@ -15,6 +16,7 @@
         </div>
     </div>
     <div class="container">
+            {!! csrf_field() !!}
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="sort_navy" data-itemhldr="li" data-statectn="paixu" k-name="stat-area">
@@ -33,8 +35,7 @@
                         @if($data->isEmpty())
                             <div class="alert alert-info">Không có bài kiểm tra nào</div>
                         @else
-                            <form id="update_test" method="post" action="">
-                                {!! csrf_field() !!}
+
                                 <input type="hidden" name="class_id" value="{{$class_id}}">
                                 <table class="table-responsive table table-bordered">
                                     <thead>
@@ -90,46 +91,46 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-                            </form>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
-
     </div> <!-- container -->
+    </form>
 @endsection
 
 @section('bot')
     <script>
-                $('#update_test').on('submit',function(e){
-                    $.ajaxSetup({
-                        header:$('meta[name="_token"]').attr('content')
-                    })
-                    e.preventDefault(e);
+        $('#update_test').on('submit', function (e) {
+            $.ajaxSetup({
+                header: $('meta[name="_token"]').attr('content')
+            });
+            e.preventDefault(e);
 //                    console.log($(this).serializeArray());
-                    $.ajax({
-                        type:"GET",
-                        url:'{{route('class.updatetest')}}',
-                        data:$(this).serialize(),
-                        dataType: 'json',
-                        beforeSend: function () {
-                            $('.loading').show();
-                        },
-                        success: function(data){
-                            $('.loading').hide();
-                            Msg.show('Thành công', 'success', 3000);
-                        },
-                        error: function(data){
-                            Msg.show('Thất bại', 'danger', 3000);
-                        }
-                    })
-                });
-        function find(id){
-            $('#update_class').attr('action', '{{route('class.update')}}/'+id);
             $.ajax({
-                url: '{{route("class.find")}}/'+id,
-                success:function(data){
+                type: "GET",
+                url: '{{route('class.updatetest')}}',
+                data: $(this).serialize(),
+                dataType: 'json',
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+                success: function (data) {
+                    $('.loading').hide();
+                    Msg.show('Thành công', 'success', 3000);
+                },
+                error: function (data) {
+                    $('.loading').hide();
+                    Msg.show('Thất bại', 'danger', 3000);
+                }
+            })
+        });
+        function find(id) {
+            $('#update_class').attr('action', '{{route('class.update')}}/' + id);
+            $.ajax({
+                url: '{{route("class.find")}}/' + id,
+                success: function (data) {
                     console.log(data);
                     $('#course_id').val(data.course_id);
                     $('#name').val(data.name);
@@ -142,18 +143,18 @@
                 }
             });
         }
-        function delete_record(){
+        function delete_record() {
             var ids = [];
-            $(".check input:checked").map(function(){
+            $(".check input:checked").map(function () {
                 ids.push($(this).val());
                 $(this).parent().parent().parent().remove();
             });
             $.ajax({
-                url: '{{route("class.delete")}}/'+ids,
-                beforeSend:function(){
+                url: '{{route("class.delete")}}/' + ids,
+                beforeSend: function () {
                     $(".loading").show();
                 },
-                success:function(html){
+                success: function (html) {
                     $(".loading").hide();
                 }
             });
@@ -163,8 +164,8 @@
         var url_delete = '{{route('class.delete')}}';
     </script>
     <script>
-        $(document).ready(function() {
-            $("[href]").each(function() {
+        $(document).ready(function () {
+            $("[href]").each(function () {
                 if (this.href == window.location.href) {
                     $(this).addClass("active");
                 }

@@ -68,13 +68,14 @@ class ClassRepositoryEloquent implements ClassRepository
                 }
             }
         })
-            ->orderBy('id', 'ASC')->paginate($prepage);
+            ->orderBy('updated_at', 'DESC')->paginate($prepage);
         $data->setPath($url.'?name='.$name.'&f_select_number='.$prepage.'&code='.$code.'&teacher='.$teacher.'&subject='.$subject.'&year='.$year.'&semester='.$semester.'&active='.$active);
         $this->data['classes'] = $data;
         $this->data['subjects'] = Subject::lists('name', 'id');
         $this->data['teachers'] = Nguoidung::select('nguoidungs.ho_ten','nguoidungs.id')->get();
         return $this->data;
     }
+
    public function create($input){
        $this->model->create($input);
    }

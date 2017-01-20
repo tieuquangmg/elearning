@@ -41,7 +41,7 @@
                     <div class="btn-group" role="group">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="line-height:46px; color: white !important;
                            text-decoration:none; background-color: #953a3a">
-                            <img src="{{asset('').Auth::guard('nguoidung')->user()->image}}" alt=""
+                            <img src="{{asset('').Auth::guard('nguoidung')->user()->avatar()}}" alt=""
                                  class="img-circle" height="30px"/>
                             <span>{{Auth::guard('nguoidung')->user()->ho_ten}}</span>
                         </a>
@@ -192,7 +192,7 @@
                                 <div data-reactroot=""
                                      class="_2q3u uiScrollableArea uiScrollableAreaWithShadow contentAfter"
                                      style="max-height: 600px;">
-                                    <ul class="jewelContent">
+                                    <ul class="jewelContent notifbox">
                                         <li>
                                             <div class="_1xfk"></div>
                                         </li>

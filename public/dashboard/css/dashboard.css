@@ -126,8 +126,9 @@ a, a:visited {
 .fb-right-sidebar {
     /* Gray text. This is the same color Facebook uses. */
     color: #9197a3;
-    border: 1px solid lightgrey;
+    /*border: 1px solid lightgrey;*/
     background-color: white;
+    padding: 0 !important;
     padding-bottom: 10px;
 }
 
@@ -721,6 +722,23 @@ ul.qa_comments .comment .actions a.btnReply {
 }
 .bottom-right-fixed{
     position: fixed;
-    bottom: 0px;
-    right: 0px;
+    bottom: 0;
+    right: 0;
+}
+
+/*////////////////////////////////////////////////////////////*/
+.description *{
+    max-width: 100%;
+    display: inline-block;
+}
+iframe {
+    border: 0;
+}
+/*/////fixed///*/
+
+.sidebar-nav-fixed {
+    width:192px;
+}
+.right-nav-fixed{
+    width: 288px;
 }

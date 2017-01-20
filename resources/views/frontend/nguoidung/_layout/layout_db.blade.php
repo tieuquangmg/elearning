@@ -28,7 +28,6 @@
 @yield('content')
 <script src="{{asset('dashboard/js/vendor/core/jquery.js')}}"></script>
 <script src="{{asset('dashboard/js/vendor/core/bootstrap.js')}}"></script>
-
 {{--menu top--}}
 <script src="{{asset('dashboard/js/socket.io-1.4.5.js')}}"></script>
 {{--<script src="{{asset('dashboard/js/pusher.min.js')}}"></script>--}}
@@ -55,10 +54,10 @@
             '<img src="http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg" class="notifimage">' +
             '</div>' +
             '<div class="messageblock">' +
-            '<div class="message"><strong>'+data.message.name+'</strong>'+data.message.content+
+            '<div class="message"><strong>'+data.name+'</strong>'+data.content+
             '</div>' +
             '<div class="messageinfo">' +
-            '<i class="icon-comment"></i>'+data.message.created_at +
+            '<i class="icon-comment"></i>'+data.created_at +
             '</div>' +
             '</div>' +
             '</a>' +
@@ -79,11 +78,9 @@
     socket.on('message', function (message) {
         console.info(message);
     });
-
-    socket.on('classes_1:message', function (data) {
-        show_notify(data.message.name,data.message.content,'http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg');
+    socket.on('classes_1:message', function (data){
+        show_notify(data.name,data.content,'http://i.9mobi.vn/cf/images/2015/04/nkk/hinh-avatar-dep-11.jpg');
         append_notify(data);
-        console.log(data);
     });
 </script>
 <script type="text/javascript">
@@ -107,7 +104,6 @@
                     }else {
                         alert('lỗi kết nối server !')
                     }
-
                 },
                 error:function () {
                   alert('lỗi kết nối server !')

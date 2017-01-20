@@ -1,4 +1,4 @@
-@extends('frontend.dasdboard._layout.layout_db')
+@extends('frontend.nguoidung._layout.layout_db')
 @section('content')
     <div class="container">
         <div class="page-section">
@@ -44,7 +44,6 @@
                                                                         <p class="list-group-item-text">{{$row->intro}}</p>
                                                                         </div>
                                                                     <small class="text-muted pull-right">
-                                                                        @if(Auth::user()->hasRole(['student']))
                                                                             @if(!$row->user_theory->isEmpty())
                                                                                 @if($row->user_theory->first()->watch_time == 0)
                                                                                     <i class="glyphicon glyphicon-time icon-green"></i>
@@ -58,7 +57,6 @@
                                                                                         phút còn lại</span>
                                                                                 @endif
                                                                             @endif
-                                                                        @endif
                                                                     </small>
                                                                 </div>
                                                             </li>

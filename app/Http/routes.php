@@ -1,9 +1,7 @@
 <?php
 Route::group(['middleware' => 'nguoidung'], function (){
 Route::get('test', function (){
-    dump(Auth());
-    dump(Auth::guard('nguoidung')->check());
-    dd(Auth());
+    dump(\App\Modules\Media\Models\Message::first()->created_at);
 });
 });
 Route::get('/pusher', function () {
@@ -11,7 +9,7 @@ Route::get('/pusher', function () {
     return "Tin nhan da duoc gui!";
 });
 
-Route::group(['middleware' => ['web', 'landing']], function (){
+Route::group(['middleware' => ['web']], function(){
     Route::get('gioi-thieu', 'StudyController@getLanding')->name('landing');
     //trang chu
     Route::get('/', 'StudyController@getIndex')->name('home');
@@ -40,10 +38,11 @@ Route::group(['middleware' => ['web', 'landing']], function (){
 //        Route::get('theory/{id}', 'StudyController@getTheory')->name('study.theory');
         Route::post('testing', 'StudyController@getTesting')->name('study.testing');
         Route::get('tested/{id}', 'StudyController@getUnitTested')->name('study.tested');
-
+//ket qua hoc tap
         Route::get('transcript/{id}', 'StudyController@getTranscript')->name('study.transcript');
         Route::get('synthetic-transcripts', 'StudyController@getSyntheticTranscripts')->name('study.synthetic.transcripts');
-
+        Route::get('ket-qua-kiem-tra/{class_id}/{id}', 'StudyController@getKetQuaKiemTra')->name('study.ketquakiemtra');
+//////////////////////
         Route::get('mycourse', 'StudyController@getMycourse')->name('study.mycourse');
         Route::get('news/{id}', 'StudyController@getnews')->name('study.news');
         Route::get('update-time', 'StudyController@getUpdateTime')->name('study.updatetime');
@@ -71,11 +70,11 @@ Route::group(['middleware' => ['web', 'landing']], function (){
         Route::get('send-message', 'StudyController@getSendMessage')->name('study.getsendmessage');
         Route::post('send-message', 'StudyController@postSendMessage')->name('study.postsendmessage');
     });
-    Route::group(['prefix' => 'study', 'middleware' => ['auth', 'role:teacher']], function () {
+    Route::group(['prefix' => 'study', 'middleware' => ['auth','nguoidung']], function () {
 //Giáo viên ///////////////////////////
         Route::get('danh-sach-sinh-vien-lop/{id}', 'StudyController@getDanhsach')->name('study.danhsachsinhvienlop');
     });
-    Route::group(['middleware' => 'nguoidung'], function () {
+    Route::group(['middleware' => 'nguoidung'],function () {
         Route::get('/admin', function () {
             $time = Carbon\Carbon::now('Asia/Ho_Chi_Minh');
             $time->addSeconds(15);
@@ -85,7 +84,7 @@ Route::group(['middleware' => ['web', 'landing']], function (){
             return view('_basic.tooltip', $data);
         })->name('admin');
     });
-    Route::get('check-time', function () {
+    Route::get('check-time', function (){
         $end_time = \Illuminate\Support\Facades\Session::get('start_time');
         dd($end_time);
         if (Carbon\Carbon::now('Asia/Ho_Chi_Minh')->gte($end_time))

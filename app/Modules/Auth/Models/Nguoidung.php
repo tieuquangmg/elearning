@@ -1,6 +1,7 @@
 <?php
 namespace App\Modules\Auth\Models;
 
+use App\Modules\Cohot\Models\Plan_Bomon;
 use App\Modules\Media\Models\Message;
 use App\Modules\Organize\Models\Classes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -78,6 +79,9 @@ class Nguoidung extends Authenticatable
 
     public function classes(){
         return $this->hasMany(Classes::class,'user_id');
+    }
+    public function bomon(){
+        return $this->belongsTo(Plan_Bomon::class,'id_bomon');
     }
 //    public function message($user_id){
 //        return self::where('to',$user_id)->where('user_recevie',1);

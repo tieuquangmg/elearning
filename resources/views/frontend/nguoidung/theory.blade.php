@@ -1,4 +1,4 @@
-@extends('frontend.dasdboard._layout.layout_db')
+@extends('frontend.nguoidung._layout.layout_db')
 @section('content')
     {{--{{dd($theory)}}--}}
     {{--{!! $pdf !!}--}}
@@ -24,7 +24,6 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    @if($permission)
                         {!! $theory->intro !!}
                         <hr>
                     @if($theory->content_type == 1)
@@ -39,12 +38,6 @@
                             <a href="#" class="pull-left"><i class="glyphicon glyphicon-backward"></i> Bài trước</a>
                             <a href="#" class="pull-right"><i class="glyphicon glyphicon-forward"></i> Bài tiếp theo</a>
                         </div>
-                    @else
-                        <h4 style="color: palevioletred">Bạn chưa hoàn thành bài trước</h4>
-                        <div class="col-xs-12 nav theory-control green">
-                        <a class="pull-left"><i class="glyphicon glyphicon-backward"></i>Bài trước</a>
-                        </div>
-                    @endif
                 </div>
             </div>
             {{--<div class="panel panel-default">--}}
@@ -92,7 +85,7 @@
                                 {!! Form::label('comment','TRAO ĐỔI BÀI') !!}
                                 {!! Form::textarea('comment',null,['placeholder'=>'Viết thảo luận...','class' => 'form-control showbutton','id'=>'comment', 'rows'=>'1']) !!}
                             </div>
-                            {!! Form::hidden('user_id', Auth::user()->id) !!}
+                            {!! Form::hidden('user_id', Auth::guard('nguoidung')->user()->id) !!}
                             {!! Form::hidden('theory_id', $theory->id) !!}
                             {!! Form::hidden('parent_id',null,['id'=>'parent_id']) !!}
                             <div class="form-group buttoncomment">
@@ -212,70 +205,70 @@
     {{--</div>--}}
 @endsection
 @section('head')
-    <link rel="stylesheet" href="{{asset('')}}build/flipclock/css/flipclock.css">
-    <link rel="stylesheet" href="{{asset('')}}dashboard/css/timer.css">
+    {{--<link rel="stylesheet" href="{{asset('')}}build/flipclock/css/flipclock.css">--}}
+    {{--<link rel="stylesheet" href="{{asset('')}}dashboard/css/timer.css">--}}
 @endsection
 @section('bot')
-    <script src="{{asset('')}}build/flipclock/js/flipclock.js"></script>
-    <script src="{{asset('')}}dashboard/js/jquery.simple.timer.js"></script>
-    <script>
-        $(function(){
-            $('.timer').startTimer();
-            console.log(timeLeft);
-        });
-    </script>
-    @if($permission)
-        <script>
-            var watch_time = {{$watch_time/1000}};
-            var clock = $('.your-clock').FlipClock(watch_time ,{
-                autoStart: true,
-                countdown: true,
-                clockFace: 'HourlyCounter',
-                defaultLanguage: 'vi_VN'
-            });
-            //clock.setTime(36);
-            //        clock.setCountdown(true);
-            clock.start(function() {
-            });
-            function update_time(time){
-//            var data = $('#formSetSingleRole').serialize();
-                console.log(time+'');
-                data = {
-                    user_id:'{{Auth::user()->id}}',
-                    theory_id:{{$theory->id}},
-                    time:time+''
-                };
-                $.ajax({
-                    url: '{{route('study.updatetime')}}',
-                    method:'GET',
-                    data: data,
-                    success:function (e) {
-                        console.log(e);
-                    }
-//                error:function (){
-//                    alert('lỗi');
-//                }
-                });
-            }
-            update_time({{$watch_time}});
-            var timer = 0;
-            var checkTime = setInterval( function() {
-                timer = timer + 60000;
-                console.log(timer);
-                if((timer % 900000)==0)confirm('bạn đang học bài ?');
+    {{--<script src="{{asset('')}}build/flipclock/js/flipclock.js"></script>--}}
+    {{--<script src="{{asset('')}}dashboard/js/jquery.simple.timer.js"></script>--}}
+    {{--<script>--}}
+{{--//        $(function(){--}}
+{{--//            $('.timer').startTimer();--}}
+{{--//            console.log(timeLeft);--}}
+{{--//        });--}}
+    {{--</script>--}}
+    {{--@if($permission)--}}
+        {{--<script>--}}
+            {{--var watch_time = {{$watch_time/1000}};--}}
+            {{--var clock = $('.your-clock').FlipClock(watch_time ,{--}}
+                {{--autoStart: true,--}}
+                {{--countdown: true,--}}
+                {{--clockFace: 'HourlyCounter',--}}
+                {{--defaultLanguage: 'vi_VN'--}}
+            {{--});--}}
+            {{--//clock.setTime(36);--}}
+            {{--//        clock.setCountdown(true);--}}
+            {{--clock.start(function() {--}}
+            {{--});--}}
+            {{--function update_time(time){--}}
+{{--//            var data = $('#formSetSingleRole').serialize();--}}
+                {{--console.log(time+'');--}}
+                {{--data = {--}}
+                    {{--user_id:'{{Auth::user()->id}}',--}}
+                    {{--theory_id:{{$theory->id}},--}}
+                    {{--time:time+''--}}
+                {{--};--}}
+                {{--$.ajax({--}}
+                    {{--url: '{{route('study.updatetime')}}',--}}
+                    {{--method:'GET',--}}
+                    {{--data: data,--}}
+                    {{--success:function (e) {--}}
+                        {{--console.log(e);--}}
+                    {{--}--}}
+{{--//                error:function (){--}}
+{{--//                    alert('lỗi');--}}
+{{--//                }--}}
+                {{--});--}}
+            {{--}--}}
+            {{--update_time({{$watch_time}});--}}
+            {{--var timer = 0;--}}
+            {{--var checkTime = setInterval( function() {--}}
+                {{--timer = timer + 60000;--}}
+                {{--console.log(timer);--}}
+                {{--if((timer % 900000)==0)confirm('bạn đang học bài ?');--}}
 
-                var time  = clock.getTime()*1000;
-                update_time(time);
-                console.log(time+'');
-                if(time==0) {
-                    setTimeout(function(){
-                        clearInterval(checkTime);
-                    }, 100);
-                }
-            }, 60000);
-            //        clock.stop();
-        </script>
-    @endif
+                {{--var time  = clock.getTime()*1000;--}}
+                {{--update_time(time);--}}
+                {{--console.log(time+'');--}}
+                {{--if(time==0) {--}}
+                    {{--setTimeout(function(){--}}
+                        {{--clearInterval(checkTime);--}}
+                    {{--}, 100);--}}
+                {{--}--}}
+            {{--}, 60000);--}}
+            {{--//        clock.stop();--}}
+        {{--</script>--}}
+    {{--@endif--}}
     {{--<script>--}}
         {{--function addcomment(){--}}
             {{--$('#form_update').attr('action','{{route('.update')}}/'+id);--}}
@@ -320,7 +313,6 @@
                 $('ul#comments-'+reply).prepend($("#comment-form-wapper"));
                 $('input[name="parent_id"]').val(reply);
             });
-
         })
     </script>
     <script>

@@ -14,17 +14,24 @@ class MessagePusherEvent extends Event implements ShouldBroadcast
      *
      * @return void
      */
-    protected $message;
-    protected $user;
+    public $message;
+    public $user;
     public function __construct($message)
     {
         $this->message = $message;
+        $this->user =  $this->message;
         $this->user = $this->message->send_to;
     }
 
     public function broadcastOn()
     {
         $user_chaner = $this->message->to;
-        return [$user_chaner];
+//        return ['23760'];
+        return ['23760'];
+    }
+
+    public function broadcastAs()
+    {
+        return 'tinnhan';
     }
 }

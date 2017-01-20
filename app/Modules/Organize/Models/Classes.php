@@ -25,6 +25,10 @@ class Classes extends Model
         return $this->belongsTo(Subject::class);
     }
 
+    public function setting(){
+        return $this->hasOne(Classes_Settting::class,'class_id');
+    }
+
 //    public function scopeUnitNow($query){
 //        return $query->subject->unit->
 //    }

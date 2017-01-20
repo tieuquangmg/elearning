@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessagePusherEvent;
 use App\Http\Middleware\EncryptCookies;
 use App\Modules\Auth\Models\Nguoidung;
 use App\Modules\Cohot\Models\plan_chuongtrinhdaotao;
@@ -81,39 +82,68 @@ class StudyController extends Controller
     {
         return view('frontend.dasdboard.landing');
     }
-
     public function getSubject($id)
     {
-        $data['classes'] = User::Where('id', Auth::user()->id)->with(['classes' => function ($query) {
-            $query->where('start_date', '<=', Carbon::now());
-            $query->where('end_date', '>=', Carbon::now());
-            $query->where('start_date', '<>', null);
-            $query->where('end_date', '<>', null);
-        }])->get();
+        if(Auth::guard('nguoidung')->check()){
+            $data['classes'] = Nguoidung::Where('id',Auth::guard('nguoidung')->user()->id)->with(['classes' => function ($query) {
+                $query->where('start_date', '<=', Carbon::now());
+                $query->where('end_date', '>=', Carbon::now());
+                $query->where('start_date', '<>', null);
+                $query->where('end_date', '<>', null);
+            }])->get();
 //        dd($data);
-        $data['classes'] = $data['classes']->first()->classes;
-        $data['class'] = Classes::with('subject')
-            ->with('teacher')
-            ->find($id);
-        $unit_id = Unit_class::where('class_id',$data['class']->id)
-            ->where('start_time', '<=', Carbon::now())
-            ->where('end_time','>=',Carbon::now())
-            ->first()->unit_id;
+            $data['classes'] = $data['classes']->first()->classes;
+            $data['class'] = Classes::with('subject')
+                ->with('teacher')
+                ->find($id);
+            $unit_id = Unit_class::where('class_id',$data['class']->id)
+                ->where('start_time', '<=', Carbon::now())
+                ->where('end_time','>=',Carbon::now())
+                ->first()->unit_id;
 //        dd($unit_id);
-        $data['thong_bao']['hoi_dap'] = count(Hoi_dap::where('id_unit',$unit_id)->where('user_id',Auth::user()->id)->get());
-        if(User_forums::where('user_id',Auth::user()->id)->where('unit_id',$unit_id)->get()->isEmpty()){
-            $data['thong_bao']['dien_dan'] = 0;
+            $data['thong_bao']['hoi_dap'] = count(Hoi_dap::where('id_unit',$unit_id)->where('user_id',Auth::guard('nguoidung')->user()->id)->get());
+            if(User_forums::where('user_id',Auth::guard('nguoidung')->user()->id)->where('unit_id',$unit_id)->get()->isEmpty()){
+                $data['thong_bao']['dien_dan'] = 0;
+            }else{
+                $data['thong_bao']['dien_dan'] = User_forums::where('user_id',Auth::guard('nguoidung')->user()->id)->where('unit_id',$unit_id)->first()->number_question;
+            }
+            if(User_unit::where('unit_id',$unit_id)->where('user_id',Auth::guard('nguoidung')->user()->id)->get()->isEmpty()){
+                $data['thong_bao']['dang_nhap'] = 0;
+            }else{
+                $data['thong_bao']['dang_nhap'] = User_unit::where('unit_id',$unit_id)->where('user_id',Auth::guard('nguoidung')->user()->id)->first()->login_time;
+            }
+            return view('frontend.nguoidung.course.subject', $data);
         }else{
-            $data['thong_bao']['dien_dan'] = User_forums::where('user_id',Auth::user()->id)->where('unit_id',$unit_id)->first()->number_question;
+            $data['classes'] = User::Where('id', Auth::user()->id)->with(['classes' => function ($query) {
+                $query->where('start_date', '<=', Carbon::now());
+                $query->where('end_date', '>=', Carbon::now());
+                $query->where('start_date', '<>', null);
+                $query->where('end_date', '<>', null);
+            }])->get();
+//        dd($data);
+            $data['classes'] = $data['classes']->first()->classes;
+            $data['class'] = Classes::with('subject')
+                ->with('teacher')
+                ->find($id);
+            $unit_id = Unit_class::where('class_id',$data['class']->id)
+                ->where('start_time', '<=', Carbon::now())
+                ->where('end_time','>=',Carbon::now())
+                ->first()->unit_id;
+//        dd($unit_id);
+            $data['thong_bao']['hoi_dap'] = count(Hoi_dap::where('id_unit',$unit_id)->where('user_id',Auth::user()->id)->get());
+            if(User_forums::where('user_id',Auth::user()->id)->where('unit_id',$unit_id)->get()->isEmpty()){
+                $data['thong_bao']['dien_dan'] = 0;
+            }else{
+                $data['thong_bao']['dien_dan'] = User_forums::where('user_id',Auth::user()->id)->where('unit_id',$unit_id)->first()->number_question;
+            }
+            if(User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->get()->isEmpty()){
+                $data['thong_bao']['dang_nhap'] = 0;
+            }else{
+                $data['thong_bao']['dang_nhap'] = User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->first()->login_time;
+            }
+            return view('frontend.dasdboard.course.subject', $data);
         }
-        if(User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->get()->isEmpty()){
-            $data['thong_bao']['dang_nhap'] = 0;
-        }else{
-            $data['thong_bao']['dang_nhap'] = User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->first()->login_time;
-        }
-        return view('frontend.dasdboard.course.subject', $data);
     }
-
     public function getUnit($id, $class_id)
     {
         $data['class'] = Classes::find($class_id);
@@ -163,11 +193,12 @@ class StudyController extends Controller
 
     public function getUnitTheory($id, $class_id)
     {
-        $data['class'] = Classes::find($class_id);
-        $data['unit'] = Unit::with('theory')
-            ->find($id);
-        $exists1 = Unit::where('position', '<', $data['unit']->position)->get();
-        $exists = Unit::where('position', '<', $data['unit']->position)->where('subject_id', $data['unit']->subject_id)
+        if(Auth::guard('nguoidung')->check()){
+            $data['class'] = Classes::find($class_id);
+            $data['unit'] = Unit::with('theory')
+                ->find($id);
+            $exists1 = Unit::where('position', '<', $data['unit']->position)->get();
+            $exists = Unit::where('position', '<', $data['unit']->position)->where('subject_id', $data['unit']->subject_id)
 //            ->WhereHas('theory',function ($query){
 //                $query->whereHas('user_theory',function($e){
 //                    $e->where('watch_time','<>','0')
@@ -181,41 +212,95 @@ class StudyController extends Controller
 //            ->whereDoesntHave('unit_test', function ($b) {
 //                $b->where('user_id', Auth::user()->id);
 //            })
-            ->whereHas('test', function ($b) {
-                $b->whereDoesntHave('user_test', function ($c) {
-                    $c->where('user_id', Auth::user()->id);
-                });
-            })
-            ->get();
-        if ($exists1->isEmpty()) {
-            $data['permission'] = true;
-        } else {
-            if ($exists->isEmpty()) {
+                ->whereHas('test', function ($b){
+                    $b->whereDoesntHave('user_test', function ($c) {
+                        $c->where('user_id', Auth::guard('nguoidung')->user()->id);
+                    });
+                })
+                ->get();
+            if ($exists1->isEmpty()){
                 $data['permission'] = true;
             } else {
-                $data['permission'] = false;
+                if ($exists->isEmpty()){
+                    $data['permission'] = true;
+                } else {
+                    $data['permission'] = false;
+                }
             }
-        }
 //        $data['permission'] = true;
-        return view('frontend.dasdboard.unit_theory', $data);
+            return view('frontend.nguoidung.unit_theory', $data);
+        }else{
+            $data['class'] = Classes::find($class_id);
+            $data['unit'] = Unit::with('theory')
+                ->find($id);
+            $exists1 = Unit::where('position', '<', $data['unit']->position)->get();
+            $exists = Unit::where('position', '<', $data['unit']->position)->where('subject_id', $data['unit']->subject_id)
+//            ->WhereHas('theory',function ($query){
+//                $query->whereHas('user_theory',function($e){
+//                    $e->where('watch_time','<>','0')
+//                    ->where('user_id',Auth::user()->id)
+//                    ;
+//                });
+//            })
+//            ->whereDoesntHave('unit_test',function ($b){
+//                $b->where('user_id',Auth::user()->id);
+//            })
+//            ->whereDoesntHave('unit_test', function ($b) {
+//                $b->where('user_id', Auth::user()->id);
+//            })
+                ->whereHas('test', function ($b){
+                    $b->whereDoesntHave('user_test', function ($c) {
+                        $c->where('user_id', Auth::user()->id);
+                    });
+                })
+                ->get();
+            if ($exists1->isEmpty()){
+                $data['permission'] = true;
+            } else {
+                if ($exists->isEmpty()){
+                    $data['permission'] = true;
+                } else {
+                    $data['permission'] = false;
+                }
+            }
+//        $data['permission'] = true;
+            return view('frontend.dasdboard.unit_theory', $data);
+        }
+
     }
 
     public function getSlideVideo($id, $class_id)
     {
-        $data['class'] = Classes::find($class_id);
-        $data['unit'] = Unit::with('slide_video')
-            ->find($id);
-        $data['permission'] = true;
-        return view('frontend.dasdboard.slide-video', $data);
+        if(Auth::guard('nguoidung')->check()){
+            $data['class'] = Classes::find($class_id);
+            $data['unit'] = Unit::with('slide_video')
+                ->find($id);
+            $data['permission'] = true;
+            return view('frontend.nguoidung.slide-video', $data);
+        }else{
+            $data['class'] = Classes::find($class_id);
+            $data['unit'] = Unit::with('slide_video')
+                ->find($id);
+            $data['permission'] = true;
+            return view('frontend.dasdboard.slide-video', $data);
+        }
     }
 
     public function getAudio($id, $class_id)
     {
-        $data['class'] = Classes::find($class_id);
-        $data['unit'] = Unit::with('audio')
-            ->find($id);
-        $data['permission'] = true;
-        return view('frontend.dasdboard.audio', $data);
+        if(Auth::guard('nguoidung')->check()){
+            $data['class'] = Classes::find($class_id);
+            $data['unit'] = Unit::with('audio')
+                ->find($id);
+            $data['permission'] = true;
+            return view('frontend.nguoidung.audio', $data);
+        }else{
+            $data['class'] = Classes::find($class_id);
+            $data['unit'] = Unit::with('audio')
+                ->find($id);
+            $data['permission'] = true;
+            return view('frontend.dasdboard.audio', $data);
+        }
     }
     //Create Uniteset
     // kiểm tra
@@ -367,8 +452,8 @@ class StudyController extends Controller
 //        $data['length'] = count($data['unit_test_detail']);
 //        return view('frontend.dasdboard.unit.tested', $data);
 //    }
-    public function getTheory($id, $class_id)
-    {
+    public function getTheory($id, $class_id){
+        if(Auth::guard('nguoidung')->check()){
 //        $data['pdf'] = Response::make(file_get_contents(asset('gallery/document/toan-cao-cap-a1.pdf')), 200, [
 //            'Content-Type' => 'application/pdf',
 //            'Content-Disposition' => 'inline; filename="'.'Toan Cao Cap A1'.'"'
@@ -376,38 +461,79 @@ class StudyController extends Controller
 //        return view('frontend.dasdboard.theory');
 //        dd(1);
 //        dd($class_id);
-        $data['class'] = Classes::Find($class_id);
-        //thong tin bai hoc
-        $data['theory'] = Theory::with('unit')->with('user_theory')->find($id);
-        $data['comment'] = Comment::Where('theory_id', $id)->where('parent_id', 0)->orderBy('created_at', 'DESC')->get();
-        $unit_id = $data['theory']->unit_id;
-        $position = $data['theory']->position;
-        $qqq = Theory::where('unit_id', $unit_id)->where('position', '<', $position)->whereHas('user_theory', function ($query) {
-            $query->where('watch_time', '<>', 0);
-        })->get();
-        if (!Auth::guard('web')->guest()) {
-            // kiem tra sinh vien da lam bai chua
-            $exists = User_theory::where('user_id', Auth::user()->id)->where('theory_id', $id)->first();
-            if ($exists == null){
-                User_theory::create(['user_id' => Auth::user()->id, 'watch_time'=>$data['theory']->time ,'start_time'=>Carbon::now(), 'theory_id' => $id]);
-                // thoi gian con lai
-                $data['watch_time'] = $data['theory']->time;
-            } else {
-                // thoi gian con lai
-                $data['watch_time'] = $exists->watch_time;
-            }
-            if ($qqq->isEmpty()) {
-                $data['permission'] = true;
-            } else {
-                $data['permission'] = false;
-            }
-        }
-        if (Auth::user()->hasRole(['teacher'])) {
-            $data['permission'] = true;
-            $data['watch_time'] = 100;
-        }
+            $data['class'] = Classes::Find($class_id);
+            // thong tin bai hoc
+            $data['theory'] = Theory::with('unit')->with('user_theory')->find($id);
+            $data['comment'] = Comment::Where('theory_id', $id)->where('parent_id', 0)->orderBy('created_at', 'DESC')->get();
+            $unit_id = $data['theory']->unit_id;
+            $position = $data['theory']->position;
+            $qqq = Theory::where('unit_id', $unit_id)->where('position', '<', $position)->whereHas('user_theory', function ($query){
+                $query->where('watch_time', '<>', 0);
+            })->get();
+//            if (!Auth::guard('web')->guest()){
+//                // kiem tra sinh vien da lam bai chua
+//                $exists = User_theory::where('user_id', Auth::guard('nguoidung')->user()->id)->where('theory_id', $id)->first();
+//                if ($exists == null){
+//                    User_theory::create(['user_id' => Auth::guard('nguoidung')->user()->id, 'watch_time'=>$data['theory']->time ,'start_time'=>Carbon::now(), 'theory_id' => $id]);
+//                    // thoi gian con lai
+//                    $data['watch_time'] = $data['theory']->time;
+//                } else {
+//                    // thoi gian con lai
+//                    $data['watch_time'] = $exists->watch_time;
+//                }
+//                if ($qqq->isEmpty()) {
+//                    $data['permission'] = true;
+//                } else {
+//                    $data['permission'] = false;
+//                }
+//            }
+//            if (Auth::user()->hasRole(['teacher'])) {
+//                $data['permission'] = true;
+//                $data['watch_time'] = 100;
+//            }
 //        dd($data);
-        return view('frontend.dasdboard.theory', $data);
+            return view('frontend.nguoidung.theory', $data);
+        }else{
+//        $data['pdf'] = Response::make(file_get_contents(asset('gallery/document/toan-cao-cap-a1.pdf')), 200, [
+//            'Content-Type' => 'application/pdf',
+//            'Content-Disposition' => 'inline; filename="'.'Toan Cao Cap A1'.'"'
+//        ]);
+//        return view('frontend.dasdboard.theory');
+//        dd(1);
+//        dd($class_id);
+            $data['class'] = Classes::Find($class_id);
+            //thong tin bai hoc
+            $data['theory'] = Theory::with('unit')->with('user_theory')->find($id);
+            $data['comment'] = Comment::Where('theory_id', $id)->where('parent_id', 0)->orderBy('created_at', 'DESC')->get();
+            $unit_id = $data['theory']->unit_id;
+            $position = $data['theory']->position;
+            $qqq = Theory::where('unit_id', $unit_id)->where('position', '<', $position)->whereHas('user_theory', function ($query) {
+                $query->where('watch_time', '<>', 0);
+            })->get();
+            if (!Auth::guard('web')->guest()) {
+                // kiem tra sinh vien da lam bai chua
+                $exists = User_theory::where('user_id', Auth::user()->id)->where('theory_id', $id)->first();
+                if ($exists == null){
+                    User_theory::create(['user_id' => Auth::user()->id, 'watch_time'=>$data['theory']->time ,'start_time'=>Carbon::now(), 'theory_id' => $id]);
+                    // thoi gian con lai
+                    $data['watch_time'] = $data['theory']->time;
+                } else {
+                    // thoi gian con lai
+                    $data['watch_time'] = $exists->watch_time;
+                }
+                if ($qqq->isEmpty()) {
+                    $data['permission'] = true;
+                } else {
+                    $data['permission'] = false;
+                }
+            }
+            if (Auth::user()->hasRole(['teacher'])) {
+                $data['permission'] = true;
+                $data['watch_time'] = 100;
+            }
+//        dd($data);
+            return view('frontend.dasdboard.theory', $data);
+        }
     }
 
     //Reply testing
@@ -432,6 +558,21 @@ class StudyController extends Controller
 //    }
 //    return view('frontend.dasdboard.transcript')->with('data',$data);
 //}
+    public function getKetQuaKiemTra($class_id,$id){
+//        dd($class_id);
+        $data = [];
+        $data['test'] = Test::find($id);
+        $user_ids = Classes::find($class_id)->student;
+        foreach ($user_ids as $row){
+            $data['data'][$row->code]['user'] = $row;
+            $data['data'][$row->code]['diem'] = User_test::where('class_id',$class_id)
+                ->where('test_id',$id)
+                ->where('user_id',$row->id)
+                ->get();
+        }
+//        dd($data);
+        return view('frontend.nguoidung.unit.ket_qua',$data);
+    }
     public function getTranscript($id)
     {
 //        dump(Auth::user()->roles);
@@ -439,7 +580,7 @@ class StudyController extends Controller
         $subject_ids = Classes::whereIn('id', $class_id)->lists('subject_id');
         $subject = Subject::whereIn('id', $subject_ids)->get();
         $data = [];
-        foreach ($subject as $key => $value) {
+        foreach ($subject as $key => $value){
             $data[$key]['subject'] = $value;
             $data[$key]['unit'] = Test::whereIn('unit_id', $value->unit->lists('id')->toArray())->with(['user_test' => function ($e) use ($id) {
                 $e->where('user_id', $id);
@@ -598,7 +739,12 @@ class StudyController extends Controller
                     $fhgjhg[$value]['test']['untestet'] = Test::where('unit_id',$unit_id)->whereNotIn('id',$tested_ids)->get();
                     //hoi dap
                     $fhgjhg[$value]['hoi_dap']['total'] = count(Hoi_dap::where('id_unit',$unit_id)->where('user_id',Auth::user()->id)->get());
-                    $fhgjhg[$value]['forums']['total'] = User_forums::user_unit($unit_id)->first()->number_question;
+                    $user_forum = User_forums::user_unit($unit_id)->get();
+                    if($user_forum->isEmpty()){
+                        $fhgjhg[$value]['forums']['total'] = 0;
+                    }else{
+                        $fhgjhg[$value]['forums']['total'] = User_forums::user_unit($unit_id)->first()->number_question;
+                    }
                     $fhgjhg[$value]['dang-nhap']['total'] = User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->first();
 //                dd($fhgjhg[$value]['dang-nhap']['total']);
                 } else{
@@ -618,10 +764,7 @@ class StudyController extends Controller
 //            ->get();
             $data['user_unit'] = collect($fhgjhg);
             $data['standings'] = User::take(6)->get();
-            $data['thanh_vien'] = User::whereHas('roles',function ($q){
-                $q->where('name','student');
-            })->take(20)->get();
-//        dd($data);
+            $data['thanh_vien'] = User::take(10)->get();
             return view('frontend.dasdboard.course.list', $data);
         }
     }
@@ -827,44 +970,74 @@ class StudyController extends Controller
 //    Hỏi đáp
     public function getAddQuestion($id, $class_id)
     {
-        $data['unit'] = Unit::find($id);
-        $data['class'] = Classes::find($class_id);
-        return view('frontend.dasdboard.answers.add_question', $data);
+        if (Auth::guard('nguoidung')->check()){
+            $data['unit'] = Unit::find($id);
+            $data['class'] = Classes::find($class_id);
+            return view('frontend.nguoidung.answers.add_question', $data);
+        }else{
+            $data['unit'] = Unit::find($id);
+            $data['class'] = Classes::find($class_id);
+            return view('frontend.dasdboard.answers.add_question', $data);
+        }
     }
 
-    public function postAddQuestion(Request $request)
-    {
-        if ($request->hasFile('file_dinh_kem')) {
-            $image = strtotime(Carbon::now()) . '_' . $request->file('file_dinh_kem')->getClientOriginalName();
+    public function postAddQuestion(Request $request){
+        if (Auth::guard('nguoidung')->check()){
+            if ($request->hasFile('file_dinh_kem')){
+                $image = strtotime(Carbon::now()) . '_' . $request->file('file_dinh_kem')->getClientOriginalName();
+            }
+            $request['user_id'] = Auth::guard('nguoidung')->user()->id;
+            $cauhoi = Hoi_dap::create($request->all());
+            return redirect()->route('study.getaddanswer', $cauhoi->id);
+        }else{
+            if ($request->hasFile('file_dinh_kem')){
+                $image = strtotime(Carbon::now()) . '_' . $request->file('file_dinh_kem')->getClientOriginalName();
+            }
+            $request['user_id'] = Auth::user()->id;
+            $cauhoi = Hoi_dap::create($request->all());
+            return redirect()->route('study.getaddanswer', $cauhoi->id);
         }
-        $request['user_id'] = Auth::user()->id;
-        $cauhoi = Hoi_dap::create($request->all());
-        return redirect()->route('study.getaddanswer', $cauhoi->id);
     }
 
     public function getQuestion()
     {
-        $data['data'] = Hoi_dap::orderBy('id', 'desc')->get();
-        return view('frontend.dasdboard.answers.list', $data);
+        if(Auth::guard('nguoidung')->check()){
+            $data['data'] = Hoi_dap::orderBy('id', 'desc')->get();
+            return view('frontend.nguoidung.answers.list', $data);
+        }else{
+            $data['data'] = Hoi_dap::orderBy('id', 'desc')->get();
+            return view('frontend.dasdboard.answers.list', $data);
+        }
     }
 
     public function getAddAnswer($id)
     {
-        $data['data'] = Hoi_dap::with('tra_loi')->where('id', $id)->first();
+        if (Auth::guard('nguoidung')->check()) {
+            $data['data'] = Hoi_dap::with('tra_loi')->where('id', $id)->first();
 //        dd($data['data']->tra_loi);
-        return view('frontend.dasdboard.answers.add_answer', $data);
+            return view('frontend.nguoidung.answers.add_answer', $data);
+        } else {
+            $data['data'] = Hoi_dap::with('tra_loi')->where('id', $id)->first();
+//        dd($data['data']->tra_loi);
+            return view('frontend.dasdboard.answers.add_answer', $data);
+        }
     }
 
     public function postAddAnswer()
     {
         unset($this->input['_token']);
+        if(Auth::guard('nguoidung')->check()){
+            $this->input['user_type_id'] = 1 ;
+        }else{
+            $this->input['user_type_id'] = 0 ;
+        }
         $hoi_dap = Hoi_dap_tra_loi::create($this->input);
         return Redirect::route('study.getaddanswer', $hoi_dap->id_hoi_dap)->with('message', 'Bạn đã trả lời câu hỏi');
     }
 
     public function getDanhsach($id)
     {
-        $data['classes'] = User::where('id', Auth::user()->id)->with(['classes' => function ($query) {
+        $data['classes'] = Nguoidung::where('id', Auth::guard('nguoidung')->user()->id)->with(['classes' => function ($query) {
             $query->where('start_date', '<', Carbon::now());
             $query->where('end_date', '>', Carbon::now());
         }])->first()->classes;
@@ -885,8 +1058,9 @@ class StudyController extends Controller
     }
     //forums
     public function getForumLogin($class_id){
+
         $data['class'] = Classes::find($class_id);
-    return view('frontend.dasdboard.course.login_forum',$data);
+    return view('frontend.nguoidung.course.login_forum',$data);
 //        $cookie_file_path = getcwd() . '/cookie.txt';
 ////Emulating Chrome Browser:
 //        $agent = "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/A.B (KHTML, like Gecko) Chrome/X.Y.Z.W Safari/A.B.";
@@ -962,6 +1136,7 @@ class StudyController extends Controller
             'success' => true
         ));
     }
+
     public function postReadnoti(){
         User_notify::where('user_id',Auth::user()->id)->where('status',0)->update(['status'=>1]);
         return Response::json(array(
@@ -1002,11 +1177,21 @@ class StudyController extends Controller
     }
 
     public function postSendMessage(){
+        if(Auth::guard('nguoidung')->check()){
+            $user_send = 1;
+        }else{
+            $user_send = 0;
+        }
         $sent = Message::create([
-            'form'=>Auth::user()->id,
+            'user_send' => $user_send,
+            'user_recevie' => 0,
+            'form' => Auth::user()->id,
             'to'=>$this->input['user_id'],
             'content'=>$this->input['content_mess'],
         ]);
+        if($sent != null){
+            event(new  MessagePusherEvent($sent));
+        }
         return Response::json(array('success'=>'true'));
     }
     public function getSendMessage(){

@@ -22,13 +22,15 @@ Route::group(['middleware' => ['web', 'nguoidung']], function () {
         'postSyncProcess' => 'class.process',
         'getSyncSinhvien' => 'class.syncsinhvien',
         'getSyncNguoidung' => 'class.syncnguoidung',
-
         'getSyncClass' => 'class.sync.class',
         'postSyncClass' => 'class.sync.class',
-
         'getSyncClassDetail' => 'class.syncclassdetail',
         'getSetting' => 'class.setting',
         'postSetting' => 'class.setting',
-        'getSyncForum' =>'class.syncforum'
+        'getSyncForum' =>'class.syncforum',
+        'getSettingUnit' =>'class.setttingunit',
+        'postSettingUnit' =>'class.setttingunit',
+        'getSettingAdvance' =>'class.settingadv',
+        'postSettingAdvance' =>'class.settingadv'
     ]);
 });

@@ -37,10 +37,9 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Chú thích</label>
                         <div class="col-sm-10">
-                            <textarea name="description" class="form-control" placeholder="Chú thích">{{$subject->description}}</textarea>
+                            <textarea name="description" class=" mceEditor form-control" placeholder="Chú thích">{{$subject->description}}</textarea>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">

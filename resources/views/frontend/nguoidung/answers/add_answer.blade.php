@@ -1,4 +1,4 @@
-@extends('frontend.dasdboard._layout.layout_db')
+@extends('frontend.nguoidung._layout.layout_db')
 @section('head')
     <link type="text/css" rel="stylesheet" href="{{asset('dashboard/css/hoi_dap/star-rating.css')}}">
     <link type="text/css" rel="stylesheet" href="{{asset('dashboard/css/hoi_dap/style.css')}}">
@@ -18,7 +18,6 @@
                     {!! csrf_field() !!}
                     <input type="hidden" name="id_unit" value="{{$data->id}}">
                     <div class="panel panel-default">
-
                         <div class="panel-body">
                             <div id="content">
                                 <div class="frame-mid">
@@ -26,35 +25,57 @@
                                         <div class="frame-mr">
                                             <div class="module clearfix">
                                                 <h3>
-    <span style="color:#ffffff; float:left; margin-top:8px;">
-        <strong class="member" style="color:#ffffff" id="username_send">{{Auth::user()->ho_ten}}</strong>
-        <label style="padding-left:20px;color:#ffffff"> Mã chủ đề: {{$data->id}} </label>
-      <label style="color:#ffffff">&nbsp;{{$data->user->ho_ten}}&nbsp;|&nbsp;Trạng thái : <img
-                  src="" height="18px" align="absmiddle">&nbsp;&nbsp;{{$data->status}} </label>
-    </span>
+                                                    <span style="color:#ffffff; float:left; margin-top:8px;">
+                                                        <strong class="member" style="color:#ffffff"
+                                                                id="username_send">{{Auth::guard('nguoidung')->user()->ho_ten}}</strong>
+                                                        <label style="padding-left:20px;color:#ffffff"> Mã chủ đề: {{$data->id}} </label>
+                                                      <label style="color:#ffffff">{{$data->nguoidung->ho_ten}}&nbsp;|&nbsp;Trạng thái :
+                                                          <img src="" height="18px" align="absmiddle">&nbsp;&nbsp;{{$data->status}}
+                                                      </label>
+                                                    </span>
                                                     <span style="float:right;color:#ffffff;margin-top:8px;">
-        <a href="" title="" style="color:#ffffff">Kho
-            kiến thức </a>
-        &nbsp; | &nbsp;
-        <a style="color:#ffffff" href="#" title="">Diễn đàn </a>
-        &nbsp; | &nbsp;
-        <a style="color:#ffffff" href="{{url('study/sub/1')}}" title="">Về lớp học</a>
-        &nbsp; | &nbsp;
-        <a style="color:#ffffff" href="{{route('study.allquestion')}}" title="">Trang chủ hỏi đáp</a></span>
+                                                        <a href="" title="" style="color:#ffffff">Kho
+                                                            kiến thức </a>
+                                                         |
+                                                        <a style="color:#ffffff" href="#" title="">Diễn đàn </a>
+                                                        &nbsp; | &nbsp;
+                                                        <a style="color:#ffffff" href="{{url('study/sub/1')}}" title="">Về lớp học</a>
+                                                        &nbsp; | &nbsp;
+                                                        <a style="color:#ffffff" href="{{route('study.allquestion')}}" title="">Trang chủ hỏi đáp</a>
+                                                    </span>
                                                 </h3>
                                                 <div class="modulecontent clearfix"><span class="errmsg"></span>
                                                     <div class="adetail">
                                                         <div class="detail-left">
-                                                            <p></p>
-                                                            <p>
-                                                                <img src="{{asset($data->user->avatar())}}"
-                                                                     width="100" height="100" alt="" class="avatar">
-                                                            </p>
-                                                            <a href="hien thi thon tin nguoi dsug nay"
-                                                               target="_blank"><strong>{{$data->user->code}}</strong></a>
-                                                            <p></p>
-                                                            <p><strong>{{$data->user->ho_ten}}</strong><br>
-                                                                (Sinh viên lớp {{$data->user->lop->ten_lop}}) </p>
+                                                            @if($data->user_type_id == 1)
+                                                                <p></p>
+                                                                <p>
+                                                                    <img src="{{asset($data->user->avatar())}}" width="100" height="100" alt="" class="avatar">
+                                                                </p>
+                                                                <a href="hien thi thon tin nguoi dung nay"
+                                                                   target="_blank"><strong>{{$data->user->name}}</strong></a>
+                                                                <p></p>
+                                                                <p><strong>{{$data->user->ho_ten}}</strong><br>
+                                                                    @if($data->user->bomon == null)
+                                                                        Bộ môn khác
+                                                                    @else
+                                                                    Giáo viên bộ môn: {{$data->user->bomon->Bo_mon}})
+                                                                    @endif
+                                                                </p>
+                                                            @else
+                                                                <p></p>
+                                                                <p>
+                                                                    <img src="{{asset($data->user->avatar())}}"
+                                                                         width="100" height="100" alt="" class="avatar">
+                                                                </p>
+                                                                <a href="hien thi thon tin nguoi dung nay"
+                                                                   target="_blank"><strong>{{$data->user->code}}</strong></a>
+                                                                <p></p>
+                                                                <p><strong>{{$data->user->ho_ten}}</strong><br>
+                                                                    (Sinh viên lớp: {{$data->user->lop->ten_lop}})
+                                                                </p>
+                                                            @endif
+
                                                         </div>
                                                         <div class="detail-right">
                                                             <div class="detail-status">
@@ -146,7 +167,7 @@
                                                                       enctype="multipart/form-data">
                                                                     {!! csrf_field() !!}
                                                                     <input type="hidden" name="user_id"
-                                                                           value="{{\Illuminate\Support\Facades\Auth::user()->id}}">
+                                                                           value="{{\Illuminate\Support\Facades\Auth::guard('nguoidung')->user()->id}}">
                                                                     <input type="hidden" name="id_hoi_dap"
                                                                            value="{{$data->id}}">
                                                                     <label>Nội dung</label>

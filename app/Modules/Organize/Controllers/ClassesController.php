@@ -6,6 +6,8 @@ use App\Modules\Auth\Models\Nguoidung;
 use App\Modules\Auth\Models\User;
 use App\Modules\Cohot\Models\Plan_Bomon;
 use App\Modules\Organize\Models\ClassDetail;
+use App\Modules\Organize\Models\Classes_Settting;
+use App\Modules\Organize\Models\Unit_class;
 use App\Modules\Organize\Repositories\ClassRepository;
 use App\Modules\Security\Models\Role;
 use App\Modules\Security\Models\RoleUser;
@@ -394,7 +396,8 @@ class ClassesController extends OrganizeController
     {
         $unit_id = Classes::find($id)->subject->unit->lists('id');
         $data['meeting_time'] = Meeting::whereIn('unit_id', $unit_id)->with('class_meeting_time')->get();
-        return view('organize.class.setting', $data);
+        $data['class'] = Classes::find($id);
+        return view('organize.class.setting_meeting', $data);
     }
 
     public function postSetting()
@@ -464,5 +467,58 @@ class ClassesController extends OrganizeController
 //            dd(1);
         }
         dd($count);
+    }
+
+    public function getSettingUnit($class_id){
+        $data['unit'] = Classes::find($class_id)->subject->unit;
+        $data['classes'] = Classes::find($class_id);
+        return view('organize.class.seting_unit',$data);
+    }
+    public function postSettingUnit(){
+        foreach ($this->input['data'] as $id=>$value){
+            $unit_class = Unit_class::find($id);
+            if($value['pick_start'] != '' ){
+                $start = Carbon::createFromFormat('d/m/Y 00:00',$value['pick_start']);
+            }else{
+                $start = null;
+            }
+            if($value['pick_end'] != '' ){
+                $end = Carbon::createFromFormat('d/m/Y 00:00', $value['pick_end']);
+            }else{
+                $end = null;
+            }
+            if($unit_class != null){
+                $unit_class->update(['start_time'=>$start,'end_time'=>$end]);
+            }else{
+                Unit_class::create([
+                    'unit_id'=>$id,
+                    'class_id'=>$this->input['class_id'],
+                    'start_time'=>$start,
+                    'end_time'=>$end
+                ]);
+            }
+        }
+        return redirect()->back();
+    }
+
+    public function getSettingAdvance($class_id){
+        $data['classes'] = Classes::with('setting')->find($class_id);
+        return view('organize.class.setting',$data);
+    }
+    public function postSettingAdvance(){
+        $data['class_id'] = $this->input['class_id'];
+        $data['thongbao'] = $this->input['thongbao'];
+        if(isset($this->input['day']) || isset($this->input['hour'])){
+            $data['thoi_gian_thi'] = Carbon::createFromFormat('d/m/Y H:i',$this->input['day'].' '.$this->input['hour']);
+        }else{
+            $data['thoi_gian_thi'] = null;
+        }
+        $exists = Classes_Settting::where('class_id',$this->input['class_id'])->first();
+        if($exists == null){
+            Classes_Settting::create($data)->save();
+        }else{
+            $exists->update($data);
+        }
+        return redirect()->back();
     }
 }

@@ -1,4 +1,4 @@
-@extends('frontend.dasdboard._layout.layout_db')
+@extends('frontend.nguoidung._layout.layout_db')
 @section('head')
     <link type="text/css" rel="stylesheet" href="{{asset('dashboard/css/danh-sach-sinh-vien.css')}}">
     @endsection
@@ -11,10 +11,10 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation">
                         <div class="thumbnail">
-                            <img src="{{asset(Auth::user()->image)}}" width="185" height="185">
+                            <img src="{{asset(Auth::guard('nguoidung')->user()->avatar())}}" width="185" height="185">
                         </div>
                         <div class="caption">
-                            <a href="#">{{Auth::user()->ho_ten}}</a>
+                            <a href="#">{{Auth::guard('nguoidung')->user()->ho_ten}}</a>
                         </div>
                     </li>
                     <li role="presentation">
@@ -151,7 +151,7 @@
                                     <td class="cell c0">
                                         <a href="">
                                             <img class="userpicture"
-                                                 src="{{asset(($row->image != null)?($row->image): 'images/people/no-avatar.jpg')}}"
+                                                 src="{{asset($row->avatar())}}"
                                                  height="35" width="35" alt=""></a></td>
                                     <td class="cell c1"><strong>
                                             <a href="">{{($row->ho_ten != null)?($row->ho_ten):''}}</a></strong></td>

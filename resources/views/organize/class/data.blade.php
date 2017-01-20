@@ -112,7 +112,7 @@
                                                     <span class=" glyphicon glyphicon-edit"></span>
                                                 </a>
                                                 <a href="{{route('class.detail', $row->id)}}" class="btn btn-primary btn-xs"><i class="fa fa-list"></i></a>
-                                                <a href="{{route('class.setting', $row->id)}}" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-cog"></i></a>
+                                                <a href="{{route('class.settingadv', $row->id)}}" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-cog"></i></a>
                                                 <a href="{{route('class.score',$row->id)}}" class="btn btn-primary btn-xs">Điểm</a>
                                                 {{--<a href="{{route('class.test', $row->id)}}" class="btn btn-primary btn-xs">Điểm</a>--}}
                                                 {{--<a class="btn btn-primary btn-xs" href="{{route('class.attendance',$row->id)}}">chuyên cần</a>--}}

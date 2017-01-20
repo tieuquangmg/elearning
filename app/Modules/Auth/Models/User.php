@@ -147,7 +147,6 @@ class User extends Authenticatable
     {
         return Cache::has('online-'.$this->id);
     }
-
     public function user_login(){
         return $this->hasMany(User_login::class,'user_id');
     }

@@ -8,11 +8,11 @@ redis.on('pmessage', function(pattern, channel, message){
     console.log(channel, message);
     // socket.send('ket noi' + channel);
     message = JSON.parse(message);
-    io.emit(channel + ':' + message.event, message.data.message);
+    io.emit(channel + ':' + message.event, message.data);
     // // channel:message.event
 });
 
-// io.on('connection', function(socket) {
+// io.on('connection', function(socket){
 //     socket.on('subscribe', function(channel){
 //         console.log('I want to subscribe on:', channel);
 //

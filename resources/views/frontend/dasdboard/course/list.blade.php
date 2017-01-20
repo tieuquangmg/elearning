@@ -6,83 +6,86 @@
         <!-- The row that contains the three main columns of the website. -->
         <div class="row">
             <!-- Left sidebar: A cell that spans 2 columns -->
-            <div class="col-md-2 fb-left-sidebar">
-                <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation">
-                        <div class="thumbnail">
-                            <img src="{{asset(Auth::user()->image)}}" width="185" height="185">
-                        </div>
-                        <div class="caption">
-                            <a href="#">{{Auth::user()->ho_ten}}</a>
-                        </div>
-                    </li>
-                    <li role="presentation">
-                        <a ><span class="glyphicon glyphicon-pencil"></span>Mã sinh viên: <strong>{{Auth::user()->code}}</strong></a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#"><span class="glyphicon glyphicon-list"></span>Danh sách sinh viên lớp</a>
-                    </li>
-                    <!-- List items that are just text are not indented, and look like the
-                         Facebook section labels. -->
-                    <li role="presentation" class="content-header">Lớp học của tôi</li>
-                    @foreach($classes as $row)
-                        <li role="presentation" class="content_body">
-                            <a href="{{route('study.subject',$row)}}" title="{{$row->name}}">
-                                <div class="pull-right">
-                                    <span class="badge">1/7</span>
-                                </div>
-                                <span class="class-icon">
+            <div id="sidebar" class="col-md-2 fb-left-sidebar">
+                <div class="sidebar-nav-fixed">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation">
+                            <div class="thumbnail">
+                                <img src="{{asset(Auth::user()->avatar())}}" width="185" height="185">
+                            </div>
+                            <div class="caption">
+                                <a href="#">{{Auth::user()->ho_ten}}</a>
+                            </div>
+                        </li>
+                        <li role="presentation">
+                            <a><span class="glyphicon glyphicon-pencil"></span>Mã sinh viên:
+                                <strong>{{Auth::user()->code}}</strong></a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#"><span class="glyphicon glyphicon-list"></span>Danh sách sinh viên lớp</a>
+                        </li>
+                        <!-- List items that are just text are not indented, and look like the
+                             Facebook section labels. -->
+                        <li role="presentation" class="content-header">Lớp học của tôi</li>
+                        @foreach($classes as $row)
+                            <li role="presentation" class="content_body">
+                                <a href="{{route('study.subject',$row)}}" title="{{$row->name}}">
+                                    <div class="pull-right">
+                                        <span class="badge">1/7</span>
+                                    </div>
+                                    <span class="class-icon">
                                     <img src="{{asset((!$row->subject->image == null)?($row->subject->image):'dashboard/images/bia-sach.jpg')}}">
                                 </span>
+                                    <div class="linkwrap">
+                                        <span>{{$row->subject->name.'-'.$row->stt_lop}}</span>
+                                    </div>
+                                </a>
+                            </li>
+                        @endforeach
+                        <li role="presentation" class="content-header">Hỗ trợ học tập</li>
+                        <li role="presentation" class="content_body">
+                            <a href="http://namvietjsc.tk/forum.php" target="_blank">
+                                <span class="glyphicon glyphicon-plus class-icon" style="line-height: 20px"></span>
                                 <div class="linkwrap">
-                                    <span>{{$row->subject->name.'-'.$row->stt_lop}}</span>
+                                    <span>Diễn đàn</span>
                                 </div>
                             </a>
                         </li>
-                    @endforeach
-                    <li role="presentation" class="content-header">Hỗ trợ học tập</li>
-                    <li role="presentation" class="content_body">
-                        <a href="http://namvietjsc.tk/forum.php" target="_blank">
-                            <span class="glyphicon glyphicon-plus class-icon" style="line-height: 20px"></span>
-                            <div class="linkwrap">
-                                <span>Diễn đàn</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li role="presentation" class="content_body">
-                        <a href="{{url(route('study.allquestion'))}}">
-                            <span class="glyphicon glyphicon-plus class-icon" style="line-height: 20px"></span>
-                            <div class="linkwrap">
-                                <span>Hỏi đáp</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li role="presentation" class="content_body">
-                        <a href="#">
-                            <span class="glyphicon glyphicon-stop class-icon" style="line-height: 20px"></span>
-                            <div class="linkwrap">
-                                <span>Báo lỗi</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li role="presentation" class="content-header">Hồ sơ cá nhân</li>
-                    <li role="presentation">
-                        <a href="#"><span class="glyphicon glyphicon-plus"></span>Thông tin cá nhân</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#"><span class="glyphicon glyphicon-user"></span>Hồ sơ học tập</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#"><span class="glyphicon glyphicon-user"></span>Đăng ký học lại thi lại</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#"><span class="glyphicon glyphicon-user"></span>Lấy ý kiến sinh viên</a>
-                    </li>
-                    <li role="presentation" class="content-header">Báo cáo</li>
-                    <li role="presentation">
-                        <a href="#"><span class="glyphicon glyphicon-pushpin"></span> Amherst, MA</a>
-                    </li>
-                </ul>
+                        <li role="presentation" class="content_body">
+                            <a href="{{url(route('study.allquestion'))}}">
+                                <span class="glyphicon glyphicon-plus class-icon" style="line-height: 20px"></span>
+                                <div class="linkwrap">
+                                    <span>Hỏi đáp</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li role="presentation" class="content_body">
+                            <a href="#">
+                                <span class="glyphicon glyphicon-stop class-icon" style="line-height: 20px"></span>
+                                <div class="linkwrap">
+                                    <span>Báo lỗi</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li role="presentation" class="content-header">Hồ sơ cá nhân</li>
+                        <li role="presentation">
+                            <a href="#"><span class="glyphicon glyphicon-plus"></span>Thông tin cá nhân</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#"><span class="glyphicon glyphicon-user"></span>Hồ sơ học tập</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#"><span class="glyphicon glyphicon-user"></span>Đăng ký học lại thi lại</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#"><span class="glyphicon glyphicon-user"></span>Lấy ý kiến sinh viên</a>
+                        </li>
+                        <li role="presentation" class="content-header">Báo cáo</li>
+                        <li role="presentation">
+                            <a href="#"><span class="glyphicon glyphicon-pushpin"></span> Amherst, MA</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <!-- Main feed: A cell that spans 7 columns -->
             <div class="col-md-7">
@@ -128,19 +131,16 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 description">
                                     {!! $row->subject->description !!}
-                                    {{--<ul class="list-inline">--}}
-                                        {{--<li>--}}
-                                            {{--<a href="#"><span class="glyphicon glyphicon-thumbs-up"></span> Like</a>--}}
-                                        {{--</li>--}}
-                                        {{--<li>--}}
-                                            {{--<a href="#"><span class="glyphicon glyphicon-comment"></span> Comment</a>--}}
-                                        {{--</li>--}}
-                                        {{--<li>--}}
-                                            {{--<a href="#"><span class="glyphicon glyphicon-share-alt"></span> Share</a>--}}
-                                        {{--</li>--}}
-                                    {{--</ul>--}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 post-content-header">
+                                    <h4>Thông báo</h4>
+                                </div>
+                                <div class="col-md-12 description">
+                                    {!! ($row->setting != null) ? ($row->setting->thongbao) : '' !!}
                                 </div>
                             </div>
                         </div>
@@ -179,135 +179,145 @@
                 @endforeach
             </div>
             <!-- Right sidebar: A cell that spans 3 columns -->
-            <div class="col-md-3 fb-right-sidebar">
-                <!-- Nested grid! Like the outer grid, it's just a sequence of rows. -->
-                <!-- Ticker. -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <a href="#" class="pull-right">
-                            <span class="glyphicon glyphicon-download-alt"></span>
-                        </a>
-                    </div>
-                </div>
-                <!-- Birthday -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-gift"></span> <a href="#">Zak</a> and <a href="#">1 other</a>
-                    </div>
-                </div>
-                <!-- Trending -->
-                <div class="row">
-                    <div class="col-md-12 fb-trending">
+            <div id="rightbar"  class="col-md-3 fb-right-sidebar">
+                <div  class="right-nav-fixed">
+                    <div class="well" style="background-color: white">
                         <div class="row">
-                            <div class="col-md-4 fb-trending-title">
-                                TRENDING
-                            </div>
-                            <div class="col-md-8">
-                                <ul class="nav nav-pills pull-right">
-                                    <li role="presentation" class="active">
-                                        <a href="#"><span class="glyphicon glyphicon-flash"></span></a>
-                                    </li>
-                                    <li role="presentation"><a href="#"><span class="glyphicon glyphicon-tower"></span></a></li>
-                                    <li role="presentation"><a href="#"><span class="glyphicon glyphicon-sunglasses"></span></a></li>
-                                    <li role="presentation"><a href="#"><span class="glyphicon glyphicon-record"></span></a></li>
-                                    <li role="presentation"><a href="#"><span class="glyphicon glyphicon-facetime-video"></span></a></li>
-                                </ul>
+                            <div class="col-md-12">
+                                <a href="#" class="pull-right">
+                                    <span class="glyphicon glyphicon-download-alt"></span>
+                                </a>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <ul class="media-list">
-                                    <li class="media">
-                                        <div class="media-left media-top">
-                                            <span class="glyphicon glyphicon-flash"></span>
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="#">George Lucas</a>: Filmmaker Criticizes New "Star Wars" Film and Direction of Franchise Under Disney
-                                        </div>
-                                    </li>
-                                    <li class="media">
-                                        <div class="media-left media-top">
-                                            <span class="glyphicon glyphicon-flash"></span>
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="#">Super Smash Bros.</a>: Game Glitch Allows Players to Control 8 Characters With 1 Controller
-                                        </div>
-                                    </li>
-                                    <li class="media">
-                                        <div class="media-left media-top">
-                                            <span class="glyphicon glyphicon-flash"></span>
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="#">Tuukka Rask</a>: Boston Bruins Player Debuts Goalie Mask for Winter Classic
-                                        </div>
-                                    </li>
-                                    <li class="media">
-                                        <div class="media-left media-top">
-                                            <span class="caret"></span>
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="#">See More</a>
-                                        </div>
-                                    </li>
-                                </ul>
+                                <span class="glyphicon glyphicon-gift"></span> <a href="#">Zak</a> and <a href="#">1
+                                    other</a>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Suggested Pages -->
-                <div class="row">
-                    <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-8">
-                                Thành viên online
-                            </div>
-                            <div class="col-md-4">
-                                <a href="#" class="pull-right">Xem tất cả</a>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                @foreach($thanh_vien as $row)
-                                    <div class="media">
-                                        <div class="media-heading" style="float: left; margin-right: 10px">
-                                            <img width="25px" height="25px" src="{{asset($row->avatar())}}">
-                                        </div>
-                                        <div class="media-body" style="padding-top: 3px">
-                                            <span id="name_user">{{$row->ho_ten}}</span>
-                                            <div class="pull-right">
-                                                    <i style="color:#ff9f00 ;cursor: pointer"
-                                                       data-id = "{{$row->id}}"
-                                                       data-name = '{{$row->ho_ten}}'
-                                                       data-toggle="modal" data-target="#modal_mess"
-                                                       class="send-message glyphicon glyphicon-envelope"
-                                                       title="gửi tin nhắn"></i>
-                                            </div>
-                                        </div>
+                            <div class="col-md-12 fb-trending">
+                                <div class="row">
+                                    <div class="col-md-4 fb-trending-title">
+                                        TRENDING
                                     </div>
-                                    {{--<button type="button" class="btn btn-default">--}}
-                                        {{--<span class="glyphicon glyphicon-thumbs-up"></span>Tin nhắn--}}
-                                    {{--</button>--}}
-                                @endforeach
-                            </div>
-                            <div class="col-md-12" style="padding-top: 20px">
-                                <div class="input-group">
-                                    <input type="text" class="form-control input-sm" placeholder="Tên sinh v...">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-secondary btn-sm" type="button">Tìm</button>
-                                    </span>
+                                    <div class="col-md-8">
+                                        <ul class="nav nav-pills pull-right">
+                                            <li role="presentation" class="active">
+                                                <a href="#"><span class="glyphicon glyphicon-flash"></span></a>
+                                            </li>
+                                            <li role="presentation"><a href="#"><span
+                                                            class="glyphicon glyphicon-tower"></span></a></li>
+                                            <li role="presentation"><a href="#"><span
+                                                            class="glyphicon glyphicon-sunglasses"></span></a></li>
+                                            <li role="presentation"><a href="#"><span
+                                                            class="glyphicon glyphicon-record"></span></a></li>
+                                            <li role="presentation"><a href="#"><span
+                                                            class="glyphicon glyphicon-facetime-video"></span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <ul class="media-list">
+                                            <li class="media">
+                                                <div class="media-left media-top">
+                                                    <span class="glyphicon glyphicon-flash"></span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <a href="#">George Lucas</a>: Filmmaker Criticizes New "Star Wars"
+                                                    Film and Direction of Franchise Under Disney
+                                                </div>
+                                            </li>
+                                            <li class="media">
+                                                <div class="media-left media-top">
+                                                    <span class="glyphicon glyphicon-flash"></span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <a href="#">Super Smash Bros.</a>: Game Glitch Allows Players to
+                                                    Control 8 Characters With 1 Controller
+                                                </div>
+                                            </li>
+                                            <li class="media">
+                                                <div class="media-left media-top">
+                                                    <span class="glyphicon glyphicon-flash"></span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <a href="#">Tuukka Rask</a>: Boston Bruins Player Debuts Goalie Mask
+                                                    for Winter Classic
+                                                </div>
+                                            </li>
+                                            <li class="media">
+                                                <div class="media-left media-top">
+                                                    <span class="caret"></span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <a href="#">See More</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        {{--<div class="row">--}}
-                            {{--<div class="col-md-12">--}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        Thành
+                                        viên
+                                        online
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="#" class="pull-right">Xem tất cả</a>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @foreach($thanh_vien as $row)
+                                            <div class="media">
+                                                <div class="media-heading" style="float: left; margin-right: 10px">
+                                                    <img width="25px" height="25px" src="{{asset($row->avatar())}}">
+                                                </div>
+                                                <div class="media-body" style="padding-top: 3px">
+                                                    <span id="name_user">{{$row->ho_ten}}</span>
+                                                    <div class="pull-right">
+                                                        <i style="color:#ff9f00 ;cursor: pointer"
+                                                           data-id="{{$row->id}}"
+                                                           data-name='{{$row->ho_ten}}'
+                                                           data-toggle="modal" data-target="#modal_mess"
+                                                           class="send-message glyphicon glyphicon-envelope"
+                                                           title="gửi tin nhắn"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{--<button type="button" class="btn btn-default">--}}
+                                            {{--<span class="glyphicon glyphicon-thumbs-up"></span>Tin nhắn--}}
+                                            {{--</button>--}}
+                                        @endforeach
+                                    </div>
+                                    <div class="col-md-12" style="padding-top: 20px">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm"
+                                                   placeholder="Tên sinh v...">
+                                            <span class="input-group-btn">
+                                        <button class="btn btn-secondary btn-sm" type="button">Tìm</button>
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{--<div class="row">--}}
+                                {{--<div class="col-md-12">--}}
                                 {{--<img src="http://umass-cs-326.github.io/img/falafel.jpg" width="100%" />--}}
                                 {{--<br><a href="#">Pita Pocket's</a>--}}
                                 {{--<br> Mediterranean Restaurant · 301 likes--}}
                                 {{--<br><button type="button" class="btn btn-default">--}}
-                                    {{--<span class="glyphicon glyphicon-thumbs-up"></span>Like Page</button>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                                {{--<span class="glyphicon glyphicon-thumbs-up"></span>Like Page</button>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -522,7 +532,7 @@
                                       style="height: 120px"></textarea>
                         </div>
                         <div class="form-group">
-                            {!! Recaptcha::render()!!}
+                            {{--{!! Recaptcha::render()!!}--}}
                         </div>
                         <div class="form-group">
                             <input id="btn-send-mess" class="btn btn-success" value="Gửi">
@@ -571,7 +581,6 @@
                     alert('không thể kết nối đến server !')
                     $('.loading').hide();
                     $('#modal_mess').html(htmm);
-
                 }
             })
         })

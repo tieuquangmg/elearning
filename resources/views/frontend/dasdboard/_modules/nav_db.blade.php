@@ -41,7 +41,7 @@
                     <div class="btn-group" role="group">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="line-height:46px; color: white !important;
                            text-decoration:none; background-color: #953a3a">
-                            <img src="{{asset('').Auth::user()->image}}" alt=""
+                            <img src="{{asset('').Auth::user()->avatar()}}" alt=""
                                  class="img-circle" height="30px"/>
                             <span>{{Auth::user()->ho_ten}}</span>
                         </a>
@@ -93,7 +93,7 @@
                                 <div data-reactroot=""
                                      class="_2q3u uiScrollableArea uiScrollableAreaWithShadow contentAfter"
                                      style="max-height: 600px;">
-                                    <ul class="jewelContent">
+                                    <ul class="jewelContent" id="messbox">
                                         <li>
                                             <div class="_1xfk"></div>
                                         </li>
@@ -108,7 +108,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         <div class="">
                                                             <div class="_42ef clearfix" direction="right">
                                                                 <div class="_ohf rfloat">
@@ -120,7 +119,8 @@
                                                                                  data-tooltip-alignh="center"
                                                                                  data-tooltip-content="Đánh dấu là đã đọc"
                                                                                  role="button"
-                                                                                 tabindex="0"></div>
+                                                                                 tabindex="0">
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -134,10 +134,10 @@
                                                                             </span>
                                                                         </div>
                                                                         <div class="snippet preview">
-                                                                            <span class="_3jy5"></span><span><span>{{$row->content}}</span></span>
+                                                                            <span class="_3jy5"></span><span><span>{!! $row->content !!}</span></span>
                                                                         </div>
                                                                         <div class="time">
-                                                                            <abbr class="timestamp">{{$row->created_at->diffForHumans()}}</abbr>
+                                                                            <abbr class="timestamp">{{$row->created_at}}</abbr>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -192,7 +192,7 @@
                                 <div data-reactroot=""
                                      class="_2q3u uiScrollableArea uiScrollableAreaWithShadow contentAfter"
                                      style="max-height: 600px;">
-                                    <ul class="jewelContent">
+                                    <ul class="jewelContent notifbox">
                                         <li>
                                             <div class="_1xfk"></div>
                                         </li>

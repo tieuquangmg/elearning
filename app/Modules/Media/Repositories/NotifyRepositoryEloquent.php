@@ -19,8 +19,10 @@ class NotifyRepositoryEloquent implements NotifyRepository
         return $this->model->create($input);
     }
     public function update($input){
-         $data = $this->model->with('sender')->where('id', $input['id'])->update($input);
-        event(new ClassPusherEvent($this->model->find($input['id'])));
+        $id = $input['id'];
+        unset($input['id']);
+        $data = $this->model->with('sender')->where('id', $id)->update($input);
+        event(new ClassPusherEvent($this->model->with('sender')->find($id)));
         return $data;
     }
     public function find($id){

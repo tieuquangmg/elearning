@@ -117,7 +117,6 @@
                                 <td class="col-xs-6">
                                     <span><a href="{{route('study.getaddanswer',$row->id)}}">{{$row->ten_cau_hoi}}</a></span><br>
                                     <span>{{$row->user->ho_ten}}</span>
-
                                 </td>
                                 <td class="col-xs-2">{{$row->unit->subject->name}}</td>
                                 <td class="col-xs-2">{{$row->updated_at}}<br> {{$row->user->ho_ten}}</td>

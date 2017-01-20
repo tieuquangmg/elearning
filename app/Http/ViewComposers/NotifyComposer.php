@@ -16,12 +16,22 @@ class NotifyComposer
     }
     public function compose(View $view){
         if(Auth::guard('nguoidung')->check()){
-            $notify = User_notify::with('notify')->where('user_id', Auth::guard('nguoidung')->user()->id)->take(5)->get();
-            $message = Message::with('send_from')->where('to', Auth::guard('nguoidung')->user()->id)->take(5)->get();
+            $notify = User_notify::where('user_id', Auth::guard('nguoidung')->user()->id)->take(5)->get();
+            $message = Message::where('to', Auth::guard('nguoidung')->user()->id)->orderBy('created_at','DESC')->take(5)->get();
         }else{
-            $notify = User_notify::with('notify')->where('user_id', Auth::user()->id)->take(5)->get();
-            $message = Message::with('send_from')->where('to', Auth::user()->id)->take(5)->get();
+            $notify = User_notify::where('user_id', Auth::user()->id)->take(5)->get();
+            $message = Message::where('to', Auth::user()->id)->orderBy('created_at','DESC')->take(5)->get();
         };
         $view->with('notify',$notify)->with('message',$message);
     }
+//    public function compose(View $view){
+//        if(Auth::guard('nguoidung')->check()){
+//            $notify = User_notify::with('notify')->where('user_id', Auth::guard('nguoidung')->user()->id)->take(5)->get();
+//            $message = Message::with('send_from')->where('to', Auth::guard('nguoidung')->user()->id)->take(5)->get();
+//        }else{
+//            $notify = User_notify::with('notify')->where('user_id', Auth::user()->id)->take(5)->get();
+//            $message = Message::with('send_from')->where('to', Auth::user()->id)->take(5)->get();
+//        };
+//        $view->with('notify',$notify)->with('message',$message);
+//    }
 }

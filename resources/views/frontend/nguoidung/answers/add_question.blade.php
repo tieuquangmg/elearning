@@ -1,4 +1,4 @@
-@extends('frontend.dasdboard._layout.layout_db')
+@extends('frontend.nguoidung._layout.layout_db')
 @section('content')
     <div class="container">
         <div class="page-section">
@@ -17,8 +17,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="clearfix">
-                                <div class="pull-left h4" style="text-transform: uppercase">
-                                    <i class="fa fa-question" aria-hidden="true"></i>Sinh viên {{Auth::user()->full_name}}
+                                <div class="pull-left h5" style="text-transform: uppercase">
+                                    <i class="fa fa-question" aria-hidden="true"></i>Giáo viên: <strong>{{Auth::guard('nguoidung')->user()->ho_ten}}</strong>
                                 </div>
                                 <div class="pull-right green">
                                     <a href="{{url('study/sub/'.$class->id)}}"><i class="glyphicon glyphicon-backward"></i> Trở lại</a>

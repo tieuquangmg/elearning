@@ -17,7 +17,7 @@
                 <div class="jumbotron meeting_waper" style="text-align: center;">
                     <h4>Tên lớp: {{$class->name}}</h4>
                     <form action="http://localhost/xf/index.php?login/login" method="post">
-                        <input type="hidden" name="login" value="{{Auth::user()->code}}">
+                        <input type="hidden" name="login" value="{{Auth::guard('nguoidung')->user()->code}}">
                         <input type="hidden" name="cookie_check" value="1">
                         <input type="hidden" name="redirect" value="http://localhost/xf/index.php?forums/{{$class->id}}-/&order=post_date&direction=desc">
                         <input type="hidden" name="register" value="0">

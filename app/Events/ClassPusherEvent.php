@@ -19,6 +19,7 @@ class ClassPusherEvent extends Event implements ShouldBroadcast
     public function __construct($message)
     {
         $this->message = $message;
+//        dd($message);
     }
     /**
      * Get the channels the event should be broadcast on.
@@ -30,7 +31,6 @@ class ClassPusherEvent extends Event implements ShouldBroadcast
         $class_id = $this->message->entity_id;
         return [$class_id];
     }
-
     public function broadcastAs()
     {
         return 'message';
