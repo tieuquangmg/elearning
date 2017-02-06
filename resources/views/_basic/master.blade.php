@@ -5,8 +5,9 @@
     <title>Nam Viet</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Avant">
-    <meta name="author" content="The Red Team">
+    <meta name="description" content="1.0">
+    <meta name="author" content="nam viet">
+    <meta name="csrf-token" content="{{csrf_token()}}"/>
     {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--}}
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
@@ -35,9 +36,9 @@
     <link rel="stylesheet" href="{{asset('build/style/css/order-ui.css')}}">
     <link rel="stylesheet" href="{{asset('build/style/css/style-admin.css')}}">
     <link rel="stylesheet" href="{{asset('build/style/css/fontello.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/ajax-bootstrap-select.min.css')}}">
     <style></style>
     @yield('head')
-
 </head>
 
 <body class="horizontal-nav ">
@@ -496,6 +497,7 @@
 <script type="text/javascript" src="{{ asset('build/moment/js/moment.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('build/moment/js/vi.js') }}"></script>
 
+
 <script type="text/javascript" src="{{ asset('build/eonasdan-bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 
 <script type="text/javascript">
@@ -509,8 +511,6 @@
     tinymce.init(editor_config);
 </script>
 
-
-
 <script type='text/javascript' src='{{asset('assets/js/jqueryui-1.10.3.min.js')}}'></script>
 {{--<script type='text/javascript' src='{{asset('assets/js/bootstrap.min.js')}}'></script>--}}
 <script type='text/javascript' src='{{asset('assets/js/enquire.js')}}'></script>
@@ -523,6 +523,7 @@
 <script type='text/javascript' src='{{asset('assets/js/placeholdr.js')}}'></script>
 <script type='text/javascript' src='{{asset('assets/js/application.js')}}'></script>
 <script type='text/javascript' src='{{asset('assets/demo/demo.js')}}'></script>
+<script type='text/javascript' src='{{asset('assets/js/ajax-bootstrap-select.min.js')}}'></script>
 <script>
     $(function(){
         var url = window.location.pathname,
@@ -535,6 +536,13 @@
             }
         });
 
+    });
+</script>
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
 </script>
 @yield('bot')

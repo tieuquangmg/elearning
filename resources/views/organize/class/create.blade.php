@@ -23,10 +23,10 @@
                     <div class="form-group form-group-sm">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên môn học</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select name="subject_id"class="selectpicker " data-live-search="true">
-                                @foreach($subjects as $k => $v)
-                                    <option value="{{$k}}" data-tokens="{{$v}}">{{$v}}</option>
-                                @endforeach
+                            <select name="subject_id" class="selectpicker mon-hoc with-ajax" data-abs-request-delay="0" data-live-search="true">
+                                {{--@foreach($subjects as $k => $v)--}}
+                                    {{--<option value="{{$k}}" data-tokens="{{$v}}">{{$v}}</option>--}}
+                                {{--@endforeach--}}
                             </select>
                         </div>
                     </div>
@@ -44,10 +44,10 @@
                     <div class="form-group form-group-sm">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Năm học</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select name="year" class="form-control">
-                                @for($i=2016; $i<=2020; $i++)
-                                    <option value="{{$i}}" data-tokens="{{$i}}">{{$i .' - '.($i+1)}}</option>
-                                @endfor
+                            <select id="year" name="year" class="form-control" title="năm học">
+                                @foreach(\App\Modules\Organize\Models\PLAN_HocKyDangKy_TC::orderBy('Ky_dang_ky','desc')->get() as $row)
+                                    <option value="{{$row->Ky_dang_ky}}" data-tokens="{{$row->Ky_dang_ky}}">{{$row->Nam_hoc}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

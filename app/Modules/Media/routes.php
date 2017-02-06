@@ -23,5 +23,6 @@ Route::group(['middleware'=>['web', 'nguoidung']], function() {
         'getEdit' => 'notify.edit',
         'postUpdate' => 'notify.update',
         'postDelete' => 'notify.delete',
+        'postSendnoti' => 'notify.sendnoti',
     ]);
 });

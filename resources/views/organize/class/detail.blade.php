@@ -1,6 +1,5 @@
 @extends('_basic.master')
 @section('content')
-
     <div id="page-heading">
         <ol class="breadcrumb">
             <li><a href="{{route('admin')}}"><span class=" glyphicon glyphicon-home"></span></a></li>
@@ -11,6 +10,7 @@
         <h1>Danh sách sinh viên</h1>
         <div class="options">
             <div class="btn-toolbar">
+                <a data-toggle="modal" data-target="#syncModal"  class="btn btn-success btn-xs "><i class="glyphicon glyphicon-import"></i>Đồng bộ</a>
                 <a data-toggle="modal" data-target="#importModal"  class="btn btn-success btn-xs "><i class="glyphicon glyphicon-import"></i>Nhập Excel</a>
                 <a data-toggle="modal" data-target="#classModal" id="add_student" class="btn btn-success btn-xs "><i class="glyphicon glyphicon-plus"></i>Thêm</a>
                 <a data-toggle="modal" data-target="" id="" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-export"></i>Xuất excel</a>
@@ -136,10 +136,37 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="syncModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="classModalLabel">Đồng bộ sinh viên( Lớp : {{$class->name}} - Sĩ số {{$class->student->count().'/'.$class->limit}})</h4>
+                        </div>
+                        <div class="modal-body"  style="margin: auto 40px">
+                            <form id="form-sync-sv"  action="" method="post" class="form-horizontal">
+                                <div class="form-group form-label">
+                                    <input type="hidden" name="class_id" value="{{$class->id}}">
+                                    <label class="form-label">Xóa sinh viên hiện tại</label>
+                                    <input class="form-control" type="radio" name="type_sync" value="1">
+                                </div>
+                                <div class="form-group form-label">
+                                    <label class="form-label">Thêm sinh viên mới</label>
+                                    <input class="form-control" type="radio" name="type_sync" value="1">
+                                </div>
+                                <div class="form-group">
+                                    <input class="btn btn-sm btn-success" id="sync_submit" value="Đồng ý" onclick="return confirm('bạn muốn đồng bộ sinh viên')">
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div> <!-- container -->
 @endsection
-
 @section('bot')
     <script>
         var class_id = '{{$class->id}}';
@@ -206,17 +233,41 @@
                                     $(this).parent().parent().remove();
                                 }
                             });
-                        }else {
+                        }else{
                             //alert('co loi');
                             location.reload();
                         }
                     },
                     error: function(err){
-                        alertError(err)
+                        alertError(err);
                         alert('đã xảy ra lỗi')
                     }
                 });
             }
+
+            $(document).on('click','#sync_submit',function(){
+                var type_sync = $('form#form-sync-sv input[name=type_sync]').val();
+                var class_id = $('form#form-sync-sv input[name=class_id]').val();
+                $.ajax({
+                    url: '{{route('class.syncclassdetail')}}',
+                    type: 'post',
+                    data: {
+                        type_sync: type_sync,
+                        class_id:class_id
+                    },
+
+                    success: function(data){
+                        console.log(data);
+//                        location.reload();
+                    },
+
+                    error: function(err){
+                        alertError(err);
+                        alert('đã xảy ra lỗi')
+                    }
+                });
+            });
+
             function support_unenroll(unEnrollId){
                 $.ajax({
                     url: url_unenroll,
@@ -244,11 +295,11 @@
         })
     </script>
     <script>
-        function getDatas(page) {
+        function getDatas(page){
             var data = {};
             var id = {{$class->id}}
-                    data['first_name'] = $('#f_first_name').val();
-            data['last_name'] = $('#f_last_name').val();
+            data['ho_ten'] = $('#f_ho_ten').val();
+            data['id_lop'] = $('#f_id_lop').val();
             data['code'] = $('#f_code').val();
             data['email'] = $('#f_email').val();
             data['phone_number'] = $('#f_phone_number').val();
@@ -286,5 +337,4 @@
             });
         });
     </script>
-
 @endsection

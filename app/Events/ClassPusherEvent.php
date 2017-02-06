@@ -15,10 +15,14 @@ class ClassPusherEvent extends Event implements ShouldBroadcast
      * @return void
      */
     public $message;
+    public $user;
+    public $user_rec;
 
     public function __construct($message)
     {
-        $this->message = $message;
+        $this->user_rec = $message->user_id;
+        $this->message = $message->notify;
+        $this->user = $this->message->sender;
 //        dd($message);
     }
     /**
@@ -28,12 +32,11 @@ class ClassPusherEvent extends Event implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        $class_id = $this->message->entity_id;
-        return [$class_id];
+        $user_id = $this->user_rec;
+        return [$user_id];
     }
     public function broadcastAs()
     {
-        return 'message';
+        return 'notify';
     }
-
 }

@@ -28,6 +28,9 @@ class Classes extends Model
     public function setting(){
         return $this->hasOne(Classes_Settting::class,'class_id');
     }
+    public function ky_dang_ky(){
+        return $this->belongsTo(PLAN_HocKyDangKy_TC::class,'year');
+    }
 
 //    public function scopeUnitNow($query){
 //        return $query->subject->unit->

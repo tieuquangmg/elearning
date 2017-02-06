@@ -1,6 +1,8 @@
 <?php 
 namespace App\Modules\Organize\Repositories;
 use App\Modules\Auth\Models\Nguoidung;
+use App\Modules\Cohot\Models\Stu_lop;
+use App\Modules\Organize\Models\PLAN_HocKyDangKy_TC;
 use App\Modules\Organize\Models\Score;
 use App\Modules\Organize\Models\User_test;
 use App\Modules\Subject\Models\Subject;
@@ -58,10 +60,10 @@ class ClassRepositoryEloquent implements ClassRepository
                     $query->whereIn('user_id',User::where('ho_ten','like','%'.$teacher.'%')->lists('id'));
                 }
                 if($request['year'] != null){
-                    $query->where('year','like','%'.$year.'%');
+                    $query->where('year',$year);
                 }
                 if($request['semester'] != null){
-                    $query->where('semester','like','%'.$semester.'%');
+                    $query->where('semester',$semester);
                 }
                 if($request['active'] != null){
                     $query->where('active','like','%'.$active.'%');
@@ -113,6 +115,7 @@ class ClassRepositoryEloquent implements ClassRepository
         ->paginate(10);
         return $this->data;
     }
+
     public function searchUser($input){
         $this->data['students'] = User::filterRole('student')
             ->firstName(trim($input['first_name']))
@@ -120,7 +123,7 @@ class ClassRepositoryEloquent implements ClassRepository
             ->code(trim($input['code']))
             ->email(trim($input['email']))
             ->phoneNumber(trim($input['phone_number']))
-            ->paginate(10);
+            ->paginate(15);
     }
 
     public function enroll($input)
@@ -222,17 +225,32 @@ class ClassRepositoryEloquent implements ClassRepository
                 Score::find($key)->update($value);
         }
     }
-    public function filter($input,$class_id){
+
+    public function filter($input, $class_id){
+//        dd($input);
         $user_ids = Classes::find($class_id)->student->lists('id')->toArray();
-        $data = User::whereNotIn('users.id',$user_ids)
+        $data = User::whereNotIn('users.id', $user_ids)
 //        $data = User::FilterRole('student')->whereNotIn('users.id',$user_ids)
-            ->where(function($query) use ($input){
-                foreach($input as $key =>$value){
-                    if($value != null && $key != 'page')
-                    $query->where('users.'.$key,'like','%'.$value.'%');
+            ->where(function ($query) use ($input){
+                foreach ($input as $key => $value){
+                    if ($key == 'ho_ten' && $value != ''){
+                        $query->where('users.ho_ten', 'like', '%' . $value . '%');
+                    }
+                    if ($key == 'id_lop' && $value != ''){
+                        $query->whereIn('users.id_lop',Stu_lop::where('Ten_lop','like','%'.$value.'%')->lists('ID_lop')->toArray());
+                    }
+                    if ($key == 'code' && $value != ''){
+                        $query->where('users.code','=','1151001');
+                    }
+                    if ($key == 'email' && $value != ''){
+                        $query->where('users.email','=',$value);
+                    }
+                    if ($key == 'phone_number' && $value != ''){
+                        $query->where('users.phone_number', '=', $value);
+                    }
                 }
             })
-            ->paginate(9);
-       return $data;
+            ->paginate(15);
+        return $data;
     }
 }

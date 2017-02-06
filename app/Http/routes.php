@@ -1,7 +1,7 @@
 <?php
 Route::group(['middleware' => 'nguoidung'], function (){
 Route::get('test', function (){
-    dump(\App\Modules\Media\Models\Message::first()->created_at);
+//    \App\Modules\Organize\Models\Classes::where('year','2013-2014')->update([''=]);
 });
 });
 Route::get('/pusher', function () {

@@ -68,10 +68,10 @@
                                     <input value="{{old('subject')}}" type="text" name="subject" class="form-control input-sm" placeholder="Môn học">
                                 </th>
                                 <th class="column-title">
-                                    <input value="{{old('year')}}" type="text" name="year" class="form-control input-sm" placeholder="Năm học">
+                                    {!! Form::select('year', \App\Modules\Organize\Models\PLAN_HocKyDangKy_TC::orderBy('Ky_dang_ky','desc')->lists('Nam_hoc','Ky_dang_ky'),old('year'), array('class' => 'form-control input-sm','placeholder'=>'Năm học')) !!}
                                 </th>
                                 <th class="column-title">
-                                    <input value="{{old('semester')}}" type="text" name="semester" class="form-control input-sm" placeholder="Kỳ học">
+                                    {!! Form::select('semester',[1=>'1','2'=>'2','3'=>'3'] ,old('semester'), array('class' => 'form-control input-sm','placeholder'=>'Kỳ học'))!!}
                                 </th>
                                 <th class="column-title">
                                     {!! Form::select('active', ['1' => 'Đang học', '-1' => 'Hoàn thành'], old('active'), ['placeholder' => 'Trạng thái','class'=>'form-control input-sm','onchange'=>'this.form.submit()']) !!}
@@ -101,7 +101,7 @@
                                         <td>
                                             {{$row->subject->name}}
                                         </td>
-                                        <td>{{$row->year}}</td>
+                                        <td>{{($row->ky_dang_ky != null) ? ($row->ky_dang_ky->Nam_hoc) : '' }}</td>
                                         <td>{{$row->semester}}</td>
                                         <td>
                                             @include('_basic.includes.is.active')
@@ -204,4 +204,87 @@
     </script>
     <script src="{{asset('')}}build/style/js/check_all.js"></script>
     <script src="{{asset('')}}build/style/js/delete_page.js"></script>
+    {{--<script>--}}
+        {{--$('.mon-hoc')--}}
+                {{--.selectpicker({--}}
+                    {{--liveSearch: true--}}
+                {{--})--}}
+                {{--.ajaxSelectPicker({--}}
+                    {{--ajax: {--}}
+                        {{--url: '{{route('subject.apiselect')}}',--}}
+                        {{--data: function () {--}}
+                            {{--var params = {--}}
+                                {{--q: ''--}}
+                            {{--};--}}
+                            {{--if(gModel.selectedGroup().hasOwnProperty('ContactGroupID')){--}}
+                                {{--params.GroupID = gModel.selectedGroup().ContactGroupID;--}}
+                            {{--}--}}
+                            {{--return params;--}}
+                        {{--}--}}
+                    {{--},--}}
+                    {{--locale: {--}}
+                        {{--emptyTitle: 'Search for contact...'--}}
+                    {{--},--}}
+                    {{--preprocessData: function(data){--}}
+                        {{--var contacts = [];--}}
+                        {{--if(data.hasOwnProperty('Contacts')){--}}
+                            {{--var len = data.Contacts.length;--}}
+                            {{--for(var i = 0; i < len; i++){--}}
+                                {{--var curr = data.Contacts[i];--}}
+                                {{--contacts.push(--}}
+                                        {{--{--}}
+                                            {{--'value': curr.ContactID,--}}
+                                            {{--'text': curr.FirstName + ' ' + curr.LastName,--}}
+                                            {{--'data': {--}}
+                                                {{--'icon': 'icon-person',--}}
+                                                {{--'subtext': 'Internal'--}}
+                                            {{--},--}}
+                                            {{--'disabled': false--}}
+                                        {{--}--}}
+                                {{--);--}}
+                            {{--}--}}
+                        {{--}--}}
+                        {{--return contacts;--}}
+                    {{--},--}}
+                    {{--preserveSelected: false--}}
+                {{--});--}}
+    {{--</script>--}}
+    <?php $q = null; ?>
+    <script>
+        var options = {
+            ajax: {
+                url: '{{route('subject.apiselect')}}',
+                type: 'POST',
+                dataType: 'json',
+                // Use "" as a placeholder and Ajax Bootstrap Select will
+                // automatically replace it with the value of the search query.
+                data: {
+                    q: '<?php echo '{{{q}}}'; ?>',
+                }
+            },
+            locale: {
+                emptyTitle: 'Môn học'
+            },
+            log: 3,
+            preprocessData: function (data) {
+                var i, l = data.length, array = [];
+                if (l) {
+                    for (i = 0; i < l; i++) {
+                        array.push($.extend(true, data[i], {
+                            text: data[i].name,
+                            value: data[i].id,
+                            data: {
+                                subtext: data[i].id
+                            }
+                        }));
+                    }
+                }
+                // You must always return a valid array when processing data. The
+                // data argument passed is a clone and cannot be modified directly.
+                return array;
+            }
+        };
+        $('.mon-hoc').selectpicker().filter('.with-ajax').ajaxSelectPicker(options);
+        $('.mon-hoc').trigger('change');
+    </script>
 @endsection

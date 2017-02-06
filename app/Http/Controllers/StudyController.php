@@ -709,10 +709,11 @@ class StudyController extends Controller
 //        }
             $data['classes'] = User::Where('id', Auth::user()->id)->with(['classes' => function ($query) {
                 $query->where('start_date', '<', Carbon::now());
-                $query->where('end_date', '>', Carbon::now());
+//                $query->where('end_date', '>', Carbon::now());
                 $query->where('start_date', '<>', null);
                 $query->where('end_date', '<>', null);
-            }]);
+            }])->get()
+            ;
             $data['classes'] = $data['classes']->first()->classes;
             $class_ids = $data['classes']->lists('id');
             $fhgjhg = array();

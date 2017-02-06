@@ -143,4 +143,23 @@ class SubjectController extends BaseController
             ->get();
         return $file->first()->keys();
     }
+
+    public function postApiSelect()
+    {
+        $subject = Subject::all()->toArray();
+        $q = $this->input['q'];
+        $filtered = $subject;
+        if (strlen($q)) {
+            $filtered = array_filter($subject, function ($val) use ($q) {
+                if (stripos($val['name'], $q) !== false) {
+                    return true;
+                } else {
+                    return false;
+                }
+                //Could be shortened to the line below, broken out above to show what it is doing:
+                //return strpos($val['Name'], $q) !== false;
+            });
+        }
+        return response() ->json(array_slice(array_values($filtered), 0, 10));
+    }
 }

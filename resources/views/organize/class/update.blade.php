@@ -24,7 +24,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên môn học</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select id="subject_id" name="subject_id" class="selectpicker" data-live-search="true">
+                            <select id="subject_id" name="subject_id" class="selectpicker mon-hoc" data-live-search="true">
                                 @foreach($subjects as $k => $v)
                                     <option value="{{$k}}" data-tokens="{{$v}}">{{$v}}</option>
                                 @endforeach
@@ -46,10 +46,10 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Năm học</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select id="year" name="year" class="form-control">
-                                @for($i=2016; $i<=2020; $i++)
-                                    <option value="{{$i .'-'.($i+1)}}" data-tokens="{{$i}}">{{$i .'-'.($i+1)}}</option>
-                                @endfor
+                            <select id="year" name="year" class="form-control" title="năm học">
+                                @foreach(\App\Modules\Organize\Models\PLAN_HocKyDangKy_TC::orderBy('Ky_dang_ky','desc')->get() as $row)
+                                    <option value="{{$row->Ky_dang_ky}}" data-tokens="{{$row->Ky_dang_ky}}">{{$row->Nam_hoc}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <div class="radio">
                                 <label ><input name="semester" value="1" type="radio" checked> I</label>
-                                <label ><input name="semester" value="2" type="radio"> II</label>
+                                <label ><input name="semester" value="2" type="radio">II</label>
                             </div>
                         </div>
                     </div>

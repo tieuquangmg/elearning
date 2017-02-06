@@ -13,7 +13,8 @@
             'getSync' => 'subject.sync',
             'postSync' => 'subject.sync',
             'postImport' =>'subject.import',
-            'postCheck' => 'subject.check'
+            'postCheck' => 'subject.check',
+            'postApiSelect' => 'subject.apiselect'
         ]);
        Route::controller('unit', 'UnitController', [
             'getAdd' => 'unit.add',

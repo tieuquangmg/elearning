@@ -43,6 +43,32 @@
 @endsection
 @section('bot')
     <script src="{{asset('')}}build/style/js/check_all.js"></script>
+
+    <script>
+        $(document).ajaxStart(function() {
+            $( ".loading" ).show();
+        });
+        $(document).on('click','.send-notify',function (){
+            var id = $(this).attr('notyid');
+            $.ajax({
+                url: '{{route('notify.sendnoti')}}',
+                method: 'post',
+                data:{id},
+                async: true,
+                beforeSend:function(){
+                    $('.loading').show();
+                },
+                success:function (data) {
+                    $('.loading').hide();
+
+                },
+                error:function (data) {
+                    $('.loading').hide();
+//
+                }
+            })
+        });
+    </script>
     <script>
 /**
  * ===============================================Delete Multi

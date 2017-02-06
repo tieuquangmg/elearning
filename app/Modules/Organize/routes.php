@@ -24,7 +24,12 @@ Route::group(['middleware' => ['web', 'nguoidung']], function () {
         'getSyncNguoidung' => 'class.syncnguoidung',
         'getSyncClass' => 'class.sync.class',
         'postSyncClass' => 'class.sync.class',
+
+        'getSyncAllClassDetail' => 'class.syncallclasseetail',
+
         'getSyncClassDetail' => 'class.syncclassdetail',
+        'postSyncClassDetail' => 'class.syncclassdetail',
+
         'getSetting' => 'class.setting',
         'postSetting' => 'class.setting',
         'getSyncForum' =>'class.syncforum',

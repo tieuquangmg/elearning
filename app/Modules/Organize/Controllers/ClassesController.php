@@ -149,7 +149,7 @@ class ClassesController extends OrganizeController
             ->select(['STU_HoSoSinhVien.*', 'STU_DanhSach.ID_lop', 'STU_DanhSach.Active'])
             ->chunk(100, function ($rows) {
                 foreach ($rows as $row) {
-                    if (User::where('id_sync',$row->ID_sv)->get()->isEmpty()){
+                    if (User::where('id_sync', $row->ID_sv)->get()->isEmpty()) {
                         $value = array(
                             'id_sync' => $row->ID_sv,
                             'code' => $row->Ma_sv,
@@ -307,6 +307,7 @@ class ClassesController extends OrganizeController
             ->select('PLAN_LopTinChi_TC.*',
                 'MARK_MonHoc.Ten_mon',
                 'PLAN_MonTinChi_TC.Ky_hieu_lop_tc',
+                'PLAN_MonTinChi_TC.Ky_dang_ky',
 //                'PLAN_MonTinChi_TC.ID_mon_tc',
                 'PLAN_HocKyDangKy_TC.Nam_hoc',
                 'PLAN_HocKyDangKy_TC.Tu_ngay as ky_tu_ngay',
@@ -314,7 +315,7 @@ class ClassesController extends OrganizeController
                 'PLAN_HocKyDangKy_TC.Hoc_ky'
             )
             ->chunk(100, function ($rows) use ($user_id, $inserted) {
-                foreach ($rows as $row) {
+                foreach ($rows as $row){
                     if (Classes::where('id_sync', $row->ID_lop_tc)->get()->isEmpty()) {
                         if (Subject::where('id_sync', $row->ID_mon_tc)->get()->isEmpty()) {
                             $id_mon = $row->ID_mon_tc;
@@ -329,7 +330,7 @@ class ClassesController extends OrganizeController
                             'stt_lop' => $row->STT_lop,
                             'user_id' => $row->ID_cb,
                             'create_by' => $user_id,
-                            'year' => $row->Nam_hoc,
+                            'year' => $row->Ky_dang_ky,
                             'limit' => $row->So_sv_max,
                             'start_date' => $row->ky_tu_ngay,
                             'end_date' => $row->ky_den_ngay,
@@ -355,7 +356,7 @@ class ClassesController extends OrganizeController
                             'stt_lop' => $row->STT_lop,
                             'user_id' => $row->ID_cb,
                             'create_by' => $user_id,
-                            'year' => $row->Nam_hoc,
+                            'year' => $row->Ky_dang_ky,
                             'limit' => $row->So_sv_max,
                             'start_date' => $row->ky_tu_ngay,
                             'end_date' => $row->ky_den_ngay,
@@ -370,11 +371,11 @@ class ClassesController extends OrganizeController
         return json_encode(['success' => true, 'inserted' => $inserted]);
     }
 
-    public function getSyncClassDetail()
+    public function getSyncAllClassDetail()
     {
         $data1 = DB::connection('qlsv')
             ->table('STU_DanhSachLopTinChi')
-            ->chunk(100, function ($rows) {
+            ->chunk(100, function($rows){
                 foreach ($rows as $row) {
                     $value = array(
                         'id' => $row->ID,
@@ -391,6 +392,26 @@ class ClassesController extends OrganizeController
                 }
             });
     }
+    public function getSyncClassDetail(){
+    }
+    public function postSyncClassDetail(){
+        dd($this->input);
+        $class_id_sync = $this->input['id'];
+        $data1 = DB::table('STU_DanhSachLopTinChi')
+            ->where('ID_lop_tc',$class_id_sync)
+            ->chunk(100, function($rows){
+                foreach ($rows as $row){
+                    $value = array(
+                        'id' => $row->ID,
+                        'user_id' => $row->ID_sv,
+                        'class_id' => $row->ID_lop_tc,
+                        'status' => $row->Duyet);
+                    $sub = ClassDetail::firstOrNew($value);
+                    $sub->save();
+                }
+            });
+        return response()->json(['success'=>true],200);
+    }
 
     public function getSetting($id)
     {
@@ -404,8 +425,8 @@ class ClassesController extends OrganizeController
     {
         unset($this->input['_token']);
         Class_meeting_time::whereNotIn('id', array_pluck($this->input, 'id'))->delete();
-        foreach ($this->input as $row){
-            if (array_has($row, 'id')){
+        foreach ($this->input as $row) {
+            if (array_has($row, 'id')) {
                 $row['time_start'] = Carbon::createFromFormat('d/m/Y H:i', $row['time_start']);
                 Class_meeting_time::find($row['id'])->update($row);
             } else {
@@ -416,31 +437,33 @@ class ClassesController extends OrganizeController
         }
         return redirect()->back();
     }
-    public function getSyncForum(){
+
+    public function getSyncForum()
+    {
         $count = 0;
         $connect = DB::connection('forum');
         $classes = Classes::all();
-        foreach ($classes as $row){
+        foreach ($classes as $row) {
 
 //            dd($row->subject->plan_bomon != null);
-            if($row->subject->plan_bomon != null){
+            if ($row->subject->plan_bomon != null) {
 //                dd($row->subject->plan_bomon->Ma_bo_mon);
             }
-            $exists = empty($connect->table('node')->where('node_name',$row->id.'-')->where('node_type_id','Forum')->get());
-            if($row->subject->id_bm == 0 || $node_name = $row->subject->plan_bomon == null){
+            $exists = empty($connect->table('node')->where('node_name', $row->id . '-')->where('node_type_id', 'Forum')->get());
+            if ($row->subject->id_bm == 0 || $node_name = $row->subject->plan_bomon == null) {
                 $node_name = 'BMK';
-            }else{
+            } else {
                 $node_name = $row->subject->plan_bomon->Ma_bo_mon;
             };
-            $parent = $connect->table('node')->where('node_name',$node_name)->first();
+            $parent = $connect->table('node')->where('node_name', $node_name)->first();
 //            dd($parent);
-            if($exists){
+            if ($exists) {
                 $node_id = $connect->table('node')
                     ->insertGetId([
 //                    'node_id' => '$row->,
-                        'title' => $row->name.' - '.$row->code.' - '.$row->stt_lop,
+                        'title' => $row->name . ' - ' . $row->code . ' - ' . $row->stt_lop,
                         'description' => $row->name,
-                        'node_name' => $row->id.'-',
+                        'node_name' => $row->id . '-',
                         'node_type_id' => 'Forum',
                         'parent_node_id' => $parent->node_id,
                         'display_order' => 1,
@@ -469,54 +492,60 @@ class ClassesController extends OrganizeController
         dd($count);
     }
 
-    public function getSettingUnit($class_id){
+    public function getSettingUnit($class_id)
+    {
         $data['unit'] = Classes::find($class_id)->subject->unit;
         $data['classes'] = Classes::find($class_id);
-        return view('organize.class.seting_unit',$data);
+        return view('organize.class.seting_unit', $data);
     }
-    public function postSettingUnit(){
-        foreach ($this->input['data'] as $id=>$value){
+
+    public function postSettingUnit()
+    {
+        foreach ($this->input['data'] as $id => $value) {
             $unit_class = Unit_class::find($id);
-            if($value['pick_start'] != '' ){
-                $start = Carbon::createFromFormat('d/m/Y 00:00',$value['pick_start']);
-            }else{
+            if ($value['pick_start'] != '') {
+                $start = Carbon::createFromFormat('d/m/Y 00:00', $value['pick_start']);
+            } else {
                 $start = null;
             }
-            if($value['pick_end'] != '' ){
+            if ($value['pick_end'] != '') {
                 $end = Carbon::createFromFormat('d/m/Y 00:00', $value['pick_end']);
-            }else{
+            } else {
                 $end = null;
             }
-            if($unit_class != null){
-                $unit_class->update(['start_time'=>$start,'end_time'=>$end]);
-            }else{
+            if ($unit_class != null) {
+                $unit_class->update(['start_time' => $start, 'end_time' => $end]);
+            } else {
                 Unit_class::create([
-                    'unit_id'=>$id,
-                    'class_id'=>$this->input['class_id'],
-                    'start_time'=>$start,
-                    'end_time'=>$end
+                    'unit_id' => $id,
+                    'class_id' => $this->input['class_id'],
+                    'start_time' => $start,
+                    'end_time' => $end
                 ]);
             }
         }
         return redirect()->back();
     }
 
-    public function getSettingAdvance($class_id){
+    public function getSettingAdvance($class_id)
+    {
         $data['classes'] = Classes::with('setting')->find($class_id);
-        return view('organize.class.setting',$data);
+        return view('organize.class.setting', $data);
     }
-    public function postSettingAdvance(){
+
+    public function postSettingAdvance()
+    {
         $data['class_id'] = $this->input['class_id'];
         $data['thongbao'] = $this->input['thongbao'];
-        if(isset($this->input['day']) || isset($this->input['hour'])){
-            $data['thoi_gian_thi'] = Carbon::createFromFormat('d/m/Y H:i',$this->input['day'].' '.$this->input['hour']);
-        }else{
+        if (isset($this->input['day']) || isset($this->input['hour'])) {
+            $data['thoi_gian_thi'] = Carbon::createFromFormat('d/m/Y H:i', $this->input['day'] . ' ' . $this->input['hour']);
+        } else {
             $data['thoi_gian_thi'] = null;
         }
-        $exists = Classes_Settting::where('class_id',$this->input['class_id'])->first();
-        if($exists == null){
+        $exists = Classes_Settting::where('class_id', $this->input['class_id'])->first();
+        if ($exists == null) {
             Classes_Settting::create($data)->save();
-        }else{
+        } else {
             $exists->update($data);
         }
         return redirect()->back();
