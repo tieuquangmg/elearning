@@ -7,9 +7,7 @@
         <th>Mã SV</th>
         <th>Email</th>
         <th>SĐT</th>
-        <th>
-            <a class="btn btn-primary btn-xs"><i class="fa fa-filter"></i></a>
-        </th>
+        <th><a class="btn btn-primary btn-xs"><i class="fa fa-filter"></i></a></th>
     </tr>
     <tr>
         <th></th>
