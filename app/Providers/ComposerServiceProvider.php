@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\Modules\Media\Models\Message;
-use App\Modules\Media\Models\User_notify;
+use App\Http\ViewComposers\BomonComposer;
+use App\Http\ViewComposers\KhoaComposer;
+use App\Http\ViewComposers\PhongComposer;
 use Auth, View;
 use Illuminate\Support\ServiceProvider;
 use App\Http\ViewComposers\NotifyComposer;
-use App\Http\ViewComposers\ListTestComposer;
 class ComposerServiceProvider extends ServiceProvider
 {
     /**
@@ -17,9 +17,13 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('frontend.nguoidung._modules.nav_db', NotifyComposer::class);
-        view()->composer('frontend.dasdboard._modules.nav_db', NotifyComposer::class);
-//        view()->composer(['edu.test.detail', 'lesson.theory.texts.data', 'exercise._include.exercise'], ListTestComposer::class);
+        view()->composer([
+            'frontend.nguoidung._modules.nav_db',
+            'frontend.dasdboard._modules.nav_db'
+            ], NotifyComposer::class);
+        view()->composer(['auth.nguoidung.update'],BomonComposer::class);
+        view()->composer(['auth.nguoidung.update'],KhoaComposer::class);
+        view()->composer(['auth.nguoidung.update'],PhongComposer::class);
     }
     public function register()
     {

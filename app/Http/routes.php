@@ -26,6 +26,7 @@ Route::group(['middleware' => ['web']], function(){
         Route::get('all_question', 'StudyController@getQuestion')->name('study.allquestion');
         Route::get('add_answer/{id}', 'StudyController@getAddAnswer')->name('study.getaddanswer');
         Route::post('add_answer', 'StudyController@postAddAnswer')->name('study.addanswer');
+        Route::post('update_answer', 'StudyController@postUpdateAnswer')->name('study.updateanswer');
 //Diễn đàn//////////////////////////////////////////
         Route::get('forum_login{id}','StudyController@getForumLogin')->name('study.forumlogin');
 //Kiểm tra ///////////////////////////////////////

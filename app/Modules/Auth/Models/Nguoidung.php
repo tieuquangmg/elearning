@@ -2,6 +2,8 @@
 namespace App\Modules\Auth\Models;
 
 use App\Modules\Cohot\Models\Plan_Bomon;
+use App\Modules\Cohot\Models\STU_khoa;
+use App\Modules\Cohot\Models\SYS_phong;
 use App\Modules\Media\Models\Message;
 use App\Modules\Organize\Models\Classes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,14 +22,17 @@ class Nguoidung extends Authenticatable
      */
     use EntrustUserTrait;
     public $table = 'nguoidungs';
+
     protected $fillable = [
-        'name', 'password', 'ho_ten', 'email', 'image', 'id_phong', 'id_khoa', 'id_bomon',
+        'name', 'password', 'ho_ten', 'email', 'image', 'id_phong', 'id_khoa', 'id_bomon', 'active'
     ];
+
     protected $guarded = 'nguoidung';
 
     protected $hidden = [
         'password', 'remember_token',
     ];
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'role_user');
@@ -82,6 +87,12 @@ class Nguoidung extends Authenticatable
     }
     public function bomon(){
         return $this->belongsTo(Plan_Bomon::class,'id_bomon');
+    }
+    public function khoa(){
+        return $this->belongsTo(STU_khoa::class,'id_khoa');
+    }
+    public function phong(){
+        return $this->belongsTo(SYS_phong::class,'id_phong');
     }
 //    public function message($user_id){
 //        return self::where('to',$user_id)->where('user_recevie',1);

@@ -91,7 +91,7 @@
 <script src="{{asset('dashboard/js/notifications.min.js')}}"></script>
 <script>
     function show_notify(title,msg,img) {
-        Lobibox.notify('info', {
+        Lobibox.notify('info',{
             title: title,
             showClass:'zoomIn',
             hideClass:'zoomOut',
@@ -104,7 +104,7 @@
             img: img,
         });
     }
-    function append_notify(data) {
+    function append_notify(data){
         $noti = '<li class="notif ">' +
             '<a href="#">' +
             '<div class="imageblock">' +

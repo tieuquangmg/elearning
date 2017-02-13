@@ -7,6 +7,7 @@ use App\Services\Upload;
 use Config;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
@@ -146,11 +147,12 @@ class SubjectController extends BaseController
 
     public function postApiSelect()
     {
-        $subject = Subject::all()->toArray();
+        DB::setFetchMode(\PDO::FETCH_ASSOC);
+        $subject = DB::table('subjects')->get();
         $q = $this->input['q'];
         $filtered = $subject;
-        if (strlen($q)) {
-            $filtered = array_filter($subject, function ($val) use ($q) {
+        if(strlen($q)){
+            $filtered = array_filter($subject, function ($val) use ($q){
                 if (stripos($val['name'], $q) !== false) {
                     return true;
                 } else {

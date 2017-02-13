@@ -22,6 +22,7 @@ Route::group(['middleware'=>['web', 'nguoidung']], function (){
         'getExport' => 'auth.user.export',
         'getSyncForums' => 'auth.user.syncforums',
     ]);
+
 //    Route::controller('qr_code', 'QrCodeController', [
 //        'getIndex' => 'auth.qr_code.index',
 //        'getScan' => 'auth.qr_code.scan',
@@ -32,7 +33,20 @@ Route::group(['middleware'=>['web', 'nguoidung']], function (){
 });
 
 Route::group(['middleware'=>['nguoidung', 'auth']], function (){
-    Route::controller('nguoidung', 'NguoidungController', [
+    Route::controller('nguoidung', 'NguoidungController',[
         'getIndex'    => 'nguoidung.index',
+        'getProfile' => 'nguoidung.profile',
+        'postQrCode' => 'nguoidung.qr_code',
+        'getData'    => 'nguoidung.data',
+        'getDelete'    => 'nguoidung.delete',
+        'getAdd'    => 'nguoidung.add',
+        'postCreate'    => 'nguoidung.create',
+        'getEdit'    => 'nguoidung.edit',
+        'postUpdate'    => 'nguoidung.update',
+        'getActive' => 'nguoidung.active',
+        'getImport' => 'nguoidung.import',
+        'postImport' => 'nguoidung.import',
+        'getExport' => 'nguoidung.export',
+        'getSyncForums' => 'nguoidung.syncforums',
     ]);
 });

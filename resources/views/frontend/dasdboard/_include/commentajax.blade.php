@@ -1,7 +1,7 @@
 <li id="li-comment-{{$comment->id}}">
     <div class="comment" id="comment-{{$comment->id}}" text_comment="{{$comment->comment}}">
         <div class="pic" style="height: 60px;padding-right: 10px; float: left">
-            <img src="{{asset($comment->user->image)}}" height="60px">
+            <img src="{{asset($comment->user->avatar())}}" height="60px">
         </div>
         <div style="margin-left: 70px">
             <p class="meta">

@@ -22,6 +22,7 @@
         "pusher/pusher-php-server": "~2.0",
         "bigbluebutton/bigbluebutton-api-php": "dev-master",
         "eaglesistemas/bigbluebutton": "dev-master"
+//        "barryvdh/laravel-elfinder": "^0.3.10" --chua xoa
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

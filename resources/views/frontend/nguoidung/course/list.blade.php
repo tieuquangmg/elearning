@@ -203,23 +203,23 @@
                 <div class="right-nav-fixed affix">
                     <div class="well" style="background-color: white">
                         <div class="row">
-                            <div class="col-md-12">
-                                <a href="#" class="pull-right">
-                                    <span class="glyphicon glyphicon-download-alt"></span>
-                                </a>
-                            </div>
+                            {{--<div class="col-md-12">--}}
+                                {{--<a href="#" class="pull-right">--}}
+                                    {{--<span class="glyphicon glyphicon-download-alt"></span>--}}
+                                {{--</a>--}}
+                            {{--</div>--}}
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
-                                <span class="glyphicon glyphicon-gift"></span> <a href="#">Zak</a> and <a href="#">1
-                                    other</a>
-                            </div>
+                            {{--<div class="col-md-12">--}}
+                                {{--<span class="glyphicon glyphicon-gift"></span> <a href="#">Zak</a> and <a href="#">1--}}
+                                    {{--other</a>--}}
+                            {{--</div>--}}
                         </div>
                         <div class="row">
                             <div class="col-md-12 fb-trending">
                                 <div class="row">
                                     <div class="col-md-4 fb-trending-title">
-                                        TRENDING
+                                        Xếp hạng
                                     </div>
                                     <div class="col-md-8">
                                         <ul class="nav nav-pills pull-right">
@@ -242,37 +242,10 @@
                                         <ul class="media-list">
                                             <li class="media">
                                                 <div class="media-left media-top">
-                                                    <span class="glyphicon glyphicon-flash"></span>
+{{--                                                    <img width="40px" src="{{asset(Auth::guard('nguoidung')->user()->avatar())}}">--}}
                                                 </div>
-                                                <div class="media-body">
-                                                    <a href="#">George Lucas</a>: Filmmaker Criticizes New "Star Wars"
-                                                    Film and Direction of Franchise Under Disney
-                                                </div>
-                                            </li>
-                                            <li class="media">
-                                                <div class="media-left media-top">
-                                                    <span class="glyphicon glyphicon-flash"></span>
-                                                </div>
-                                                <div class="media-body">
-                                                    <a href="#">Super Smash Bros.</a>: Game Glitch Allows Players to
-                                                    Control 8 Characters With 1 Controller
-                                                </div>
-                                            </li>
-                                            <li class="media">
-                                                <div class="media-left media-top">
-                                                    <span class="glyphicon glyphicon-flash"></span>
-                                                </div>
-                                                <div class="media-body">
-                                                    <a href="#">Tuukka Rask</a>: Boston Bruins Player Debuts Goalie Mask
-                                                    for Winter Classic
-                                                </div>
-                                            </li>
-                                            <li class="media">
-                                                <div class="media-left media-top">
-                                                    <span class="caret"></span>
-                                                </div>
-                                                <div class="media-body">
-                                                    <a href="#">See More</a>
+                                                <div class="media-body" style="vertical-align: middle">
+                                                    <a href="#">Phan van quang</a>
                                                 </div>
                                             </li>
                                         </ul>
@@ -284,9 +257,7 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        Thành
-                                        viên
-                                        online
+                                        Thành viên online
                                     </div>
                                     <div class="col-md-4">
                                         <a href="#" class="pull-right">Xem tất cả</a>

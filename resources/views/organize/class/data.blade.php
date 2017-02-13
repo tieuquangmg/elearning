@@ -26,7 +26,6 @@
             </div>
         </div>
     </div>
-
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -256,8 +255,6 @@
                 url: '{{route('subject.apiselect')}}',
                 type: 'POST',
                 dataType: 'json',
-                // Use "" as a placeholder and Ajax Bootstrap Select will
-                // automatically replace it with the value of the search query.
                 data: {
                     q: '<?php echo '{{{q}}}'; ?>',
                 }

@@ -50,7 +50,7 @@
                                 <div class="panel-body" style="width: 600px">
                                     <div class="col-md-6 col-xs-12"></div>
                                     <label class="form-label">Thông báo lớp học</label>
-                                    <textarea style="height: 400px;" class="mceEditor form-control" name="thongbao">{{($classes->setting != null) ? ($classes->setting->thongbao) : ''}}</textarea>
+                                    <textarea style="height: 400px;" class="mceEditor form-control" id="mceEditor" name="thongbao">{{($classes->setting != null) ? ($classes->setting->thongbao) : ''}}</textarea>
                                 </div>
                             </div>
                         </div>

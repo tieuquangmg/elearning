@@ -164,6 +164,7 @@ return [
         App\Providers\ComposerServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+//        Barryvdh\Elfinder\ElfinderServiceProvider::class,
         /*
          * Repository
          */
@@ -177,6 +178,7 @@ return [
         \App\Modules\Subject\Providers\SubjectRepositoryProvider::class,
         \App\Modules\Organize\Providers\OrganizeRepositoryProvider::class,
         \App\Modules\Cohot\Providers\CohotRepositoryProvider::class,
+
     ],
 
     /*
@@ -233,8 +235,6 @@ return [
         'InterventionImage' => Intervention\Image\Facades\Image::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
-
 ];

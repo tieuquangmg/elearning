@@ -70,7 +70,7 @@
                                                         <a href="{{route('study.unit.test',$test->id)}}"
                                                            class="btn"
                                                            style="font-weight:600;width: 40%;background-color: #3a5795;color: white;margin-top: 10px"
-                                                           onclick="return confirm('Bạn có muốn tiếp tục?');" >Bắt đầu làm bài</a>
+                                                           onclick="return confirm('Bạn có muốn tiếp tục?');">Bắt đầu làm bài</a>
                                                     </div>
                                                     <hr style="border: 1px solid gainsboro">
                                                     <h3>
@@ -81,6 +81,7 @@
                                             </tr>
                                             @else
 
+                                            @if($test->number_test == count($test->user_test))
                                             <tr>
                                             <td colspan="2" style="text-align: center">
                                                 <p align="center" style="text-transform: uppercase;font-weight: 800">
@@ -113,7 +114,6 @@
                                                     @endforeach
                                                     </tbody>
                                                 </table>
-
                                             </td>
                                         </tr>
                                         <tr style="text-align:center">

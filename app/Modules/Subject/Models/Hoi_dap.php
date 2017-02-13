@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Hoi_dap extends Model
 {
     protected $table = 'hoi_dap';
-    protected $fillable = ['id_unit', 'ten_cau_hoi', 'id_loai', 'user_id', 'noi_dung', 'file_dinh_kem'];
+    protected $fillable = ['id_unit', 'ten_cau_hoi', 'id_loai', 'user_id', 'noi_dung', 'file_dinh_kem', 'status'];
 
     public function loai()
     {

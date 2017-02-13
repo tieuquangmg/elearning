@@ -99,18 +99,23 @@ class StudyController extends Controller
             $unit_id = Unit_class::where('class_id',$data['class']->id)
                 ->where('start_time', '<=', Carbon::now())
                 ->where('end_time','>=',Carbon::now())
-                ->first()->unit_id;
-//        dd($unit_id);
-            $data['thong_bao']['hoi_dap'] = count(Hoi_dap::where('id_unit',$unit_id)->where('user_id',Auth::guard('nguoidung')->user()->id)->get());
-            if(User_forums::where('user_id',Auth::guard('nguoidung')->user()->id)->where('unit_id',$unit_id)->get()->isEmpty()){
+                ->first();
+            if($unit_id != null){
+                $data['thong_bao']['hoi_dap'] = count(Hoi_dap::where('id_unit',$unit_id)->where('user_id',Auth::guard('nguoidung')->user()->id)->get());
+                if(User_forums::where('user_id',Auth::guard('nguoidung')->user()->id)->where('unit_id',$unit_id)->get()->isEmpty()){
+                    $data['thong_bao']['dien_dan'] = 0;
+                }else{
+                    $data['thong_bao']['dien_dan'] = User_forums::where('user_id',Auth::guard('nguoidung')->user()->id)->where('unit_id',$unit_id)->first()->number_question;
+                }
+                if(User_unit::where('unit_id',$unit_id)->where('user_id',Auth::guard('nguoidung')->user()->id)->get()->isEmpty()){
+                    $data['thong_bao']['dang_nhap'] = 0;
+                }else{
+                    $data['thong_bao']['dang_nhap'] = User_unit::where('unit_id',$unit_id)->where('user_id',Auth::guard('nguoidung')->user()->id)->first()->login_time;
+                }
+            }else{
+                $data['thong_bao']['hoi_dap'] = 0;
                 $data['thong_bao']['dien_dan'] = 0;
-            }else{
-                $data['thong_bao']['dien_dan'] = User_forums::where('user_id',Auth::guard('nguoidung')->user()->id)->where('unit_id',$unit_id)->first()->number_question;
-            }
-            if(User_unit::where('unit_id',$unit_id)->where('user_id',Auth::guard('nguoidung')->user()->id)->get()->isEmpty()){
                 $data['thong_bao']['dang_nhap'] = 0;
-            }else{
-                $data['thong_bao']['dang_nhap'] = User_unit::where('unit_id',$unit_id)->where('user_id',Auth::guard('nguoidung')->user()->id)->first()->login_time;
             }
             return view('frontend.nguoidung.course.subject', $data);
         }else{
@@ -128,22 +133,30 @@ class StudyController extends Controller
             $unit_id = Unit_class::where('class_id',$data['class']->id)
                 ->where('start_time', '<=', Carbon::now())
                 ->where('end_time','>=',Carbon::now())
-                ->first()->unit_id;
-//        dd($unit_id);
-            $data['thong_bao']['hoi_dap'] = count(Hoi_dap::where('id_unit',$unit_id)->where('user_id',Auth::user()->id)->get());
-            if(User_forums::where('user_id',Auth::user()->id)->where('unit_id',$unit_id)->get()->isEmpty()){
+                ->first()
+            ;
+            if($unit_id != null){
+                $unit_id = $unit_id->unit_id;
+                $data['thong_bao']['hoi_dap'] = count(Hoi_dap::where('id_unit',$unit_id)->where('user_id',Auth::user()->id)->get());
+                if(User_forums::where('user_id',Auth::user()->id)->where('unit_id',$unit_id)->get()->isEmpty()){
+                    $data['thong_bao']['dien_dan'] = 0;
+                }else{
+                    $data['thong_bao']['dien_dan'] = User_forums::where('user_id',Auth::user()->id)->where('unit_id',$unit_id)->first()->number_question;
+                }
+                if(User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->get()->isEmpty()){
+                    $data['thong_bao']['dang_nhap'] = 0;
+                }else{
+                    $data['thong_bao']['dang_nhap'] = User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->first()->login_time;
+                }
+            }else{
+                $data['thong_bao']['hoi_dap'] = 0;
                 $data['thong_bao']['dien_dan'] = 0;
-            }else{
-                $data['thong_bao']['dien_dan'] = User_forums::where('user_id',Auth::user()->id)->where('unit_id',$unit_id)->first()->number_question;
-            }
-            if(User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->get()->isEmpty()){
                 $data['thong_bao']['dang_nhap'] = 0;
-            }else{
-                $data['thong_bao']['dang_nhap'] = User_unit::where('unit_id',$unit_id)->where('user_id',Auth::user()->id)->first()->login_time;
             }
             return view('frontend.dasdboard.course.subject', $data);
         }
     }
+
     public function getUnit($id, $class_id)
     {
         $data['class'] = Classes::find($class_id);
@@ -822,11 +835,12 @@ class StudyController extends Controller
 
     public function postAddComment(Comment $comment, Request $request)
     {
-        if ($request->ajax()) {
+        if ($request->ajax()){
             $comment->comment = $request->get('comment');
             $comment->user_id = $request->get('user_id');
             $comment->theory_id = $request->get('theory_id');
             $comment->parent_id = $request->get('parent_id');
+            $comment->user_type_id = $request->get('user_type_id');
             $comment->save();
             return view('frontend.dasdboard._include.commentajax')->with('comment', $comment);
         }
@@ -953,9 +967,10 @@ class StudyController extends Controller
         $this->input = Input::all();
 
         $class_meeting = Class_meeting::where('class_id', $this->input['class_id'])->where('meeting_id', $this->input['id'])->first();
+        dd($class_meeting);
         if ($class_meeting == null) {
             return response()->json(false, 200, ['Content-Type', 'application/json']);
-        } else {
+        } else{
             $bbb = new BigBlueButton();
             $IsMeetingRunningParameters = new IsMeetingRunningParameters($class_meeting->id);
             $run = $bbb->isMeetingRunning($IsMeetingRunningParameters);
@@ -1057,78 +1072,22 @@ class StudyController extends Controller
             });
         return view('frontend/dasdboard/subject/student', $data);
     }
+
+    public function postUpdateAnswer()
+    {
+        $hoidap = false;
+        $hoidap = Hoi_dap::find($this->input['id'])->update(['status' => $this->input['status'] * -1]);
+        return json_encode(['success' => $hoidap]);
+    }
     //forums
     public function getForumLogin($class_id){
-
-        $data['class'] = Classes::find($class_id);
-    return view('frontend.nguoidung.course.login_forum',$data);
-//        $cookie_file_path = getcwd() . '/cookie.txt';
-////Emulating Chrome Browser:
-//        $agent = "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/A.B (KHTML, like Gecko) Chrome/X.Y.Z.W Safari/A.B.";
-//        /*  Login part of the code -- start */
-////First, get and write session cookie:
-//        $ch = curl_init();
-//        curl_setopt($ch, CURLOPT_URL,'http://localhost/xf/index.php?login/login');
-//        curl_setopt($ch, CURLOPT_USERAGENT, $agent);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-//        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-//        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-//        curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie_file_path);
-//        curl_setopt($ch, CURLOPT_COOKIEJAR,  $cookie_file_path);
-//        $loginpage_html = curl_exec ($ch);
-//        curl_close ($ch);
-////Now, use the session cookie to actually log in:
-//        $POSTFIELDS = "login=1151001&password=123456&cookie_check=1&register=0&remember=1&redirect=http://localhost/xf/index.php";
-//        $ch = curl_init();
-//        curl_setopt($ch, CURLOPT_URL,'http://localhost/xf/index.php?login/login');
-//        curl_setopt($ch, CURLOPT_USERAGENT, $agent);
-//        curl_setopt($ch, CURLOPT_POST, 1);
-//        curl_setopt($ch, CURLOPT_POSTFIELDS,$POSTFIELDS);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-//        curl_setopt($ch, CURLOPT_COOKIESESSION, true);
-//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-//        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-//        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-//        curl_setopt($ch, CURLOPT_REFERER, 'http://localhost/xf/index.php?login/login');
-//        curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie_file_path);
-//        curl_setopt($ch, CURLOPT_COOKIEJAR,  $cookie_file_path);
-//
-//        $logon_result = curl_exec ($ch);
-//        curl_close ($ch);
-//
-////        return $logon_result;
-//        dd($logon_result);
-//        $curl = curl_init();
-//        curl_setopt($curl, CURLOPT_URL, 'http://localhost/xf/index.php?login/login');
-//        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-//        curl_setopt($curl, CURLOPT_COOKIE, asset('cookies.txt'));
-//        curl_setopt($curl, CURLOPT_COOKIEFILE, asset('cookies.txt'));
-//        curl_setopt($curl, CURLOPT_COOKIEJAR, asset('cookies.txt'));
-//        curl_setopt($curl, CURLOPT_POST, 1);
-//        curl_setopt($curl, CURLOPT_POSTFIELDS, array('login' => Auth::user()->code , 'password' => '123456', 'cookie_check' => 1, 'redirect' => 'google.com', 'register' => 0, 'remember' => 1));
-//        $output = curl_exec($curl);
-//        $info   = curl_getinfo($curl);
-//        echo "<pre>";
-////        print_r($info);
-//        echo "</pre>";
-//        echo $output;
-//        curl_close($curl);
-//
-//        dd($id);
-//        $client = new Client(['base_uri' => 'http://localhost/xf/index.php?login/login']);
-//        $login = $client->request('POST','',[
-//            'query' =>[
-//                'login' => Auth::user()->code,
-//                'password' => '123456',
-//                'cookie_check' => 1,
-//                'redirect' => 'http://localhost/xf/index.php',
-//                'register' => 0,
-//                'remember' => 1
-//            ],
-//            'exceptions' => true,
-//        ]);
-//        dd($login->getBody()->getContents());
+        if (Auth::guard('nguoidung')->check()) {
+            $data['class'] = Classes::find($class_id);
+            return view('frontend.nguoidung.course.login_forum', $data);
+        } else{
+            $data['class'] = Classes::find($class_id);
+            return view('frontend.dasdboard.course.login_forum', $data);
+        }
     }
 //tin nhan thong bao
     public function postReadMess(){
@@ -1176,7 +1135,6 @@ class StudyController extends Controller
         $data['notify'] = User_notify::where('user_id',Auth::user()->id)->get();
         return view('frontend.dasdboard.media.notify_db',$data);
     }
-
     public function postSendMessage(){
         if(Auth::guard('nguoidung')->check()){
             $user_send = 1;

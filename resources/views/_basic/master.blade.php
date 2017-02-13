@@ -497,18 +497,21 @@
 <script type="text/javascript" src="{{ asset('build/moment/js/moment.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('build/moment/js/vi.js') }}"></script>
 
+<script type='text/javascript' src='{{asset('assets/ckeditor/ckeditor.js')}}'></script>
+
 
 <script type="text/javascript" src="{{ asset('build/eonasdan-bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 
 <script type="text/javascript">
-    editor_config.selector = ".mceEditor";
-    editor_config.path_absolute = "{{asset('/')}}";
-    editor_config.language = "{{ Session::get('locale') }}";
-    editor_config.forced_root_block = 'div';
-    editor_config.relative_urls = false;
-    editor_config.remove_script_host = false;
-    editor_config.convert_urls = true;
-    tinymce.init(editor_config);
+    CKEDITOR.replace( 'mceEditor' );
+    {{--editor_config.selector = ".mceEditor";--}}
+    {{--editor_config.path_absolute = "{{asset('/')}}";--}}
+    {{--editor_config.language = "{{ Session::get('locale') }}";--}}
+    {{--editor_config.forced_root_block = 'div';--}}
+    {{--editor_config.relative_urls = false;--}}
+    {{--editor_config.remove_script_host = false;--}}
+    {{--editor_config.convert_urls = true;--}}
+    {{--tinymce.init(editor_config);--}}
 </script>
 
 <script type='text/javascript' src='{{asset('assets/js/jqueryui-1.10.3.min.js')}}'></script>

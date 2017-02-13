@@ -13,7 +13,7 @@
                             <i class="fa fa-newspaper-o" aria-hidden="true"></i> Kết quả kiểm tra
                         </div>
                         <div class="pull-right green">
-                            <a href="#"><i class="glyphicon glyphicon-backward"></i>Trở lại</a>
+                            <a href="{{ url()->previous() }}"><i class="glyphicon glyphicon-backward"></i>Trở lại</a>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                                 <td>{{$value['user']->code}}</td>
                                 <td>{{$value['user']->ho_ten}}</td>
                                 @for($i = 0; $i < $test->number_test; $i ++)
-                                    <td>{{($value['diem']->get($i) != null) ? ($value['diem']->get($i)->score)  : ''}}</td>
+                                    <td>{{($value['diem']->get($i) != null) ? ($value['diem']->get($i)->score) : ''}}</td>
                                 @endfor
                             </tr>
                         @endforeach

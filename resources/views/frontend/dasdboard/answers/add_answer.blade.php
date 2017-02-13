@@ -130,8 +130,14 @@
                                                         @endforeach
                                                     </div>
                                                     <span class="detail-status">
-                <a href="#" class="answerother" title="">
-                    &nbsp;Đóng chủ đề&nbsp;&nbsp;</a>
+                                                            <a href="#" data-id="{{$data->id}}" data-status="{{$data->status}}" class="close_answer" id="close_answer" title="Đóng chủ đề hiện tại">
+                                                                @if($data->status == 1)
+                                                                    &nbsp;Đóng chủ đề&nbsp;&nbsp;
+                                                                @else
+                                                                    Mở chủ đề
+                                                                @endif
+                                                            </a>
+                                                        <span style="margin: 0 5px">|</span>
                 <a href="#" class="answerother" title="">Chuyển vào kho kiến thức</a>
             </span>
                                                     <div id="replyform" class="areply2 form-group-sm"
@@ -167,7 +173,7 @@
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <a id="answer" style="float: right; margin-top: 10px"
+                                                        <a id="answer" style="float: right; margin-top: 10px; @if($data->status == 1) display: block; @else display: none; @endif"
                                                            class="btn btn-sm btn-success">Trả lời</a>
                                                     </div>
                                                 </div>
@@ -205,4 +211,73 @@
         editor_config.convert_urls = true;
         tinymce.init(editor_config);
     </script>
+    <script>
+        function update_answer(id,status) {
+            $.ajax({
+                url: '{{route('study.updateanswer')}}',
+                method: 'post',
+                data: {id:id,status:'{{$data->status}}'},
+                async: false,
+                dataType: 'json',
+                success:function (data){
+                    if (data.success == true){
+                        if(status == 1){
+                            $('#close_answer').html('Mở chủ đề');
+                            $('#answer').hide();
+                            Lobibox.alert("success",
+                                    {
+                                        msg: "Chủ đề đã được đóng !"
+                                    });
+                        }
+                        if(status == -1){
+                            $('#close_answer').html('Đóng chủ đề');
+                            $('#answer').show();
+                            Lobibox.alert("success",
+                                    {
+                                        msg: "Chủ đề đã được mở !"
+                                    });
+                        }
+                    }else{
+                        Lobibox.alert("error",
+                                {
+                                    msg: "Có lỗi, hãy thử lại !"
+                                });
+                    }
+                },
+                error:function () {
+                    Lobibox.alert("success",
+                            {
+                                msg: "mất kết nối đến server"
+                            });
+                }
+            })
+        }
+        $(document).on('click', '#close_answer', function (){
+//            console.log($(this).attr());
+            var id = $(this).attr('data-id');
+            var status = $(this).attr('data-status');
+            if(status == 1){
+                Lobibox.confirm({
+                    msg: "Bạn muốn đóng chủ đề này ?",
+                    callback: function ($this, type, ev){
+                        if (type == 'yes'){
+                            update_answer(id,status);
+                        }
+                    }
+                });
+            }
+            if(status == -1){
+                Lobibox.confirm({
+                    msg: "Bạn muốn mở chủ đề này ?",
+                    callback: function ($this, type, ev){
+                        if (type == 'yes'){
+                            update_answer(id,status);
+                        }
+                    }
+                });
+            }
+
+        })
+    </script>
+
 @endsection

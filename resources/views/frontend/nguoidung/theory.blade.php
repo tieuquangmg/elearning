@@ -88,6 +88,7 @@
                             {!! Form::hidden('user_id', Auth::guard('nguoidung')->user()->id) !!}
                             {!! Form::hidden('theory_id', $theory->id) !!}
                             {!! Form::hidden('parent_id',null,['id'=>'parent_id']) !!}
+                            {!! Form::hidden('user_type_id',1)!!}
                             <div class="form-group buttoncomment">
                                 {!! Form::submit('Bình luận',['class'=>'send btn','id'=>'addcomment']) !!}
                             </div>
@@ -98,7 +99,7 @@
                                 <li id="li-comment-{{$row->id}}">
                                     <div class="comment" id="acomment-{{$row->id}}" text_comment="{{$row->comment}}">
                                         <div class="pic" style="height: 60px;padding-right: 10px;
-                                        float: left"><img src="{{asset($row->user->image)}}" height="60px"></div>
+                                        float: left"><img src="{{asset($row->user->avatar())}}" height="60px"></div>
                                         <div style="margin-left: 70px">
                                             <p class="meta">
                                                 <span class="author">{{$row->user->ho_ten}}</span>
@@ -120,7 +121,7 @@
                                             <li>
                                                 <div class="comment" id="comment-841407" text_comment="{{$row1->comment}}">
                                                     <div class="pic" style="height: 60px;padding-right: 10px;
-                                        float: left"><img src="{{asset($row1->user->image)}}" height="60px"></div>
+                                        float: left"><img src="{{asset($row1->user->avatar())}}" height="60px"></div>
                                                     <div style="margin-left: 70px">
 
                                                     <p class="meta">

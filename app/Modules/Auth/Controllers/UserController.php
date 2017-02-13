@@ -2,6 +2,7 @@
 namespace App\Modules\Auth\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Auth\Models\Nguoidung;
 use App\Modules\Auth\Repositories\UserRepository;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Hash;
@@ -119,9 +120,38 @@ class UserController extends Controller
             });
         })->export('xls');
     }
+
     public function getSyncForums(){
         $host = Config::get('xenforo.host');
         $client = new Client(['base_uri' => 'http://localhost/xf/']);
+        $nguoidung = Nguoidung::chunk(2,function ($rows) use ($client){
+            foreach ($rows as $row){
+//            $context = stream_context_create(array(
+//                'http' => array('ignore_errors' => true),
+//            ));
+//            $result = file_get_contents('http://localhost/xf/api.php?action=register&hash=quangquang&username=1477011&password=123456&email=1477011@edu.vn', false, $context);
+//            dd(json_decode($result,true));
+                $exists = $client->request('GET','api.php', [
+                    'query' => [
+                        'action' => 'getUser',
+                        'hash' => 'quangquang',
+                        'value' => $row->name
+                    ],
+                    'exceptions' => false,
+                ]);
+                if(property_exists(json_decode($exists->getBody()->getContents(),false),'error')){
+                    $response = $client->request('GET','api.php',[
+                        'query'=>[
+                            'action' => 'register',
+                            'hash' => 'quangquang',
+                            'username'=>$row->name,
+                            'password'=>'123456',
+                            'email'=>$row->name.'@edu.vn'
+                        ]]);
+                }
+//            dd(json_decode($response->getBody()->getContents(),true));
+            }
+        });
         $user = User::chunk(2,function ($rows) use ($client){
             foreach ($rows as $row){
 //            $context = stream_context_create(array(
@@ -151,6 +181,7 @@ class UserController extends Controller
             }
         });
     }
+
 //    public function getSyncForums(){
 //        $host = Config::get('xenforo.host');
 //        $client = new Client(['base_uri' => 'http://localhost/xf/api/index.php/users/']);

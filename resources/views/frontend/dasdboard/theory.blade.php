@@ -95,17 +95,18 @@
                             {!! Form::hidden('user_id', Auth::user()->id) !!}
                             {!! Form::hidden('theory_id', $theory->id) !!}
                             {!! Form::hidden('parent_id',null,['id'=>'parent_id']) !!}
+                            {!! Form::hidden('user_type_id',2)!!}
                             <div class="form-group buttoncomment">
                                 {!! Form::submit('Bình luận',['class'=>'send btn','id'=>'addcomment']) !!}
                             </div>
                             {!! Form::close() !!}
                         </div>
                         <ul class="qa_comments" id="qa_comments">
-                            @foreach($comment as $row)
+                        @foreach($comment as $row)
                                 <li id="li-comment-{{$row->id}}">
                                     <div class="comment" id="acomment-{{$row->id}}" text_comment="{{$row->comment}}">
                                         <div class="pic" style="height: 60px;padding-right: 10px;
-                                        float: left"><img src="{{asset($row->user->image)}}" height="60px"></div>
+                                        float: left"><img src="{{asset($row->user->avatar())}}" height="60px"></div>
                                         <div style="margin-left: 70px">
                                             <p class="meta">
                                                 <span class="author">{{$row->user->ho_ten}}</span>
@@ -115,7 +116,8 @@
                                                 <p>{{$row->comment}}</p>
                                             </div>
                                             <div class="actions">
-                                                <a class="btnLike disabled" comment="{{$row->id}}" title="Bỏ thích" href="#like" scormid="{{$theory->id}}" qaid="841354"><span style="display: @if($row->like == 0) none @else inline @endif;">{{$row->like}}</span>Thích</a>
+                                                <a class="btnLike disabled" comment="{{$row->id}}" title="Bỏ thích" href="#like" scormid="{{$theory->id}}" qaid="841354">
+                                                    <span style="display: @if($row->like == 0) none @else inline @endif;">{{$row->like}}</span>Thích</a>
                                                 <!--a class="btnDislike" href="#dislike" scormid="16684" qaid="841354"><span>0</span> Không thích</a-->
                                                 <a class="btnReply" href="#reply" scormid="{{$theory->id}}" replyto="{{$row->id}}"><span>{{count($row->reply($row->id)->orderBy('created_at')->get())}}</span> Trả
                                                     lời</a>
@@ -123,11 +125,12 @@
                                         </div>
                                     </div>
                                     <ul class="comments" id="comments-{{$row->id}}">
-                                        @foreach($row->reply($row->id)->orderBy('created_at')->get() as $row1)
+                                    @foreach($row->reply($row->id)->orderBy('created_at')->get() as $row1)
                                             <li>
                                                 <div class="comment" id="comment-841407" text_comment="{{$row1->comment}}">
+
                                                     <div class="pic" style="height: 60px;padding-right: 10px;
-                                        float: left"><img src="{{asset($row1->user->image)}}" height="60px"></div>
+                                        float: left"><img src="{{asset($row1->user->avatar())}}" height="60px"></div>
                                                     <div style="margin-left: 70px">
 
                                                     <p class="meta">
@@ -210,6 +213,7 @@
     {{--<strong></strong> {{$theory->name}}  - <strong>Bài học</strong> : {{$theory->unit->name}}--}}
     {{--</div>--}}
     {{--</div>--}}
+
 @endsection
 @section('head')
     <link rel="stylesheet" href="{{asset('')}}build/flipclock/css/flipclock.css">
@@ -218,12 +222,12 @@
 @section('bot')
     <script src="{{asset('')}}build/flipclock/js/flipclock.js"></script>
     <script src="{{asset('')}}dashboard/js/jquery.simple.timer.js"></script>
-    <script>
-        $(function(){
-            $('.timer').startTimer();
-            console.log(timeLeft);
-        });
-    </script>
+    {{--<script>--}}
+        {{--$(function(){--}}
+            {{--$('.timer').startTimer();--}}
+            {{--console.log(timeLeft);--}}
+        {{--});--}}
+    {{--</script>--}}
     @if($permission)
         <script>
             var watch_time = {{$watch_time/1000}};

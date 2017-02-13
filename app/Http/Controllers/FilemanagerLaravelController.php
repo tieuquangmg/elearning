@@ -9,15 +9,18 @@ class FilemanagerLaravelController extends Controller {
         // $this->middleware('auth');
 
     }
+
     public function getShow()
     {
         return view('filemanager.index');
     }
+
     public function getConnectors(){
         $f = FilemanagerLaravel::Filemanager();
         $f->connector_url = url('/').'/filemanager/connectors';
         $f->run();
     }
+
     public function postConnectors(){
         $f = FilemanagerLaravel::Filemanager();
         $f->connector_url = url('/').'/filemanager/connectors';

@@ -32,6 +32,7 @@
 <script src="{{asset('dashboard/js/socket.io-1.4.5.js')}}"></script>
 {{--<script src="{{asset('dashboard/js/pusher.min.js')}}"></script>--}}
 <script src="{{asset('dashboard/js/notifications.min.js')}}"></script>
+<script src="{{asset('dashboard/js/lobibox.min.js')}}"></script>
 <script>
     function show_notify(title,msg,img) {
         Lobibox.notify('info', {
@@ -64,7 +65,6 @@
             '</li>';
         $('.notifbox').prepend($noti)
     }
-
 </script>
 <script>
     var socket = io(':6002'),
@@ -91,7 +91,6 @@
     });
 </script>
 <script>
-
     $(document).ready(function () {
         $(document).on('click','#read_all_mes',function () {
             $.ajax({

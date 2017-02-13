@@ -27,7 +27,8 @@
                     <li><a href="{{route('permission.data')}}">{{trans('table.permission')}}</a></li>
                     <li><a href="{{route('role.user')}}">Quản lý vai trò</a></li>
                     <li><a href="{{route('role.permission')}}">Thiết lập {{trans('table.role')}}</a></li>
-                    <li><a href="{{route('auth.user.data')}}">Tài khoản</a></li>
+                    <li><a href="{{route('auth.user.data')}}">Tài khoản sinh viên</a></li>
+                    <li><a href="{{route('nguoidung.data')}}">Tài khoản cán bộ</a></li>
                 </ul>
             </li>
             <li class="dropdown">
